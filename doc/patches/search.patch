@@ -1,0 +1,11 @@
+--- search.js	2010-06-15 17:08:42.039824575 -0400
++++ s2.js	2010-06-15 17:08:21.828080488 -0400
+@@ -518,7 +518,7 @@
+           rowMatchName = rowMatchName.replace(/^sr\d*_/, ''); // strip 'sr123_'
+ 
+           if (search.length<=rowMatchName.length && 
+-             rowMatchName.substr(0, search.length)==search)
++             rowMatchName.substr(0,search.length)==search.toLowerCase())
+           {
+             row.style.display = 'block';
+             matches++;
