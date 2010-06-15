@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdb="http://www.gammazeta.net/zee/db/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+<!--
+  When all is said and done, this will be the model for functionality. A
+  strict DTD will be made from this, and the system will validate against that.
+-->
+  <zui:application title="Zee" width="800" height="480" resizable="false" icon="gfx/skins/catalina/zee.svg" layout="vertical">
+    <zui:container layout="vertical">
+     <zui:text>Test 123</zui:text>
+     <zui:text>Test 456</zui:text>
+     <zui:text>Test 789</zui:text>
+    </zui:container>
+    <zui:container>
+      <zui:button>Button 1</zui:button>
+      <zui:button>Button 2</zui:button>
+      <zui:button>Button 3</zui:button>
+    </zui:container>
+  </zui:application>
+</zee>

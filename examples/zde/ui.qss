@@ -1,0 +1,53 @@
+#root{
+	background: rgba(128,128,128,1%) left top repeat-x;
+}
+
+ZTaskbar{
+	background-color: transparent;
+	border: 1px solid #222;
+	icon-size: 22px;
+	margin: 0px 1px;
+}
+
+	ZTaskbar::item{
+		padding: 0px 2px;
+	}
+
+	ZTaskbar::item:selected{
+		background-color: rgba(128,128,128,25%);
+	}
+
+ZButton{
+	border: 0px;
+	color: #FFF;
+	font-family: Tahoma;
+	font-size: 12pt;
+	font-weight: bold;
+	margin-right: 8px;
+	min-height: 28px;
+	min-width: 99px;
+}
+
+	ZButton:hover{
+		background: transparent left top no-repeat url("gfx/png/menu_over.png");
+	}
+
+	ZButton:pressed{
+		background: transparent left top no-repeat url("gfx/png/menu_down.png");
+	}
+
+ZClock{
+	border: 1px solid #222;
+	color: #FFF;	
+	margin: 0px 1px;
+	min-width: 91px;
+}
+
+ZClock #time{
+	color: #AAA;
+}
+
+ZClock #date{
+	color: #AAA;
+	font-size: 6pt;
+}

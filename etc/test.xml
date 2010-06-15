@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee xmlns:zui="http://www.gammazeta.net/zee/zui/">
+	<zui:application title="Zee" icon="gfx/skins/catalina/zee.svg">
+		<zui:launcher>
+			<zui:splash>
+				<zui:image id="launchLogo" />
+				<zui:progressBar id="launchProgress" />
+			</zui:splash>
+		</zui:launcher>
+
+		<zui:statusbars>
+			<zui:masthead>
+			
+			</zui:masthead>
+			
+			<zui:footer>
+			
+			</zui:footer>
+		</zui:statusbars>
+		
+		<!--
+			SCREENS - Contains structural definitions for all system screens 
+		-->
+		<zui:screens>
+			<zui:screen id="home">
+				<zui:container>
+					<zui:container layout="vertical" id="actions">
+						<zui:button class="action navigator" action="navigator">Navigation</zui:button>
+						<zui:button class="action communications" action="communications">Communications</zui:button>
+						<zui:button class="action library" action="library">Library</zui:button>
+						<zui:button class="action operations" action="operations">Operations</zui:button>
+					</zui:container>
+					<zui:container id="content">
+						<zui:text class="demo">Home Screen Content</zui:text>
+					</zui:container>
+				</zui:container>
+			</zui:screen>
+		</zui:screens>
+	</zui:application>
+</zee>

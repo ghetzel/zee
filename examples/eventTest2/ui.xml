@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+  <zui:application id="main" width="100%" height="100%" position="s" layout="vertical">
+    <zui:container>
+      <zui:button id="back">Back</zui:button>
+      <zui:button id="forward">Forward</zui:button>
+      <zui:button id="home">Home</zui:button>
+      <zui:button id="reload">Reload</zui:button>
+      <zui:button id="stop">Stop</zui:button>
+      <zui:button id="comp">Companion</zui:button>
+      <zui:button id="exit">Exit</zui:button>
+    </zui:container>    
+    <zui:input id="address" value="WOW" />
+    <zui:webbrowser id="browser" uri="www.google.com" />
+  </zui:application>
+
+  <zui:application id="companion" title="Companion" width="25%" height="75%" position="e" layout="vertical" hidden="true">
+	<zui:text id="statusc" />
+  </zui:application>
+
+  <zee:events>
+	<zee:connect from="back.clicked" to="browser.back" />
+	<zee:connect from="forward.clicked" to="browser.forward" />
+	<zee:connect from="reload.clicked" to="browser.reload" />
+	<zee:connect from="stop.clicked" to="browser.stop" />
+ 	<zee:connect from="browser.urlChanged" to="address.setText" direct="false" />
+ 	<zee:connect from="address.returnPressed" to="browser.load" via="address.text" direct="false" />
+        <zee:connect from="browser.titleChanged" to="main.setWindowTitle" />
+        <zee:connect from="exit.clicked" to="zee.quit" direct="false" />
+  </zee:events>
+</zee>

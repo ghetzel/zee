@@ -1,0 +1,88 @@
+#root{
+	background: #F0C;
+	border: 0px;
+	padding: 0px;
+	spacing: 0px;
+}
+
+ZTaskbar{
+	border-image: url("gfx/png/panel.png") 4 1 4 1;
+	border: 4px 1px transparent;
+	icon-size: 16px;
+	margin: 0px;
+	qproperty-itemHeight: 16px;
+	qproperty-itemWidth: 16px;
+	spacing: 0px;
+}
+
+	ZTaskbar::item{
+		border-image: url("gfx/png/item.png") 4 4 0 4;
+		border: 4px transparent;
+		border-bottom: 0px;
+		color: #FFF;
+		max-height: 20px;
+		min-width: 150px;
+	}
+	
+	ZTaskbar::item::icon{
+	}
+
+	ZTaskbar::item::text{
+		color: transparent;
+		max-width: 0px;
+	}
+
+	ZTaskbar::item:hover{
+		border-image: url("gfx/png/item_over.png") 4 4 4 4;
+	}
+
+	ZTaskbar::item:selected{
+		border-image: url("gfx/png/item_selected.png") 4 4 4 4;
+	}
+
+	ZTaskbar::item:selected:hover{
+		border-image: url("gfx/png/item_selected_over.png") 4 4 4 4;
+	}
+
+#menu{
+	border-image: url("gfx/png/panel.png") 4 1 4 1;
+	border: 4px 1px transparent;
+	border-left: 0px;
+}
+
+ZButton{
+	background: transparent left top no-repeat url("gfx/png/menu.png");
+	border: 0px;
+	color: #FFF;
+	font-family: Tahoma;
+	font-size: 12pt;
+	font-weight: bold;
+	image: url("gfx/png/icon.png");
+	image-position: left;
+	margin-right: 8px;
+	min-height: 28px;
+	min-width: 90px;
+	padding-left: 9px;
+}
+
+	ZButton:hover{
+		background-image: url("gfx/png/menu_over.png");
+	}
+
+	ZButton:pressed{
+		background-image: url("gfx/png/menu_down.png");
+	}
+
+ZClock{
+	border-image: url("gfx/png/notify-area.png") 4 4 4 4;
+	border: 4px transparent;	
+	color: #FFF;	
+	margin: 0px;
+	padding-top: 4px;
+	min-width: 61px;
+	padding-left: 30px;
+}
+
+ZClock #time{
+	color: #FFF;
+}

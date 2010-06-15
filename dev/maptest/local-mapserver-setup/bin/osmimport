@@ -1,0 +1,8 @@
+cd ../data
+OSM_DB_NAME="osm"
+OSM_DB_USER="pgis"
+OSM_DB_PASS="pgis"
+for i in *
+do
+	PGPASSWORD="$OSM_DB_PASS" osm2pgsql -m -d $OSM_DB_NAME -U $OSM_DB_USER -p "" "$i"
+done

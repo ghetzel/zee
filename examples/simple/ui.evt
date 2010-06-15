@@ -1,0 +1,22 @@
+
+<actions for="first">
+	<on event="enter">
+		<!-- 
+			on enter state, store properties?
+			ideally we should be able to have an entrance animation
+			that lets the widgets flow into the layout normally
+		 -->
+		<state>
+			<select w="container/text">
+				<property name="y" value="-100" />
+			</select>
+		</state>
+		<animation type="parallel">
+			<select w="container/text">
+				<animate>
+					<property name="y" value="default" /> <!-- make the property conform to its layout -->
+				</animate>
+			</select>
+		</animation>
+	</on>
+</actions>

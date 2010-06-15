@@ -1,0 +1,469 @@
+*{
+  font-family: Droid Sans;
+}
+
+#root{
+/*	DEMO - Transparent Gradient
+  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(0,0,0,100%), stop:1 rgba(0,0,0,0%)); */
+  background-color: rgba(0,0,0,100%);
+  background-position: top left;
+  background-image: url(gfx/carbon-1.png);
+  border: 0px;
+}
+
+
+QLabel{
+  color: #FFF;
+}
+
+QPushButton{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282726, stop:0.8125 #070400, stop:1 #070400);
+  border: 0px;
+  border-bottom: 4px solid #CC7000;
+  color: #FFF;
+}
+
+  QPushButton:hover{
+    border-color: #FFAE00;
+  }
+
+  QPushButton:focus{
+    font-weight: bold;
+  }
+
+/*QWebView{
+  border: 1px solid #C00;
+  border-radius: 10px;
+}*/
+
+QGroupBox::title{
+  background-color: #C00;
+  color: #FFF;
+}
+
+*[element="zui:container"]{
+}
+
+*[cls~="actions"]{
+  min-width: 155px;
+  max-width: 155px;
+}
+
+*[cls~="masthead"]{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282726, stop:0.8125 #070400, stop:1 #070400);
+  min-height: 32px;
+  max-height: 32px;
+}
+
+  *[cls~="masthead"] > *[cls~="action"]{
+    border: 0px;
+  }
+
+*[cls~="actions"] > *[cls~="action"]{
+  height: 92px;
+}
+
+#communications{
+  padding-left: 155px;
+}
+
+QPushButton[cls~="comm"]{
+  height: 124px;
+  margin: 4px;
+  width: 298px;
+}
+
+*[cls~="controls"]{
+  min-height: 32px;
+  max-height: 32px;
+}
+
+  *[cls~="controls"] > QPushButton{
+    /*background-color: #CC7000;*/
+    background-image: url(gfx/bg.png);
+    background-position: top left;
+    background-repeat: repeat-x;
+    border: 0px;
+    color: #FFF;
+    font-family: Akzidenz Grotesk Light;
+    font-size: 14px;
+    height: 32px;
+  }
+
+
+*[element~="zui:footer"]{
+  background-color: #000;
+  border-top: 1px solid #888;
+  min-height: 16px;
+  max-height: 16px;
+}
+
+
+ZTaskbar{
+  background-color: rgba(0,0,0,0%);
+  border: 1px solid #3C3D4D;
+  margin: 1px;
+  max-height: 32px;
+  min-height: 32px;
+}
+
+  ZTaskbar::item{
+    border: 1px solid #FFF;
+    margin: 2px;
+  }
+
+  ZTaskbar::item:selected{
+    background-color: rgba(100,100,100,50%);
+  }
+
+
+ZGenericDial{
+  alternate-background-color: #FFF;
+  background-color: rgba(0,0,0,50%);
+  color: rgba(204,112,0,100%);
+  font-family: Akzidenz Grotesk Light;
+}
+
+ZFileBrowser{
+  background-color: rgba(0,0,0,0);
+  border-width: 0px;
+  color: #FFF;
+  font-size: 16px;
+}
+
+  ZFileBrowser::item{
+    border-bottom: 1px solid qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #000, stop:0.5 #888, stop:1 #000);;
+    height: 48px;
+  }
+
+  ZFileBrowser::item:selected{
+    background-color: #CC7000;
+    color: #FFF;
+  }
+
+ZFolderView{
+  font-size: 8pt;
+}
+
+  ZFolderView::item{
+    border: 0px;
+    height: 100%;
+    margin: 2px;
+    width: 100%;
+  }
+
+  ZFolderView::item:selected{
+    background-color: #CC7000;
+    color: #FFF;
+  }
+
+
+ZMapWidget{
+  border: 1px solid red;
+}
+
+  ZMapWidget *[cls~="toolbar"]
+  {
+    background-color: rgba(0,0,0,70%);
+    border: 2px solid #FFAE00;
+    border-radius: 8px;
+    color: #FFF;
+    margin: 8px;
+    spacing: 0;
+  }
+
+    ZMapWidget *[cls~="toolbar"] > QToolButton{
+      border: 0px;
+      color: #FFF;
+      margin: 0px;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+      ZMapWidget *[cls~="toolbar"] > QToolButton:hover{
+        background-color: #FFAE00;
+        border: 0px;
+        color: #000;
+      }
+
+
+  ZMapWidget *[cls~="viewbar"]{
+    max-width: 100px;
+    min-width: 100px;
+  }
+
+    ZMapWidget *[cls~="viewbar"] > ZButton{
+      background: rgba(0,0,0,80%);
+      border: 2px solid #FFAE00;
+      border-radius: 16px;
+      font-size: 24px;
+      margin: 8px;
+      max-width: 48px;
+      min-height: 32px;
+    }
+
+      ZMapWidget *[cls~="viewbar"] > ZButton:hover{
+        background: rgba(0,0,0,90%);
+      }
+
+  ZMapWidget *[cls~="infobar"]{
+    background: rgba(0,0,0,80%);
+    max-height: 64px;
+    min-height: 64px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+    ZMapWidget ZRoadsignWidget{
+      margin-right: 4px;
+      max-width: 204px;
+      min-height: 64px;
+      min-width: 0px;
+    }
+
+      ZMapWidget ZRoadsignWidget > *[cls~="icon"]{
+        min-height: 56px;
+        min-width: 56px;
+      }
+
+    ZMapWidget *[cls~="roads"]{
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    ZMapWidget *[cls~="municipality"]{
+      font-size: 14px;
+      font-weight: bold;
+    }
+QDial{
+  background-color: rgba(0,0,0,70%);
+  border: 2px solid #CC7000;
+  color: #CC7000;
+}
+
+#home{
+
+}
+
+  #home ZClock{
+    /*background-color: #F0C;*/
+  }
+
+    #home ZClock > QLabel{
+      /*background-color: #707;*/
+    }
+
+#homeContent{
+  background-color: rgba(7, 4, 0, 75%);
+  border: 10px solid #333;
+  border-radius: 60px 180px;
+  margin: 30px 0px;
+  margin-left: 30px;
+  margin-right: -60px;
+  padding: 14px 60px 14px 36px;
+}
+
+#homeContent > QLabel{
+
+}
+
+#library > #nowPlaying{
+  background-color: rgb(3, 3, 3, 75%);
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #444;
+  padding: 2px;
+}
+
+  #library > #nowPlaying #npVitals{
+    margin: 6px 8px;
+    margin-bottom: 0px;
+    padding-bottom: 2px;
+    max-height: 12px;
+    min-height: 12px;
+  }
+
+  #library > #nowPlaying > #npTime{
+    max-width: 116px;
+    min-width: 116px;
+  }
+
+  #library > #nowPlaying *[cls~="art"]{
+                background: transparent middle middle no-repeat url(gfx/media-optical.png);
+    border: 1px solid #888;
+    margin: 2px;
+    margin-top: 5px;
+    margin-left: 8px;
+    margin-right: 0px;
+    max-height: 66px;
+    max-width: 66px;
+    min-height: 66px;
+    min-width: 66px;
+  }
+
+  #library > #nowPlaying *[cls~="title"]{
+    font-family: Akzidenz Grotesk Roman;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    margin-left: 8px;
+    min-width: 760px;
+  }
+
+  #library > #nowPlaying *[cls~="artist"]{
+    font-family: Akzidenz Grotesk Light;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 4px;
+    min-width: 760px;
+  }
+
+  #library > #nowPlaying *[cls~="album"]{
+    font-family: Akzidenz Grotesk Light;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  #library > #nowPlaying *[cls~="progress"]{
+    background-color: transparent;
+    border: 1px solid #E09900;
+    color: transparent;
+    max-height: 6px;
+    min-height: 6px;
+    min-width: 776px;
+    padding: 1px;
+  }
+
+    #library > #nowPlaying *[cls~="progress"]::chunk{
+      background-color: #E09900;
+    }
+
+  #library > #nowPlaying *[cls~="time"]{
+    color: #AAA;
+    font-family: Nimbus Sans L;
+    font-size: 32px;
+    font-weight: bold;
+    max-height: 36px;
+    max-width: 116px;
+  }
+
+  #library > #nowPlaying *[cls~="timeLeft"]{
+    color: #AAA;
+    font-family: Nimbus Sans L;
+    font-size: 14px;
+    font-weight: bold;
+    max-height: 36px;
+    max-width: 116px;
+  }
+
+  #library #browser QListView{
+    border: 6px solid #333;
+    color: #888;
+    font-size: 10px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #library #browser QListView:focus{
+    border-color: #E09900;
+  }
+
+  #library #browser QListView::item{
+    background-color: rgba(10,10,10,50%);
+    border: 2px solid #333;
+    border-radius: 8px;
+    margin: 1px;
+  }
+
+  #library #browser QListView::item:selected{
+    background-color: #333;
+    color: #FFF;
+  }
+
+  #library #browser QListView::item:selected:focus{
+    border-color: #E09900;
+  }
+
+  /*
+  #library #browser #albums QScrollBar{
+    background: transparent;
+    border: 1px solid #E09900;
+    width: 8px;
+  }*/
+
+  #library #browser #albums QScrollBar,
+  #library #browser #tracks QScrollBar{
+    width: 0px;
+  }
+
+  /*
+  #library #browser #albums QScrollBar::handle{
+    background: #E09900;
+    border: 1px solid #E09900;
+  }
+
+    #library #browser #albums QScrollBar::handle:horizontal{
+      min-width: 20px;
+    }
+
+    #library #browser #albums QScrollBar::handle:vertical{
+      min-height: 20px;
+    }
+
+  #library #browser #albums QScrollBar::add-line,
+  #library #browser #albums QScrollBar::sub-line{
+    background: none;
+  }*/
+
+  #library #browser #albums{
+    background-color: rgba(7,4,0,75%);
+    border-left: 0px;
+    border-radius: 20px 110px;
+    margin-left: -20px;
+    max-width: 320px;
+    min-width: 320px;
+    padding: 4px 20px 4px 24px;
+  }
+
+  #library #browser #tracks{
+    background-color: rgba(7,4,0,75%);
+    border-right: 0px;
+    border-radius: 20px 110px;
+    margin-left: 10px;
+    margin-right: -20px;
+    padding: 4px 24px 4px 20px;
+  }
+
+#mediaControls{}
+
+  #mediaControls > QPushButton:hover{
+    background-color: #FFAE00;
+    color: #FFF;
+  }
+
+/*
+  #mediaControls > *[cls~="previous"]{
+    background-color: #CC0000;
+  }
+
+  #mediaControls > *[cls~="play"]{
+    background-color: #A3CC00;
+  }
+
+  #mediaControls > *[cls~="pause"]{
+    background-color: #00CC52;
+  }
+
+  #mediaControls > *[cls~="stop"]{
+    background-color: #A300CC;
+  }
+
+  #mediaControls > *[cls~="next"]{
+    background-color: #0058CC;
+  }
+*/
+
+#opsControls{}

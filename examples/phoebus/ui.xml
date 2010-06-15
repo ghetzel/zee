@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+	xmlns:zee="http://www.gammazeta.net/zee/core/"
+	xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
+	xmlns:zui="http://www.gammazeta.net/zee/zui/">
+	<zee:components>
+		<zee:media id="media">
+				<zee:param name="crossfade" value="250" />
+		</zee:media>
+	</zee:components>
+	<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
+		<zui:container id="mainbar">
+			<zui:container id="controls">
+				<zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
+				<zui:button id="aStop">Stop</zui:button>
+				<zui:button id="aNext">Next</zui:button>
+			</zui:container>
+			<zui:container id="nowplaying" layout="vertical">
+				<zui:text id="status" value="No song selected." />
+				<zui:progress id="seekbar" />
+			</zui:container>
+			<zui:container />
+		</zui:container>
+		<zui:container>
+			<zui:text id="sidebar" value="Sidebar" />
+			<zui:list model="media" id="queue" />
+			<zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
+		</zui:container>
+	</zui:application>
+
+	<zee:events>
+		<zee:connect from="media.timeChanged" to="seekbar.setValue" direct="false" />
+		<zee:connect from="media.durationChanged" to="seekbar.setMaximum" direct="false" />
+		<zee:connect from="media.queuedSongChanged" to="queue.setCurrentIndex" />
+		<zee:connect from="media.sourceChanged" to="status.setText" />
+		<zee:connect from="media.reachedBookmark" to="zee.log" direct="false" />
+		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
+		<zee:connect from="browser.activated" to="media.enqueue" />
+		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
+		<zee:connect from="aStop.clicked" to="media.stop" />
+		<zee:connect from="aNext.clicked" to="media.next" />
+		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" direct="false" /> 
+<!--
+	Segfaults if this isn't registered as a slot (fault in ZMethodObject?)
+		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" direct="false" /> 
+
+-->
+		<zee:connect from="aClear.clicked" to="media.clear" />
+		<zee:connect from="zQuit.clicked" to="zee.quit" />
+
+		<zee:connect from="media.stopped" to="seekbar.reset" />
+<!--	Resets activated song?
+		<zee:connect from="media.stopped" to="status.reset" /> 
+-->
+	</zee:events>
+</zee>

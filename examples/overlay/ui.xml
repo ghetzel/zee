@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+  <zui:application title="Zee Overlay Test" width="100%" height="100%" position="center" layout="vertical" type="overlay">
+	<zui:text />
+  </zui:application>
+</zee>

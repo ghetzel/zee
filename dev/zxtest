@@ -1,0 +1,21 @@
+#!/bin/sh
+ZEE_DIR="$HOME/.config/zee/apps/catalina/"
+cd $ZEE_DIR
+Xephyr -ac -screen 800x480 -br -reset -terminate :1 &
+sleep 1s
+DISPLAY=:1.0
+openbox &
+zee
+
+#
+# Old and Busted:	Xvfb + x11vnc method
+#
+# 	Xvfb :1 -screen 0 800x480x24 & zee & nitrogen --restore & xcompmgr -n &
+# if [ $? == 0 ]; then
+#	sleep 1
+#	x11vnc -display :1 -bg -nopw -listen localhost -xkb
+#	sleep 1
+#	export DISPLAY=:0
+#	vncviewer localhost -PreferredEncoding raw
+#	killall Xvfb
+# fi

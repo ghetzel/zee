@@ -1,0 +1,10 @@
+QFrame{
+	background: transparent center center no-repeat url("../../dev/gfx/dial.svg");
+}
+
+ZGenericDial{
+  alternate-background-color: #FFF;
+  background-color: rgba(0,0,0,10%);
+  color: rgba(204,112,0,100%);
+  font-family: Akzidenz Grotesk Light;
+}

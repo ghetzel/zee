@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+
+	<zui:application id="main" position="center" layout="vertical">
+		<zui:container>
+			
+		</zui:container>
+	</zui:application>
+
+<!--  
+	<zee:events>
+		<zee:connect from="main.clicked" to="zee.quit" />
+	</zee:events>
+-->
+</zee>

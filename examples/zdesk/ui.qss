@@ -1,0 +1,67 @@
+*{
+  font-family: Droid Sans;
+}
+
+QFrame{
+  border: 0px;
+}
+
+#root{
+  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(0,0,0,70%), stop:1 rgba(0,0,0,100%));
+  border: 0px;
+}
+
+ZTaskbar{
+  background-color: rgba(0,0,0,100%);
+  border: 1px solid #3C3D4D;
+  margin: 2px;
+  max-height: 22px;
+  min-height: 22px;
+}
+
+  ZTaskbar::item{
+    border: 1px solid #FFF;
+    margin: 1px;
+  }
+
+  ZTaskbar::item:selected{
+    background-color: rgba(100,0,0,50%);
+  }
+
+ZFileBrowser{
+  background-color: rgba(0,0,0,0);
+  border-width: 0px;
+  color: #FFF;
+  font-size: 16px;
+}
+
+  ZFileBrowser::item{
+    border-bottom: 1px solid qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #000, stop:0.5 #888, stop:1 #000);;
+    height: 48px;
+  }
+
+  ZFileBrowser::text:selected{
+    color: #F00;
+  }
+
+ZFolderView{
+  font-size: 8pt;
+}
+
+  ZFolderView::item{
+    border: 0px;
+    color: #FFF;
+    height: 70%;
+    margin: 2px;
+    padding: 2px;
+    width: 100%;
+  }
+
+  ZFolderView::item:selected{
+    background-color: rgba(255,255,255,30%);
+    border-radius: 10px;
+  }
+
+QWebView{
+  max-width: 380px;
+}

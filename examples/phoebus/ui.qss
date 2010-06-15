@@ -1,0 +1,132 @@
+#root{
+	background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+				stop:0 #101010, stop: 0.25 #242424, stop: 0.75 #242424, stop: 1 #101010);
+
+}
+
+ZButton{
+	border: 0px;
+	color: #FFF;
+	margin: 0px 2px;
+}
+
+ZButton:hover{
+	border-color: #FFF;
+}
+
+ZButton:hover{
+	color: #FFF;
+}
+
+
+ZProgressBar{
+	background-color: qlineargradient(x1:0, y1:0, x2:0 y1: 1,
+					stop: 0 #101010, stop: 1 #242424);
+	border: 1px solid #333;
+	color: transparent;
+	margin: 2px;
+}
+
+ZProgressBar::chunk{
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop: 0 #245183, stop: 1 #112F51);
+}
+
+ZListWidget{
+	background: #090909;
+	border: 1px solid #101010;
+}
+
+ZListWidget:focus{
+}
+
+
+ZListWidget::item{
+	color: #FFF;
+}
+
+ZListWidget::item:selected{
+	background-color: qlineargradient(x1:0, y1:0 x2:0, y2:1,
+				stop:0 #001933, stop:1 #000811);
+}
+
+
+#mainbar{
+	background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+				stop: 0 #245183, stop: 1 #112F51);
+	border-bottom: 4px solid #444;
+	min-height: 75px;
+}
+
+	#controls{
+		background-color: #222;
+		border-radius: 10px;
+		margin: 8px;
+		margin-right: 0px;
+		max-width: 128px;
+		padding: 2px;
+	}
+		#controls > ZButton{
+			background: transparent center center no-repeat;
+			color: transparent;
+			min-width: 40px;
+			min-height: 40px;
+		}
+
+		ZButton#aPlayPause{
+			background-image: url("images/play.png");
+		}
+
+	#playing{
+		background-color: #102842;
+		border-radius: 10px;
+		margin: 8px;
+		padding: 8px;
+	}
+
+
+#sidebar{
+	border: solid qlineargradient(x1:0, y1:0 x2:1, y2:0,
+				stop:0 #333, stop:1 #111);
+	border-width: 0px;
+	border-right-width: 16px;
+	color: #CCC;
+	min-width: 200px;
+}
+
+#queue{
+}
+
+QScrollBar{
+	background: rgba(0,0,0,50%);
+	border: 1px solid #3A71B7;
+	height: 4px;
+}
+
+QScrollBar::add-page,
+QScrollBar::sub-page{
+	background-color: transparent;
+}
+
+
+QScrollBar::handle:horizontal{
+	background: #3A71B7;
+}
+
+QScrollBar::add-line,
+QScrollBar::sub-line{
+	background-color: transparent;
+}
+
+
+#msec,
+#sec,
+#status,
+#queueId{
+	color: #FFF;
+	margin: 2px 0px;
+}
+
+#zQuit{
+	max-width: 16px;
+}

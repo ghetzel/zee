@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+  <zui:application title="Zee UI Demo" width="75%" height="75%" position="center" layout="vertical">
+    <zui:container>
+      <zui:button id="bFirst" value="first">First Screen</zui:button>
+      <zui:button id="bSecond" value="second">Second Screen</zui:button>
+      <zui:button id="bThird" value="third">Third Screen</zui:button>
+    </zui:container>    
+    <zui:screens id="screen">
+      <zui:screen id="first">
+        <zui:container layout="vertical">
+          <zui:text class="h1">Header 1</zui:text>
+          <zui:text class="h2">Header 2</zui:text>
+          <zui:text class="h3">Header 3</zui:text>
+          <zui:text class="h4">Header 4</zui:text>
+          <zui:text class="h5">Header 5</zui:text>
+          <zui:text class="h6">Header 6</zui:text>
+        </zui:container>
+        <zui:container layout="vertical">
+          <zui:input maxlength="10" />
+          <zui:input type="password" />
+          <zui:input mask=">AAAAA-AAAAA-AAAAA-AAAAA-AAAAA" />
+        </zui:container>
+        <zui:container layout="vertical">
+          <zui:radio>Radio 1</zui:radio>
+          <zui:radio>Radio 2</zui:radio>
+          <zui:radio>Radio 3</zui:radio>
+          
+          <zui:checkbox>Checkbox 1</zui:checkbox>
+          <zui:checkbox>Checkbox 2</zui:checkbox>
+          <zui:checkbox>Checkbox 3</zui:checkbox>
+        </zui:container>        
+      </zui:screen>     
+      
+      <zui:screen id="second" layout="vertical">
+        <zui:text>Second Screen</zui:text>
+        <zui:container cls="colors">
+          <zui:text cls="r">RED</zui:text>
+          <zui:text cls="o">ORANGE</zui:text>
+          <zui:text cls="y">YELLOW</zui:text>
+          <zui:text cls="g">GREEN</zui:text>
+          <zui:text cls="b">BLUE</zui:text>
+          <zui:text cls="i">INDIGO</zui:text>
+          <zui:text cls="v">VIOLET</zui:text>
+        </zui:container>
+      </zui:screen>
+      
+      <zui:screen id="third" layout="vertical">
+        <zui:container id="third_addrbar">
+          <zui:text>Address:</zui:text>
+          <zui:input disabled="true"><![CDATA[< Address input does not work yet...:( >]]></zui:input>
+          <zui:button id="steak" onclick="browser@go" value="www.vonage.com">Acid3</zui:button>
+        </zui:container>
+        <zui:webbrowser id="browser" uri="http://labs.trolltech.com/blogs/2010/05/17/qtwebkit-now-accelerates-css-animations-3d-transforms/" />
+      </zui:screen>      
+    </zui:screens>
+  </zui:application>
+
+  <zee:events>
+    <zee:connect from="bFirst.clicked" to="screen.jump" via="bFirst.value" />
+  </zee:events>
+</zee>

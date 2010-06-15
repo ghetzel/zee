@@ -1,0 +1,45 @@
+#root, ZWebBrowser{
+  background-color: palette(window);
+}
+
+#second > [cls~="colors"] > QLabel{
+  color: #FFF;
+  font-weight: bold; 
+  padding: 2px;
+}
+
+#second > [cls~="colors"] > QLabel:hover{
+  background-color: transparent;
+}
+
+#second > [cls~="colors"] > [cls~="r"]{
+  background-color: red;
+}
+
+#second > [cls~="colors"] > [cls~="o"]{
+  background-color: orange;
+}
+
+#second > [cls~="colors"] > [cls~="y"]{
+  background-color: yellow;
+}
+
+#second > [cls~="colors"] > [cls~="g"]{
+  background-color: green;
+}
+
+#second > [cls~="colors"] > [cls~="b"]{
+  background-color: blue;
+}
+
+#second > [cls~="colors"] > [cls~="i"]{
+  background-color: indigo;
+}
+
+#second > [cls~="colors"] > [cls~="v"]{
+  background-color: violet;
+}
+
+#third_addrbar{
+  padding: 2px;
+}

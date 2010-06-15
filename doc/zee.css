@@ -1,0 +1,77 @@
+body{
+  background-color: #222;
+  color: #FFF;
+  font-family: FreeSans, Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+}
+
+
+.ftvtree p{
+  height: 18px;
+  margin: 0px;
+  padding-top: 4px;
+}
+
+.ftvtree p img{
+  float: left;
+  margin-top: -4px;
+}
+
+.ftvtree p a{
+  color: #FFF;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ftvtree .current{
+  color: #F00;
+}
+
+
+div.tabs{
+  background-image: none;
+  border-bottom: 1px solid #AAA;
+}
+
+  div.tabs a{
+    background-color: #666;
+    border: 1px solid #AAA !important;
+    border-bottom-width: 0px !important;
+    margin-right: 2px;
+    margin-bottom: -1px;
+  }
+
+    div.tabs .current a{
+      background-color: #222;
+      margin-left: 3px;
+      margin-right: 5px;
+    }
+
+    div.tabs .current span{
+      color: #FFF;
+    }
+
+  div.tabs span{
+    color: #EEE;
+  }
+
+    div.tabs a,
+    div.tabs span{
+      background-image: none;
+    }
+
+table.list{
+  background-color: #111;
+  font-size: 10pt;
+  margin-top: 1em;
+  width: 90%;
+}
+
+  table.list thead{
+    background-color: #444;
+  }
+
+  table.list tbody td{
+    border-bottom: 1px solid #333;
+  }

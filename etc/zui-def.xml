@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdb="http://www.gammazeta.net/zee/db/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+<!--
+  When all is said and done, this will be the model for functionality. A
+  strict DTD will be made from this, and the system will validate against that.
+-->
+        <zui:application
+          title="Zee"
+          width="100%"
+          height="100%"
+          layout="vertical"
+          type="desktop"
+	  frame="false"
+	  position="w">
+    <zee:client service="net.gammazeta.Zee" />
+<!--
+                <zui:launcher>
+      <zui:splash timeout="2000">
+        <zui:image id="launchLogo" />
+        <zui:progressBar id="launchProgress" />
+      </zui:splash>
+                </zui:launcher>
+-->
+
+    <zui:masthead>
+      <zui:container cls="masthead actions">
+<!--
+                                <zui:menubutton cls="action home" name="HOME">
+          <zui:item name="Test 1" />
+          <zui:item name="Test 2" />
+          <zui:menu name="Test 3">
+            <zui:item name="Test Sub 1" />
+            <zui:item name="Test Sub 2" />
+            <zui:item name="Test Sub 3" />
+          </zui:menu>
+          <zui:item name="Test 4" />
+                                </zui:menubutton>
+-->
+        <zui:button cls="action home" onclick="screen@jump:home">HOME</zui:button>
+      </zui:container>
+      <zui:container cls="masthead widgets" layout="flow">
+        <zui:text>Masthead Widget Area</zui:text>
+      </zui:container>
+    </zui:masthead>
+
+    <!--
+      SCREENS - Contains structural definitions for all system screens
+    -->
+    <zui:screens handle="screen">
+<!--      <zui:screen id="dev" layout="vertical">
+        <zui:video handle="video" uri="/cortex/central/videos/lib/Movies/Down Periscope.avi" />
+        <zui:container cls="controls">
+          <zui:button onclick="video@control:play">PLAY</zui:button>
+          <zui:button onclick="video@control:pause">PAUSE</zui:button>
+          <zui:button onclick="video@control:stop">STOP</zui:button>
+        </zui:container>
+      </zui:screen>-->
+
+      <zui:screen id="home">
+        <zui:container layout="vertical" cls="actions">
+          <zui:button cls="action library" onclick="screen@jump:library">Library</zui:button>
+          <zui:button cls="action navigator" onclick="screen@jump:navigation">Navigation</zui:button>
+          <zui:button cls="action operations" onclick="screen@jump:operations">Operations</zui:button>
+          <zui:button cls="action communications" onclick="screen@jump:communications">Communications</zui:button>
+        </zui:container>
+        <zui:container id="homeContent" layout="vertical">
+          <!--<zui:clock timeformat="h:mma" dateformat="ddd d MMM, yyyy" />-->
+          <zui:folder handle="filesystem" uri="/home/ghetzel/Desktop" gridsize="72">
+            <zee:action on="executed" do="filesystem@execute" />
+          </zui:folder>
+          <zui:container>
+            <zui:button onclick="filesystem@cdUp">UP</zui:button>
+            <zui:button onclick="filesystem@cd:/cortex/central">Central</zui:button>
+            <zui:button onclick="filesystem@cd:/cortex/central/downloads">Downloads</zui:button>
+            <zui:button onclick="filesystem@cd:/cortex/central/music">Music</zui:button>
+            <zui:button onclick="filesystem@cd:/cortex/central/videos/lib">Videos</zui:button>
+          </zui:container>
+        </zui:container>
+      </zui:screen>
+
+
+      <zui:screen id="navigation" layout="vertical">
+        <zui:map handle="map" lat="40.058158" lon="-74.134758" zoom="1">
+         <zui:container cls="nav viewbar" layout="vertical">
+           <zui:button cls="nav zoomIn" onclick="map@zoomIn">+</zui:button>
+           <zui:slider cls="nav zoomPick" min="1" max="17" direction="vertical" />
+           <zui:button cls="nav zoomOut" onclick="map@zoomOut">-</zui:button>
+         </zui:container>
+        </zui:map>
+
+
+        <zui:container cls="controls">
+          <zui:button cls="nav search" onclick="screen@jump:search.navigation">PLOT</zui:button>
+          <zui:button cls="nav layers">VIEW</zui:button>
+          <zui:button cls="nav gps" onclick="screen@jump:gps.navigation">TELEMETRY</zui:button>
+        </zui:container>
+      </zui:screen>
+
+        <zui:screen id="gps.navigation" layout="vertical">
+        <zui:container>
+          <zui:text>GPS Detail / Information</zui:text>
+        </zui:container>
+        <zui:container cls="controls">
+          <zui:button cls="nav main" onclick="screen@jump:navigation">EXIT</zui:button>
+        </zui:container>
+        </zui:screen>
+
+
+      <zui:screen id="communications" layout="flow">
+        <zui:button cls="comm network">Network</zui:button>
+        <zui:button cls="comm phone">Voice</zui:button>
+        <zui:button cls="comm calendar">Calendar</zui:button>
+        <zui:button cls="comm">Item 1</zui:button>
+        <zui:button cls="comm">Item 2</zui:button>
+        <zui:button cls="comm">Item 3</zui:button>
+      </zui:screen>
+
+
+                        <zui:screen id="library" layout="vertical">
+        <zui:container id="nowPlaying" layout="vertical">
+          <zui:container>
+            <zui:container>
+              <zui:container id="npGraphic">
+                <zui:image cls="art" />
+              </zui:container>
+              <zui:container id="npDetails" layout="vertical">
+                <zui:text dataSource="" cls="title">Currently Playing Track Whose Name is Long</zui:text>
+                <zui:text cls="artist">Artist of Songs</zui:text>
+                <zui:text cls="album">An Album Too Far</zui:text>
+              </zui:container>
+            </zui:container>
+            <zui:container id="npTime" layout="vertical">
+              <zui:text cls="time">1:14:34</zui:text>
+              <zui:text cls="timeLeft">-17:52</zui:text>
+            </zui:container>
+          </zui:container>
+          <zui:container id="npVitals">
+            <zui:progress cls="progress" dataSource="media:time" />
+          </zui:container>
+        </zui:container>
+        <zui:container id="browser">
+          <zui:list id="albums" onselect="media@showAlbum" scroll="hidden" />
+          <zui:list id="tracks" ondblclick="media@playTrack" scroll="hidden" bind="libAlbums" />
+        </zui:container>
+        <zui:container id="mediaControls" cls="controls">
+          <zui:button cls="previous" onclick="media@previous">PREV</zui:button>
+          <zui:button cls="play" onclick="media@play">PLAY</zui:button>
+          <zui:button cls="pause" onclick="media@pause">PAUSE</zui:button>
+          <zui:button cls="stop" onclick="media@stop">STOP</zui:button>
+          <zui:button cls="next" onclick="media@next">NEXT</zui:button>
+          <zui:button cls="reindex" onclick="library@reindex">REINDEX</zui:button>
+        </zui:container>
+                        </zui:screen>
+
+      <zui:screen id="operations" layout="vertical">
+       <zui:webbrowser uri="file:///cortex/central/projects/Zee/dev/zonky/mainpanel.htm" layout="vertical">
+       </zui:webbrowser>
+        <zui:container>
+          <zui:gauge value="0" max="150" start="235" range="233">
+            <zui:series name="velocity_1" interval="1" skipEvery="5" />
+            <zui:series name="velocity_5" interval="5" skipEvery="2" length="7" />
+            <zui:series name="velocity_10" interval="10" skipEvery="2" length="8" width="1" />
+            <zui:series name="velocity_20" interval="20" length="10" width="1" />
+          </zui:gauge>
+          <!--<zui:dial />-->
+        </zui:container>
+        <zui:container id="opsControls" cls="controls">
+          <zui:button cls="ops telemetry">TELEMETRY</zui:button>
+          <zui:button cls="ops systems">SYSTEMS</zui:button>
+          <zui:button cls="ops reporting">REPORTING</zui:button>
+          <zui:button cls="ops enviro">ENVIRONMENT</zui:button>
+          <zui:button cls="ops diag">DIAGNOSTICS</zui:button>
+        </zui:container>
+      </zui:screen>
+    </zui:screens>
+  </zui:application>
+</zee>

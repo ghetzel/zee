@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdb="http://www.gammazeta.net/zee/db/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+
+  <zui:application width="150" height="75" position="ne" layout="vertical">
+    <zui:webbrowser home="http://www.google.com" />
+  </zui:application>
+</zee>

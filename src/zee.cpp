@@ -1,0 +1,218 @@
+#include "zee.h"
+
+Zee *Zee::_app = 0;
+
+Zee::Zee(int argc, char *argv[])
+    : QApplication(argc, argv){
+    _app = this;
+    init();
+}
+
+Zee *Zee::instance(){
+    return _app;
+}
+
+QVariant Zee::arg(QString key){
+    return _arguments.value(key);
+}
+
+bool Zee::hasArg(QString key){
+    return _arguments.value(key).isValid();
+}
+
+void Zee::init()
+{
+    setObjectName(ZEE_OBJNAME);
+    setApplicationName(ZEE_APPNAME);
+    parseArguments();
+
+    zEvent->registerSignal(this,SIGNAL(styleReloaded()));
+    zEvent->registerSignal(this,SIGNAL(aboutToQuit()));
+    zEvent->registerSignal(this,SIGNAL(lastWindowClosed()));
+    zEvent->registerSignal(this,SIGNAL(unixSignal(int)));
+
+    zEvent->registerSlot(this,SLOT(closeAllWindows()));
+    zEvent->registerSlot(this,SLOT(quit()));
+    zEvent->registerSlot(this,SLOT(reloadStyleSheet()));
+    zEvent->registerSlot(this,SLOT(setStyleSheet(QString)));
+    zEvent->registerSlot(this,SLOT(log(QString)));
+    zEvent->registerSlot(this,SLOT(logWarning(QString)));
+    zEvent->registerSlot(this,SLOT(logError(QString)));
+    zEvent->registerSlot(this,SLOT(logCritical(QString)));
+    zEvent->registerSlot(this,SLOT(logDebug(QString)));
+
+    //handle log verbosity setting
+    if(hasArg("log-verbosity")){
+        switch(arg("log-verbosity").toInt())
+	{
+	case 0:
+	    ZUtil::setLogLevel(ZUtil::LogNone);
+	    break;
+	case 1:
+	    ZUtil::setLogLevel(ZUtil::LogCritical);
+	    break;
+	case 2:
+	    ZUtil::setLogLevel(ZUtil::LogError);
+	    break;
+	case 3:
+	    ZUtil::setLogLevel(ZUtil::LogWarning);
+	    break;
+	case 4:
+	    ZUtil::setLogLevel(ZUtil::LogInfo);
+	    break;
+	case 5:
+	    ZUtil::setLogLevel(ZUtil::LogDebug);
+	    break;
+	default:
+	    ZUtil::setLogLevel(ZUtil::LogDebug);
+	}
+    }
+
+    //setup config search paths
+    QDir::setSearchPaths(ZEE_CFG_KEY,
+			 QStringList(QDir::homePath()+"/"+ZEE_CFG_DIR+"/"));
+    reloadStyleSheet();
+    parseUI();
+
+    if(hasArg("debug-style")){
+	QTimer *styleTimer = new QTimer(this);
+        int intv = arg("debug-style").toInt()*1000;
+
+	if(intv < 1000) // if not specified or less than 1s, set to default interval
+	    intv = 3000;
+
+	connect(styleTimer, SIGNAL(timeout()), this, SLOT(reloadStyleSheet()));
+	styleTimer->start(intv);
+    }
+
+//  let's get this show on the road...
+    foreach(QWidget *w, qApp->topLevelWidgets())
+	if(w->isVisible())
+	    w->show();
+}
+
+
+void Zee::parseArguments(){
+    QStringList args = arguments();
+
+    // store the program name
+    _arguments.insert("program", QVariant(args.takeFirst()));
+
+    for(int i = 0; i < args.count(); ++i){
+	//  if element 0 matches a switch...
+	if(args.at(i) == "-x" || args.at(i) == "--exec"){
+	    _arguments.insert("exec", QVariant(args.at(i+1))); // do something to element 1
+	}else if(args.at(i) == "-c" || args.at(i) == "--config"){
+	    _arguments.insert("config", QVariant(args.at(i+1)));
+	}else if(args.at(i) == "-s" || args.at(i) == "--style"){
+	    _arguments.insert("style", QVariant(args.at(i+1)));
+	}else if(args.at(i) == "--debug-style"){
+	    _arguments.insert("debug-style", QVariant(args.at(i+1)));
+	}else if(args.at(i) == "-V" || args.at(i) == "--verbosity"){
+	    _arguments.insert("log-verbosity", QVariant(args.at(i+1)));
+	}else if(args.at(i) == "-q" || args.at(i) == "--quiet"){
+	    _arguments.insert("log-verbosity", QVariant(0));
+	}
+
+	//  remove the command
+	args.removeFirst();
+    }
+}
+
+/*!
+  Loads and applies a Qt Stylesheet (qss) from a file, either specified on the
+  command line or from default locations.
+
+  \todo add default system locations as places to search (home folders,
+  system config folders, etc.)
+*/
+void Zee::reloadStyleSheet()
+{
+    //	set stylesheet
+    QFile qss;
+
+    if(hasArg("style"))
+        qss.setFileName(arg("style").toString());
+    else if(arg("program").toString() != ZEE_PROGNAME &&
+            QFile::exists(arg("program").toString()+".qss"))
+        qss.setFileName(arg("program").toString()+".qss");
+    else if(QFile::exists(ZUI_DEFAULT_QSS_NAME))
+	qss.setFileName(ZUI_DEFAULT_QSS_NAME);
+    else
+	qss.setFileName(QString(ZEE_CFG_KEY)+":"+QString(ZUI_DEFAULT_QSS_NAME));
+
+    if(qss.open(QIODevice::ReadOnly))
+    {
+	QTextStream style(&qss);
+	setStyleSheet(style.readAll());
+	qss.close();
+	z_log_debug("Loaded stylesheet '"+qss.fileName()+"'");
+    }else{
+	z_log_error("Unable to locate stylesheet '"+qss.fileName()+"'");
+    }
+
+    emit styleReloaded();
+}
+
+
+void Zee::parseUI()
+{
+    QFile zui;
+
+    //if specified on command line, try that
+    if(hasArg("config"))
+        zui.setFileName(arg("config").toString());
+    else if(arg("program").toString() != ZEE_PROGNAME &&
+            QFile::exists(arg("program").toString()+".xml"))
+        zui.setFileName(arg("program").toString()+".xml");
+    else if(QFile::exists(ZUI_DEFAULT_FILE_NAME))
+	zui.setFileName(ZUI_DEFAULT_FILE_NAME);
+    else
+	zui.setFileName(QString(ZEE_CFG_KEY)+":"+QString(ZUI_DEFAULT_FILE_NAME));
+
+    if(zui.exists()){
+	QDomDocument zuiDef("zui");
+	QString *zDocErr = NULL;
+	//make sure we can open the file
+	if(!zui.open(QIODevice::ReadOnly)){
+	    z_log_error("Failed to open UI definition file '"+zui.fileName()+"'");
+            QCoreApplication::exit(ZEE_EXIT_ZUI_DEF_INACCESSIBLE);
+	}
+
+	//make sure we can load the data
+	if(!zuiDef.setContent(&zui, zDocErr))
+	{
+	    z_log_error("Invalid UI definition file '"+(*zDocErr)+"'");
+	    zui.close();
+            QCoreApplication::exit(ZEE_EXIT_INVALID_ZUI_DEF);
+	}
+
+	//we're done with this
+	zui.close();
+
+	z_log("Loaded UI definition '"+zui.fileName()+"'");
+
+	QDomElement root = zuiDef.documentElement();
+	ZuiParser parser(root);
+
+	return;
+    }
+
+    z_log_error("Unable to locate UI definition file '"+zui.fileName()+"'");
+    QCoreApplication::exit(ZEE_EXIT_NO_ZUI_DEF);
+}
+
+void Zee::log(QString msg){         z_log(msg);         }
+void Zee::logWarning(QString msg){  z_log_warn(msg);    }
+void Zee::logError(QString msg){    z_log_error(msg);   }
+void Zee::logCritical(QString msg){ z_log_crit(msg);    }
+void Zee::logDebug(QString msg){    z_log_debug(msg);   }
+
+
+
+#ifdef Q_WS_X11
+bool Zee::x11EventFilter(XEvent *e){
+    emit x11EventReceived(e);
+    return false;
+}
+#endif // Q_WS_X11

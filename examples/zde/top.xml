@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+  <zui:application title="ZDE" width="92%" height="28" frame="false" resizable="false" type="dock" position="n">
+	<zui:strut position="n" height="29" />
+  </zui:application>
+</zee>

@@ -1,0 +1,4 @@
+ZLabel{
+	background: transparent bottom right no-repeat url("droid.png");
+	bottom: 0px;
+}

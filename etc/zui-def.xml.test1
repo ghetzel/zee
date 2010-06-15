@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdb="http://www.gammazeta.net/zee/db/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+<!--
+  When all is said and done, this will be the model for functionality. A
+  strict DTD will be made from this, and the system will validate against that.
+-->
+  <zui:application title="Zee" width="800" height="480" resizable="false" icon="gfx/skins/catalina/zee.svg" layout="vertical">
+    <zee:client service="net.gammazeta.Zee" />
+                <zee:components />
+
+    <zui:masthead>
+      <zui:container cls="masthead actions">
+        <zui:button cls="action home" onclick="screen@home">HOME</zui:button>
+      </zui:container>
+      <zui:container cls="masthead widgets" layout="flow">
+        <zui:text>Masthead Widget Area</zui:text>
+      </zui:container>
+    </zui:masthead>
+
+    <!--
+      SCREENS - Contains structural definitions for all system screens
+    -->
+    <zui:screens default="navigation" handle="screen">
+      <zui:screen id="home">
+        <zui:container layout="vertical" cls="actions">
+          <zui:button cls="action library" onclick="screen@library">Library</zui:button>
+          <zui:button cls="action navigator" onclick="screen@navigation">Navigation</zui:button>
+          <zui:button cls="action operations" onclick="screen@operations">Operations</zui:button>
+          <zui:button cls="action communications" onclick="screen@communications">Communications</zui:button>
+        </zui:container>
+        <zui:container id="homeContent">
+          <zui:clock timeformat="H:mma" />
+        </zui:container>
+      </zui:screen>
+
+      <zui:screen id="communications" layout="flow">
+        <!--<zui:webbrowser home="http://198.171.58.215/tester" />-->
+        <zui:button cls="comm network">Network</zui:button>
+        <zui:button cls="comm phone">Voice</zui:button>
+        <zui:button cls="comm calendar">Calendar</zui:button>
+        <zui:button cls="comm">Item 1</zui:button>
+        <zui:button cls="comm">Item 2</zui:button>
+        <zui:button cls="comm">Item 3</zui:button>
+      </zui:screen>
+
+      <zui:screen id="operations" layout="vertical">
+        <zui:container>
+          <zui:gauge value="0" max="150" start="235" range="233">
+            <zui:series name="velocity_1" interval="1" skipEvery="5" />
+            <zui:series name="velocity_5" interval="5" skipEvery="2" length="7" />
+            <zui:series name="velocity_10" interval="10" skipEvery="2" length="8" width="1" />
+            <zui:series name="velocity_20" interval="20" length="10" width="1" />
+          </zui:gauge>
+          <!--<zui:dial />-->
+        </zui:container>
+        <zui:container id="opsControls" cls="controls">
+          <zui:button cls="ops telemetry">TELEMETRY</zui:button>
+          <zui:button cls="ops systems">SYSTEMS</zui:button>
+          <zui:button cls="ops reporting">REPORTING</zui:button>
+          <zui:button cls="ops enviro">ENVIRONMENT</zui:button>
+          <zui:button cls="ops diag">DIAGNOSTICS</zui:button>
+        </zui:container>
+      </zui:screen>
+    </zui:screens>
+
+    <zui:footer>
+      <zui:text>Footer</zui:text>
+    </zui:footer>
+  </zui:application>
+</zee>

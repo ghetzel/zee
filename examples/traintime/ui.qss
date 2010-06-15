@@ -1,0 +1,30 @@
+ZWindow{
+}
+
+#root{
+	background-color: rgba(0,0,0,50%);
+	border: 1px solid #3A71B7;
+	border-radius: 5px;
+	margin: 4px;
+	padding: 8px 0px;
+}
+
+#header{
+	max-height: 56px;
+}
+
+	#title{
+		font-size: 18pt;
+		color: #FFF;
+	}
+
+	#subtitle{
+		font-size: 14pt;
+		color: #FFF;
+	}
+
+	#icon{
+		image: url("train.svg");
+		margin-right: 15px;
+		max-width: 50px;
+	}

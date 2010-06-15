@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="0 0 200 200" version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+    <path id="0" d="M 5 95 q 5 -90 90 -90 L 95 95 L 5 95" stroke="grey" stroke-width="2" fill="none" />
+    <path id="1" d="M 5 95 q 5 -90 90 -90 L 95 95 L 5 95" stroke="grey" stroke-width="2" fill="none" transform="rotate(90 95 95)" />    
+    <path id="2" d="M 5 95 q 5 -90 90 -90 L 95 95 L 5 95" stroke="grey" stroke-width="2" fill="none" transform="rotate(180 95 95)" />        
+    <path id="3" d="M 5 95 q 5 -90 90 -90 L 95 95 L 5 95" stroke="grey" stroke-width="2" fill="none" transform="rotate(-90 95 95)" />        
+</svg>

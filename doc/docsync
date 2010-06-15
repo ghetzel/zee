@@ -1,0 +1,3 @@
+#!/bin/sh
+rsync -a html/ www.auroralaboratories.com:site/data/projects/zee/doc/
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+  <zui:application id="main" title="Zee UI Demo" width="75%" height="75%" position="center" layout="vertical">
+    <zui:text id="title">Screen?</zui:text>
+    <zui:container>
+      <zui:button id="bNaught" value="zeroth">Web</zui:button>
+      <zui:button id="bFirst" value="first">First Screen</zui:button>
+      <zui:button id="bSecond" value="second">Second Screen</zui:button>
+      <zui:button id="bThird" value="third">Third Screen</zui:button>
+    </zui:container>    
+    <zui:screens id="screen">
+      <zui:screen id="zeroth" layout="vertical">
+	<zui:container>
+                <zui:button id="bWebHome">Home</zui:button>
+                <zui:button id="bWeb1" value="www.google.com">Google</zui:button>
+                <zui:button id="bWeb2" value="www.yahoo.com">Yahoo</zui:button>
+	        <zui:button id="bWeb3" value="www.hulu.com">Hulu</zui:button>
+	</zui:container>    
+	<zui:webbrowser id="browser" uri="www.csszengarden.com" />
+      </zui:screen>
+      <zui:screen id="first">
+	<zui:text>First</zui:text>
+      </zui:screen>     
+      
+      <zui:screen id="second" layout="vertical">
+	<zui:text>Second</zui:text>
+      </zui:screen>
+      
+      <zui:screen id="third" layout="vertical">
+	<zui:text>Third</zui:text>
+      </zui:screen>      
+    </zui:screens>
+  </zui:application>
+
+  <zee:events>
+    <zee:connect from="bNaught.clicked" to="screen.jump" via="bNaught.value" />
+    <zee:connect from="bFirst.clicked" to="screen.jump" via="bFirst.value" />
+    <zee:connect from="bFirst.clicked" to="title.setText" via="browser.title" />
+    <zee:connect from="bSecond.clicked" to="screen.jump" via="bSecond.value" />
+    <zee:connect from="bThird.clicked" to="screen.jump" via="bThird.value" />
+
+    <zee:connect from="bWebHome.clicked" to="browser.load" />
+    <zee:connect from="bWeb1.clicked" to="browser.load" via="bWeb1.value" />
+    <zee:connect from="bWeb2.clicked" to="browser.load" via="bWeb2.value" />
+    <zee:connect from="bWeb3.clicked" to="browser.load" via="bWeb3.value" />
+
+    <zee:connect from="main.clicked" to="title.setText" />
+  </zee:events>
+</zee>

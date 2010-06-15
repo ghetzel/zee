@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+  <zee:components>
+	<zee:timer id="refresher" interval="120000" />
+  </zee:components>
+  <zui:application id="main" width="450" height="95%" position="nw" x="4" layout="vertical" frame="false" type="desktop" resizable="false">
+	<zui:container id="root" layout="vertical">
+		<zui:container id="header">
+			<zui:text id="icon" />
+			<zui:container layout="vertical" id="titles">
+				<zui:text id="title">NJ Transit Departures</zui:text>
+				<zui:text id="subtitle">New York Penn Station</zui:text>
+			</zui:container>
+		</zui:container>
+		<zui:webbrowser id="njt_ny" uri="http://auroralaboratories.net/?id=2&amp;station=NY" />
+	</zui:container>
+  </zui:application>
+
+  <zee:events>
+	<zee:connect from="refresher.timeout" to="njt_ny.reload" />
+  </zee:events>
+</zee>

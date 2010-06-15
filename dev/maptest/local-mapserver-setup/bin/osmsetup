@@ -1,0 +1,76 @@
+#!/bin/sh
+##
+##  OSM / PGSQL / PostGIS setup script
+##  
+##  13-Jun 2010
+##  Gary Hetzel <garyhetzel@gmail.com>
+##  
+
+
+OSM_DB_USER="pgis"
+OSM_DB_PASS="pgis"
+OSM_DB_NAME="osm"
+#OSM_DB_HOST="<not yet>"
+
+errcheck(){
+	if [ $? -ne 0 ]; then
+		echo -e "\e[1;31m$1.\e[m"
+		exit 1
+	fi
+}
+
+msg(){
+	echo -e "\e[1;32m$1\e[m"
+}
+
+
+msg "Installing PostgreSQL/PostGIS..."
+sudo yum install postgis postgresql-server
+msg "Initializing data services..."
+sudo service postgresql initdb
+sudo service postgresql start
+sudo su -c "createuser -s -d -r -l -P root" postgres
+# Not automated yet...
+#sudo su -c "createuser -U root -S -D -R pgis" postgres
+#cd ../sql
+#psql -U root -W -c "`sed -e 's/__DBUSER__/pgis/g' -e 's/__DBPASS__/pgis/g' -e 's/__DBNAME__/osm/g' maps-db-create.sql`" postgres
+sudo sed -i 's/ident$/md5/g' /var/lib/pgsql/data/pg_hba.conf
+sudo service postgresql reload
+
+msg "Installing prerequisites..."
+sudo yum install geos-devel proj-devel postgresql-devel libxml2-devel bzip2-devel gcc-c++
+
+msg "Building osm2pgsql..."
+cd ..
+if [ ! -d build ]; then
+	mkdir build
+fi
+
+cd build
+
+if [ ! -d osm2pgsql ]; then
+	msg "osm2pgsql source not found, exporting..."
+	svn export http://svn.openstreetmap.org/applications/utils/export/osm2pgsql/ osm2pgsql
+fi
+
+cd osm2pgsql
+./autogen.sh
+errcheck "Autoconf failed"
+./configure	
+errcheck "Configure failed"
+# Optionally, you can configure the compiler to produce a faster binary that can only run on CPUs that have the same capabilities as yours. 
+#sed -i 's/-g -O2/-O2 -march=native -fomit-frame-pointer/' Makefile
+make clean
+make
+errcheck "osm2pgsql build failed"
+
+if [ -f osm2pgsql ]; then
+	msg "Installing osm2pgsql..."
+	OSMDEST="/usr/bin/osm2pgsql"
+	sudo cp osm2pgsql "$OSMDEST"
+	sudo mkdir -p /usr/local/share/osm2pgsql
+	sudo cp default.style /usr/local/share/osm2pgsql/default.style
+
+	cd ../.. # should be back in setup root...
+		
+fi

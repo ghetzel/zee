@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdb="http://www.gammazeta.net/zee/db/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+  <zui:application
+    title="ZDE"
+    width="75%"
+    height="75%"
+    icon="dev/web128.png"
+    resizable="false"
+    position="center"
+    layout="vertical"
+    desktop="false">
+    <zui:container>
+      <zui:folder flow="vertical" uri="/home/ghetzel" />
+      <zui:webbrowser uri="dev/zonky/mainpanel.htm" />
+    </zui:container>
+    <zui:taskbar />
+  </zui:application>
+</zee>

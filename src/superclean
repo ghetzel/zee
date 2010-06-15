@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# An awful, dirty script for cleaning the project until
+# I take the time to learn how to do this with QMake...
+
+BASEDIR=`pwd`
+DIRS="."
+DIRS="$DIRS zui/modules/core"
+DIRS="$DIRS zui/modules/dev"
+DIRS="$DIRS zui/modules/nav"
+DIRS="$DIRS zui/modules/infograph"
+DIRS="$DIRS zui/modules/phone"
+DIRS="$DIRS zui/modules/zde"
+DIRS="$DIRS zui/modules/extras"
+DIRS="$DIRS zui/modules/media"
+DIRS="$DIRS zcm/modules/core"
+DIRS="$DIRS zcm/modules/media"
+
+for i in $DIRS
+do
+	echo "Cleaning $i..."
+	cd $i
+	make clean 2>&1 > /dev/null
+	cd $BASEDIR
+done
+
+
+find . -name "moc_*.*" -exec rm {} \;
+find . -name "*.o" -exec rm {} \;
+find . -name "*.so" -exec rm {} \;
+find . -name "*.dll" -exec rm {} \;
+rm zee
