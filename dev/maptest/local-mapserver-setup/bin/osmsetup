@@ -34,6 +34,10 @@ sudo su -c "createuser -s -d -r -l -P root" postgres
 #sudo su -c "createuser -U root -S -D -R pgis" postgres
 #cd ../sql
 #psql -U root -W -c "`sed -e 's/__DBUSER__/pgis/g' -e 's/__DBPASS__/pgis/g' -e 's/__DBNAME__/osm/g' maps-db-create.sql`" postgres
+#sudo su -c "createlang plpgsql osm" postgres
+sudo su -c "psql -f /usr/share/pgsql/contrib/postgis.sql" osm
+sudo su -c "psql -f /usr/share/pgsql/contrib/spatial_ref_sys.sql" osm
+sudo su -c "psql -f /usr/share/pgsql/contrib/postgis_comments.sql" osm
 sudo sed -i 's/ident$/md5/g' /var/lib/pgsql/data/pg_hba.conf
 sudo service postgresql reload
 
