@@ -76,7 +76,7 @@ void ZListWidget::parse(const ZConfig &el){
             }
         }
 
-        setModel(m);
+        //setModel(m);
     }else if(el.hasAttribute("model")){
 	QObject *target = zEvent->findObject(el.attribute("model"),true);
 

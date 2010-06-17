@@ -5,12 +5,16 @@
 
 #include <QtGui>
 #include <zui/zwidget.h>
+#include <zeventmanager.h>
 
 class ZContainerWidget : public QFrame, public ZWidget
 {
     Q_OBJECT
 public:
     ZContainerWidget(const ZConfig &el, QWidget *parent=0);
+
+public slots:
+    void toggle();
 
 private:
     void parse(const ZConfig &el);

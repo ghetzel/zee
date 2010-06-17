@@ -29,12 +29,13 @@ QVariant ZTupleListModel::headerData(int section, Qt::Orientation orientation,
     if(role != Qt::DisplayRole)
         return QVariant();
     if(orientation == Qt::Horizontal)
-        return QString("%1").arg(section);
+        return QString("C%1").arg(section);
     else
-        return QString("%1").arg(section);
+        return QString("R%1").arg(section);
 }
 
 void ZTupleListModel::appendRow(QString text, QVariant data){
+    //z_log_debug("ZTupleListModel: "+text+"="+data.toString());
     ZListTuple d;
     d.data = data;
     d.display = text;

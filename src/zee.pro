@@ -31,7 +31,9 @@ HEADERS += zevent.h \
     zconfigurable.h \
     zui/zwidget.h \
     zeventobject.h \
-    zmethodobject.h
+    zmethodobject.h \
+    zeeadaptor.h \
+    zdbusabstractadaptor.h
 SOURCES += zevent.cpp \
     zutil.cpp \
     main.cpp \
@@ -44,7 +46,9 @@ SOURCES += zevent.cpp \
     zeventmanager.cpp \
     zeventrelationship.cpp \
     zeventobject.cpp \
-    zmethodobject.cpp
+    zmethodobject.cpp \
+    zeeadaptor.cpp \
+    zdbusabstractadaptor.cpp
 OTHER_FILES += theme.qss \
     dev/ideaman \
     theme.qss.orig \

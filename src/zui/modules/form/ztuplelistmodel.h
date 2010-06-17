@@ -3,6 +3,7 @@
 
 #include <QAbstractListModel>
 #include <QIcon>
+#include <zutil.h>
 
 class ZTupleListModel : public QAbstractListModel
 {

@@ -86,6 +86,7 @@ ZListWidget::item:selected{
 
 
 #sidebar{
+	background: #222;	
 	border: solid qlineargradient(x1:0, y1:0 x2:1, y2:0,
 				stop:0 #333, stop:1 #111);
 	border-width: 0px;

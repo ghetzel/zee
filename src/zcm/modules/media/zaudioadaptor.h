@@ -1,15 +1,12 @@
 #ifndef ZAUDIOADAPTOR_H
 #define ZAUDIOADAPTOR_H
 
-#define ZAUDIO_DBUS_SVCNM   "net.gammazeta.zee"
-#define ZAUDIO_DBUS_OPATH   "/net/gammazeta/zee/"
-#define ZAUDIO_DBUS_NAME    "AudioManager"
+#define ZDBUS_NAME          "AudioManager"
 
-#include <QDBusAbstractAdaptor>
-#include <QDBusConnection>
+#include <zdbusabstractadaptor.h>
 #include <zaudiomanager.h>
 
-class ZAudioAdaptor : public QDBusAbstractAdaptor
+class ZAudioAdaptor : public ZDBusAbstractAdaptor
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "net.gammazeta.zee.AudioManager")
@@ -36,6 +33,7 @@ signals:
 
 private:
     void init();
+    ZAudioManager *instance();
     void _stateHandler(ZAudioManager::ZAudioState state);
 
 private:

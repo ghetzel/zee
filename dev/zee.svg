@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="zee.svg">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2844"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2968"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.1981271"
+     inkscape:cx="437.80779"
+     inkscape:cy="515.37589"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1280"
+     inkscape:window-height="750"
+     inkscape:window-x="-1"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2816" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="130,680"
+       id="guide2956" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="180,620"
+       id="guide2958" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="500,570"
+       id="guide2984" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="290,400"
+       id="guide2986" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="250,350"
+       id="guide2988" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="340,410"
+       id="guide2990" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#666666;fill-opacity:1;stroke:none"
+       d="m 339.99999,392.36218 c -65.23353,0 -120.06121,38.23804 -135.59982,90 l 38.82691,0 c 14.097,-34.94409 52.0862,-60 96.77291,-60 52.83703,0 96.32976,35.00576 102.00975,80 l -176.65782,0 -27.36166,0 -37.49447,0 c -0.31808,3.30089 -0.49579,6.62875 -0.49579,10 0,66.27417 62.68618,120 139.99999,120 65.23355,0 120.06123,-38.23804 135.59984,-90 l -38.82691,0 c -14.097,34.94409 -52.0862,60 -96.77293,60 -52.83701,0 -96.32974,-35.00576 -102.00973,-80 l 176.65782,0 27.36166,0 37.49447,0 c 0.31808,-3.30089 0.49579,-6.62875 0.49579,-10 0,-66.27417 -62.68618,-120 -140.00001,-120 z"
+       id="path2818"
+       inkscape:export-filename="/home/ghetzel/projects/gzn/zee/dev/zee64.png"
+       inkscape:export-xdpi="20.25"
+       inkscape:export-ydpi="20.25" />
+    <a
+       id="a2824"
+       style="fill:#4d4d4d"
+       transform="matrix(0.79411765,1.6357421e-8,0,1,66.764706,79.999994)" />
+    <text
+       xml:space="preserve"
+       style="font-size:39.42190552px;font-style:normal;font-weight:normal;line-height:125%;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="274.74463"
+       y="693.62622"
+       id="text2992"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0170851,0.98320189)"
+       inkscape:export-filename="/home/ghetzel/projects/gzn/zee/dev/zeeos.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2994"
+         x="274.74463"
+         y="693.62622"
+         style="font-size:39.42190552px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#1a1a1a;font-family:Futura LT;-inkscape-font-specification:Futura LT">ZEE<tspan
+   style="font-size:39.42190552px;font-style:normal;font-variant:normal;font-weight:200;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#1a1a1a;font-family:Futura LT;-inkscape-font-specification:Futura LT Ultra-Light"
+   id="tspan2835">OS</tspan></tspan></text>
+  </g>
+</svg>

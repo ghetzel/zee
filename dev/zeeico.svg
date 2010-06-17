@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64px"
+   height="64px"
+   id="svg2849"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="zeeico.svg">
+  <defs
+     id="defs2851">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 32 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="64 : 32 : 1"
+       inkscape:persp3d-origin="32 : 21.333333 : 1"
+       id="perspective2857" />
+    <inkscape:perspective
+       id="perspective2844"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.8890873"
+     inkscape:cx="-42.704185"
+     inkscape:cy="42.146504"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     inkscape:window-width="1280"
+     inkscape:window-height="750"
+     inkscape:window-x="-1"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2868" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata2854">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <path
+       style="fill:#cccccc;fill-opacity:1;stroke:#cccccc;stroke-width:2.96754909;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 31.999998,4.0000041 c -14.068634,0 -25.8930841,8.9222129 -29.2442292,20.9999979 l 8.3736322,0 c 3.040241,-8.15362 11.233208,-13.999999 20.870597,-13.999999 11.395134,0 20.775025,8.168013 22.000003,18.666662 l -38.09903,0 -5.900971,0 -8.086272,0 c -0.068599,0.770213 -0.106925,1.546708 -0.106925,2.333336 0,15.463968 13.519259,27.999995 30.193195,27.999995 14.068639,0 25.893088,-8.922212 29.244233,-20.999996 l -8.373632,0 C 49.830359,47.15362 41.637393,52.999998 31.999998,52.999998 20.604868,52.999998 11.224978,44.831985 10,34.333337 l 38.099031,0 5.90097,0 8.086271,0 c 0.0686,-0.770213 0.106925,-1.546708 0.106925,-2.333336 0,-15.463969 -13.519259,-27.9999969 -30.193199,-27.9999969 z"
+       id="path2818"
+       inkscape:export-filename="/home/ghetzel/projects/gzn/zee/dev/zee64.png"
+       inkscape:export-xdpi="20.25"
+       inkscape:export-ydpi="20.25" />
+  </g>
+</svg>

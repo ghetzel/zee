@@ -38,7 +38,9 @@ DESTDIR = ../../../plugins
 QT += xml
 QT += phonon
 linux-g++ {
-    HEADERS += zaudioadaptor.h
-    SOURCES += zaudioadaptor.cpp
+    HEADERS +=  zaudioadaptor.h \
+                zdbusabstractadaptor.h
+    SOURCES +=  zaudioadaptor.cpp \
+                zdbusabstractadaptor.cpp
     QT += dbus
 }

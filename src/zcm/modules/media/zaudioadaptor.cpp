@@ -1,66 +1,55 @@
 #include "zaudioadaptor.h"
 
 ZAudioAdaptor::ZAudioAdaptor(ZAudioManager *parent)
-    : QDBusAbstractAdaptor(parent),
-      _instance(parent)
+    : ZDBusAbstractAdaptor(parent)
 {
     init();
 }
 
 ZAudioAdaptor::ZAudioAdaptor(QString name, ZAudioManager *parent)
-    : QDBusAbstractAdaptor(parent),
-      _instance(parent)
+    : ZDBusAbstractAdaptor(name,parent)
 {
-    if(name.isEmpty())
-        _name = name;
     init();
 }
 
 void ZAudioAdaptor::init(){
-//  if name isn't set yet...
-    if(_name.isEmpty())
-        if(_instance && !_instance->objectName().isEmpty())
-            _name = _instance->objectName();
-        else
-            _name = ZAUDIO_DBUS_NAME;
+    registerService();
+}
 
-    if(_instance){
-        QDBusConnection::sessionBus().registerObject(ZAUDIO_DBUS_OPATH+_name,
-                                                     _instance);
-        QDBusConnection::sessionBus().registerService(ZAUDIO_DBUS_SVCNM);
-    }
+ZAudioManager *ZAudioAdaptor::instance(){
+    return QCAST(ZAudioManager*,ZDBusAbstractAdaptor::instance());
 }
 
 void ZAudioAdaptor::play(){
-    if(_instance){
-        _instance->play();
+    if(instance()){
+        instance()->play();
     }
 }
 
 void ZAudioAdaptor::pause(){
-    if(_instance){
-        _instance->pause();
+    if(instance()){
+        instance()->pause();
     }
 }
 
 void ZAudioAdaptor::togglePlay(){
-    if(_instance){
-        _instance->togglePlay();
+    if(instance()){
+        instance()->togglePlay();
     }
 }
 
 void ZAudioAdaptor::stop(){
-    if(_instance)
-        _instance->stop();
+    if(instance())
+        instance()->stop();
 }
 
 void ZAudioAdaptor::next(){
-    if(_instance)
-        _instance->next();
+    if(instance())
+        instance()->next();
 }
 
 void ZAudioAdaptor::previous(){
-//    if(_instance)
+//    if(instance())
 }
 
 void ZAudioAdaptor::_stateHandler(ZAudioManager::ZAudioState state){
