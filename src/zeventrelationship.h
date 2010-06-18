@@ -103,6 +103,9 @@ signals:
     void adapted(QDateTime);
     void adapted(QUrl);
     void adapted(int,int);
+    void adapted(QString,QString);
+    void adapted(QString,QString,QString);
+    void adapted(QString,QString,QString,uint);
 
 private:
     ZMethodObject _signal;

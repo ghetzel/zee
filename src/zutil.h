@@ -9,7 +9,7 @@
 #include <QFile>
 #include <QTextStream>
 
-#define ZUTL_DEFAULT_LOG_LEVEL   ZUtil::LogInfo
+#define ZUTL_DEFAULT_LOG_LEVEL   ZUtil::LogDebug
 
 #define ZEE_APPNAME     "Zee"
 #define ZEE_OBJNAME     "zee"

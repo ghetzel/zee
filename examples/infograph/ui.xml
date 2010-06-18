@@ -3,6 +3,9 @@
   xmlns:zee="http://www.gammazeta.net/zee/core/"
   xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
   xmlns:zui="http://www.gammazeta.net/zee/zui/">
+  <zee:components>
+	<zee:system id="system" />
+  </zee:components>
   <zui:application title="Zee Infograph Gauge" width="512" height="512" position="center" layout="vertical">
 	<zui:piegauge id="dial" value="30" max="150" start="235" range="233">
             <zui:series name="velocity_1" interval="1" skipEvery="5" />
@@ -15,5 +18,6 @@
 
   <zee:events>
     <zee:connect from="adjust.valueChanged" to="dial.setValue" />
+    <zee:connect from="adjust.valueChanged" to="system.notify" direct="false" />    
   </zee:events>
 </zee>

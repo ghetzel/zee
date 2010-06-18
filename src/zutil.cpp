@@ -10,10 +10,9 @@ void ZUtil::setLogLevel(ZLogLevel level)
 void ZUtil::log(QString output, ZLogLevel level){
   QString outpre;
 
-  //! \todo re-enable when constant debugging isn't happening
-////do not output messages above our level of verbosity
-//  if(level > logLevel)
-//    return;
+//do not output messages above our level of verbosity
+  if(level > logLevel)
+    return;
 
   switch(level){
   case LogNone:
