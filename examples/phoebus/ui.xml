@@ -28,6 +28,7 @@
 				<zui:item value="1">First</zui:item>
 				<zui:item value="2">Second</zui:item>
 				<zui:item value="3">Third</zui:item>
+
 			</zui:list>
 			<zui:list model="media" id="queue" />
 			<zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
