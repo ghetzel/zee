@@ -18,6 +18,11 @@ ZcmResult ZCMCoreModule::prepare(const QDomElement &el){
     }else if(el.tagName() == ZEE_SYSTEM_INFO){
         rv.component = new ZSystemInfo(el,qApp);
 #endif // ZEE_SYSTEM_INFO
+#ifdef ZCM_DBUS_INTERFACE
+    }else if(el.tagName() == ZCM_DBUS_INTERFACE){
+        ZDBusInterface *dbi = new ZDBusInterface(el,qApp);
+        rv.component = dbi->interface();
+#endif // ZCM_DBUS_INTERFACE
     }
 
     return rv;

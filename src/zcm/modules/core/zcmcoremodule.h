@@ -6,6 +6,9 @@
 #include <zsetting.h>
 #include <ztimer.h>
 #include <zsysteminfo.h>
+#ifdef Q_OS_LINUX
+#include "zdbusinterface.h"
+#endif
 
 class ZCMCoreModule : public ZcmPlugin
 {

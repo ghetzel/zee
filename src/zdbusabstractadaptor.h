@@ -6,6 +6,7 @@
 
 #include <QDBusAbstractAdaptor>
 #include <QDBusConnection>
+#include <zutil.h>
 
 class ZDBusAbstractAdaptor : public QDBusAbstractAdaptor
 {

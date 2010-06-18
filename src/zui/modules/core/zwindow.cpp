@@ -39,6 +39,8 @@ void ZWindow::parse(const ZConfig &el){
 
     if(el.hasAttribute("icon") && QFile::exists(el.attribute("icon")))
 	setWindowIcon(QPixmap(el.attribute("icon")));
+    else
+        setWindowIcon(QIcon(":/icons/zee.svg"));
 
 //  set frameless window preference
     if(el.hasAttribute("frame") && el.attribute("frame") == "false")

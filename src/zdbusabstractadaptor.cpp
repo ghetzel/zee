@@ -2,9 +2,6 @@
 
 ZDBusAbstractAdaptor::ZDBusAbstractAdaptor(QObject *parent)
     : QDBusAbstractAdaptor(parent){
-#ifdef ZDBUS_NAME
-    _name = ZDBUS_NAME;
-#endif
     _instance = parent;
 }
 
@@ -13,7 +10,7 @@ ZDBusAbstractAdaptor::ZDBusAbstractAdaptor(QString name, QObject *parent)
 {
     if(!name.isEmpty())
         _name = name;
-    _instance = NULL;
+    _instance = parent;
 }
 
 void ZDBusAbstractAdaptor::setInstance(QObject *instance){
@@ -22,7 +19,6 @@ void ZDBusAbstractAdaptor::setInstance(QObject *instance){
 
 void ZDBusAbstractAdaptor::registerService()
 {
-#ifdef ZDBUS_NAME
 //  if name isn't set yet...
     if(_name.isEmpty())
         if(_instance && !_instance->objectName().isEmpty())
@@ -33,5 +29,4 @@ void ZDBusAbstractAdaptor::registerService()
                                                      _instance);
         QDBusConnection::sessionBus().registerService(ZDBUS_SVCNM);
     }
-#endif
 }

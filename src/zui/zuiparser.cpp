@@ -155,7 +155,7 @@ void ZuiParser::prepareWidget(const QDomElement &el){
 	    zEvent->map(el.attribute("from"),
 			el.attribute("to"),
 			el.attribute("via"),
-			QVariant(el.attribute("direct","true")).toBool());
+                        QVariant(el.attribute("direct","true")).toBool());
 	}
     }
 }

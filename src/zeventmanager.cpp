@@ -92,7 +92,8 @@ void ZEventManager::registerSlot(QObject *receiver, const char *slot,
     registerMethod(QMetaMethod::Slot,receiver,slot,methodAlias);
 }
 
-void ZEventManager::map(QString from, QString to, QString via, bool direct){
+void ZEventManager::map(QString from, QString to, QString via, bool direct)
+{
     ZEventObject sender;
     ZEventObject receiver;
     QList<QPair<QObject*,QString> > viaProperties;
@@ -118,7 +119,7 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct){
     if(sender.isValid()){
        if(receiver.isValid()){
            ZMethodObject signal, slot;
-           if(direct){
+           if(direct && viaProperties.isEmpty()){
                ZEventObject::ZMethodPair methodMatch = sender.match(
                        CALLALIAS(from), CALLALIAS(to),
                        receiver);

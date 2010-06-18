@@ -1,8 +1,6 @@
 #ifndef ZAUDIOADAPTOR_H
 #define ZAUDIOADAPTOR_H
 
-#define ZDBUS_NAME          "AudioManager"
-
 #include <zdbusabstractadaptor.h>
 #include <zaudiomanager.h>
 

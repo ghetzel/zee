@@ -398,3 +398,9 @@ void ZAudioManager::_songFinishing(){
 	z_log_debug("ZAudioManager: Cannot queue next, nothing left in queue");
     }
 }
+
+
+ZAudioManager::~ZAudioManager(){
+    if(_mediaObject)
+        _mediaObject->deleteLater();
+}

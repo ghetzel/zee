@@ -27,14 +27,16 @@
 #define CCAST(t,v)      const_cast<t>(v)
 #define QCAST(t,v)      qobject_cast<t>(v)
 
+#define	STR(x)		QVariant(x).toString()
+#define CSTR(x)         qstrdup(STR(x).toAscii().data())
 #define METHODNAME(x)	QString(x).section("(",0,0)
 #define METHODARGS(x)	QString(x).section("(",1,1).section(")",0,0)
 #define DETYPESIG(x)	QString(x).right(QString(x).length()-1)
 #define CALLALIAS(x)    QString(x).section(".",-1,-1)
 #define SIGNAME(x)      DETYPESIG(METHODNAME(x))
 #define SLOTNAME(x)     DETYPESIG(METHODNAME(x))
-
-#define	STR(x)		QVariant(x).toString()
+#define ZSIGNAL(x)      CSTR("2"+QString(x))
+#define ZSLOT(x)        CSTR("1"+QString(x))
 
 #ifndef Q_PI
 static const double Q_PI   = 3.14159265358979323846;

@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include "zee.h"
+#include "zeeadaptor.h"
 #include "zutil.h"
 
 /*!

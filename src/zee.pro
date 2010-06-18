@@ -12,6 +12,7 @@ QT += xml
 QT += sql
 QT += svg
 QT += network
+RESOURCES = res/zee.qrc
 HEADERS += zevent.h \
     zplugininterface.h \
     zui/zuiplugininterface.h \
