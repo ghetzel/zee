@@ -54,6 +54,8 @@ void ZAudioManager::init(){
     zEvent->registerSlot(this, SLOT(stop()));
     zEvent->registerSlot(this, SLOT(next()));
     zEvent->registerSlot(this, SLOT(togglePlay()));
+    zEvent->registerSlot(this, SLOT(playSource(QString)));
+    zEvent->registerSlot(this, SLOT(playSource(QUrl)));
     zEvent->registerSlot(this, SLOT(setSource(QString)));
     zEvent->registerSlot(this, SLOT(setSource(QUrl)));
     zEvent->registerSlot(this, SLOT(changeTo(QString)));
@@ -72,34 +74,34 @@ void ZAudioManager::init(){
 void ZAudioManager::stateHandler(Phonon::State is, Phonon::State){
     switch(is){
     case Phonon::ErrorState:
-        _state = Error;
+	_state = Error;
 	if(_mediaObject->errorType() == Phonon::FatalError)
 	    z_log_crit("ZAudioManager: "+_mediaObject->errorString());
 	else
 	    z_log_error("ZAudioManager: "+_mediaObject->errorString());
 	break;
     case Phonon::PlayingState:
-        _state = Playing;
+	_state = Playing;
 	emit playing();
 	break;
     case Phonon::PausedState:
-        _state = Paused;
+	_state = Paused;
 	emit paused();
 	break;
     case Phonon::StoppedState:
-        _state = Stopped;
+	_state = Stopped;
 	emit stopped();
 	break;
     case Phonon::BufferingState:
-        _state = Buffering;
+	_state = Buffering;
 	emit buffering();
 	break;
     case Phonon::LoadingState:
-        _state = Loading;
+	_state = Loading;
 	emit loading();
 	break;
     default:
-        return;
+	return;
     }
 
     emit stateChanged(_state);
@@ -128,15 +130,15 @@ void ZAudioManager::play(){
 	switch(_mediaObject->state()){
 	case Phonon::BufferingState:
 	case Phonon::ErrorState:
-            z_log_error("ZAudioManager: "+_mediaObject->errorString());
+	    z_log_error("ZAudioManager: "+_mediaObject->errorString());
 	    return;
-        case Phonon::LoadingState:  //
+	case Phonon::LoadingState:  //
 	case Phonon::PlayingState:  // will restart current song if called again
 	case Phonon::StoppedState:  // we're stopped, clear to go
 	    if(!_sourceQueue.isEmpty()){
-                QString cqs = currentQueueSource();
-                if(!cqs.isEmpty()){ // if in range...
-                    _mediaObject->setCurrentSource(cqs);
+		QString cqs = currentQueueSource();
+		if(!cqs.isEmpty()){ // if in range...
+		    _mediaObject->setCurrentSource(cqs);
 		    emit sourceChanged(_mediaObject->currentSource().url().toString());
 		    emit queuedSongChanged(_currentQueueSource);
 		}else{
@@ -158,9 +160,9 @@ void ZAudioManager::pause(){
 
 void ZAudioManager::togglePlay(){
     if(_state == Playing)
-        pause();
+	pause();
     else
-        play();
+	play();
 }
 
 void ZAudioManager::stop(){
@@ -193,6 +195,15 @@ void ZAudioManager::setSource(QUrl location){
 	_mediaObject->setCurrentSource(Phonon::MediaSource(location.toString()));
 	emit sourceChanged(_mediaObject->currentSource().url().toString());
     }
+}
+
+void ZAudioManager::playSource(QString location){
+    playSource(QUrl::fromUserInput(location));
+}
+
+void ZAudioManager::playSource(QUrl location){
+    setSource(location.path());
+    play();
 }
 
 void ZAudioManager::changeTo(QString location){
@@ -237,7 +248,7 @@ void ZAudioManager::setQueue(QStringList locations){
 
 void ZAudioManager::clearQueue(){
     if(_mediaObject){
-        stop();
+	stop();
 	beginRemoveRows(QModelIndex(),
 			0,
 			_sourceQueue.size()-1);
@@ -252,7 +263,7 @@ void ZAudioManager::clearQueue(){
 void ZAudioManager::clearBookmarks(){
     _bookmarks.clear();
     if(_mediaObject)
-        _mediaObject->setPrefinishMark(0);
+	_mediaObject->setPrefinishMark(0);
 }
 
 void ZAudioManager::clear(){
@@ -402,5 +413,5 @@ void ZAudioManager::_songFinishing(){
 
 ZAudioManager::~ZAudioManager(){
     if(_mediaObject)
-        _mediaObject->deleteLater();
+	_mediaObject->deleteLater();
 }

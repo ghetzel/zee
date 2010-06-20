@@ -21,58 +21,65 @@ ZAudioManager *ZAudioAdaptor::instance(){
 }
 
 void ZAudioAdaptor::play(){
-    if(instance()){
-        instance()->play();
-    }
+    if(instance())
+	instance()->play();
+}
+
+void ZAudioAdaptor::playSource(QString location){
+    if(instance())
+	instance()->playSource(location);
 }
 
 void ZAudioAdaptor::pause(){
-    if(instance()){
-        instance()->pause();
-    }
+    if(instance())
+	instance()->pause();
 }
 
 void ZAudioAdaptor::togglePlay(){
-    if(instance()){
-        instance()->togglePlay();
-    }
+    if(instance())
+	instance()->togglePlay();
 }
 
 void ZAudioAdaptor::stop(){
     if(instance())
-        instance()->stop();
+	instance()->stop();
 }
 
 void ZAudioAdaptor::next(){
     if(instance())
-        instance()->next();
+	instance()->next();
 }
 
 void ZAudioAdaptor::previous(){
 //    if(instance())
 }
 
+void ZAudioAdaptor::enqueue(QString location){
+    if(instance())
+	enqueue(location);
+}
+
 void ZAudioAdaptor::_stateHandler(ZAudioManager::ZAudioState state){
     switch(state){
     case ZAudioManager::Playing:
-        emit playing();
-        break;
+	emit playing();
+	break;
     case ZAudioManager::Paused:
-        emit paused();
-        break;
+	emit paused();
+	break;
     case ZAudioManager::Stopped:
-        emit stopped();
-        break;
+	emit stopped();
+	break;
     case ZAudioManager::Buffering:
-        emit buffering();
-        break;
+	emit buffering();
+	break;
     case ZAudioManager::Loading:
-        emit loading();
-        break;
+	emit loading();
+	break;
     case ZAudioManager::Error:
-        emit error();
-        break;
+	emit error();
+	break;
     default:
-        return;
+	return;
     }
 }

@@ -25,12 +25,12 @@ class ZAudioManager : public QAbstractListModel, public ZConfigurable
 
 public:
     enum ZAudioState{
-        Playing,
-        Paused,
-        Stopped,
-        Loading,
-        Buffering,
-        Error
+	Playing,
+	Paused,
+	Stopped,
+	Loading,
+	Buffering,
+	Error
     };
 
 public:
@@ -53,6 +53,8 @@ public slots:
     void next();
     void togglePlay();
     //void previous();
+    void playSource(QString location);
+    void playSource(QUrl location);
     void setSource(QString location);
     void setSource(QUrl location);
     void changeTo(QString location);

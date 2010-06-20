@@ -15,11 +15,13 @@ public:
 
 public slots:
     void play();
+    void playSource(QString);
     void pause();
     void togglePlay();
     void stop();
     void next();
     void previous();
+    void enqueue(QString);
 
 signals:
     void playing();

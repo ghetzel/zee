@@ -4,12 +4,8 @@
 	xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
 	xmlns:zui="http://www.gammazeta.net/zee/zui/">
 	<zee:components>
-		<zee:dbus id="simple" service="net.gammazeta.zee" path="/net/gammazeta/zee/zee">
-			<zee:dbus-signal>styleReloaded()</zee:dbus-signal>
-		</zee:dbus>
-		<zee:media id="media">
-				<zee:param name="crossfade" value="250" />
-		</zee:media>
+		<zee:media id="media" />
+		<zee:media id="notifications" />
 	</zee:components>
 	<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
 		<zui:container id="mainbar">
@@ -58,11 +54,12 @@
 		<zee:connect from="compact.toggled" to="extended.toggle" />
 		<zee:connect from="aClear.clicked" to="media.clear" />
 		<zee:connect from="zQuit.clicked" to="zee.quit" />
+		<zee:connect from="notifications.playing" to="media.pause" />
+		<zee:connect from="notifications.stopped" to="media.play" />
 
 		<zee:connect from="media.stopped" to="seekbar.reset" />
 <!--	Resets activated song?
 		<zee:connect from="media.stopped" to="status.reset" /> 
 -->
-		<zee:connect from="simple.remote.styleReloaded" to="media.togglePlay" />
 	</zee:events>
 </zee>
