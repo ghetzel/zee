@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent)
 MapWidget::MapWidget(QWidget *parent)
     : QWidget(parent)
 {
+    cX = rect().width()/2;
+    cY = rect().height()/2;
+
     _emptyTile = QPixmap(TILE_W, TILE_H);
     _emptyTile.fill(Qt::transparent);
 
@@ -36,14 +39,15 @@ void MapWidget::handleData(QNetworkReply *reply){
 	    tile = QImage();
 	reply->deleteLater();
 	_tiles[tilepoint] = QPixmap::fromImage(tile);
+	repaint(rect());
     }else{
 //	qDebug() << "Error: " << reply->errorString();
     }
 }
 
 void MapWidget::updateBounds(){
-    _tilesW = qCeil(qreal(rect().width())/qreal(TILE_W));
-    _tilesH = qCeil(qreal(rect().height())/qreal(TILE_H));
+    _tilesW = qCeil(qreal(rect().width())/qreal(TILE_W))+2;
+    _tilesH = qCeil(qreal(rect().height())/qreal(TILE_H))+2;
 }
 
 void MapWidget::updateTiles(QPoint center){
@@ -75,19 +79,22 @@ MapWidget::~MapWidget()
 }
 
 void MapWidget::mousePressEvent(QMouseEvent *e){
-    cX = (TILE_W*OSM_TILE_TW)/2;
-    cY = (TILE_H*OSM_TILE_TH)/2;
+    //cX += ((-1*cX)+e->x());
+    //cY += ((-1*cY)+e->y());
+    qDebug() << "PRESS "<<cX<<","<<cY;
 }
 
 void MapWidget::mouseMoveEvent(QMouseEvent *e){
     dX = (-1*cX)+e->x();
     dY = (-1*cY)+e->y();
     repaint(rect());
+    qDebug() << "MOVE "<<dX<<","<<dY;
 }
 
 void MapWidget::mouseReleaseEvent(QMouseEvent *e){
-    cX = dX;
-    cY = dY;
+    cX += dX;
+    cY += dY;
+    qDebug() << "RELES "<<cX<<","<<cY;
 }
 
 void MapWidget::paintEvent(QPaintEvent *e){
