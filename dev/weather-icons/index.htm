@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> 
+    <head>
+        <title>Weather Icons</title>
+        <style>
+            body{
+            }
+            
+            #root{
+                font-family: Helvetica, Arial, sans-serif;
+                margin: 0px auto;
+                width: 500px;
+            }
+            
+            h1{
+                font-size: 14pt;
+                margin-bottom: 1em;
+            }
+            
+            p{
+                margin: 0.5em;
+            }
+            
+            .item{
+                height: 128px;
+                padding: 0.5em;
+                padding-bottom: 2em;
+                width: 100%;
+            }
+            
+            .item img{
+                float: left;
+                margin-left: 1em;
+            }
+            
+            .item p{
+                float: left;
+            }
+            
+            
+            .item.night{
+                background-color: #222;
+                color: #CCC;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <h1>Daytime</h1>
+            <div class="item day"><img src="images/clear.png" /><p>Clear</p></div>
+            <div class="item day"><img src="images/partlyCloudy.png" /><p>Partly Cloudy</p></div>
+            <div class="item day"><img src="images/cloudy.png" /><p>Cloudy</p></div>                        
+            <div class="item day"><img src="images/fog.png" /><p>Fog</p></div>            
+            <div class="item day"><img src="images/chanceRain.png" /><p>Chance of Rain</p></div>
+            <div class="item day"><img src="images/heavyRain.png" /><p>Heavy Rain</p></div>
+            <div class="item day"><img src="images/thunderstorms.png" /><p>Thunderstorms</p></div>            
+            <div class="item day"><img src="images/icySleet.png" /><p>Icy Sleet</p></div>                     
+            <div class="item day"><img src="images/flurries.png" /><p>Flurries</p></div>            
+
+            <h1>Night</h1>
+            <div class="item night"><img src="images/clearNight.png" /><p>Clear</p></div>
+            <div class="item night"><img src="images/chanceRainNight.png" /><p>Chance Rain</p></div>            
+        </div>    
+    </body>
+</html>
