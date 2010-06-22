@@ -372,7 +372,9 @@ QVariant ZAudioManager::data(const QModelIndex &index, int role) const{
 	return QVariant();
     switch(role){
     case Qt::DisplayRole:
-	return QVariant(_sourceQueue.at(index.row()));
+        return QVariant(_sourceQueue.at(index.row()));
+    case Qt::UserRole+1:
+        return QVariant(_sourceQueue.at(index.row()));
     default:
 	return QVariant();
     }

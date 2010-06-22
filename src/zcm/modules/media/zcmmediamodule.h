@@ -2,6 +2,8 @@
 #define ZCMMEDIAMODULE_H
 
 #include <QObject>
+#include <zutil.h>
+#include <zui/zuiutils.h>
 #include <zcm/zcmplugin.h>
 #include <zaudiomanager.h>
 #include <zaudioadaptor.h>

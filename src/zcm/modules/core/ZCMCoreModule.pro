@@ -33,8 +33,8 @@ SOURCES += zcmcoremodule.cpp \
 DESTDIR = ../../../plugins
 TARGET = $$qtLibraryTarget(zcm_core)
 QT += xml
-linux-g++{
+linux-g++ { 
     QT += dbus
-    HEADERS +=  zdbusinterface.h
-    SOURCES +=  zdbusinterface.cpp
+    HEADERS += zdbusinterface.h
+    SOURCES += zdbusinterface.cpp
 }

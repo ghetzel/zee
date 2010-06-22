@@ -25,7 +25,7 @@ class ZScreenManager : public QStackedWidget, public ZWidget
   Q_PROPERTY(QString screen READ screen RESET jump)
 
   private:
-    QHash<QString,int> screens;
+    QHash<QString,int> _screens;
     QString _defaultScreen;
     QString _currentScreen;
 

@@ -1,6 +1,8 @@
 #include "zcmmediamodule.h"
 
-ZCMMediaModule::ZCMMediaModule(){}
+ZCMMediaModule::ZCMMediaModule(){
+    ZuiUtils::initialize();
+}
 
 ZcmResult ZCMMediaModule::prepare(const QDomElement &el){
     ZcmResult rv = {NULL};

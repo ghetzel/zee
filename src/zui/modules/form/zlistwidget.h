@@ -8,6 +8,7 @@
 #include <QListView>
 #include <QtCore>
 #include <zutil.h>
+#include <zui/zuiutils.h>
 #include <zui/zwidget.h>
 #include "ztuplelistmodel.h"
 
@@ -27,6 +28,7 @@ public:
 
 signals:
     void activated(QVariant);
+    void selected(QVariant);
 
 public slots:
     void setCurrentIndex(int row);
@@ -36,6 +38,7 @@ private slots:
 
 private:
     void parse(const ZConfig &el);
+    void currentChanged(const QModelIndex &current, const QModelIndex &previous);
 };
 
 #endif

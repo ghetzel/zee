@@ -17,11 +17,14 @@
 class ZButton : public QPushButton, public ZWidget
 {
     Q_OBJECT
+    Q_PROPERTY(QString zicon READ zicon WRITE zSetIcon)
 
 public:
     ZButton(const ZConfig &el, QWidget *parent);
     ZButton(const QString &text, const ZConfig &el, QWidget *parent);
     ZButton(const QIcon &icon, const QString &text, const ZConfig &el, QWidget *parent);
+    QString zicon(){ return icon().themeName(); }
+    void zSetIcon(QString name);
 
 private:
     virtual void parse(const ZConfig &el);

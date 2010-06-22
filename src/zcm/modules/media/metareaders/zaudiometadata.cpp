@@ -3,7 +3,7 @@
 ZAudioMetadata::ZAudioMetadata(QString location)
     : ZMetadata(location)
 {
-    _file = TagLib::FileRef::create(location.toAscii().data(),true);;
+    _file = TagLib::FileRef::create(location.toAscii().data(),true);
     _properties = NULL;
     _tag = NULL;
 

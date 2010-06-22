@@ -70,7 +70,10 @@ void Zee::init()
 
     //setup config search paths
     QDir::setSearchPaths(ZEE_CFG_KEY,
-			 QStringList(QDir::homePath()+"/"+ZEE_CFG_DIR+"/"));
+                         QStringList(QDir::homePath()+"/"+ZEE_CFG_DIR+"/"+
+                                     arg("program").toString()+"/"));
+    z_log_debug("Zee: Search Path = "+STR(QDir::homePath()+"/"+ZEE_CFG_DIR+"/"+
+                                         arg("program").toString()+"/"));
     reloadStyleSheet();
     parseUI();
 

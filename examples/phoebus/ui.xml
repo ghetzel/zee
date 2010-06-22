@@ -8,6 +8,7 @@
 		<zee:media id="notifications" />
 	</zee:components>
 	<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
+		<zee:param name="iconTheme" value="Humanity-Dark" />
 		<zui:container id="mainbar">
 			<zui:container id="controls">
 				<zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
@@ -19,18 +20,28 @@
 				<zui:progress id="seekbar" />
 			</zui:container>
 			<zui:container>
-				<zui:button id="doit" value="DoIt" />
+				<zui:button id="aClear" value="Clear" />
 				<zui:togglebutton id="compact" value="Hide" value2="Show" />
 			</zui:container>
 		</zui:container>
 		<zui:container id="extended">
 			<zui:list id="sidebar">
-				<zui:item value="1">First</zui:item>
-				<zui:item value="2">Second</zui:item>
-				<zui:item value="3">Third</zui:item>
+				<zui:item value="queueScreen" icon="images/stock_nowplaying.svg">Now Playing</zui:item>
+				<zui:item value="libraryScreen" icon="stock_music-library">Library</zui:item>
 			</zui:list>
-			<zui:list model="media" id="queue" />
-			<zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
+			<zui:screens id="screen" default="libraryScreen">
+				<zui:screen name="queueScreen">
+					<zui:list model="media" id="queue" />
+				</zui:screen>
+				<zui:screen name="libraryScreen" layout="vertical">
+					<zui:container>
+						<zui:label value="Artist" />
+						<zui:label value="Genre" />
+						<zui:label value="Album" />
+					</zui:container>
+					<zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
+				</zui:screen>
+			</zui:screens>
 		</zui:container>
 	</zui:application>
 
@@ -51,7 +62,8 @@
 		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" direct="false" /> 
 
 -->
-		<zee:connect from="compact.toggled" to="extended.toggle" />
+		<zee:connect from="compact.checked" to="extended.hide" />
+		<zee:connect from="compact.unchecked" to="extended.show" />
 		<zee:connect from="aClear.clicked" to="media.clear" />
 		<zee:connect from="zQuit.clicked" to="zee.quit" />
 		<zee:connect from="notifications.playing" to="media.pause" />
@@ -61,5 +73,6 @@
 <!--	Resets activated song?
 		<zee:connect from="media.stopped" to="status.reset" /> 
 -->
+		<zee:connect from="sidebar.selected" to="screen.jump" direct="false" />
 	</zee:events>
 </zee>

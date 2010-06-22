@@ -8,5 +8,5 @@ ZScreen::ZScreen(const ZConfig &el, ZScreenManager *manager)
 }
 
 void ZScreen::parse(const ZConfig &el){
-    _manager->addScreen(this,el.attribute("id"));
+    _manager->addScreen(this,el.attribute("name"));
 }

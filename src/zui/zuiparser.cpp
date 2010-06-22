@@ -111,7 +111,7 @@ bool ZuiParser::parseNode(QDomNode &node)
     {
 	QString elns = el.tagName().section(":",0,0);
 
-	if(elns == "zui"){
+        if(elns == "zui"){
 	    //  for each ZUI plugin...
 	    //  call the module's prepareWidget() method; if it
 	    //  returns true, break; else, move on.  Ideally, (at least) one of the

@@ -16,6 +16,7 @@ HEADERS += zcmmediamodule.h \
     zcm/zcmplugin.h \
     zcm/zcmplugininterface.h \
     zutil.h \
+    zui/zuiutils.h \
     zplugininterface.h \
     zeventmanager.h \
     zeventrelationship.h \
@@ -27,6 +28,7 @@ HEADERS += zcmmediamodule.h \
 SOURCES += zcmmediamodule.cpp \
     zaudiomanager.cpp \
     zutil.cpp \
+    zui/zuiutils.cpp \
     zeventmanager.cpp \
     zeventrelationship.cpp \
     zmethodobject.cpp \

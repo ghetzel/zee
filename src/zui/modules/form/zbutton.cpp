@@ -23,6 +23,10 @@ ZButton::ZButton(const QIcon &icon, const QString &text, const ZConfig &el, QWid
     zEvent->registerSignal(this,SIGNAL(clicked()));
 }
 
+void ZButton::zSetIcon(QString name){
+    setIcon(ZuiUtils::getIcon(name));
+}
+
 void ZButton::parse(const ZConfig &el){
     if(!el.text().isEmpty())
 	setText(el.text());
@@ -30,5 +34,5 @@ void ZButton::parse(const ZConfig &el){
         setText(el.attribute("value"));
 
     if(el.hasAttribute("icon"))
-      setIcon(QIcon(el.attribute("icon")));
+        zSetIcon(el.attribute("icon"));
 }

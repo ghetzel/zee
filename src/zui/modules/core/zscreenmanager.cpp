@@ -16,12 +16,14 @@ void ZScreenManager::parse(const ZConfig &el){
 int ZScreenManager::addScreen(QWidget *widget, QString id)
 {
   int stackId = addWidget(widget);
-  screens.insert(id, stackId);
+  _screens.insert(id, stackId);
+
+  z_log_debug("ZScreenManager: Adding screen '"+id+"' as index "+STR(stackId));
 
 //if we just added the default screen, switch to it
 //! \bug I have no idea why this isnt working...
   if(id == _defaultScreen)
-   jump();
+   jump(_defaultScreen);
 
   return stackId;
 }
@@ -32,12 +34,13 @@ void ZScreenManager::setDefaultScreen(QString screen)
 }
 
 void ZScreenManager::jump(QString screen){
-    z_log_debug("Jumping: '"+screen+"'");
     if(screen.isEmpty())
 	_currentScreen = _defaultScreen;
     else
 	_currentScreen = screen;
-    setCurrentIndex(screens.value(_currentScreen));
+
+    z_log_debug("Jumping: '"+_currentScreen+"' ("+STR(_screens.value(_currentScreen))+")");
+    setCurrentIndex(_screens.value(_currentScreen));
 }
 
 QString ZScreenManager::screen(){

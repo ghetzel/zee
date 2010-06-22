@@ -71,6 +71,11 @@ private:
 public:
 
 /*!
+  Should be called once when the program initializes
+*/
+  static void initialize();
+
+/*!
   Returns a list of registered container elements.
 */
   static QList<QString> getContainerNames();
@@ -90,6 +95,11 @@ public:
   Returns an instance of a QLayout derivate based on a string \a id.
 */
   static QLayout *getLayout(QString id);
+
+/*!
+  Returns a QIcon by filename, freedesktop.org-compliant theme
+*/
+  static QIcon getIcon(QString name);
 
 /*!
   Performs common tasks on \a newWidget that prepare it to be a container

@@ -37,6 +37,9 @@ void ZWindow::parse(const ZConfig &el){
     if(!qApp->styleSheet().isEmpty())
 	setAttribute(Qt::WA_TranslucentBackground);
 
+    if(param("iconTheme").isValid())
+        QIcon::setThemeName(param("iconTheme").toString());
+
     if(el.hasAttribute("icon") && QFile::exists(el.attribute("icon")))
 	setWindowIcon(QPixmap(el.attribute("icon")));
     else

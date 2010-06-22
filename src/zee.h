@@ -1,7 +1,7 @@
 #ifndef ZEE_H_
 #define ZEE_H_
 
-#define ZEE_CFG_DIR             ".zee"
+#define ZEE_CFG_DIR             ".config/zee"
 #define ZEE_CFG_KEY             "zconfig"
 #define ZUI_DEFAULT_FILE_NAME   "ui.xml"
 #define ZUI_DEFAULT_QSS_NAME    "ui.qss"
@@ -52,6 +52,7 @@ class Zee : public QApplication
     int sW, sH , sX, sY;
     static Zee *_app;
     QDesktopWidget *dtMain;
+
   public:
 /*!
   Zee is the main instance for the application. It, like its parent

@@ -29,11 +29,11 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
 	//  add currentWidget to a new containing frame
 	zRes.widget = new ZContainerWidget(el, zRes.parent);
 
-	//	if adding a screen to the screen manager, call its add method direct,
-	if(el.tagName() == ZUI_SCREEN){
-	    ZScreenManager *scrman = QCAST(ZScreenManager*,zRes.parent);
-	    if(scrman)
-		scrman->addScreen(zRes.widget, el.attribute("id", NULL));
+//	if adding a screen to the screen manager, call its add method direct,
+	if(el.tagName() == ZUI_SCREEN){	    
+            ZScreenManager *scrman = QCAST(ZScreenManager*,zRes.parent);
+            if(scrman)
+                scrman->addScreen(zRes.widget, el.attribute("name", NULL));
 	}
 
 	zRes.parent = zRes.widget;

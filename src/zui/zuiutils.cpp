@@ -2,6 +2,9 @@
 
 QList<QString> ZuiUtils::_containers;
 
+void ZuiUtils::initialize(){
+}
+
 void ZuiUtils::registerContainerElement(QString tagName)
 {
   if(!_containers.contains(tagName))
@@ -44,6 +47,13 @@ QLayout *ZuiUtils::getLayout(QString id)
   return layout;
 }
 
+
+QIcon ZuiUtils::getIcon(QString name){
+    if(QFile::exists(name))
+        return QIcon(name);
+    else
+        return QIcon::fromTheme(name);
+}
 
 void ZuiUtils::prepareContainer(QWidget *newWidget, const QDomElement *el){
   newWidget->setLayout(ZuiUtils::getLayout(
