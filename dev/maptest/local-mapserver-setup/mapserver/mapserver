@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#       /etc/rc.d/init.d/mapserver
+#
+### BEGIN INIT INFO
+# Provides: mapserver
+# Required-Start: nginx
+# Defalt-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Description: MapServer init script
+### END INIT INFO
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+MAPSERV_PORT=8081
+MAPSERV_USER=nobody
+MAPSERV_GROUP=nobody
+
+SVCNAME="MapServer"
+FCGI=`which spawn-fcgi`
+PROG="mapserv"
+SVCPATH="spawn-fcgi -p $MAPSERV_PORT -u $MAPSERV_USER -g $MAPSERV_GROUP -- /usr/bin/mapserv"
+LOCKFILE="/var/lock/subsys/$PROG"
+
+
+start() {
+	[ -x $FCGI ] || exit 5
+        echo -n "Starting $SVCNAME: "
+	daemon $SVCPATH
+	rv=$?
+	[ $rv -eq 0 ] && touch $LOCKFILE
+        return $rv
+}
+
+stop() {
+        echo -n "Stopping down $SVCNAME: "
+	killproc $PROG
+	rv=$?
+	echo
+	[ $rv -eq 0 ] && rm -f $LOCKFILE
+        return $rv
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    probe)
+        ;;
+    *)
+        echo "Usage:  {start|stop|status|reload|restart[|probe]"
+        exit 1
+        ;;
+esac
+exit $?

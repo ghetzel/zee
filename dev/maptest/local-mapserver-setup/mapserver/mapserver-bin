@@ -1,0 +1,9 @@
+#!/bin/sh
+MAPSERV_USER=nobody
+MAPSERV_GROUP=nobody
+MAPSERV_PORT=8081
+
+while true;
+do
+	spawn-fcgi -n -p $MAPSERV_PORT -u $MAPSERV_USER -g $MAPSERV_GROUP -- /usr/bin/mapserv
+done
