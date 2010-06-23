@@ -20,15 +20,15 @@ MAPSERV_GROUP=nobody
 
 SVCNAME="MapServer"
 FCGI=`which spawn-fcgi`
-PROG="mapserv"
-SVCPATH="spawn-fcgi -p $MAPSERV_PORT -u $MAPSERV_USER -g $MAPSERV_GROUP -- /usr/bin/mapserv"
+PROG="mapserver"
+SVCPATH="/usr/bin/mapserver"
 LOCKFILE="/var/lock/subsys/$PROG"
 
 
 start() {
 	[ -x $FCGI ] || exit 5
         echo -n "Starting $SVCNAME: "
-	daemon $SVCPATH
+	daemon $SVCPATH&
 	rv=$?
 	[ $rv -eq 0 ] && touch $LOCKFILE
         return $rv
@@ -37,6 +37,7 @@ start() {
 stop() {
         echo -n "Stopping down $SVCNAME: "
 	killproc $PROG
+	killall mapserv
 	rv=$?
 	echo
 	[ $rv -eq 0 ] && rm -f $LOCKFILE

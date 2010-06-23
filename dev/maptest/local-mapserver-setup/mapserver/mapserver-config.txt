@@ -1,10 +1,17 @@
-yumy agg-devel agg libpng libpng-devel libjpeg libjpeg-devel freetype freetype-devel zlib zlib-devel gd gd-devel fcgi fcgi-devel spawn-fcgi libxml2 libxml2-devel libcurl libcurl-devel cairo cairo-devel pam pam-devel gdal gdal-devel expat expat-devel xerces-c xerces-c-devel jasper jasper-devel hdf5 hdf5-devel hdf hdf-devel ogdi ogdi-devel giflib giflib-devel netcdf netcdf-devel cfitsio cfitsio-devel dap-server dap-server-cgi
+yumy agg-devel agg libpng libpng-devel libjpeg libjpeg-devel freetype freetype-devel zlib zlib-devel gd gd-devel fcgi fcgi-devel spawn-fcgi libxml2 libxml2-devel libcurl libcurl-devel cairo cairo-devel pam pam-devel gdal gdal-devel expat expat-devel xerces-c xerces-c-devel jasper jasper-devel hdf5 hdf5-devel hdf hdf-devel ogdi ogdi-devel giflib giflib-devel netcdf netcdf-devel cfitsio cfitsio-devel libdap libdap-devel librx librx-devel
 
-#gdal -  : --with-wcs
+#gdal -  librx-devel: --with-wcs --with-wmsclient
 
+./configure --with-postgis --with-geos --with-agg --with-proj --with-png=/usr --with-jpeg --with-zlib --with-fastcgi --with-xml2-config --with-curl-config=/usr/bin/curl-config --with-experimental-png=/usr --with-threads --with-iconv --with-gdal --with-ogr --with-wmsclient --with-wcs
 
-./configure --with-postgis --with-geos --with-agg --with-proj --with-png=/usr --with-jpeg --with-zlib --with-fastcgi --with-xml2-config --with-curl-config=/usr/bin/curl-config --with-experimental-png=/usr --with-threads --with-iconv
 
 Add (@40, mapstring.c)
-   
    #include <errno.h>
+   
+make
+[ $? -eq 0 ] || (echo "Build failed, exiting..." && exit 1)
+sudo cp mapserv /usr/bin/mapserv
+sudo cp mapserver-bin /usr/bin/mapserver
+sudo cp mapserver /etc/init.d/mapserver
+sudo chkconfig mapserver on
+sudo service mapserver start
