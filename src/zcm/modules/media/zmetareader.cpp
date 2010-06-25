@@ -1,7 +1,6 @@
 #include "zmetareader.h"
 
 ZMetaReader::ZMetaReader(QString location)
-    : QObject(parent)
 {
     setFilename(location);
     _metadata = NULL;

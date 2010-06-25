@@ -102,6 +102,7 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct)
     sender = _signals.value(findObject(from));
     receiver = _slots.value(findObject(to));
 
+
     if(!via.isEmpty()){
 	foreach(QString v, vias){
             QObject *propobj = findObject(v);
@@ -161,7 +162,7 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct)
             _mappings.append(new ZEventRelationship(signal, slot, viaProperties,
                                                 direct));
 	}else{
-	    z_log_error("ZEventManager: Cannot map, receiving object not found ("+to+")");
+            z_log_error("ZEventManager: Cannot map, receiving object not found ("+to+")");
 	    return;
 	}
     }else{

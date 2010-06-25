@@ -107,6 +107,21 @@ public:
 */
   static void prepareContainer(QWidget *newWidget, const QDomElement *el);
 
+  /*!
+    Checks for the presence of and truthiness of an attribute \a name in \a el
+  */
+    static bool attributeTrue(QDomElement el, QString name);
+
+/*!
+  Checks for the presence of and falsitude of an attribute \a name in \a el
+*/
+  static bool attributeFalse(QDomElement el, QString name);
+
+/*!
+  Checks for the presence of and matchiness of an attribute \a name to \a match
+  in \a el.
+*/
+  static bool attributeEquals(QDomElement el, QString name, QVariant match);
 };
 
 #endif // ZUIUTILS_H

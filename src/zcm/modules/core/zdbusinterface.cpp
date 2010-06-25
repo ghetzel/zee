@@ -35,6 +35,8 @@ void ZDBusInterface::parse(const ZConfig &el){
                         zEvent->registerSignal(_interface,
                                              ZSIGNAL(cel.text()));
                     }
+
+                    z_log_debug("ZDBusInterface: IFACE="+_interface->objectName());
                 }
             }
         }

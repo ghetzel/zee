@@ -65,3 +65,15 @@ void ZuiUtils::prepareContainer(QWidget *newWidget, const QDomElement *el){
     }
   }
 }
+
+bool ZuiUtils::attributeTrue(QDomElement el, QString name){
+    return (el.hasAttribute(name) && QVariant(el.attribute(name)).toBool());
+}
+
+bool ZuiUtils::attributeFalse(QDomElement el, QString name){
+    return !ZuiUtils::attributeTrue(el,name);
+}
+
+bool ZuiUtils::attributeEquals(QDomElement el, QString name, QVariant match){
+    return (el.hasAttribute(name) && el.attribute(name) == match.toString());
+}

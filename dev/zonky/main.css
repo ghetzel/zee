@@ -1,0 +1,59 @@
+body{
+    background-color: #333;
+    color: #FFF;
+    font-family: PF Tempesta Seven;
+    font-size: 8px;
+    -moz-user-select: none;
+}
+
+.data-table{
+    display: table;
+    width: 100%;
+}
+
+.data-table > span{
+    display: table-row;
+}
+
+.data-table > span > label,
+.data-table > span > span{
+    display: table-cell;
+    width: 50%;
+}
+
+.data-table > span > span{
+    text-align: right;
+}
+
+
+.section > h1{
+    border-bottom: 1px solid #FFF;
+    font-family: Paskowy;
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 4px;
+    padding-bottom: 6px;
+}
+
+
+.section.temporal{
+    border-bottom: 1px solid dotted;
+    font-family: Trebuchet MS;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+    .section.temporal > span{
+        float: left;
+        width: 50%;
+    }
+    
+    .section.temporal .date,
+    .section.temporal .time{
+        font-size: 22px;
+    }
+
+    .section.temporal .time,
+    .section.temporal .ancillary{
+        text-align: right;
+    }

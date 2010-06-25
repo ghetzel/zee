@@ -6,10 +6,14 @@
 #define ZUI_DEFAULT_FILE_NAME   "ui.xml"
 #define ZUI_DEFAULT_QSS_NAME    "ui.qss"
 
+// exit codes
 #define ZEE_EXIT_OK                                 0
 #define ZEE_EXIT_NO_ZUI_DEF                         1
 #define ZEE_EXIT_INVALID_ZUI_DEF                    2
 #define ZEE_EXIT_ZUI_DEF_INACCESSIBLE               3
+
+
+#define zApp                     Zee::instance()
 
 #include <iostream>
 #include <typeinfo>
@@ -45,13 +49,6 @@
 class Zee : public QApplication
 {
   Q_OBJECT
-  private:
-    QHash<QString,QVariant> _arguments;
-    const static int ZWIDTH = 500;
-    const static int ZHEIGHT = 500;
-    int sW, sH , sX, sY;
-    static Zee *_app;
-    QDesktopWidget *dtMain;
 
   public:
 /*!
@@ -126,6 +123,15 @@ signals:
 #ifdef Q_WS_X11
     void x11EventReceived(XEvent*);
 #endif
+
+private:
+    QHash<QString,QVariant> _arguments;
+    const static int ZWIDTH = 500;
+    const static int ZHEIGHT = 500;
+    int sW, sH , sX, sY;
+    static Zee *_app;
+    QDesktopWidget *dtMain;
+
 };
 
 #endif // ZEE_H_

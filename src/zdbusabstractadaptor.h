@@ -2,10 +2,11 @@
 #define ZDBUSABSTRACTADAPTOR_H
 
 #define ZDBUS_SVCNM   "net.gammazeta.zee"
-#define ZDBUS_OPATH   "/net/gammazeta/zee/"
+#define ZDBUS_OPATH   "/"
 
 #include <QDBusAbstractAdaptor>
 #include <QDBusConnection>
+#include <zee.h>
 #include <zutil.h>
 
 class ZDBusAbstractAdaptor : public QDBusAbstractAdaptor

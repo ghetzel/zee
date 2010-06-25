@@ -15,7 +15,9 @@ HEADERS += zcmmediamodule.h \
     zaudiomanager.h \
     zcm/zcmplugin.h \
     zcm/zcmplugininterface.h \
+    zee.h \
     zutil.h \
+    zui/zuiparser.h \
     zui/zuiutils.h \
     zplugininterface.h \
     zeventmanager.h \
@@ -27,7 +29,9 @@ HEADERS += zcmmediamodule.h \
     metareaders/zaudiometadata.h
 SOURCES += zcmmediamodule.cpp \
     zaudiomanager.cpp \
+    zee.cpp \
     zutil.cpp \
+    zui/zuiparser.cpp \
     zui/zuiutils.cpp \
     zeventmanager.cpp \
     zeventrelationship.cpp \

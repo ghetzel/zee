@@ -7,7 +7,6 @@
 #include <QtGui>
 #include <QtXml>
 #include <QPluginLoader>
-#include <QSqlQuery>
 #include <QList>
 
 #include <zconfigurable.h>

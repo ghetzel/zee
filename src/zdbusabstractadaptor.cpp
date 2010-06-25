@@ -28,5 +28,6 @@ void ZDBusAbstractAdaptor::registerService()
         QDBusConnection::sessionBus().registerObject(ZDBUS_OPATH+_name,
                                                      _instance);
         QDBusConnection::sessionBus().registerService(ZDBUS_SVCNM);
+        //+zApp->arg("program").toString()
     }
 }
