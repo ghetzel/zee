@@ -1,4 +1,4 @@
-yumy agg-devel agg libpng libpng-devel libjpeg libjpeg-devel freetype freetype-devel zlib zlib-devel gd gd-devel fcgi fcgi-devel spawn-fcgi libxml2 libxml2-devel libcurl libcurl-devel cairo cairo-devel pam pam-devel gdal gdal-devel expat expat-devel xerces-c xerces-c-devel jasper jasper-devel hdf5 hdf5-devel hdf hdf-devel ogdi ogdi-devel giflib giflib-devel netcdf netcdf-devel cfitsio cfitsio-devel libdap libdap-devel librx librx-devel
+yumy mysql mysql-libs mysql-devel sqlite sqlite-devel libxslt libxslt-devel readline readline-devel agg-devel agg libpng libpng-devel libjpeg libjpeg-devel freetype freetype-devel zlib zlib-devel gd gd-devel fcgi fcgi-devel spawn-fcgi libxml2 libxml2-devel libcurl libcurl-devel cairo cairo-devel pam pam-devel gdal gdal-devel expat expat-devel xerces-c xerces-c-devel jasper jasper-devel hdf5 hdf5-devel hdf hdf-devel ogdi ogdi-devel giflib giflib-devel netcdf netcdf-devel cfitsio cfitsio-devel libdap libdap-devel librx librx-devel
 
 #gdal -  librx-devel: --with-wcs --with-wmsclient
 
