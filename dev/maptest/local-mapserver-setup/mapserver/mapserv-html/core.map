@@ -1,0 +1,3186 @@
+MAP
+OUTPUTFORMAT
+    NAME agg
+    DRIVER AGG/PNG
+    IMAGEMODE RGB
+    FORMATOPTION "INTERLACE=false"
+    MIMETYPE "image/png"
+END
+FONTSET "fonts.lst"
+IMAGETYPE agg
+MAXSIZE 4000
+SIZE 800 800
+EXTENT -20037507.0671618 -25183752.0516242 20037507.0671618 25183752.0516242
+UNITS meters
+IMAGECOLOR "#B3C6D4"
+WEB
+    METADATA
+        wms_srs "epsg:900913"
+        labelcache_map_edge_buffer "-10"
+        wms_title "osm france"
+    END
+END
+DEBUG 10
+CONFIG "PROJ_LIB" "/usr/share/proj/"
+CONFIG "MS_ERRORFILE" "stderr"
+PROJECTION
+"init=epsg:4326"
+END
+LAYER
+    TYPE POLYGON
+    STATUS ON
+    GROUP "default"
+    NAME "land"
+    PROJECTION
+        "init=epsg:900913"
+    END
+    DATA "coastlines/processed_p"
+    CLASS
+        STYLE
+            COLOR "#EDEBE6"
+            OUTLINECOLOR "#EDEBE6"
+        END
+    END
+END
+SYMBOL
+    NAME "rail"
+    TYPE TRUETYPE
+    FONT sc
+    CHARACTER '|'
+    GAP -3
+END
+SYMBOL
+    NAME "railfar"
+    TYPE SIMPLE
+    PATTERN 5 5 END
+END
+SYMBOL
+    NAME "path"
+    TYPE SIMPLE
+    PATTERN 1 1 END
+END
+SYMBOL
+    NAME "track"
+    TYPE SIMPLE
+    PATTERN
+        5 5
+    END
+END
+SYMBOL
+    NAME "tunnel"
+    TYPE SIMPLE
+    PATTERN 2 2 END
+END
+SYMBOL
+    NAME "dash"
+    TYPE SIMPLE
+    PATTERN 2 2 END
+END
+SYMBOL
+    NAME "butt"
+    TYPE SIMPLE
+    LINECAP butt
+END
+LAYER
+    TYPE POLYGON
+    STATUS ON
+    PROJECTION
+        "init=epsg:4326"
+    END
+    NAME "landuse_layer1"
+    GROUP "default"
+    CONNECTIONTYPE POSTGIS
+    CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432"
+    DATA "way from (select way,osm_id ,landuse, name from osm_polygon where landuse is not null) as foo using unique osm_id using srid=4326"
+    PROCESSING "LABEL_NO_CLIP=ON"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    CLASSITEM "landuse"
+    LABELITEM "name"
+    MAXSCALEDENOM 1000010
+    CLASS
+        EXPRESSION ('[landuse]'='industrial' or '[landuse]'='commercial' or '[landuse]'='airport' or '[landuse]'='brownfield' or '[landuse]'='military' or '[landuse]'='railway')
+        STYLE
+            COLOR "#EBE5D9"
+        END
+        LABEL
+        TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+        MAXSCALEDENOM 30000
+            SIZE 7
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            PRIORITY 2
+            WRAP ' '
+            MAXLENGTH 6
+            ALIGN CENTER
+        END
+    END
+    CLASS
+        EXPRESSION ('[landuse]'='residential')
+        STYLE
+            COLOR "#F6F1E6"
+        END
+    END
+END
+LAYER
+    TYPE POLYGON
+    STATUS ON
+    PROJECTION
+        "init=epsg:4326"
+    END
+    GROUP "default"
+    NAME "landuse_layer2"
+    CONNECTIONTYPE postgis
+    CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432"
+    DATA "way from (select way,osm_id ,leisure , landuse, name from osm_polygon where leisure='park' or leisure='golf_course' or landuse='recreation_ground' or landuse='cemetery') as foo using unique osm_id using srid=4326"
+    PROCESSING "LABEL_NO_CLIP=ON"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    LABELITEM "name"
+    MAXSCALEDENOM 500000
+ CLASS
+        EXPRESSION ('[landuse]'='cemetery')
+        STYLE
+            COLOR "#EBE5D9"
+        END
+        LABEL
+        TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+        MAXSCALEDENOM 30000
+            SIZE 7
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            PRIORITY 2
+            WRAP ' '
+            MAXLENGTH 6
+            ALIGN CENTER
+        END
+ END
+ CLASS
+        STYLE
+            COLOR "#DCDCB4"
+        END
+        LABEL
+        TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+        MAXSCALEDENOM 30000
+            SIZE 7
+            COLOR "#3D6035"
+            OUTLINECOLOR 255 255 255
+            PRIORITY 2
+            POSITION cc
+            WRAP ' '
+            MAXLENGTH 6
+            ALIGN CENTER
+        END
+    END
+END
+LAYER
+    STATUS ON
+    PROJECTION
+        "init=epsg:4326"
+    END
+    GROUP "default"
+    NAME "landuse_layer3"
+    TYPE POLYGON
+    CONNECTIONTYPE postgis
+    CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432"
+    DATA "way from (select way,osm_id,amenity,aeroway, name from osm_polygon where amenity is not null or aeroway='apron') as foo using unique osm_id using srid=4326"
+    LABELITEM "name"
+    CLASSITEM "amenity"
+    PROCESSING "LABEL_NO_CLIP=ON"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    MAXSCALEDENOM 110000
+    CLASS
+        EXPRESSION "hospital"
+        STYLE
+            COLOR "#E6C8C3"
+        END
+         LABEL
+          TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            MAXSCALEDENOM 15000
+            SIZE 7
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            PRIORITY 1
+            WRAP ' '
+            MAXLENGTH 6
+            ALIGN CENTER
+        END
+    END
+    CLASS
+        EXPRESSION ("[amenity]"="parking" or "[aeroway]"="apron")
+        STYLE
+            COLOR "#EBE5D9"
+        END
+    END
+    CLASS
+        EXPRESSION ("[amenity]"="school" or "[amenity]"="college" or "[amenity]"="university" )
+        STYLE
+            COLOR "#DED1AB"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            MAXSCALEDENOM 15000
+            SIZE 7
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            PRIORITY 1
+            WRAP ' '
+            MAXLENGTH 6
+            ALIGN CENTER
+        END
+    END
+END
+LAYER
+    TYPE POLYGON
+    STATUS ON
+    PROJECTION
+        "init=epsg:4326"
+    END
+    NAME "landuse_layer4"
+    GROUP "default"
+    CONNECTIONTYPE POSTGIS
+    CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432"
+    DATA "way from (select way,osm_id ,nature,landuse ,highway, name from osm_polygon_view where landuse is not null or nature='wood' or highway='pedestrian') as foo using unique osm_id using srid=4326"
+    PROCESSING "LABEL_NO_CLIP=ON"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    CLASSITEM "landuse"
+    MAXSCALEDENOM 5000010
+    LABELITEM "name"
+    CLASS
+        EXPRESSION ('[nature]'='wood' or '[landuse]'="forest")
+        STYLE
+            COLOR "#DCDCB4"
+            OUTLINECOLOR "#DCDCB4"
+            OUTLINEWIDTH 0.3
+        END
+        LABEL
+            MAXSCALEDENOM 600000
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            SIZE 7
+            COLOR "#3D6035"
+            OUTLINECOLOR 255 255 255
+            PRIORITY 2
+            WRAP ' '
+            MINFEATURESIZE AUTO
+            MAXLENGTH 8
+            ALIGN CENTER
+        END
+    END
+    CLASS
+        EXPRESSION ('[landuse]'='grass' or '[landuse]'='farm' or '[landuse]'='greenfield' or '[landuse]'='allotments' or '[landuse]'='meadow' or '[landuse]'='field')
+        STYLE
+            COLOR "#DADEAD"
+            OUTLINECOLOR "#DADEAD"
+            OUTLINEWIDTH 0.3
+        END
+    END
+  CLASS
+        EXPRESSION ('[highway]'='pedestrian')
+        STYLE
+            COLOR "#FAFAF5"
+        END
+        LABEL
+          TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+          MAXSCALEDENOM 11000
+          SIZE 7
+          COLOR 0 0 0
+          OUTLINECOLOR 255 255 255
+          WRAP ' '
+          MAXLENGTH 6
+          ALIGN CENTER
+        END
+    END
+END
+LAYER
+    TYPE POLYGON
+    STATUS ON
+    PROJECTION
+        "init=epsg:4326"
+    END
+    NAME "landuse_layer5"
+    GROUP "default"
+    CONNECTIONTYPE POSTGIS
+    CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432"
+    DATA "way from (select way,osm_id ,nature , name from osm_polygon_view where nature='water' or landuse='basin' or landuse='reservoir' or waterway='riverbank') as foo using unique osm_id using srid=4326"
+    PROCESSING "LABEL_NO_CLIP=ON"
+    MAXSCALEDENOM 5000010
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    LABELITEM "name"
+    CLASS
+        STYLE
+            COLOR "#B3C6D4"
+            WIDTH 0.5
+            OUTLINECOLOR "#B3C6D4"
+        END
+        LABEL
+          TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+          MAXSCALEDENOM 110000
+          MINDISTANCE 400
+          SIZE 8
+          COLOR "#6B94B0"
+          OUTLINECOLOR 255 255 255
+          WRAP ' '
+          MAXLENGTH 5
+          ALIGN CENTER
+        END
+    END
+END
+LAYER
+    TYPE LINE
+    NAME "landuse_layer6"
+    GROUP "default"
+    CONNECTIONTYPE POSTGIS
+    CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432"
+    DATA 'way from (select way,waterway,osm_id from osm_line where waterway is not null) as foo using unique osm_id using srid=4326'
+    CLASSITEM "waterway"
+    SIZEUNITS meters
+    MAXSCALEDENOM 1500000
+    CLASS
+        EXPRESSION "river"
+        STYLE
+            COLOR "#B3C6D4"
+            WIDTH 30
+            MINWIDTH 0.5
+        END
+    END
+    CLASS
+        MAXSCALEDENOM 105000
+        EXPRESSION "stream"
+        STYLE
+            COLOR "#B3C6D4"
+            WIDTH 5
+            MINWIDTH 0.5
+        END
+    END
+    CLASS
+        EXPRESSION "canal"
+        STYLE
+            COLOR "#B3C6D4"
+            WIDTH 10
+            MINWIDTH 0.5
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 5010 minscaledenom 0
+    TYPE LINE
+    NAME "railways"
+    DATA "way from (select way, osm_id ,railway, name from osm_line where railway='rail') as foo using unique osm_id using srid=4326"
+    CLASS
+        STYLE
+            WIDTH 2
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#555554"
+            COLOR "#ffffff"
+        END
+        STYLE
+            SYMBOL rail
+            SIZE 5
+            COLOR "#555554"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 5010 minscaledenom 0
+    TYPE LINE
+    NAME "roadsclose"
+    DATA "way from (select way, osm_id ,highway,ref, name, tunnel from osm_line where highway is not null order by z_order) as foo using unique osm_id using srid=4326"
+    LABELITEM "name"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION ("[highway]"="motorway" and "[tunnel]"="yes")
+        STYLE
+            WIDTH 15
+            SYMBOL "tunnel"
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#24277A"
+        END
+        STYLE
+            WIDTH 15
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="motorway_link" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 10
+            OUTLINECOLOR "#24277A"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="trunk" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 15
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 15
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="trunk_link" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 10
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="primary_link" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 10
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="primary" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 13
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 13
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="secondary_link" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 10
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="secondary" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 12
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 12
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="tertiary" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 11
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#B7AC9A"
+        END
+        STYLE
+            WIDTH 11
+            COLOR "#FAFAFA"
+        END
+    END
+    CLASS
+        EXPRESSION (('[highway]'='unclassified' or '[highway]'='residential' or '[highway]'='service') and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 10
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#B7AC9A"
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#FAFAFA"
+        END
+    END
+    CLASS
+        EXPRESSION "motorway"
+        TEXT ([ref])
+        STYLE
+            WIDTH 15
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#24277A"
+        END
+        STYLE
+            WIDTH 15
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 9
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "motorway_link"
+        STYLE
+            WIDTH 10
+            OUTLINECOLOR "#24277A"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        TEXT ([ref])
+        STYLE
+            WIDTH 15
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 15
+            COLOR "#BAC3A8"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            SIZE 9
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk_link"
+        STYLE
+            WIDTH 10
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "primary_link"
+        STYLE
+            WIDTH 10
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 13
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 13
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 4
+            SIZE 8
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#FCFCCC"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "secondary_link"
+        STYLE
+            WIDTH 10
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary"
+        STYLE
+            WIDTH 12
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 12
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 3
+            SIZE 8
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#FCFCCC"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "tertiary"
+        STYLE
+            WIDTH 11
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 11
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 2
+            SIZE 8
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#ffffff"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION ('[highway]'='unclassified' or '[highway]'='residential' or '[highway]'='service' or '[highway]'='road')
+        STYLE
+            WIDTH 10
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            SIZE 8
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#ffffff"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "track"
+        STYLE
+            WIDTH 3
+            OUTLINEWIDTH 1.5
+            OUTLINECOLOR "#CEC1AD"
+        END
+        STYLE
+            SYMBOL "track"
+            WIDTH 3
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            SIZE 7
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION 'footway'
+        STYLE
+            SYMBOL "path"
+            WIDTH 2
+            COLOR "#7f7f7f"
+        END
+    END
+    CLASS
+        EXPRESSION 'pedestrian'
+        STYLE
+            WIDTH 8
+            COLOR "#FAFAF5"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            SIZE 7
+            MINSIZE 6
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 10010 minscaledenom 5010
+    TYPE LINE
+    NAME "railways"
+    DATA "way from (select way, osm_id ,railway, name from osm_line where railway='rail') as foo using unique osm_id using srid=4326"
+    CLASS
+        STYLE
+            WIDTH 2
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#555554"
+            COLOR "#ffffff"
+        END
+        STYLE
+            SYMBOL rail
+            SIZE 5
+            COLOR "#555554"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 10010 minscaledenom 5010
+    TYPE LINE
+    NAME "roadsclose"
+    DATA "way from (select way, osm_id ,highway,ref, name, tunnel from osm_line where highway is not null order by z_order) as foo using unique osm_id using srid=4326"
+    LABELITEM "name"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION ("[highway]"="motorway" and "[tunnel]"="yes")
+        STYLE
+            WIDTH 15
+            SYMBOL "tunnel"
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#24277A"
+        END
+        STYLE
+            WIDTH 15
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="motorway_link" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 10
+            OUTLINECOLOR "#24277A"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="trunk" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 15
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 15
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="trunk_link" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 10
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="primary_link" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 10
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="primary" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 13
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 13
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="secondary_link" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 10
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="secondary" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 12
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 12
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION ("[highway]"="tertiary" and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 11
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#B7AC9A"
+        END
+        STYLE
+            WIDTH 11
+            COLOR "#FAFAFA"
+        END
+    END
+    CLASS
+        EXPRESSION (('[highway]'='unclassified' or '[highway]'='residential' or '[highway]'='service') and "[tunnel]"="yes")
+        STYLE
+            SYMBOL "tunnel"
+            WIDTH 8
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#B7AC9A"
+        END
+        STYLE
+            WIDTH 8
+            COLOR "#FAFAFA"
+        END
+    END
+    CLASS
+        EXPRESSION "motorway"
+        TEXT ([ref])
+        STYLE
+            WIDTH 15
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#24277A"
+        END
+        STYLE
+            WIDTH 15
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 9
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "motorway_link"
+        STYLE
+            WIDTH 10
+            OUTLINECOLOR "#24277A"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        TEXT ([ref])
+        STYLE
+            WIDTH 15
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 15
+            COLOR "#BAC3A8"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            SIZE 9
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk_link"
+        STYLE
+            WIDTH 10
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "primary_link"
+        STYLE
+            WIDTH 10
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 13
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 13
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 4
+            SIZE 8
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#FCFCCC"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "secondary_link"
+        STYLE
+            WIDTH 10
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary"
+        STYLE
+            WIDTH 12
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 12
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 3
+            SIZE 8
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#FCFCCC"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "tertiary"
+        STYLE
+            WIDTH 11
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 11
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 2
+            SIZE 8
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#ffffff"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION ('[highway]'='unclassified' or '[highway]'='residential' or '[highway]'='service' or '[highway]'='road')
+        STYLE
+            WIDTH 8
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 8
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            SIZE 8
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#ffffff"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "track"
+        STYLE
+            WIDTH 2
+            OUTLINEWIDTH 1.5
+            OUTLINECOLOR "#CEC1AD"
+        END
+        STYLE
+            SYMBOL "track"
+            WIDTH 2
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            SIZE 7
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION 'footway'
+        STYLE
+            SYMBOL "path"
+            WIDTH 1
+            COLOR "#7f7f7f"
+        END
+    END
+    CLASS
+        EXPRESSION 'pedestrian'
+        STYLE
+            WIDTH 6
+            COLOR "#FAFAF5"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            SIZE 6
+            MINSIZE 6
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 25010 minscaledenom 10010
+    TYPE LINE
+    NAME "railways"
+    DATA "way from (select way, osm_id ,railway, name from osm_line where railway='rail') as foo using unique osm_id using srid=4326"
+    CLASS
+        STYLE
+            WIDTH 2
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#555554"
+            COLOR "#ffffff"
+        END
+        STYLE
+            SYMBOL rail
+            SIZE 5
+            COLOR "#555554"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 25010 minscaledenom 10010
+    TYPE LINE
+    NAME "roadsclose"
+    DATA "way from (select way, osm_id ,highway,ref, name, tunnel from osm_line where highway is not null order by priority desc) as foo using unique osm_id using srid=4326"
+    LABELITEM "name"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION "motorway"
+        TEXT ([ref])
+        STYLE
+            WIDTH 10
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#24277A"
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 9
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "motorway_link"
+        STYLE
+            WIDTH 6
+            OUTLINECOLOR "#24277A"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 6
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        TEXT ([ref])
+        STYLE
+            WIDTH 10
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 10
+            COLOR "#BAC3A8"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            SIZE 9
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk_link"
+        STYLE
+            WIDTH 6
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 6
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "primary_link"
+        STYLE
+            WIDTH 7
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 7
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 8
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 8
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 4
+            SIZE 7
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#FCFCCC"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "secondary_link"
+        STYLE
+            WIDTH 6
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 6
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary"
+        STYLE
+            WIDTH 7
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 7
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 3
+            SIZE 7
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#FCFCCC"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "tertiary"
+        STYLE
+            WIDTH 6
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 6
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 2
+            SIZE 7
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#ffffff"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION ('[highway]'='unclassified' or '[highway]'='residential' or '[highway]'='service' or '[highway]'='road')
+        STYLE
+            WIDTH 4
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 4
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            SIZE 6
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#ffffff"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "track"
+        STYLE
+            WIDTH 1
+            OUTLINEWIDTH 1.5
+            OUTLINECOLOR "#CEC1AD"
+        END
+        STYLE
+            SYMBOL "track"
+            WIDTH 1
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            SIZE 6
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION 'footway'
+        STYLE
+            SYMBOL "path"
+            WIDTH 1
+            COLOR "#7f7f7f"
+        END
+    END
+    CLASS
+        EXPRESSION 'pedestrian'
+        STYLE
+            WIDTH 1
+            COLOR "#978C7A"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 50010 minscaledenom 25010
+    TYPE LINE
+    NAME "railways"
+    DATA "way from (select way, osm_id ,railway, name from osm_line where railway='rail') as foo using unique osm_id using srid=4326"
+    CLASS
+        STYLE
+            WIDTH 2
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#555554"
+            COLOR "#ffffff"
+        END
+        STYLE
+            SYMBOL rail
+            SIZE 5
+            COLOR "#555554"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 50010 minscaledenom 25010
+    TYPE LINE
+    NAME "roadsclose"
+    DATA "way from (select way, osm_id ,highway,ref, name, tunnel from osm_line where highway is not null order by priority desc) as foo using unique osm_id using srid=4326"
+    LABELITEM "name"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION "motorway"
+        TEXT ([ref])
+        STYLE
+            WIDTH 8
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#24277A"
+        END
+        STYLE
+            WIDTH 8
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 8
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "motorway_link"
+        STYLE
+            WIDTH 4
+            OUTLINECOLOR "#24277A"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 4
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        TEXT ([ref])
+        STYLE
+            WIDTH 8
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 8
+            COLOR "#BAC3A8"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            SIZE 8
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk_link"
+        STYLE
+            WIDTH 4
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 4
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "primary_link"
+        STYLE
+            WIDTH 7
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 7
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 6
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 6
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 4
+            SIZE 7
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#FCFCCC"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "secondary_link"
+        STYLE
+            WIDTH 6
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 6
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary"
+        STYLE
+            WIDTH 5
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 5
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 3
+            SIZE 7
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#FCFCCC"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "tertiary"
+        STYLE
+            WIDTH 4
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 4
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 2
+            SIZE 7
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#ffffff"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION ('[highway]'='unclassified' or '[highway]'='residential' or '[highway]'='service' or '[highway]'='road')
+        STYLE
+            WIDTH 2
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 2
+            COLOR "#ffffff"
+        END
+    END
+    CLASS
+        EXPRESSION "track"
+        STYLE
+            WIDTH 1
+            OUTLINEWIDTH 1.5
+            OUTLINECOLOR "#CEC1AD"
+        END
+        STYLE
+            SYMBOL "track"
+            WIDTH 1
+            COLOR "#ffffff"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            SIZE 6
+            MINDISTANCE 200
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION 'footway'
+        STYLE
+            SYMBOL "path"
+            WIDTH 1
+            COLOR "#7f7f7f"
+        END
+    END
+    CLASS
+        EXPRESSION 'pedestrian'
+        STYLE
+            WIDTH 0.5
+            COLOR "#978C7A"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 100010 minscaledenom 50010
+    TYPE LINE
+    NAME "railways"
+    DATA "way from (select way, osm_id ,railway, name from osm_line where railway='rail') as foo using unique osm_id using srid=4326"
+    CLASS
+        STYLE
+            WIDTH 2
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#555554"
+        END
+        STYLE
+            SYMBOL "railfar"
+            WIDTH 2
+            COLOR "#ffffff"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 100010 minscaledenom 50010
+    TYPE LINE
+    NAME "roadsclose"
+    DATA "way from (select way, osm_id ,highway,ref, name, tunnel from osm_line where highway is not null order by priority desc) as foo using unique osm_id using srid=4326"
+    LABELITEM "name"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION "motorway"
+        TEXT ([ref])
+        STYLE
+            WIDTH 6
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#24277A"
+        END
+        STYLE
+            WIDTH 6
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 8
+            MINDISTANCE 200
+            MAXLENGTH 6
+            BUFFER 10
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "motorway_link"
+        STYLE
+            WIDTH 2
+            OUTLINECOLOR "#24277A"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 2
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        TEXT ([ref])
+        STYLE
+            WIDTH 6
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 6
+            COLOR "#BAC3A8"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            PRIORITY 3
+            BUFFER 10
+            SIZE 8
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk_link"
+        STYLE
+            WIDTH 2
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 2
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "primary_link"
+        STYLE
+            WIDTH 3
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 3
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 4
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 4
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 4
+            SIZE 7
+            MINDISTANCE 200
+            BUFFER 25
+            ANGLE FOLLOW
+            COLOR 0 0 0
+            OUTLINECOLOR "#FCFCCC"
+            MINFEATURESIZE AUTO
+        END
+    END
+    CLASS
+        EXPRESSION "secondary_link"
+        STYLE
+            WIDTH 2
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 2
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary"
+        STYLE
+            WIDTH 3
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 3
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "tertiary"
+        STYLE
+            WIDTH 2
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 2
+            COLOR "#ffffff"
+        END
+    END
+    CLASS
+        EXPRESSION ('[highway]'='unclassified' or '[highway]'='residential' or '[highway]'='service' or '[highway]'='road')
+        STYLE
+            WIDTH 0.8
+            COLOR "#777777"
+        END
+    END
+    CLASS
+        EXPRESSION "track"
+        STYLE
+            SYMBOL "track"
+            WIDTH 1
+            COLOR "#CEC1AD"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 250010 minscaledenom 100010
+    TYPE LINE
+    NAME "railways"
+    DATA "way from (select way, osm_id ,railway, name from osm_line where railway='rail') as foo using unique osm_id using srid=4326"
+    CLASS
+        STYLE
+            WIDTH 1
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#555554"
+        END
+        STYLE
+            SYMBOL "railfar"
+            WIDTH 1
+            COLOR "#ffffff"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 250010 minscaledenom 100010
+    TYPE LINE
+    NAME "roadsclose"
+    DATA "way from (select way, osm_id ,highway,ref, name, tunnel from osm_line where highway is not null order by priority desc) as foo using unique osm_id using srid=4326"
+    LABELITEM "name"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION "motorway"
+        TEXT ([ref])
+        STYLE
+            WIDTH 3
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#24277A"
+        END
+        STYLE
+            WIDTH 3
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 7
+            MINDISTANCE 200
+            MAXLENGTH 6
+            BUFFER 10
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "motorway_link"
+        STYLE
+            WIDTH 1
+            OUTLINECOLOR "#24277A"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        TEXT ([ref])
+        STYLE
+            WIDTH 3
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 3
+            COLOR "#BAC3A8"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            PRIORITY 3
+            BUFFER 10
+            SIZE 7
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk_link"
+        STYLE
+            WIDTH 1
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "primary_link"
+        STYLE
+            WIDTH 2
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 2
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        TEXT ([ref])
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 2
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 2
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 4
+            SIZE 7
+            MINDISTANCE 200
+            BUFFER 10
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#39780F"
+            BACKGROUNDSHADOWCOLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary_link"
+        STYLE
+            WIDTH 1
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary"
+        STYLE
+            WIDTH 1
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "tertiary"
+        STYLE
+            WIDTH 0.8
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 0.8
+            COLOR "#ffffff"
+        END
+    END
+    CLASS
+        EXPRESSION ('[highway]'='unclassified' or '[highway]'='residential' or '[highway]'='service' or '[highway]'='road')
+        STYLE
+            WIDTH 0.5
+            COLOR "#777777"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 500010 minscaledenom 250010
+    TYPE LINE
+    NAME "railways"
+    DATA "way from (select way, osm_id ,railway, name from osm_line where railway='rail') as foo using unique osm_id using srid=4326"
+    CLASS
+        STYLE
+            WIDTH 1
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#555554"
+        END
+        STYLE
+            SYMBOL "railfar"
+            WIDTH 1
+            COLOR "#ffffff"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 500010 minscaledenom 250010
+    TYPE LINE
+    NAME "roadsclose"
+    DATA "way from (select way, osm_id ,highway,ref, name, tunnel from osm_line where highway is not null order by priority desc) as foo using unique osm_id using srid=4326"
+    LABELITEM "name"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION "motorway"
+        TEXT ([ref])
+        STYLE
+            WIDTH 1.5
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#24277A"
+        END
+        STYLE
+            WIDTH 1.5
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 7
+            MINDISTANCE 200
+            MAXLENGTH 6
+            BUFFER 10
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "motorway_link"
+        STYLE
+            WIDTH 1
+            OUTLINECOLOR "#24277A"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        TEXT ([ref])
+        STYLE
+            WIDTH 1.5
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 1.5
+            COLOR "#BAC3A8"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            PRIORITY 3
+            BUFFER 10
+            SIZE 7
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk_link"
+        STYLE
+            WIDTH 1
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "primary_link"
+        STYLE
+            WIDTH 1
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        TEXT ([ref])
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 1.5
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 1.5
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 4
+            SIZE 7
+            MINDISTANCE 200
+            BUFFER 10
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#39780F"
+            BACKGROUNDSHADOWCOLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary_link"
+        STYLE
+            WIDTH 0.8
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 0.8
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary"
+        STYLE
+            WIDTH 0.8
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 0.8
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "tertiary"
+        STYLE
+            WIDTH 0.5
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#978C7A"
+        END
+        STYLE
+            WIDTH 0.5
+            COLOR "#ffffff"
+        END
+    END
+    CLASS
+        EXPRESSION ('[highway]'='unclassified' or '[highway]'='residential' or '[highway]'='service' or '[highway]'='road')
+        STYLE
+            WIDTH 0.3
+            COLOR "#777777"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 1000010 minscaledenom 500010
+    TYPE LINE
+    NAME "railways"
+    DATA "way from (select way, osm_id ,railway, name from osm_line where railway='rail') as foo using unique osm_id using srid=4326"
+    CLASS
+        STYLE
+            WIDTH 1
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#555554"
+        END
+        STYLE
+            SYMBOL "railfar"
+            WIDTH 1
+            COLOR "#ffffff"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 1000010 minscaledenom 500010
+    TYPE LINE
+    NAME "roadsclose"
+    DATA "way from (select way, osm_id ,highway,ref, name, tunnel from osm_line where highway is not null order by priority desc) as foo using unique osm_id using srid=4326"
+    LABELITEM "name"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION "motorway"
+        TEXT ([ref])
+        STYLE
+            WIDTH 1
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#24277A"
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 7
+            MINDISTANCE 200
+            MAXLENGTH 6
+            BUFFER 10
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "motorway_link"
+        STYLE
+            WIDTH 1
+            OUTLINECOLOR "#24277A"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#4F719D"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        TEXT ([ref])
+        STYLE
+            WIDTH 1
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#BAC3A8"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            PRIORITY 3
+            BUFFER 10
+            SIZE 7
+            MINDISTANCE 150
+            MAXLENGTH 6
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk_link"
+        STYLE
+            WIDTH 1
+            OUTLINEWIDTH 1
+            OUTLINECOLOR "#39780F"
+        END
+        STYLE
+            WIDTH 1
+            COLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "primary_link"
+        STYLE
+            WIDTH 0.8
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 0.8
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        TEXT ([ref])
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 0.8
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 0.8
+            COLOR "#FCFCCC"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 4
+            SIZE 6
+            MINDISTANCE 200
+            BUFFER 10
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#39780F"
+            BACKGROUNDSHADOWCOLOR "#BAC3A8"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary_link"
+        STYLE
+            WIDTH 0.5
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 0.5
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "secondary"
+        STYLE
+            WIDTH 0.5
+            OUTLINECOLOR "#39780F"
+            OUTLINEWIDTH 1
+        END
+        STYLE
+            WIDTH 0.5
+            COLOR "#FCFCCC"
+        END
+    END
+    CLASS
+        EXPRESSION "tertiary"
+        STYLE
+            WIDTH 0.5
+            COLOR "#777777"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 2500010 minscaledenom 1000010
+    TYPE LINE
+    NAME "roadsfar"
+    DATA "way from (select way, osm_id ,highway,ref from osm_line where highway in ('motorway','trunk','primary') order by priority desc) as foo using unique osm_id using srid=4326"
+    LABELITEM "ref"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION "motorway"
+        STYLE
+            WIDTH 1
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 7
+            MINDISTANCE 150
+            MAXLENGTH 6
+            BUFFER 15
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        STYLE
+            WIDTH 1
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            SIZE 6
+            MINDISTANCE 150
+            MAXLENGTH 6
+            BUFFER 15
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 1
+            COLOR "#39780F"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 5000010 minscaledenom 2500010
+    TYPE LINE
+    NAME "roadsfar"
+    DATA "way from (select way, osm_id ,highway,ref from osm_line where highway in ('motorway','trunk','primary') order by priority desc) as foo using unique osm_id using srid=4326"
+    LABELITEM "ref"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION "motorway"
+        STYLE
+            WIDTH 1
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 7
+            MINDISTANCE 150
+            MAXLENGTH 6
+            BUFFER 15
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        STYLE
+            WIDTH 1
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            SIZE 6
+            MINDISTANCE 150
+            MAXLENGTH 6
+            BUFFER 15
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 1
+            COLOR "#39780F"
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 10000010 minscaledenom 5000010
+    TYPE LINE
+    NAME "roadsfar"
+    DATA "way from (select way, osm_id ,highway,ref from osm_line where highway in ('motorway','trunk','primary') order by priority desc) as foo using unique osm_id using srid=4326"
+    LABELITEM "ref"
+    CLASSITEM "highway"
+    CLASS
+        EXPRESSION "motorway"
+        STYLE
+            WIDTH 0.8
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            PRIORITY 1
+            FONT scb
+            SIZE 7
+            MINDISTANCE 150
+            MAXLENGTH 6
+            BUFFER 15
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "trunk"
+        STYLE
+            WIDTH 0.8
+            COLOR "#4F719D"
+        END
+        LABEL
+            TYPE TRUETYPE FONT sc PARTIALS FALSE OUTLINEWIDTH 3
+            FONT scb
+            SIZE 6
+            MINDISTANCE 150
+            MAXLENGTH 6
+            BUFFER 15
+            COLOR 255 255 255
+            BACKGROUNDCOLOR "#FF5C1D"
+            BACKGROUNDSHADOWCOLOR "#FDB462"
+        END
+    END
+    CLASS
+        EXPRESSION "primary"
+        STYLE
+            WIDTH 0.8
+            COLOR "#39780F"
+        END
+    END
+END
+SYMBOL
+    NAME "citycircle"
+    TYPE ELLIPSE
+    POINTS 1 1 END
+    FILLED TRUE
+END
+SYMBOL
+ NAME "oneway"
+ TYPE TRUETYPE
+ FONT scb
+ CHARACTER "&#8594;"
+ GAP -150
+END
+LAYER
+    TYPE LINE
+    STATUS ON
+    PROJECTION
+        "init=epsg:4326"
+    END
+    GROUP "default"
+    NAME "oneways"
+    CONNECTIONTYPE postgis
+    CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432"
+    DATA "way from (select way, osm_id from osm_line where oneway='yes' and (highway ~ 'link' or highway in ('residential','tertiary','secondary','primary','service')) order by z_order) as foo using unique osm_id using srid=4326"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    MAXSCALEDENOM 10010
+    CLASS
+        STYLE
+            SYMBOL "oneway"
+            SIZE 11
+            COLOR 90 90 90
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 25010 minscaledenom 10010
+    TYPE ANNOTATION
+    NAME "places"
+    DATA "way from (select way,osm_id ,place , name from osm_point where place is not null) as foo using unique osm_id using srid=4326"
+    LABELITEM 'name'
+    CLASSITEM 'place'
+    CLASS
+        EXPRESSION ('[place]'='suburb' or '[place]'='hamlet')
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 6
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 4
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 50010 minscaledenom 25010
+    TYPE ANNOTATION
+    NAME "places"
+    DATA "way from (select way,osm_id ,place , name from osm_point where place is not null) as foo using unique osm_id using srid=4326"
+    LABELITEM 'name'
+    CLASSITEM 'place'
+    CLASS
+        EXPRESSION ('[place]'='village')
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 9
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 10
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+            POSITION AUTO
+        END
+    END
+    CLASS
+        EXPRESSION ('[place]'='suburb' or '[place]'='hamlet')
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 8
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 4
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 100010 minscaledenom 50010
+    TYPE ANNOTATION
+    NAME "places"
+    DATA "way from (select way,osm_id ,place , name from osm_point where place is not null) as foo using unique osm_id using srid=4326"
+    LABELITEM 'name'
+    CLASSITEM 'place'
+    CLASS
+        EXPRESSION 'town'
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 8
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 10
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+            POSITION AUTO
+        END
+    END
+    CLASS
+        EXPRESSION ('[place]'='village')
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 8
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 10
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+            POSITION AUTO
+        END
+    END
+    CLASS
+        EXPRESSION ('[place]'='suburb' or '[place]'='hamlet')
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 7
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 4
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 250010 minscaledenom 100010
+    TYPE ANNOTATION
+    NAME "places"
+    DATA "way from (select way,osm_id ,capital,place , name from osm_point where place is not null) as foo using unique osm_id using srid=4326"
+    LABELITEM 'name'
+    CLASSITEM 'place'
+    CLASS
+        EXPRESSION ("[place]"="city" and "[capital]"="yes")
+        STYLE
+            SIZE 5
+            SYMBOL "citycircle"
+            COLOR "#FF6767"
+            OUTLINECOLOR 0 0 0
+        END
+        STYLE
+            SIZE 2
+            SYMBOL "citycircle"
+            COLOR "#000000"
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 9
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 10
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'city'
+        STYLE
+            SIZE 5
+            SYMBOL "citycircle"
+            COLOR "#ffbb00"
+            OUTLINECOLOR 0 0 0
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 9
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 9
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'town'
+        STYLE
+            SIZE 4
+            SYMBOL "citycircle"
+            COLOR 255 255 255
+            OUTLINECOLOR 0 0 0
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 8
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 10
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+            POSITION AUTO
+        END
+    END
+    CLASS
+        EXPRESSION ('[place]'='village')
+        STYLE
+            SYMBOL "citycircle"
+            COLOR 255 255 255
+            OUTLINECOLOR 0 0 0
+            SIZE 3
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 7
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 10
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+            POSITION AUTO
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 500010 minscaledenom 250010
+    TYPE ANNOTATION
+    NAME "places"
+    DATA "way from (select way,osm_id ,capital,place , name from osm_point where place is not null) as foo using unique osm_id using srid=4326"
+    LABELITEM 'name'
+    CLASSITEM 'place'
+    CLASS
+        EXPRESSION ("[place]"="city" and "[capital]"="yes")
+        STYLE
+            SIZE 6
+            SYMBOL "citycircle"
+            COLOR "#FF6767"
+            OUTLINECOLOR 0 0 0
+        END
+        STYLE
+            SIZE 2
+            SYMBOL "citycircle"
+            COLOR "#000000"
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 9
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 10
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'city'
+        STYLE
+            SIZE 5
+            SYMBOL "citycircle"
+            COLOR "#ffbb00"
+            OUTLINECOLOR 0 0 0
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 9
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 9
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'town'
+        STYLE
+            SIZE 4
+            SYMBOL "citycircle"
+            COLOR 255 255 255
+            OUTLINECOLOR 0 0 0
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 8
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 10
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+            POSITION AUTO
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 1000010 minscaledenom 500010
+    TYPE ANNOTATION
+    NAME "places"
+    DATA "way from (select way,osm_id ,place, capital, name from osm_point where place in ('town','city')) as foo using unique osm_id using srid=4326"
+    LABELITEM 'name'
+    CLASSITEM 'place'
+    CLASS
+        EXPRESSION ("[place]"="city" and "[capital]"="yes")
+        STYLE
+            SIZE 6
+            SYMBOL "citycircle"
+            COLOR "#FF6767"
+            OUTLINECOLOR 0 0 0
+        END
+        STYLE
+            SIZE 2
+            SYMBOL "citycircle"
+            COLOR "#000000"
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 9
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 10
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'city'
+        STYLE
+            SIZE 5
+            SYMBOL "citycircle"
+            COLOR "#ffbb00"
+            OUTLINECOLOR 0 0 0
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 9
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 9
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'town'
+        STYLE
+            SIZE 4
+            SYMBOL "citycircle"
+            COLOR 255 255 255
+            OUTLINECOLOR 0 0 0
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 8
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 10
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+            POSITION AUTO
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 2500010 minscaledenom 1000010
+    TYPE ANNOTATION
+    NAME "places"
+    DATA "way from (select way,osm_id ,place ,capital, name from osm_point where place in ('town','city')) as foo using unique osm_id using srid=4326"
+    LABELITEM 'name'
+    CLASSITEM 'place'
+    CLASS
+        EXPRESSION ("[place]"="city" and "[capital]"="yes")
+        STYLE
+            SIZE 6
+            SYMBOL "citycircle"
+            COLOR "#FF6767"
+            OUTLINECOLOR 0 0 0
+        END
+        STYLE
+            SIZE 2
+            SYMBOL "citycircle"
+            COLOR "#000000"
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 10
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 10
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'city'
+        STYLE
+            SIZE 5
+            SYMBOL "citycircle"
+            COLOR "#ffbb00"
+            OUTLINECOLOR 0 0 0
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 9
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 9
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'town'
+        STYLE
+            SIZE 3
+            SYMBOL "citycircle"
+            COLOR 255 255 255
+            OUTLINECOLOR 0 0 0
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 7
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 3
+            WRAP ' '
+            BUFFER 10
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 8
+            PARTIALS FALSE
+            POSITION AUTO
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 5000010 minscaledenom 2500010
+    TYPE ANNOTATION
+    NAME "places"
+    DATA "way from (select way,osm_id ,place , capital, name from osm_point where place in ('town','city')) as foo using unique osm_id using srid=4326"
+    LABELITEM 'name'
+    CLASSITEM 'place'
+    CLASS
+        EXPRESSION ("[place]"="city" and "[capital]"="yes")
+        STYLE
+            SIZE 7
+            SYMBOL "citycircle"
+            COLOR "#FF6767"
+            OUTLINECOLOR 0 0 0
+        END
+        STYLE
+            SIZE 2
+            SYMBOL "citycircle"
+            COLOR "#000000"
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 9
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 10
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'city'
+        STYLE
+            SIZE 5
+            SYMBOL "citycircle"
+            COLOR "#ffbb00"
+            OUTLINECOLOR 0 0 0
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 8
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 9
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 10000010 minscaledenom 5000010
+    TYPE ANNOTATION
+    NAME "places"
+    DATA "way from (select way,osm_id ,place , capital, name from osm_point where place in ('town','city')) as foo using unique osm_id using srid=4326"
+    LABELITEM 'name'
+    CLASSITEM 'place'
+    CLASS
+        EXPRESSION ("[place]"="city" and "[capital]"="yes")
+        STYLE
+            SIZE 7
+            SYMBOL "citycircle"
+            COLOR "#FF6767"
+            OUTLINECOLOR 0 0 0
+        END
+        STYLE
+            SIZE 2
+            SYMBOL "citycircle"
+            COLOR "#000000"
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 9
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 10
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'city'
+        STYLE
+            SIZE 5
+            SYMBOL "citycircle"
+            COLOR "#ffbb00"
+            OUTLINECOLOR 0 0 0
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 8
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 9
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+END
+LAYER
+    STATUS ON GROUP "default" PROJECTION "init=epsg:4326" END CONNECTIONTYPE postgis CONNECTION "host=localhost dbname=osm user=pgis password=pgis port=5432" PROCESSING "CLOSE_CONNECTION=DEFER" maxscaledenom 100000000010 minscaledenom 10000010
+    TYPE ANNOTATION
+    NAME "places"
+    DATA "way from (select way,osm_id ,place , capital, name from osm_point where capital='yes' or place='country') as foo using unique osm_id using srid=4326"
+    LABELITEM 'name'
+    CLASSITEM 'place'
+    CLASS
+        EXPRESSION ("[place]"="city" and "[capital]"="yes")
+        STYLE
+            SIZE 5
+            SYMBOL "citycircle"
+            COLOR "#FF6767"
+            OUTLINECOLOR 0 0 0
+        END
+        STYLE
+            SIZE 2
+            SYMBOL "citycircle"
+            COLOR "#000000"
+        END
+        LABEL
+            FONT sc
+            TYPE TRUETYPE
+            SIZE 7
+            COLOR 0 0 0
+            OUTLINECOLOR 255 255 255
+            OUTLINEWIDTH 4
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 10
+            BUFFER 10
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+    CLASS
+        EXPRESSION 'country'
+        LABEL
+            FONT scb
+            TYPE TRUETYPE
+            SIZE 8
+            COLOR "#777777"
+            WRAP ' '
+            MAXLENGTH 8
+            ALIGN CENTER
+            PRIORITY 9
+            BUFFER 1
+            PARTIALS FALSE
+            POSITION auto
+        END
+    END
+END
+END

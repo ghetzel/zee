@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+
+    <style type="text/css">
+        body {
+            width:100%;
+            height:100%;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    font:sans-serif;
+    font-size:small;
+    }
+    #map {
+    width: 800px;
+    height: 600px;
+    border: 1px solid black;
+    padding: 0px;
+    margin:0px auto;
+    margin-top:30px;
+    position:relative;
+    }
+    </style>
+
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script type="text/javascript">
+      var lon = -8331422;
+      var lat=5012608;
+    var zoom = 4;
+    var map, layer;
+
+        function init(){
+            map = new OpenLayers.Map( 'map' );
+        
+        var wms = new OpenLayers.Layer.WMS( "WMS",
+
+/*
+change here to suit your setup
+*/
+                "http://localhost/map?",
+                {map: '/var/www/html/core.map', 
+
+
+        layers: ['landuse_layer1','default'], 
+        format: 'aggpng24',
+        transparent: 'off'},
+                {maxExtent: new OpenLayers.Bounds(-20037507.0671618, -25183752.0516242, 20037507.0671618, 25183752.0516242),
+                scales: [5000,10000,25000,50000,100000,250000,500000,
+                         1000000,2500000,5000000,10000000,25000000,50000000,100000000],
+                units: 'm',
+                projection:new OpenLayers.Projection("EPSG:900913"),
+                gutter:0,
+                ratio:1,
+                wrapDateLine: true,
+                isBaselayer:true,
+                singleTile:true,
+                transitionEffect:'resize'} );
+
+            map.addLayers([wms]);
+            if(!map.getCenter())
+                map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+            map.addControl(new OpenLayers.Control.Scale('scale'));
+            map.addControl(new OpenLayers.Control.Permalink('permalink'));
+            map.addControl(new OpenLayers.Control.MousePosition());
+        }
+    </script>
+  </head>
+
+<body onload="init()">
+    <div id="map">
+    </div>
+<div id="controls">
+<span id="scale" style="float:left"></span>
+<a href="#" id="permalink" style="float:right">lien direct</a>
+</div>
+</body>
+</html>
