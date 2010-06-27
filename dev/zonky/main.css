@@ -1,9 +1,11 @@
 body{
+    -moz-user-select: none;
+
     background-color: #333;
     color: #FFF;
     font-family: PF Tempesta Seven;
     font-size: 8px;
-    -moz-user-select: none;
+    text-shadow: #000 1px 1px 0px;
 }
 
 .data-table{
@@ -29,22 +31,23 @@ body{
 .section > h1{
     border-bottom: 1px solid #FFF;
     font-family: Paskowy;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: normal;
     margin-bottom: 4px;
     padding-bottom: 6px;
+    text-transform: uppercase;
 }
 
 
 .section.temporal{
-    border-bottom: 1px solid dotted;
+    border-bottom: 1px solid dotted #FFF;
     font-family: Trebuchet MS;
     font-size: 18px;
     margin-bottom: 10px;
 }
 
     .section.temporal > span{
-        float: left;
+        display: table-cell;
         width: 50%;
     }
     
@@ -56,4 +59,9 @@ body{
     .section.temporal .time,
     .section.temporal .ancillary{
         text-align: right;
+    }
+
+    .section.temporal .date,
+    .section.temporal .stillAlive{
+	text-align: left;
     }

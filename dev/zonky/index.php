@@ -44,52 +44,83 @@ function meminfo($type){
     return 0;
 }
 
+
+$d = array();
+
+$d["date"] 			= date(DATE_FORMAT);
+$d["time"] 			= date(TIME_FORMAT);
+$d["still-alive"]		= stillAlive();
+$d["ancillary"]			= date(ANCILLARY_FORMAT);
+$d["hostname"]			= shell_exec("hostname");
+$d["uptime"]			= date("z\d G\h i\m", shell_exec("cat /proc/uptime | cut -f1 -d'.'"));
+$d["load"]			= trim(shell_exec("uptime | cut -d: -f5"));
+$d["temperature"]["mb"]		= trim(shell_exec("cat /proc/acpi/thermal_zone/TZ00/temperature | tr -s ' ' | cut -d' ' -f2"));
+$d["memory"]["system"]["free"]	= meminfo("free");
+$d["memory"]["system"]["used"]	= meminfo("used");
+$d["memory"]["system"]["total"]	= meminfo("total");
+$d["memory"]["swap"]["free"]	= meminfo("swap-free");
+$d["memory"]["swap"]["used"]	= meminfo("swap-used");
+$d["memory"]["swap"]["total"]	= meminfo("swap-total");
+
 ?>
 <html>
     <head>
         <title />
         <link rel="stylesheet" type="text/css" href="main.css" />
+	<script type="text/javascript" src="mootools-1.2.4-core.js"></script>
     </head>
     <body>
+	<script type="text/javascript">
+		window.addEvent('domready', function(){
+			var reloader = function(){ window.location.reload(); };
+			reloader.periodical(1000*60);
+		});
+	</script>
         <div id="root">
             <div class="section temporal">
-                <span class="date"><?php echo date(DATE_FORMAT) ?></span>
-                <span class="time"><?php echo date(TIME_FORMAT) ?></span>
-                <span class="stillAlive">Day <?php echo stillAlive() ?></span>
-                <span class="ancillary"><?php echo date(ANCILLARY_FORMAT) ?></span>
+		<div class="data-table">
+			<span>
+		                <span class="date"><?php echo $d["date"] ?></span>
+        		        <span class="time"><?php echo $d["time"] ?></span>
+			</span>
+			<span>
+	                	<span class="stillAlive">Day <?php echo $d["still-alive"] ?></span>
+		                <span class="ancillary"><?php echo $d["ancillary"] ?></span>
+			</span>
+		</div>
             </div>
             
             <div class="section sysinfo">
-                <h1>Panel</h1>
+                <h1>Doo Panel</h1>
                 <div class="data-table">
                     <span>
                         <label>Host</label>
-                        <span><?php echo shell_exec("hostname"); ?></span>
+                        <span><?php echo $d["hostname"] ?></span>
                     </span>
                     
                     <span>
                         <label>Uptime</label>
-                        <span><?php echo date("z\d G\h i\m", shell_exec("cat /proc/uptime | cut -f1 -d'.'")) ?></span>
+                        <span><?php echo $d["uptime"] ?></span>
                     </span>
                     
                     <span>
                         <label>Load</label>
-                        <span><?php echo trim(shell_exec("uptime | cut -d: -f5")); ?></span>
+                        <span><?php echo $d["load"] ?></span>
                     </span>
                     
                     <span>
                         <label>Temperature</label>
-                        <span>--C</span>
+                        <span><?php echo $d["temperature"]["mb"] ?>&deg;C</span>
                     </span>
                     
                     <span>
                         <label>RAM</label>
-                        <span><?php echo meminfo("used")."GiB/".meminfo("total")."GiB" ?></span>
+                        <span><?php echo $d["memory"]["system"]["used"]."GiB/".$d["memory"]["system"]["total"]."GiB" ?></span>
                     </span>
                     
                     <span>
                         <label>Swap</label>
-                        <span><?php echo meminfo("swap-used")."GiB/".meminfo("swap-total")."GiB" ?></span>
+                        <span><?php echo $d["memory"]["swap"]["used"]."GiB/".$d["memory"]["swap"]["total"]."GiB" ?></span>
                     </span>
                 </div>
             </div>
