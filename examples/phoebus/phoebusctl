@@ -2,33 +2,42 @@
 import dbus
 import sys
 import os
+#import commands
+#import time
+
+#if 'phoebus' not in commands.getoutput('ps -A'):
 
 PHE_SERVICE = 'net.gammazeta.zee'
 PHE_IFACE = 'net.gammazeta.zee.AudioManager'
-PHE_OPATH = '/net/gammazeta/zee/media'
+PHE_OPATH = '/media'
 
-bus = dbus.SessionBus()
-pheobj = bus.get_object(PHE_SERVICE, PHE_OPATH)
-phoebus = dbus.Interface(pheobj, dbus_interface=PHE_IFACE)
+try:
+	bus = dbus.SessionBus()
+	pheobj = bus.get_object(PHE_SERVICE, PHE_OPATH)
+	phoebus = dbus.Interface(pheobj, dbus_interface=PHE_IFACE)
 
-if len(sys.argv) > 1:
-	arg = sys.argv[1]
+	if len(sys.argv) > 1:
+		arg = sys.argv[1]
 
-	if   arg == 'play':
-		phoebus.play()
-	elif arg == 'pause':
-		phoebus.pause()
-	elif arg == 'toggle':
-		phoebus.togglePlay()
-	elif arg == 'stop':
-		phoebus.stop()
-	elif arg == 'next':
-		phoebus.next()
-	elif arg == 'previous':
-		phoebus.previous()
-
-	if len(sys.argv) > 2:
-		if   arg == 'queue':
-			phoebus.enqueue(os.path.abspath(sys.argv[2]))
-		elif arg == 'playfile':
-			phoebus.playSource(os.path.abspath(sys.argv[2]))
+		if len(sys.argv) > 2:
+			if   arg == 'enqueue':
+				phoebus.enqueue(os.path.abspath(sys.argv[2]))
+			elif arg == 'play':
+				phoebus.clear()
+				phoebus.enqueue(os.path.abspath(sys.argv[2]))
+				phoebus.play()
+	
+		if   arg == 'play':
+			phoebus.play()
+		elif arg == 'pause':
+			phoebus.pause()
+		elif arg == 'toggle':
+			phoebus.togglePlay()
+		elif arg == 'stop':
+			phoebus.stop()
+		elif arg == 'next':
+			phoebus.next()
+		elif arg == 'previous':
+			phoebus.previous()
+except:
+	print "Error"

@@ -20,11 +20,16 @@ body{
 .data-table > span > label,
 .data-table > span > span{
     display: table-cell;
+    float: left;
+}
+
+.data-table > span > label{
     width: 50%;
 }
 
 .data-table > span > span{
-    text-align: right;
+    float: right;
+    margin-left: 1em;
 }
 
 
@@ -51,6 +56,10 @@ body{
         width: 50%;
     }
     
+    .section.temporal .data-table > span > span{
+        float: none;
+    }
+    
     .section.temporal .date,
     .section.temporal .time{
         font-size: 22px;
@@ -63,9 +72,10 @@ body{
 
     .section.temporal .date,
     .section.temporal .stillAlive{
-	text-align: left;
+    	text-align: left;
     }
     
 .section.mounts .data-table > span > span{
-	width: 20%;
-}    
+    text-align: right;
+    width: 80px;
+}

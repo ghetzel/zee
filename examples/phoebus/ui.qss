@@ -49,6 +49,11 @@ ZListWidget::item{
 			stop:0 #001933, stop:1 #000811);
 	}
 
+	#screen ZListWidget::item:selected{
+                background-color: qlineargradient(x1:0, y1:0 x2:0, y2:1,
+                        stop:0 #0F54A1, stop:1 #0C4380);
+	}
+
 #mainbar{
 	background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
 				stop: 0 #245183, stop: 1 #112F51);

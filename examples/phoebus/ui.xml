@@ -4,7 +4,7 @@
 	xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
 	xmlns:zui="http://www.gammazeta.net/zee/zui/">
 	<zee:components>
-		<zee:media id="media" />
+		<zee:media id="media" remote="true" />
 		<zee:media id="notifications" />
 	</zee:components>
 	<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
@@ -26,8 +26,9 @@
 		</zui:container>
 		<zui:container id="extended">
 			<zui:list id="sidebar">
-				<zui:item value="queueScreen" icon="images/stock_nowplaying.svg">Now Playing</zui:item>
+				<zui:item value="queueScreen" icon="media-playback-start">Now Playing</zui:item>
 				<zui:item value="libraryScreen" icon="stock_music-library">Library</zui:item>
+				<zui:item value="streamScreen" icon="stock_internet">Radio</zui:item>
 			</zui:list>
 			<zui:screens id="screen" default="libraryScreen">
 				<zui:screen name="queueScreen">
@@ -41,6 +42,11 @@
 					</zui:container>
 					<zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
 				</zui:screen>
+				<zui:screen name="streamScreen">
+					<zui:list id="streams">
+						<zui:item value="http://yp.shoutcast.com/sbin/tunein-station.pls?id=1091">SmoothJazz.com</zui:item>
+					</zui:list>
+				</zui:screen>
 			</zui:screens>
 		</zui:container>
 	</zui:application>
@@ -52,6 +58,7 @@
 		<zee:connect from="media.sourceChanged" to="status.setText" />
 		<zee:connect from="media.reachedBookmark" to="zee.log" direct="false" />
 		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
+		<zee:connect from="streams.activated" to="media.playSource" direct="false" />
 		<zee:connect from="browser.activated" to="media.enqueue" />
 		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
 		<zee:connect from="aStop.clicked" to="media.stop" />

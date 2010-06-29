@@ -1,6 +1,6 @@
 <?php
 ini_set("display_errors", 0);
-date_default_timezone_set('UTC');
+date_default_timezone_set('EDT');
 
 define("DATE_FORMAT", "l, F jS");
 define("TIME_FORMAT", "g:ia");
@@ -46,9 +46,9 @@ function meminfo($type){
 
 function szexp($abbr,$val=NULL){
 	if($abbr == "auto" && $val){
-		if($val < 1024)								// bytes
+		if($val < 1024)								    // bytes
 			return szexp("B");
-		else if($val < 1048576)						// KB
+		else if($val < 1048576)						    // KB
 			return szexp("K");
 		else if($val < 1073741824)						// MB
 			return szexp("M");
@@ -56,7 +56,7 @@ function szexp($abbr,$val=NULL){
 			return szexp("G");
 		else if($val < 1125899906842624)				// TB
 			return szexp("T");
-		else if($val < 1152921504606846976)			// PB
+		else if($val < 1152921504606846976)			    // PB
 			return szexp("P");
 		else if($val < 1180591620717411303424)			// EB
 			return szexp("E");
@@ -159,14 +159,14 @@ function szconv($val, $to="auto", $from="B"){
 
 $d = array();
 
-$d["date"] 			= date(DATE_FORMAT);
-$d["time"] 			= date(TIME_FORMAT);
-$d["still-alive"]		= stillAlive();
-$d["ancillary"]			= date(ANCILLARY_FORMAT);
-$d["hostname"]			= shell_exec("hostname");
-$d["uptime"]			= date("z\d G\h i\m", shell_exec("cat /proc/uptime | cut -f1 -d'.'"));
-$d["load"]			= trim(shell_exec("uptime | cut -d: -f5"));
-$d["temperature"]["mb"]		= trim(shell_exec("cat /proc/acpi/thermal_zone/TZ00/temperature | tr -s ' ' | cut -d' ' -f2"));
+$d["date"] 			            = date(DATE_FORMAT);
+$d["time"] 			            = date(TIME_FORMAT);
+$d["still-alive"]		        = stillAlive();
+$d["ancillary"]			        = date(ANCILLARY_FORMAT);
+$d["hostname"]			        = shell_exec("hostname");
+$d["uptime"]			        = date("z\d G\h i\m", shell_exec("cat /proc/uptime | cut -f1 -d'.'"));
+$d["load"]			            = trim(shell_exec("uptime | grep -o 'load average:.*' | cut -d: -f2"));
+$d["temperature"]["mb"]		    = trim(shell_exec("cat /proc/acpi/thermal_zone/THM/temperature | tr -s ' ' | cut -d' ' -f2"));
 $d["memory"]["system"]["free"]	= meminfo("free");
 $d["memory"]["system"]["used"]	= meminfo("used");
 $d["memory"]["system"]["total"]	= meminfo("total");
@@ -174,9 +174,27 @@ $d["memory"]["swap"]["free"]	= meminfo("swap-free");
 $d["memory"]["swap"]["used"]	= meminfo("swap-used");
 $d["memory"]["swap"]["total"]	= meminfo("swap-total");
 
+// processor
+$tmp = shell_exec("mpstat -P ALL | tr -s ' ' | grep -vE 'Linux|CPU|all|^$'");
+$tmp = explode("\n", $tmp);
+
+if(is_array($tmp)){
+	foreach($tmp as $i){
+		if($i == "")
+			continue;
+
+		$t = explode(" ", $i);
+		$d["processor"][$t[1]]["user"] = $t[2];
+		$d["processor"][$t[1]]["nice"] = $t[3];
+		$d["processor"][$t[1]]["system"] = $t[4];
+		$d["processor"][$t[1]]["iowait"] = $t[5];		
+		$d["processor"][$t[1]]["idle"] = $t[count($t)-1];
+		$d["processor"][$t[1]]["total"] = $t[2]+$t[3]+$t[4]+$t[5];
+	}
+}
 
 // mounts / disks
-$tmp = shell_exec("df -B1 | grep -v '^Filesystem' | tr -s ' ' | cut -d' ' -f1,2,3,4,6");
+$tmp = shell_exec("df -B1 | grep -vE '^Filesystem|shm' | tr -s ' ' | cut -d' ' -f1,2,3,4,6");
 $tmp = explode("\n", $tmp);
 
 if(is_array($tmp)){
@@ -202,14 +220,14 @@ if(is_array($tmp)){
 			continue;
 	
 		$t = explode(" ", trim($i));
+		$d["network"]["interfaces"][$t[0]]["hwaddr"] = shell_exec("ifconfig $t[0] | grep -o '[0-9A-F:]\{17\}'");
+		$d["network"]["interfaces"][$t[0]]["address"] = shell_exec("ifconfig $t[0] | grep -o 'inet addr:\([0-9.]\+\)' | cut -d: -f2");
+		$d["network"]["interfaces"][$t[0]]["broadcast"] = shell_exec("ifconfig $t[0] | grep -o 'Bcast:\([0-9.]\+\)' | cut -d: -f2");
+		$d["network"]["interfaces"][$t[0]]["netmask"] = shell_exec("ifconfig $t[0] | grep -o 'Mask:\([0-9.]\+\)' | cut -d: -f2");		
 		$d["network"]["interfaces"][$t[0]]["in"] = $t[1];
 		$d["network"]["interfaces"][$t[0]]["out"] = $t[9];
 	}
 }
-
-
-print_r($d["network"]);
-
 ?>
 <html>
 	<head>
@@ -221,21 +239,21 @@ print_r($d["network"]);
 	<script type="text/javascript">
 		window.addEvent('domready', function(){
 			var reloader = function(){ window.location.reload(); };
-			reloader.periodical(1000*60);
+			reloader.periodical(3000);
 		});
 	</script>
 		<div id="root">
 			<div class="section temporal">
-		<div class="data-table">
-			<span>
+        		<div class="data-table">
+		        	<span>
 						<span class="date"><?php echo $d["date"] ?></span>
 						<span class="time"><?php echo $d["time"] ?></span>
-			</span>
-			<span>
+		        	</span>
+		        	<span>
 						<span class="stillAlive">Day <?php echo $d["still-alive"] ?></span>
 						<span class="ancillary"><?php echo $d["ancillary"] ?></span>
-			</span>
-		</div>
+		        	</span>
+        		</div>
 			</div>
 			
 			<div class="section sysinfo">
@@ -270,16 +288,19 @@ print_r($d["network"]);
 						<label>Swap</label>
 						<span><?php echo szconv($d["memory"]["swap"]["used"])." / ".szconv($d["memory"]["swap"]["total"]) ?></span>
 					</span>
+					
+					<span>
+					    <label>CPU Usage:</label>
+				    <?php foreach($d["processor"] as $cpu => $info): ?>
+				        <span><?php echo $cpu.": ".$info["user"]."% " ?></span>
+				    <?php endforeach; ?>
+					</span>
 				</div>
 			</div>
 			
 			<div class="section mounts">
 				<h1>Mounts</h1>
 				<div class="data-table">
-					<!--<span class="header">
-						<label></label>
-						<label>Total</label>
-					</span>-->
 				<?php foreach($d["disks"] as $mountpoint => $info): ?>
 					<span>
 						<label><?php echo $mountpoint ?></label>
@@ -294,9 +315,11 @@ print_r($d["network"]);
 				<h1>Network</h1>
 				<div class="data-table">
 				<?php foreach($d["network"]["interfaces"] as $netif => $info): ?>
+				    <?php if(!$info["address"]) continue; ?>
 					<span>
 						<label><?php echo $netif ?></label>
-						<span><?php echo $info["out"] ?> / <?php echo $info["in"] ?></span>
+						<span><?php echo $info["address"] ?></span>
+						<!--<span><?php echo $info["out"] ?> / <?php echo $info["in"] ?></span>-->
 					</span>
 				<?php endforeach; ?>
 				</div>

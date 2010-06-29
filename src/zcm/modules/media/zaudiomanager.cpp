@@ -192,7 +192,7 @@ void ZAudioManager::setSource(QUrl location){
     if(_mediaObject){
 //        if(!_sourceQueue.contains(location.toString()))
 //            _sourceQueue.clear();
-	_mediaObject->setCurrentSource(Phonon::MediaSource(location.toString()));
+        _mediaObject->setCurrentSource(Phonon::MediaSource(location.toString()));
 	emit sourceChanged(_mediaObject->currentSource().url().toString());
     }
 }
@@ -202,7 +202,7 @@ void ZAudioManager::playSource(QString location){
 }
 
 void ZAudioManager::playSource(QUrl location){
-    setSource(location.path());
+    setSource(location.toString());
     play();
 }
 
@@ -230,13 +230,30 @@ void ZAudioManager::enqueue(QString location){
 }
 
 void ZAudioManager::enqueue(QUrl location){
-    z_log("ZAudioManager: Enqueueing "+location.toString());
-     beginInsertRows(QModelIndex(),
-		     _sourceQueue.size()-1,
-		     _sourceQueue.size()-1);
-     _sourceQueue.push_back(location.toString());
-    endInsertRows();
-    emit queueChanged();
+    z_log_debug("ZAudioManager: NQU: "+location.toString());
+
+    if(location.scheme() == "file")
+        if(!QFile::exists(location.toLocalFile()))
+            return;
+
+    QFileInfo f(location.path());
+    if(f.isDir()){
+        QDir qed(location.path());
+        foreach(QFileInfo i, qed.entryInfoList(QDir::Readable|QDir::Files))
+            enqueue(i.absoluteFilePath());
+    }else{
+        bool wasEmpty = _sourceQueue.isEmpty();
+        z_log("ZAudioManager: Enqueueing "+location.toString());
+         beginInsertRows(QModelIndex(),
+                         _sourceQueue.size()-1,
+                         _sourceQueue.size()-1);
+         _sourceQueue.push_back(location.toString());
+        endInsertRows();
+        emit queueChanged();
+
+        if(wasEmpty)
+            setSource(_sourceQueue.first());
+    }
 }
 
 void ZAudioManager::setQueue(QStringList locations){
@@ -269,6 +286,8 @@ void ZAudioManager::clearBookmarks(){
 void ZAudioManager::clear(){
     clearQueue();
     clearBookmarks();
+    if(_mediaObject)
+        _mediaObject->clear();
 }
 
 void ZAudioManager::setCrossfade(int ms){

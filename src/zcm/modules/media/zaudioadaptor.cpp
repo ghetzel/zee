@@ -55,8 +55,14 @@ void ZAudioAdaptor::previous(){
 }
 
 void ZAudioAdaptor::enqueue(QString location){
+    z_log_debug("ZAudioAdaptor: Queue "+location);
     if(instance())
-	enqueue(location);
+        instance()->enqueue(location);
+}
+
+void ZAudioAdaptor::clear(){
+    if(instance())
+        instance()->clear();
 }
 
 void ZAudioAdaptor::_stateHandler(ZAudioManager::ZAudioState state){

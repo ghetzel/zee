@@ -22,6 +22,7 @@ public slots:
     void next();
     void previous();
     void enqueue(QString);
+    void clear();
 
 signals:
     void playing();
