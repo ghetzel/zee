@@ -9,6 +9,7 @@
 	</zee:components>
 	<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
 		<zee:param name="iconTheme" value="Humanity-Dark" />
+
 		<zui:container id="mainbar">
 			<zui:container id="controls">
 				<zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
@@ -26,7 +27,7 @@
 		</zui:container>
 		<zui:container id="extended">
 			<zui:list id="sidebar">
-				<zui:item value="queueScreen" icon="media-playback-start">Now Playing</zui:item>
+				<zui:item value="queueScreen" icon=":/icons/nowplaying.svg">Now Playing</zui:item>
 				<zui:item value="libraryScreen" icon="stock_music-library">Library</zui:item>
 				<zui:item value="streamScreen" icon="stock_internet">Radio</zui:item>
 			</zui:list>

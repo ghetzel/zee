@@ -5,6 +5,7 @@
 #define ZEE_CFG_KEY             "zconfig"
 #define ZUI_DEFAULT_FILE_NAME   "ui.xml"
 #define ZUI_DEFAULT_QSS_NAME    "ui.qss"
+#define ZUI_DEFAULT_RCC_NAME	"ui.rcc"
 
 // exit codes
 #define ZEE_EXIT_OK                                 0
@@ -131,7 +132,6 @@ private:
     int sW, sH , sX, sY;
     static Zee *_app;
     QDesktopWidget *dtMain;
-
 };
 
 #endif // ZEE_H_

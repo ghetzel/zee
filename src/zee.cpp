@@ -43,7 +43,7 @@ void Zee::init()
 
     //handle log verbosity setting
     if(hasArg("log-verbosity")){
-        switch(arg("log-verbosity").toInt())
+	switch(arg("log-verbosity").toInt())
 	{
 	case 0:
 	    ZUtil::setLogLevel(ZUtil::LogNone);
@@ -70,16 +70,16 @@ void Zee::init()
 
     //setup config search paths
     QDir::setSearchPaths(ZEE_CFG_KEY,
-                         QStringList(QDir::homePath()+"/"+ZEE_CFG_DIR+"/"+
-                                     arg("program").toString()+"/"));
+			 QStringList(QDir::homePath()+"/"+ZEE_CFG_DIR+"/"+
+				     arg("program").toString()+"/"));
     z_log_debug("Zee: Search Path = "+STR(QDir::homePath()+"/"+ZEE_CFG_DIR+"/"+
-                                         arg("program").toString()+"/"));
+					 arg("program").toString()+"/"));
     reloadStyleSheet();
     parseUI();
 
     if(hasArg("debug-style")){
 	QTimer *styleTimer = new QTimer(this);
-        int intv = arg("debug-style").toInt()*1000;
+	int intv = arg("debug-style").toInt()*1000;
 
 	if(intv < 1000) // if not specified or less than 1s, set to default interval
 	    intv = 3000;
@@ -109,6 +109,8 @@ void Zee::parseArguments(){
 	    _arguments.insert("config", QVariant(args.at(i+1)));
 	}else if(args.at(i) == "-s" || args.at(i) == "--style"){
 	    _arguments.insert("style", QVariant(args.at(i+1)));
+	}else if(args.at(i) == "-R" || args.at(i) == "--resources"){
+	    _arguments.insert("resources", QVariant(args.at(i+1)));
 	}else if(args.at(i) == "--debug-style"){
 	    _arguments.insert("debug-style", QVariant(args.at(i+1)));
 	}else if(args.at(i) == "-V" || args.at(i) == "--verbosity"){
@@ -135,10 +137,10 @@ void Zee::reloadStyleSheet()
     QFile qss;
 
     if(hasArg("style"))
-        qss.setFileName(arg("style").toString());
+	qss.setFileName(arg("style").toString());
     else if(arg("program").toString() != ZEE_PROGNAME &&
-            QFile::exists(arg("program").toString()+".qss"))
-        qss.setFileName(arg("program").toString()+".qss");
+	    QFile::exists(arg("program").toString()+".qss"))
+	qss.setFileName(arg("program").toString()+".qss");
     else if(QFile::exists(ZUI_DEFAULT_QSS_NAME))
 	qss.setFileName(ZUI_DEFAULT_QSS_NAME);
     else
@@ -162,12 +164,27 @@ void Zee::parseUI()
 {
     QFile zui;
 
+    //load resources
+    if(arg("program").toString() != ZEE_PROGNAME &&
+	     QFile::exists(arg("program").toString()+".rcc"))
+	QResource::registerResource(arg("program").toString()+".rcc");
+    else if(QFile::exists(ZUI_DEFAULT_RCC_NAME))
+	QResource::registerResource(ZUI_DEFAULT_RCC_NAME);
+    else
+	QResource::registerResource(QString(ZEE_CFG_KEY)+":"+ZUI_DEFAULT_RCC_NAME);
+
+    if(hasArg("resources")){
+	QStringList clres = arg("resources").toString().split(",");
+	foreach(QString clr, clres)
+	    QResource::registerResource(clr);
+    }
+
     //if specified on command line, try that
     if(hasArg("config"))
-        zui.setFileName(arg("config").toString());
+	zui.setFileName(arg("config").toString());
     else if(arg("program").toString() != ZEE_PROGNAME &&
-            QFile::exists(arg("program").toString()+".xml"))
-        zui.setFileName(arg("program").toString()+".xml");
+	    QFile::exists(arg("program").toString()+".xml"))
+	zui.setFileName(arg("program").toString()+".xml");
     else if(QFile::exists(ZUI_DEFAULT_FILE_NAME))
 	zui.setFileName(ZUI_DEFAULT_FILE_NAME);
     else
@@ -179,7 +196,7 @@ void Zee::parseUI()
 	//make sure we can open the file
 	if(!zui.open(QIODevice::ReadOnly)){
 	    z_log_error("Failed to open UI definition file '"+zui.fileName()+"'");
-            QCoreApplication::exit(ZEE_EXIT_ZUI_DEF_INACCESSIBLE);
+	    QCoreApplication::exit(ZEE_EXIT_ZUI_DEF_INACCESSIBLE);
 	}
 
 	//make sure we can load the data
@@ -187,7 +204,7 @@ void Zee::parseUI()
 	{
 	    z_log_error("Invalid UI definition file '"+(*zDocErr)+"'");
 	    zui.close();
-            QCoreApplication::exit(ZEE_EXIT_INVALID_ZUI_DEF);
+	    QCoreApplication::exit(ZEE_EXIT_INVALID_ZUI_DEF);
 	}
 
 	//we're done with this
