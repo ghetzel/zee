@@ -15,7 +15,6 @@ public:
 
 public slots:
     void reset();
-
 private:
     void init();
     void parse(const ZConfig &el);

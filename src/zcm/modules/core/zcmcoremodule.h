@@ -6,6 +6,7 @@
 #include <zsetting.h>
 #include <ztimer.h>
 #include <zsysteminfo.h>
+#include <zexecutor.h>
 #ifdef Q_OS_LINUX
 #include "zdbusinterface.h"
 #endif

@@ -12,6 +12,7 @@ HEADERS += zcmcoremodule.h \
     zcm/zcmplugin.h \
     zcm/zcmplugininterface.h \
     zutil.h \
+    zui/zuiutils.h \
     zplugininterface.h \
     zeventmanager.h \
     zeventrelationship.h \
@@ -19,17 +20,20 @@ HEADERS += zcmcoremodule.h \
     zmethodobject.h \
     zeventobject.h \
     ztimer.h \
-    zsysteminfo.h
+    zsysteminfo.h \
+    zexecutor.h
 SOURCES += zcmcoremodule.cpp \
     libzee/zlocalsystem.cpp \
     zutil.cpp \
+    zui/zuiutils.cpp \
     zeventmanager.cpp \
     zeventrelationship.cpp \
     zsetting.cpp \
     zmethodobject.cpp \
     zeventobject.cpp \
     ztimer.cpp \
-    zsysteminfo.cpp
+    zsysteminfo.cpp \
+    zexecutor.cpp
 DESTDIR = ../../../plugins
 TARGET = $$qtLibraryTarget(zcm_core)
 QT += xml

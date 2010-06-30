@@ -113,6 +113,7 @@ class Zee : public QApplication
 #endif
   public slots:
     void reloadStyleSheet();
+    void output(QString);
     void log(QString);
     void logWarning(QString);
     void logError(QString);
@@ -121,6 +122,7 @@ class Zee : public QApplication
 
 signals:
     void styleReloaded();
+    void loadComplete();
 #ifdef Q_WS_X11
     void x11EventReceived(XEvent*);
 #endif

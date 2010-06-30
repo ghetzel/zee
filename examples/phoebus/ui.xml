@@ -21,8 +21,8 @@
 				<zui:progress id="seekbar" />
 			</zui:container>
 			<zui:container>
-				<zui:button id="aClear" value="Clear" />
-				<zui:togglebutton id="compact" value="Hide" value2="Show" />
+				<zui:button id="aClear" icon=":/icons/clear.svg" />
+				<zui:button id="reloadStyle" icon=":/icons/reload.svg" />
 			</zui:container>
 		</zui:container>
 		<zui:container id="extended">
@@ -73,10 +73,7 @@
 		<zee:connect from="compact.checked" to="extended.hide" />
 		<zee:connect from="compact.unchecked" to="extended.show" />
 		<zee:connect from="aClear.clicked" to="media.clear" />
-		<zee:connect from="zQuit.clicked" to="zee.quit" />
-		<zee:connect from="notifications.playing" to="media.pause" />
-		<zee:connect from="notifications.stopped" to="media.play" />
-
+		<zee:connect from="reloadStyle.clicked" to="zee.reloadStyleSheet" />
 		<zee:connect from="media.stopped" to="seekbar.reset" />
 <!--	Resets activated song?
 		<zee:connect from="media.stopped" to="status.reset" /> 

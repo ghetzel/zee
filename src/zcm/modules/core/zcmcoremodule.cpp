@@ -14,6 +14,10 @@ ZcmResult ZCMCoreModule::prepare(const QDomElement &el){
     }else if(el.tagName() == ZEE_TIMER){
         rv.component = new ZTimer(el,qApp);
 #endif // ZEE_TIMER
+#ifdef ZCM_EXECUTOR
+    }else if(el.tagName() == ZCM_EXECUTOR){
+        rv.component = new ZExecutor(el,qApp);
+#endif // ZCM_EXECUTOR
 #ifdef ZEE_SYSTEM_INFO
     }else if(el.tagName() == ZEE_SYSTEM_INFO){
         rv.component = new ZSystemInfo(el,qApp);

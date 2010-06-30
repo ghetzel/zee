@@ -11,14 +11,30 @@ ZTimer::ZTimer(const ZConfig &el, QObject *parent)
     parse(_config);
 }
 
+ZTimer::~ZTimer(){
+    stop();
+}
+
 void ZTimer::parse(const ZConfig &el){    
     if(el.hasAttribute("interval")){
         if(el.attribute("once","false")=="true")
             setSingleShot(true);
 
-        setInterval(el.attribute("interval").toInt());
+        _interval = el.attribute("interval").toInt();
+
+        if(ZuiUtils::attributeTrue(el, "onstart")){
+            setInterval(0);
+            connect(this, SIGNAL(timeout()), this, SLOT(startEmit()));
+        }else{
+            setInterval(_interval);
+        }
         start();
     }else{
         z_log_error("ZTimer: Cannot start timer without an interval");
     }
+}
+
+void ZTimer::startEmit(){
+    disconnect(this, SLOT(startEmit()));
+    setInterval(_interval);
 }

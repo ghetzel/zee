@@ -10,8 +10,12 @@
 class ZContainerWidget : public QFrame, public ZWidget
 {
     Q_OBJECT
+    Q_PROPERTY(Qt::Alignment align READ alignment WRITE setAlignment)
 public:
     ZContainerWidget(const ZConfig &el, QWidget *parent=0);
+    Qt::Alignment alignment();
+    void setAlignment(Qt::Alignment alignment);
+
 
 public slots:
     void toggle();

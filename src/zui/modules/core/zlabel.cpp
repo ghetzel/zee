@@ -17,7 +17,6 @@ ZLabel::ZLabel(QString value, const ZConfig &el, QWidget *parent)
 
 void ZLabel::init(){
     parse(_config);
-    _initValue = text();
 
     zEvent->registerSlot(this,SLOT(setText(QString)));
     zEvent->registerSlot(this,SLOT(setEnabled(bool)));
@@ -26,9 +25,10 @@ void ZLabel::init(){
 
 void ZLabel::parse(const ZConfig &el){
     if(el.hasAttribute("value"))
-	setText(el.attribute("value"));
+        setText(el.attribute("value"));
     else
-	setText(el.text());
+        setText(el.text());
+    _initValue = text();
 }
 
 void ZLabel::reset(){

@@ -30,11 +30,13 @@ void Zee::init()
     zEvent->registerSignal(this,SIGNAL(aboutToQuit()));
     zEvent->registerSignal(this,SIGNAL(lastWindowClosed()));
     zEvent->registerSignal(this,SIGNAL(unixSignal(int)));
+    zEvent->registerSignal(this, SIGNAL(loadComplete()));
 
     zEvent->registerSlot(this,SLOT(closeAllWindows()));
     zEvent->registerSlot(this,SLOT(quit()));
     zEvent->registerSlot(this,SLOT(reloadStyleSheet()));
     zEvent->registerSlot(this,SLOT(setStyleSheet(QString)));
+    zEvent->registerSlot(this,SLOT(output(QString)));
     zEvent->registerSlot(this,SLOT(log(QString)));
     zEvent->registerSlot(this,SLOT(logWarning(QString)));
     zEvent->registerSlot(this,SLOT(logError(QString)));
@@ -222,6 +224,7 @@ void Zee::parseUI()
     QCoreApplication::exit(ZEE_EXIT_NO_ZUI_DEF);
 }
 
+void Zee::output(QString msg){      z_out(msg);         }
 void Zee::log(QString msg){         z_log(msg);         }
 void Zee::logWarning(QString msg){  z_log_warn(msg);    }
 void Zee::logError(QString msg){    z_log_error(msg);   }

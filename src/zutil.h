@@ -7,6 +7,7 @@
 #include <QString>
 #include <QVariant>
 #include <QFile>
+#include <QRegExp>
 #include <QTextStream>
 
 #define ZUTL_DEFAULT_LOG_LEVEL   ZUtil::LogDebug
@@ -15,6 +16,7 @@
 #define ZEE_OBJNAME     "zee"
 #define ZEE_PROGNAME    "zee"
 
+#define z_out(x)        ZUtil::output(x);
 #define z_log(x)        ZUtil::log(x)
 #define z_log_error(x)  ZUtil::log(x,ZUtil::LogError)
 #define z_log_debug(x)  ZUtil::log(x,ZUtil::LogDebug)
@@ -75,14 +77,29 @@ public:
   static void setLogLevel(ZLogLevel level = ZUTL_DEFAULT_LOG_LEVEL);
 
 /*!
-  Logs the string \a output to the console with priority \a level
+  Logs the string \a output to the standard error with priority \a level
 */
   static void log(QString output, ZLogLevel level = ZUTL_DEFAULT_LOG_LEVEL);
+
+/*!
+  Outputs \a output to standard output
+*/
+  static void output(QString output);
 
 /*!
   Returns whether \a flag is present in \a flags
 */
   static bool hasFlag(ulong flag, ulong flags);
+
+/*!
+  Returns the output of \a command
+*/
+  static QString exec(QString command);
+
+/*!
+  Returns the output of \a command with all line breaks removed
+*/
+  static QString execln(QString command, QString terminator="");
 };
 
 #endif // ZUTIL_H

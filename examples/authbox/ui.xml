@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core"
+  xmlns:zui="http://www.gammazeta.net/zee/zui"
+>
+	<zee:components>
+		<zee:timer id="timer" interval="113" onstart="true" />
+		<zee:executor id="hosttime" oneline=" ">
+                <![CDATA[
+			echo "Authorization Required // $USER@`hostname` // `date +'%Y-%m-%d %H:%M:%S.%N'`"
+                ]]>
+		</zee:executor>
+	</zee:components>
+	<zui:application id="authbox" width="100%" height="100%" frame="false" position="center" resizable="false" layout="vertical" type="dialog">
+		<zui:container id="shader">
+			<zui:container id="root" layout="vertical">
+				<zui:container id="header" layout="vertical">
+					<zui:text id="title" />
+				</zui:container>
+				<zui:container id="content" layout="vertical">
+					<zui:input id="password" type="password" />		
+				</zui:container>
+			</zui:container>
+		</zui:container>
+	</zui:application>
+	<zee:events>
+		<zee:connect from="password.returnPressed" to="zee.output" via="password.text" />
+		<zee:connect from="password.returnPressed" to="zee.quit" />
+		<zee:connect from="timer.timeout" to="hosttime.exec" />
+		<zee:connect from="hosttime.executed" to="title.setText" />
+	</zee:events>
+</zee>

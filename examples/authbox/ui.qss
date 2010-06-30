@@ -1,0 +1,46 @@
+#shader{
+	background-color: rgba(0,0,0,50%);
+	qproperty-align: "AlignCenter";
+}
+
+#root{
+	background: transparent top left no-repeat url(":/images/challengeBg.png");
+	qproperty-align: "AlignTop";
+	max-height: 203px;
+	min-height: 203px;
+	min-width: 680px;
+	max-width: 680px;
+}
+
+#header{
+	min-height: 22px;
+	qproperty-align: "AlignTop";
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+#content{
+	min-height: 139px;
+	qproperty-align: "AlignCenter";
+}
+
+#title{
+	background: transparent top left no-repeat url(":/images/titleBg.png");
+	color: #FFF;
+	font-family: PF Tempesta Seven;
+	font-size: 8px;
+	max-height: 19px;
+	max-width: 666px;
+	padding-left: 50px;
+	padding-bottom: 2px;
+	text-transform: uppercase;
+}
+
+#password{
+	background-color: #000;
+	border: 3px solid #383838;
+	color: #CCC;
+	font-size: 18px;
+	min-height: 24px;
+	max-width: 620px;
+}
