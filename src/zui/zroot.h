@@ -1,7 +1,7 @@
 #ifndef ZROOT_H
 #define ZROOT_H
 
-#include <QFrame>
+#include <zcontainerwidget.h>
 
 /*!
   \class ZRoot
@@ -9,11 +9,14 @@
   \brief Represents the main window widget that all other widgets are
   descendants of.
 */
-class ZRoot : public QFrame{
+class ZRoot : public ZContainerWidget{
   Q_OBJECT
 
 public:
-  ZRoot(QWidget *parent=0) : QFrame(parent){};
+  ZRoot(const ZConfig &el, QWidget *parent) : ZContainerWidget(el,parent){};
+
+private:
+  void parse(const ZConfig &el){};
 };
 
 #endif // ZROOT_H

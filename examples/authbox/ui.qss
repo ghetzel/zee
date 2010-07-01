@@ -1,9 +1,9 @@
-#shader{
+ZWindow > ZRoot{
 	background-color: rgba(0,0,0,50%);
 	qproperty-align: "AlignCenter";
 }
 
-#root{
+#dialog{
 	background: transparent top left no-repeat url(":/images/challengeBg.png");
 	qproperty-align: "AlignTop";
 	max-height: 203px;
@@ -43,4 +43,16 @@
 	font-size: 18px;
 	min-height: 24px;
 	max-width: 620px;
+}
+
+ZProgressBar{
+	background-color: transparent;
+	border: 0px;
+	color: transparent;
+	max-height: 3px;
+	max-width: 626px;
+}
+
+ZProgressBar::chunk{
+	background-color: #383838;
 }

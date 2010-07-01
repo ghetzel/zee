@@ -142,7 +142,7 @@ void ZWindow::parse(const ZConfig &el){
 	    move(dX, dY);
     }
 
-    _rootSurface = new ZRoot(this);
+    _rootSurface = new ZRoot(_config,this);
     _rootSurface->setLayout(ZuiUtils::getLayout(
 	    el.attribute("layout", ZUI_DEFAULT_LAYOUT)));
     _rootSurface->setObjectName("root");

@@ -5,21 +5,22 @@
 >
 	<zee:components>
 		<zee:timer id="timer" interval="113" onstart="true" />
+		<zee:timer id="closer" interval="20000" tracking="125" />
 		<zee:executor id="hosttime" oneline=" ">
                 <![CDATA[
 			echo "Authorization Required // $USER@`hostname` // `date +'%Y-%m-%d %H:%M:%S.%N'`"
                 ]]>
 		</zee:executor>
 	</zee:components>
-	<zui:application id="authbox" width="100%" height="100%" frame="false" position="center" resizable="false" layout="vertical" type="dialog">
-		<zui:container id="shader">
-			<zui:container id="root" layout="vertical">
-				<zui:container id="header" layout="vertical">
-					<zui:text id="title" />
-				</zui:container>
-				<zui:container id="content" layout="vertical">
-					<zui:input id="password" type="password" />		
-				</zui:container>
+	<zui:application id="authbox" width="100%" height="100%" frame="false" position="center" resizable="false" layout="vertical" type="dialog" align="AlignCenter">
+		<zui:container id="dialog" layout="vertical">
+			<zui:container id="header" layout="vertical">
+				<zui:text id="title" />
+			</zui:container>
+			<zui:container id="content" layout="vertical">
+				<zui:progress id="remaining" max="20000" />
+				<zui:input id="password" type="password" />		
+				<zui:progress id="elapsed" max="20000" />
 			</zui:container>
 		</zui:container>
 	</zui:application>
@@ -28,5 +29,9 @@
 		<zee:connect from="password.returnPressed" to="zee.quit" />
 		<zee:connect from="timer.timeout" to="hosttime.exec" />
 		<zee:connect from="hosttime.executed" to="title.setText" />
+		<zee:connect from="closer.timeout" to="zee.quit" />
+		<zee:connect from="closer.elapsed" to="elapsed.setValue" />
+		<zee:connect from="closer.remaining" to="remaining.setValue" />
+		<zee:connect from="password.textChanged" to="closer.reset" direct="false" />
 	</zee:events>
 </zee>
