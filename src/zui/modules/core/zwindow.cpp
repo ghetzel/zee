@@ -34,8 +34,9 @@ void ZWindow::parse(const ZConfig &el){
 
 //  only allow translucent backgrounds for apps... 8-{ ...with style...
 //  YYEEEEEEEEEEEEEAAAAAAAAAAAHHHHHHHHHHHHH!!!!!
-    if(!qApp->styleSheet().isEmpty())
+    if(!qApp->styleSheet().isEmpty()){
 	setAttribute(Qt::WA_TranslucentBackground);
+    }
 
     if(param("iconTheme").isValid())
         QIcon::setThemeName(param("iconTheme").toString());
@@ -144,7 +145,12 @@ void ZWindow::parse(const ZConfig &el){
     _rootSurface = new ZRoot(this);
     _rootSurface->setLayout(ZuiUtils::getLayout(
 	    el.attribute("layout", ZUI_DEFAULT_LAYOUT)));
-    setLayout(_rootSurface->layout());
+    _rootSurface->setObjectName("root");
+    _rootSurface->setAutoFillBackground(true);
+    setLayout(new QHBoxLayout);
+    layout()->setSpacing(0);
+    layout()->setMargin(0);
+    layout()->addWidget(_rootSurface);
 }
 
 void ZWindow::mousePressEvent(QMouseEvent *e){

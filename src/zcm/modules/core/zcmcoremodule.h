@@ -7,6 +7,9 @@
 #include <ztimer.h>
 #include <zsysteminfo.h>
 #include <zexecutor.h>
+
+#include <zsqlquery.h>
+
 #ifdef Q_OS_LINUX
 #include "zdbusinterface.h"
 #endif

@@ -16,6 +16,7 @@
 #include <zslider.h>
 #include <zprogressbar.h>
 #include <zlistwidget.h>
+#include <ztableview.h>
 
 /*!
   \defgroup zui_plugins_form Forms

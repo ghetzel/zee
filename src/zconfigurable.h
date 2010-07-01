@@ -42,9 +42,9 @@ private:
             if(e.isNull())
                 continue;
             if(e.tagName() == "zee:param")
-                if(e.hasAttribute("name") && e.hasAttribute("value"))
+                if(e.hasAttribute("name") && (e.hasAttribute("value") || !e.text().isEmpty()))
                     _properties.insert(e.attribute("name"),
-                                       QVariant(e.attribute("value")));
+                                       QVariant(e.attribute("value",e.text())));
         }
     }
 };

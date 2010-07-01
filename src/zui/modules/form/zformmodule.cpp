@@ -22,9 +22,14 @@ ZuiResult ZFormModule::prepareWidget(const QDomElement &el, QWidget *parent){
 #endif // ZUI_TOGGLEBUTTON
 #ifdef ZUI_LIST // list: generic list box
     }else if(el.tagName() == ZUI_LIST){
-	zRes.widget = new ZListWidget(el, zRes.parent);
+        zRes.widget = new ZListWidget(el, zRes.parent);
 
 #endif // ZUI_LIST
+#ifdef ZUI_TABLE
+    }else if(el.tagName() == ZUI_TABLE){
+        zRes.widget = new ZTableView(el,zRes.parent);
+
+#endif // ZUI_TABLE
 #ifdef ZUI_RADIO
     }else if(el.tagName() == ZUI_RADIO){
 	if(el.text().isEmpty())

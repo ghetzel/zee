@@ -15,9 +15,11 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
 
     if(0){
 #ifdef ZUI_APPLICATION // application: the app window itself
-    }else if(el.tagName() == ZUI_APPLICATION){
-	zRes.widget = new ZWindow(el);
-	zRes.parent = zRes.widget;
+    }else if(el.tagName() == ZUI_APPLICATION){        
+        ZWindow *w = new ZWindow(el);
+        zRes.widget = w->rootSurface();
+        zRes.parent = zRes.widget;
+
 #endif // ZUI_APPLICATION
 #ifdef ZUI_SCREENMGR // screens: manages task visibility/navigation
     }else if(el.tagName() == ZUI_SCREENMGR){

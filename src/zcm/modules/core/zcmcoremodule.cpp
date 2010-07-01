@@ -18,6 +18,12 @@ ZcmResult ZCMCoreModule::prepare(const QDomElement &el){
     }else if(el.tagName() == ZCM_EXECUTOR){
         rv.component = new ZExecutor(el,qApp);
 #endif // ZCM_EXECUTOR
+
+#ifdef ZCM_SQLQUERY
+    }else if(el.tagName() == ZCM_SQLQUERY){
+        rv.component = new ZSQLQuery(el,qApp);
+#endif // ZCM_SQLQUERY
+
 #ifdef ZEE_SYSTEM_INFO
     }else if(el.tagName() == ZEE_SYSTEM_INFO){
         rv.component = new ZSystemInfo(el,qApp);

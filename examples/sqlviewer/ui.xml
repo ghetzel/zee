@@ -1,0 +1,29 @@
+'<?xml version="1.0"?>
+<zee 
+  xmlns:zee=""
+  xmlns:zui="">
+	<zee:components>
+		<zee:sql id="sql" type="QMYSQL">
+			<zee:param name="hostname">adhoc.local</zee:param>
+			<zee:param name="username">root</zee:param>
+			<zee:param name="password">ncc74656</zee:param>
+			<zee:param name="query">
+				SELECT 1;
+			</zee:param>
+		</zee:sql>
+	</zee:components>
+	
+	<zui:application layout="vertical">
+		<zui:text>&#x26A0; SQL Query Executor</zui:text>
+		<zui:button id="exec" value="Execute Query" />
+		<zui:input id="query" />
+		<zui:table id="view" model="sql" />
+	</zui:application>
+
+	<zee:events>
+		<zee:connect from="exec.clicked" to="sql.execute" />
+		<zee:connect from="sql.queryChanged" to="query.setText" />
+		<zee:connect from="query.returnPressed" to="sql.setQuery" via="query.text" />
+		<zee:connect from="query.returnPressed" to="sql.execute" />
+	</zee:events>
+</zee>
