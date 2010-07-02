@@ -22,13 +22,13 @@ class ZSystemInfo : public QObject, public ZConfigurable
     Q_PROPERTY(qint64 timems READ timems)
 public:
     ZSystemInfo(const ZConfig &el, QObject *parent=0);
-    void parse(const ZConfig &el);
+    void parse(const ZConfig&);
     qint64 time();
     qint64 timems();
 
 public slots:
     void notify(QString title, QString message=QString(),
-                QString icon=QString(), uint duration=ZSYS_NOTIFY_DURATION);
+		QString icon=QString(), uint duration=ZSYS_NOTIFY_DURATION);
 
 private:
     ZLocalSystem *_sysinfo;

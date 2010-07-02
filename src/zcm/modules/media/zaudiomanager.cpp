@@ -7,7 +7,7 @@ ZAudioManager::ZAudioManager(const ZConfig &el, QObject *parent)
     init();
 }
 
-void ZAudioManager::parse(const ZConfig &el){
+void ZAudioManager::parse(const ZConfig&){
     setCrossfade(param("crossfade").toInt());
 }
 
@@ -122,6 +122,7 @@ void ZAudioManager::tick(qint64){
 	emit timeChanged(ct);
 	emit durationChanged(tt);
 	break;
+    default: break;
     }
 }
 
@@ -192,7 +193,7 @@ void ZAudioManager::setSource(QUrl location){
     if(_mediaObject){
 //        if(!_sourceQueue.contains(location.toString()))
 //            _sourceQueue.clear();
-        _mediaObject->setCurrentSource(Phonon::MediaSource(location.toString()));
+	_mediaObject->setCurrentSource(Phonon::MediaSource(location.toString()));
 	emit sourceChanged(_mediaObject->currentSource().url().toString());
     }
 }
@@ -233,26 +234,26 @@ void ZAudioManager::enqueue(QUrl location){
     z_log_debug("ZAudioManager: NQU: "+location.toString());
 
     if(location.scheme() == "file")
-        if(!QFile::exists(location.toLocalFile()))
-            return;
+	if(!QFile::exists(location.toLocalFile()))
+	    return;
 
     QFileInfo f(location.path());
     if(f.isDir()){
-        QDir qed(location.path());
-        foreach(QFileInfo i, qed.entryInfoList(QDir::Readable|QDir::Files))
-            enqueue(i.absoluteFilePath());
+	QDir qed(location.path());
+	foreach(QFileInfo i, qed.entryInfoList(QDir::Readable|QDir::Files))
+	    enqueue(i.absoluteFilePath());
     }else{
-        bool wasEmpty = _sourceQueue.isEmpty();
-        z_log("ZAudioManager: Enqueueing "+location.toString());
-         beginInsertRows(QModelIndex(),
-                         _sourceQueue.size()-1,
-                         _sourceQueue.size()-1);
-         _sourceQueue.push_back(location.toString());
-        endInsertRows();
-        emit queueChanged();
+	bool wasEmpty = _sourceQueue.isEmpty();
+	z_log("ZAudioManager: Enqueueing "+location.toString());
+	 beginInsertRows(QModelIndex(),
+			 _sourceQueue.size()-1,
+			 _sourceQueue.size()-1);
+	 _sourceQueue.push_back(location.toString());
+	endInsertRows();
+	emit queueChanged();
 
-        if(wasEmpty)
-            setSource(_sourceQueue.first());
+	if(wasEmpty)
+	    setSource(_sourceQueue.first());
     }
 }
 
@@ -287,7 +288,7 @@ void ZAudioManager::clear(){
     clearQueue();
     clearBookmarks();
     if(_mediaObject)
-        _mediaObject->clear();
+	_mediaObject->clear();
 }
 
 void ZAudioManager::setCrossfade(int ms){
@@ -380,7 +381,7 @@ qint64 ZAudioManager::currentTime(){
     return -1;
 }
 
-int ZAudioManager::rowCount(const QModelIndex &parent) const{
+int ZAudioManager::rowCount(const QModelIndex&) const{
     return _sourceQueue.size();
 }
 
@@ -391,9 +392,9 @@ QVariant ZAudioManager::data(const QModelIndex &index, int role) const{
 	return QVariant();
     switch(role){
     case Qt::DisplayRole:
-        return QVariant(_sourceQueue.at(index.row()));
+	return QVariant(_sourceQueue.at(index.row()));
     case Qt::UserRole+1:
-        return QVariant(_sourceQueue.at(index.row()));
+	return QVariant(_sourceQueue.at(index.row()));
     default:
 	return QVariant();
     }

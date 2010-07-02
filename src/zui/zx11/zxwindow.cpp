@@ -9,16 +9,16 @@ ZXWindow::ZXWindow(Window winId, Display *display){
 
 //connect event notifications to updaters
   connect(this, SIGNAL(propertyNotify(QString)),
-          this, SLOT(updateValues(QString)));
+	  this, SLOT(updateValues(QString)));
 
 //connect to application X11 events
   connect(qApp, SIGNAL(x11EventReceived(XEvent*)),
-          this, SLOT(eventSelect(XEvent*)));
+	  this, SLOT(eventSelect(XEvent*)));
 
   /*! \bug Currently cannot select window events for an arbitrary window
-           because this will break Qt's event loop if you exclude certain events
-           from the current application's window.  Add a check for whether we
-           are the app window and handle accordingly.
+	   because this will break Qt's event loop if you exclude certain events
+	   from the current application's window.  Add a check for whether we
+	   are the app window and handle accordingly.
    */
   /*
 //tell X to give this application certain events
@@ -68,8 +68,8 @@ int ZXWindow::desktop(Window winId, Display *display){
   return ZXServer::getCardinal(_NET_WM_DESKTOP, winId, display);
 }
 
-int ZXWindow::screen(Window winId, Display *display){
-//TODO: find out the actual EWMH property for this
+int ZXWindow::screen(Window, Display*){
+//! \todo find out the actual EWMH property for this
   return QX11Info::appScreen();
 }
 
@@ -164,12 +164,12 @@ void ZXWindow::setState(int states, Window w, Display *d)
     _atoms.append(ZXServer::atom(_NET_WM_STATE_STICKY ));
 
   XChangeProperty(d,w,
-                  ZXServer::atom(_NET_WM_STATE),
-                  ZXServer::atom(_NET_WM_STATE),
-                  32,
-                  PropModeReplace,
-                  (u_char*)_atoms.constData(),
-                  _atoms.count());
+		  ZXServer::atom(_NET_WM_STATE),
+		  ZXServer::atom(_NET_WM_STATE),
+		  32,
+		  PropModeReplace,
+		  (u_char*)_atoms.constData(),
+		  _atoms.count());
 
 }
 
@@ -234,13 +234,13 @@ void ZXWindow::setWindowType(ZXWindow::WindowType wt, Window w, Display *d)
  // z_log_debug("Set property: "+QVariant((int)wtype).toString());
 
   XChangeProperty(d,
-                  w,
-                  X11_ATOM(_NET_WM_WINDOW_TYPE),
-                  XA_ATOM,
-                  32,
-                  PropModeReplace,
-                  (u_char*)&wt,
-                  1);
+		  w,
+		  X11_ATOM(_NET_WM_WINDOW_TYPE),
+		  XA_ATOM,
+		  32,
+		  PropModeReplace,
+		  (u_char*)&wt,
+		  1);
 }
 
 bool ZXWindow::eventSelect(XEvent *xe){

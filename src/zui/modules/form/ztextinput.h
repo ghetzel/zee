@@ -22,7 +22,7 @@ private:
     void parse(const ZConfig &el);
 
 private slots:
-    void _cursorPosition(int o, int n);
+    void _cursorPosition(int o, int);
 };
 
 #endif // ZTEXTINPUT_H

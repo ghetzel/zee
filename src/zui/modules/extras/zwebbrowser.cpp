@@ -8,11 +8,13 @@ ZWebBrowser::ZWebBrowser(const ZConfig &el, QWidget *parent)
 ZWebBrowser::ZWebBrowser(QString uri, const ZConfig &el, QWidget *parent)
   : QWebView(parent), ZWidget(el,this){
   init();
+  load(uri);
 }
 
 ZWebBrowser::ZWebBrowser(QUrl uri, const ZConfig &el, QWidget *parent)
   : QWebView(parent), ZWidget(el,this){
   init();
+  load(uri.toString());
 }
 
 void ZWebBrowser::init(){

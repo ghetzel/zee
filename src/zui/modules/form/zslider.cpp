@@ -11,8 +11,8 @@ void ZSlider::init(){
     parse(_config);
 
     zEvent->registerSignal(this, SIGNAL(valueChanged(int)));
-    zEvent->registerSignal(this, SIGNAL(sliderPressed()),"pressed");
-    zEvent->registerSignal(this, SIGNAL(sliderReleased()),"released");
+    zEvent->registerSignal(this, SIGNAL(sliderPressed()));
+    zEvent->registerSignal(this, SIGNAL(sliderReleased()));
     zEvent->registerSlot(this, SLOT(setValue(int)));
 }
 

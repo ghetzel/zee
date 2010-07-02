@@ -23,7 +23,7 @@ public:
   };
 
   ZXWindowListModel(QObject *parent =0);
-  int rowCount(const QModelIndex &parent) const;
+  int rowCount(const QModelIndex&) const;
   QVariant data(const QModelIndex &index, int role) const;
 
 private:

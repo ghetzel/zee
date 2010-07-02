@@ -15,11 +15,12 @@ qint64 ZLocalSystem::systemTimeEpoch(){
 }
 
 ZLocalSystem::SystemLoad ZLocalSystem::systemLoad(){
-
+    ZLocalSystem::SystemLoad load = {0,0,0};
+    return load;
 }
 
 qint64 ZLocalSystem::uptime(){
-
+    return 0;
 }
 
 

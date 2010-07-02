@@ -8,7 +8,7 @@ ZXWindowListModel::ZXWindowListModel(QObject *parent)
     connect(_rootWindow, SIGNAL(clientListChanged()), SIGNAL(dataChanged()));
 }
 
-int ZXWindowListModel::rowCount(const QModelIndex &parent) const{
+int ZXWindowListModel::rowCount(const QModelIndex&) const{
   return _clientList.count();
 }
 

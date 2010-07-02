@@ -12,7 +12,7 @@ class ZSetting : public QObject, public ZConfigurable
 {
 public:
     ZSetting(const ZConfig &el, QObject *parent=0);
-    void parse(const ZConfig &el);
+    void parse(const ZConfig&);
 };
 
 #endif // ZSETTING_H

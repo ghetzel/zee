@@ -8,11 +8,13 @@ ZFolderView::ZFolderView(const ZConfig &el, QWidget *parent)
 ZFolderView::ZFolderView(QDir initDirectory, const ZConfig &el, QWidget *parent)
   : ZFileBrowser(el,parent){
   init();
+  cd(initDirectory);
 }
 
 ZFolderView::ZFolderView(QString initDirectory, const ZConfig &el, QWidget *parent)
   : ZFileBrowser(el,parent){
   init();
+  cd(initDirectory);
 }
 
 void ZFolderView::init(){

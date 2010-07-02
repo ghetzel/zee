@@ -42,7 +42,7 @@ protected:
   QFileSystemModel *pwd;
 
 private slots:
-  void _activated(const QModelIndex &index);
+  void _activated(const QModelIndex&);
 };
 
 #endif // ZFILEBROWSER_H

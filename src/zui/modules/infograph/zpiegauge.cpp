@@ -10,13 +10,13 @@ void ZPieGauge::paintEvent(QPaintEvent *event){
     QPainter *p = new QPainter(this);
 
     if(p->isActive()){
-        p->setRenderHint(QPainter::Antialiasing);
+	p->setRenderHint(QPainter::Antialiasing);
 
-        qreal cX = (width()/2.0)-(ZGENERIC_DIAL_X_PAD);
-        qreal cY = (height()/2.0)-(ZGENERIC_DIAL_Y_PAD);
-        qreal vTheta = (ZGENERIC_DIAL_ANNULAR_OFFSET+offset()+
-                       (range()/(maximum()-minimum()))/value()); // brainfail
+	//qreal cX = (width()/2.0)-(ZGENERIC_DIAL_X_PAD);
+	//qreal cY = (height()/2.0)-(ZGENERIC_DIAL_Y_PAD);
+	qreal vTheta = (ZGENERIC_DIAL_ANNULAR_OFFSET+offset()+
+		       (range()/(maximum()-minimum()))/value()); // brainfail
 
-        p->drawPie(rect(), (ZGENERIC_DIAL_ANNULAR_OFFSET+offset())*16,vTheta*16);
+	p->drawPie(rect(), (ZGENERIC_DIAL_ANNULAR_OFFSET+offset())*16,vTheta*16);
     }
 }

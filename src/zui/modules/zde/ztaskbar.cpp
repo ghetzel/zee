@@ -22,7 +22,7 @@ void ZTaskbar::setScreenPosition(ZXScreenEdge edge){
 
 void ZTaskbar::init(){
   _currentWindow = new ZXWindow(QApplication::topLevelWidgets().first()->winId(),
-                                QX11Info::display());
+				QX11Info::display());
   //setWmProperties();
   setModel(new ZXWindowListModel(this));
   setItemDelegate(new ZXWindowListItem);
@@ -35,10 +35,10 @@ void ZTaskbar::init(){
 
 
   connect(this, SIGNAL(clicked(QModelIndex)),
-          this, SLOT(activate(QModelIndex)));
+	  this, SLOT(activate(QModelIndex)));
 
   connect(model(), SIGNAL(dataChanged()),
-          this, SLOT(refreshWindowList()));
+	  this, SLOT(refreshWindowList()));
 }
 
 void ZTaskbar::setWmProperties(){
@@ -65,9 +65,8 @@ void ZTaskbar::activate(QModelIndex index){
   ZXWindow::raise(winId);
 }
 
-bool ZTaskbar::invoke(QString action, QString arg1, QString arg2, QString arg3,
-                      QString arg4, QString arg5, QString arg6){
-
+bool ZTaskbar::invoke(QString, QString, QString, QString, QString, QString,
+		      QString){
   return true;
 }
 

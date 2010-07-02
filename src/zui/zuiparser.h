@@ -105,7 +105,7 @@ class ZuiParser : public QObject
   widgets; including event handling, base attributes, and actually adding the
   new widget to the parent layout.
 */
-    bool pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent);
+    bool pushWidget(QDomElement&, QWidget *cWidget, QWidget *cParent);
 };
 
 #endif

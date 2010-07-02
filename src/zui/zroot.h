@@ -16,7 +16,7 @@ public:
   ZRoot(const ZConfig &el, QWidget *parent) : ZContainerWidget(el,parent){};
 
 private:
-  void parse(const ZConfig &el){};
+  void parse(const ZConfig&){};
 };
 
 #endif // ZROOT_H

@@ -7,4 +7,4 @@ ZSetting::ZSetting(const ZConfig &el, QObject *parent)
     parse(_config);
 }
 
-void ZSetting::parse(const ZConfig &el){}
+void ZSetting::parse(const ZConfig&){}

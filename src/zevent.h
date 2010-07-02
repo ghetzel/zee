@@ -16,9 +16,8 @@ class ZEvent
 {
   public:
     virtual bool invoke(QString action,
-                        QString arg1="",QString arg2="",QString arg3="",
-                        QString arg4="",QString arg5="",QString arg6="") =0;
-    virtual QVariant query(QString property){ return QVariant(); };
+			QString arg1="",QString arg2="",QString arg3="",
+			QString arg4="",QString arg5="",QString arg6="") =0;
 };
 
 #endif

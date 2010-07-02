@@ -36,9 +36,9 @@ public:
 public:
     ZAudioManager(const ZConfig &el, QObject *parent=0);
     virtual ~ZAudioManager();
-    void parse(const ZConfig &el);
+    void parse(const ZConfig&);
     QStringList queue();
-    int rowCount(const QModelIndex &parent) const;
+    int rowCount(const QModelIndex&) const;
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     QString currentQueueSource();

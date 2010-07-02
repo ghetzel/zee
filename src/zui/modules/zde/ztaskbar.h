@@ -30,8 +30,8 @@ public:
   void setItemHeight(int h){ _itemGrid.setHeight(h); setGridSize(_itemGrid); };
 
 public slots:
-  virtual bool invoke(QString action, QString arg1, QString arg2, QString arg3,
-                      QString arg4, QString arg5, QString arg6);
+  //! \deprecated
+  virtual bool invoke(QString,QString,QString,QString,QString,QString,QString);
 
 private slots:
   void activate(QModelIndex index);

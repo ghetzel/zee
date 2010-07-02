@@ -43,21 +43,25 @@ void ZFileBrowser::init(){
 }
 
 
-void ZFileBrowser::_activated(const QModelIndex &index){
+void ZFileBrowser::_activated(const QModelIndex&){
     QStringList fps;
     z_log("ZFileBrowser: Activated: " + STR(selectedIndexes().count()));
     foreach(QModelIndex i, selectedIndexes()){
-        fps << i.data(QFileSystemModel::FilePathRole).toString();
+	fps << i.data(QFileSystemModel::FilePathRole).toString();
     }
     emit activated(fps);
 }
 
 bool ZFileBrowser::cd(QModelIndex itemIndex){
-    if(pwd)
-	if(pwd->isDir(itemIndex))
+    if(pwd){
+	if(pwd->isDir(itemIndex)){
 	    return cd(itemIndex.data(QFileSystemModel::FilePathRole).toString());
-        else
-            _activated(itemIndex);
+	}else{
+	    _activated(itemIndex);
+	}
+    }
+
+    return false;
 }
 
 bool ZFileBrowser::cd(QDir directory){

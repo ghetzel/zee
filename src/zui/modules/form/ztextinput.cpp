@@ -50,7 +50,7 @@ void ZTextInput::parse(const ZConfig &el){
 }
 
 
-void ZTextInput::_cursorPosition(int o, int n){
+void ZTextInput::_cursorPosition(int o, int){
     _lastCursorPosition = o;
 }
 

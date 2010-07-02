@@ -92,10 +92,8 @@ class ZEventManager : public QObject
 {
     Q_OBJECT
 public:
-    void registerSignal(QObject *source, const char *signal,
-			QString methodAlias="");
-    void registerSlot(QObject *receiver, const char *slot,
-		      QString methodAlias="");
+    void registerSignal(QObject *source, const char *signal);
+    void registerSlot(QObject *receiver, const char *slot);
     void map(QString from, QString to, QString via=QString(), bool direct=true);
     QObject *findObject(QString methodString, bool objectOnly=false);
     static void initialize(ZEventManager *instance=0);
@@ -104,10 +102,9 @@ public:
 private:
     void init();
     void registerMethod(QMetaMethod::MethodType type,
-			QObject *object, const char *method,
-			QString methodAlias="");
+			QObject *object, const char *method);
     void insertMethod(QObject *object, const char *method,
-                      QHash<QObject*,ZEventObject> &store);
+		      QHash<QObject*,ZEventObject> &store);
 
     QHash<QObject*,ZEventObject> _signals;
     QHash<QObject*,ZEventObject> _slots;

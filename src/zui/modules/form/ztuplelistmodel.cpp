@@ -5,33 +5,35 @@ ZTupleListModel::ZTupleListModel(QObject *parent)
 {
 }
 
-int ZTupleListModel::rowCount(const QModelIndex &parent) const{
+int ZTupleListModel::rowCount(const QModelIndex&) const{
     return _items.count();
 }
 
 QVariant ZTupleListModel::data(const QModelIndex &index, int role) const{
     if(!index.isValid())
-        return QVariant();
+	return QVariant();
     if(index.row() >= _items.size())
-        return QVariant();
+	return QVariant();
 
     switch(role){
     case Qt::DisplayRole:
-        return _items.at(index.row()).display;
+	return _items.at(index.row()).display;
     case Qt::UserRole:
-        return _items.at(index.row()).data;
+	return _items.at(index.row()).data;
     }
+
+    return QVariant();
 }
 
 QVariant ZTupleListModel::headerData(int section, Qt::Orientation orientation,
-                                     int role) const
+				     int role) const
 {
     if(role != Qt::DisplayRole)
-        return QVariant();
+	return QVariant();
     if(orientation == Qt::Horizontal)
-        return QString("C%1").arg(section);
+	return QString("C%1").arg(section);
     else
-        return QString("R%1").arg(section);
+	return QString("R%1").arg(section);
 }
 
 void ZTupleListModel::appendRow(QString text, QVariant data){

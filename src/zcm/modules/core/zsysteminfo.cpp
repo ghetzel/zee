@@ -8,7 +8,7 @@ ZSystemInfo::ZSystemInfo(const ZConfig &el, QObject *parent)
     parse(_config);
 }
 
-void ZSystemInfo::parse(const ZConfig &el){
+void ZSystemInfo::parse(const ZConfig&){
 
     zEvent->registerSlot(this, SLOT(notify(QString)));
     zEvent->registerSlot(this, SLOT(notify(QString,QString)));
@@ -25,11 +25,11 @@ qint64 ZSystemInfo::timems(){
 }
 
 void ZSystemInfo::notify(QString title, QString message, QString icon,
-                         uint duration)
+			 uint duration)
 {
 #ifdef Q_OS_LINUX
     QDBusInterface i(ZSYS_LNOTIFY_SVCNM,ZSYS_LNOTIFY_OPATH,ZSYS_LNOTIFY_IFACE);
     i.call("Notify",ZEE_APPNAME,uint(0),icon,title,message,QStringList(),
-           QVariantMap(),duration);
+	   QVariantMap(),duration);
 #endif
 }

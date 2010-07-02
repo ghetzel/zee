@@ -7,8 +7,8 @@
 class ZXEvent{
 
 public:
-  virtual bool eventSelect(XEvent *xe){ return false; };
-  virtual void updateValues(QString property = ""){ return; };
+  virtual bool eventSelect(XEvent*){ return false; };
+  virtual void updateValues(QString){ return; };
 };
 
 #endif // ZXEVENT_H

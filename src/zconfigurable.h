@@ -23,7 +23,7 @@ protected:
     QHash<QString,QVariant> _properties;
     virtual void parse(const ZConfig &el)=0;
     QVariant param(QString key){
-        return _properties.value(key,QVariant());
+	return _properties.value(key,QVariant());
     }
 
 private:
@@ -36,16 +36,16 @@ private:
 	if(_config.hasAttribute("value"))
 	    _self->setProperty("value", QVariant(_config.attribute("value")));
 
-        QDomNodeList elst = _config.childNodes();
-        for(int i = 0; i < elst.length(); i++){
-            QDomElement e = elst.at(i).toElement();
-            if(e.isNull())
-                continue;
-            if(e.tagName() == "zee:param")
-                if(e.hasAttribute("name") && (e.hasAttribute("value") || !e.text().isEmpty()))
-                    _properties.insert(e.attribute("name"),
-                                       QVariant(e.attribute("value",e.text())));
-        }
+	QDomNodeList elst = _config.childNodes();
+	for(uint i = 0; i < elst.length(); i++){
+	    QDomElement e = elst.at(i).toElement();
+	    if(e.isNull())
+		continue;
+	    if(e.tagName() == "zee:param")
+		if(e.hasAttribute("name") && (e.hasAttribute("value") || !e.text().isEmpty()))
+		    _properties.insert(e.attribute("name"),
+				       QVariant(e.attribute("value",e.text())));
+	}
     }
 };
 

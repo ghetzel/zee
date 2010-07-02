@@ -111,7 +111,7 @@ bool ZuiParser::parseNode(QDomNode &node)
     {
 	QString elns = el.tagName().section(":",0,0);
 
-        if(elns == "zui"){
+	if(elns == "zui"){
 	    //  for each ZUI plugin...
 	    //  call the module's prepareWidget() method; if it
 	    //  returns true, break; else, move on.  Ideally, (at least) one of the
@@ -155,13 +155,13 @@ void ZuiParser::prepareWidget(const QDomElement &el){
 	    zEvent->map(el.attribute("from"),
 			el.attribute("to"),
 			el.attribute("via"),
-                        QVariant(el.attribute("direct","true")).toBool());
+			QVariant(el.attribute("direct","true")).toBool());
 	}
     }
 }
 
 
-bool ZuiParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
+bool ZuiParser::pushWidget(QDomElement&, QWidget *cWidget, QWidget *cParent)
 {
 
     if(cWidget && cParent){
