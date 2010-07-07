@@ -37,15 +37,22 @@ private slots:
     void handleData(QNetworkReply *);
     void updateBounds();
 
+signals:
+    void panningStarted();
+    void panningEnded();
+
 private:
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
 
 private:
-    int cX, cY;
-    int dX, dY;
+    qint64 oX, oY;
+    qint64 sX, sY;
+    qint64 dX, dY;
     int _tilesW, _tilesH;
+    int _startTX, _startTY;
+    bool _dragging;
     QNetworkAccessManager _net;
     QUrl _uri;
     QHash<QIntPair, QPixmap> _tiles;
