@@ -11,9 +11,11 @@
 class ZExecutor : public QObject, public ZConfigurable
 {
     Q_OBJECT
+    Q_PROPERTY(QString lastOutput READ lastOutput)
 public:
     ZExecutor(const ZConfig &el, QObject *parent=0);
     ~ZExecutor();
+    QString lastOutput();
 
 public slots:
     void exec();
@@ -29,6 +31,7 @@ private:
 private:
     QString _command;
     QString _oneLine;
+    QString _lastOutput;
 };
 
 #endif // ZEXECUTOR_H

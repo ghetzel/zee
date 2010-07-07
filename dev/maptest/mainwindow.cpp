@@ -1,37 +1,30 @@
 #include "mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     resize(512,512);
 }
 
-MapWidget::MapWidget(QWidget *parent)
-    : QWidget(parent)
+/*
+ZMapView::ZMapView(MapScene *map, QWidget *parent)
+    : QGraphicsView(map,parent)
 {
     oX = oY = sX = sY = 0;
 
     _startTX = OSM_TILE_SX;
     _startTY = OSM_TILE_SY;
 
-
-    _emptyTile = QPixmap(TILE_W, TILE_H);
-    _emptyTile.fill(Qt::transparent);
-
-    QPainter t(&_emptyTile);
-    QPen tpen(Qt::darkGray);
-    tpen.setStyle(Qt::DashLine);
-    tpen.setWidth(1);
-    t.setPen(tpen);
-    t.drawRect(_emptyTile.rect());
-    t.end();
+    _scene = map;
 
     connect(&_net, SIGNAL(finished(QNetworkReply*)),
 	    this, SLOT(handleData(QNetworkReply*)));
-    updateTiles();
+
+    moveTiles();
 }
 
-void MapWidget::handleData(QNetworkReply *reply){
+void ZMapView::handleData(QNetworkReply *reply){
     QImage tile;
     QPoint tpt = reply->request().attribute(QNetworkRequest::User).toPoint();
     QIntPair tilepoint = qMakePair(tpt.x(),tpt.y());
@@ -40,20 +33,50 @@ void MapWidget::handleData(QNetworkReply *reply){
 	if(!tile.load(reply,0))
 	    tile = QImage();
 	reply->deleteLater();
-	_tiles[tilepoint] = QPixmap::fromImage(tile);
+        _tiles[tilepoint] = new ZMapTile(tpt.x(), tpt.y(), QPixmap::fromImage(tile));
+        _scene->addItem(_tiles[tilepoint]);
         qDebug() << "ADD " << tilepoint.first << ", " << tilepoint.second;
-        repaint(rect());
+        _scene->update();
     }else{
-//	qDebug() << "Error: " << reply->errorString();
+        if(!_tiles.contains(tilepoint))
+            _scene->addItem(new ZMapTile(tilepoint.first, tilepoint.second));
     }
 }
 
-void MapWidget::updateBounds(){
-    _tilesW = (qCeil(qreal(rect().width())/qreal(TILE_W))+2);
-    _tilesH = (qCeil(qreal(rect().height())/qreal(TILE_H))+2);
+void ZMapView::moveTiles(){
+    updateTiles();
+
+    QIntPair tp;
+
+    for(int i = _startTX; (i-_startTX) < _tilesW; i++){
+        for(int j = _startTY; (j-_startTY) < _tilesH; j++){
+            tp = qMakePair(i,j);
+            _tiles[tp]->setPos(
+                ((_tiles[tp]->coordinates().x() - _startTX) * TILE_W)+dX,
+                ((_tiles[tp]->coordinates().y() - _startTY) * TILE_H)+dY);
+        }
+    }
 }
 
-void MapWidget::updateTiles(QPoint){
+void ZMapView::updateBounds(){
+    QIntPair tp;
+
+    _scene->setSceneRect(rect());
+    _tilesW = (qCeil(qreal(_scene->sceneRect().width())/qreal(TILE_W))+2);
+    _tilesH = (qCeil(qreal(_scene->sceneRect().height())/qreal(TILE_H))+2);
+
+    for(int i = _startTX; (i-_startTX) < _tilesW; i++){
+        for(int j = _startTY; (j-_startTY) < _tilesH; j++){
+            tp = qMakePair(i,j);
+            if(!_tiles.contains(tp)){
+                _tiles[tp] = new ZMapTile(i,j);
+                _scene->addItem(_tiles[tp]);
+            }
+        }
+    }
+}
+
+void ZMapView::updateTiles(QPoint){
     updateBounds();
     //QString path = "http://b.tile.openstreetmap.org/%1/%2/%3.png";
     //qDebug() << "Updating...";
@@ -61,58 +84,54 @@ void MapWidget::updateTiles(QPoint){
         for(int j = _startTY; (j-_startTY) < _tilesH; j++){
             //qDebug() << " (" <<i << "," << j << ")";
 	    QPoint cp(i,j);
-            if(!_tiles.contains(qMakePair(i,j))){
-                QString path = "file:///home/ghetzel/projects/gzn/zee/dev/osm/%1/%2/%3.png";
+            QIntPair tp = qMakePair(i,j);
+            if(_tiles.contains(tp) && _tiles[tp]->isNull()){
+                QString path = "file:///home/ghetzel/projects/gzn/zee/dev/maptest/osm-data/%1/%2/%3.png.tile";
 		_uri = QUrl(path.arg(OSM_TILE_ZOOM).arg(i).arg(j));
 		QNetworkRequest req;
 		req.setUrl(_uri);
 		req.setRawHeader("User-Agent", "zee-devel: Geospatial Client Test App 0.05");
 		req.setAttribute(QNetworkRequest::User, QVariant(cp));
-                //qDebug() << "\t GET " << _uri.toString();
+                qDebug() << "\t GET " << _uri.toString();
 		_net.get(req);
-	    }
+            }
 	}
     }
 }
 
-MapWidget::~MapWidget()
+ZMapView::~ZMapView()
 {
 
 }
 
-void MapWidget::mousePressEvent(QMouseEvent *e){
-//  delta coords initialize to current offset coords
-    dX = oX;
-    dY = oY;
-//  starting offset recorded
-    sX = e->x();
-    sY = e->y();
+void ZMapView::mousePressEvent(QMouseEvent *e){
+
 
     emit panningStarted();
-    repaint(rect());
+    _scene->update();
 }
 
-void MapWidget::mouseMoveEvent(QMouseEvent *e){
+void ZMapView::mouseMoveEvent(QMouseEvent *e){
 //  delta coords updated as (offset coords + current coords) - starting offset
     dX = (oX+e->x())-sX;
     dY = (oY+e->y())-sY;
 
-    qApp->topLevelWidgets().first()->setWindowTitle(QVariant(dX).toString()+", "+QVariant(dY).toString());
-    repaint(rect());
+    moveTiles();
+
+    _scene->update();
 }
 
-void MapWidget::mouseReleaseEvent(QMouseEvent *){
+void ZMapView::mouseReleaseEvent(QMouseEvent *){
     oX = dX;
     oY = dY;
     qApp->topLevelWidgets().first()->setWindowTitle(QVariant(dX).toString()+", "+QVariant(dY).toString()+"*");
 
-    repaint(rect());
+    _scene->update();
     emit panningEnded();
 }
 
-void MapWidget::paintEvent(QPaintEvent *){
+
     int tx, ty;
-    QPainter *p = new QPainter(this);
     QIntPair tp;
     updateTiles();
 
@@ -129,6 +148,6 @@ void MapWidget::paintEvent(QPaintEvent *){
             }
 	}
     }
+    */
 
-    p->end();
-}
+//    p->end();

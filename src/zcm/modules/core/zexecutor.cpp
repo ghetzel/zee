@@ -31,13 +31,17 @@ void ZExecutor::parse(const ZConfig &el){
 }
 
 void ZExecutor::exec(){
-    if(_command.isEmpty())
+    if(_command.isEmpty()){
         z_log_error("ZExecutor: No command specified.");
-    else
+        return;
+    }else{
         if(_oneLine.isEmpty())
-            emit executed(ZUtil::exec(_command));
+            _lastOutput = ZUtil::exec(_command);
         else
-            emit executed(ZUtil::execln(_command,_oneLine));
+            _lastOutput = ZUtil::execln(_command,_oneLine);
+    }
+
+    emit executed(_lastOutput);
 }
 
 void ZExecutor::setCommand(QString command){

@@ -1,11 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#define TILE_W		256
-#define	TILE_H		256
-#define OSM_TILE_ZOOM	16
-#define OSM_TILE_SX	19292
-#define OSM_TILE_SY	24771
 #define OSM_TILE_TW	3
 #define OSM_TILE_TH	3
 
@@ -20,15 +15,17 @@ public:
     MainWindow(QWidget *parent = 0);
 };
 
-class MapWidget : public QWidget
+
+/*
+class ZMapView : public QGraphicsView
 {
     Q_OBJECT
 
 public:
     typedef QPair<int,int> QIntPair;
-    MapWidget(QWidget *parent = 0);
-    ~MapWidget();
-    void paintEvent(QPaintEvent *);
+    ZMapView(MapScene *map, QWidget *parent = 0);
+    ~ZMapView();
+    void moveTiles();
 
 public slots:
     void updateTiles(QPoint center=QPoint(0,0));
@@ -55,9 +52,10 @@ private:
     bool _dragging;
     QNetworkAccessManager _net;
     QUrl _uri;
-    QHash<QIntPair, QPixmap> _tiles;
+    QHash<QIntPair, ZMapTile*> _tiles;
     QPoint _center;
-    QPixmap _emptyTile;
+    QGraphicsScene *_scene;
 };
+*/
 
 #endif // MAINWINDOW_H
