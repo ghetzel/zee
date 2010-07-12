@@ -52,7 +52,7 @@ public slots:
     void stop();
     void next();
     void togglePlay();
-    //void previous();
+    void previous();
     void playSource(QString location);
     void playSource(QUrl location);
     void setSource(QString location);

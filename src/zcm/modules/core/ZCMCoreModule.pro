@@ -22,7 +22,8 @@ HEADERS += zcmcoremodule.h \
     ztimer.h \
     zsysteminfo.h \
     zexecutor.h \
-    zsqlquery.h
+    zsqlquery.h \
+    zshortcut.h
 SOURCES += zcmcoremodule.cpp \
     libzee/zlocalsystem.cpp \
     zutil.cpp \
@@ -35,10 +36,12 @@ SOURCES += zcmcoremodule.cpp \
     ztimer.cpp \
     zsysteminfo.cpp \
     zexecutor.cpp \
-    zsqlquery.cpp
+    zsqlquery.cpp \
+    zshortcut.cpp
 DESTDIR = ../../../plugins
 TARGET = $$qtLibraryTarget(zcm_core)
-QT += xml sql
+QT += xml \
+    sql
 linux-g++ { 
     QT += dbus
     HEADERS += zdbusinterface.h

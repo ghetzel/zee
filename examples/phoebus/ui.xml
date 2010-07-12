@@ -12,6 +12,7 @@
 
 		<zui:container id="mainbar">
 			<zui:container id="controls">
+				<zui:button id="aPrev">Previous</zui:button>
 				<zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
 				<zui:button id="aStop">Stop</zui:button>
 				<zui:button id="aNext">Next</zui:button>
@@ -63,6 +64,7 @@
 		<zee:connect from="browser.activated" to="media.enqueue" />
 		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
 		<zee:connect from="aStop.clicked" to="media.stop" />
+		<zee:connect from="aPrev.clicked" to="media.previous" />
 		<zee:connect from="aNext.clicked" to="media.next" />
 		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" direct="false" /> 
 <!--

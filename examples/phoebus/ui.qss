@@ -63,18 +63,12 @@ ZListWidget::item{
 }
 
 	#controls{
-		background-color: #222;
-		border-radius: 10px;
-		margin: 8px;
-		margin-right: 10px;
-		max-width: 96px;
-		max-height: 40px;
-		padding: 2px;
-		padding-left: 12px;
 	}
 		#controls > ZButton{
 			background: transparent center center no-repeat;
 			color: transparent;
+			max-width: 48px;
+			max-height: 48px;
 			min-width: 48px;
 			min-height: 48px;			
 		}
@@ -89,6 +83,10 @@ ZListWidget::item{
 
 		ZButton#aNext{
 			qproperty-zicon: "media-skip-forward";
+		}
+
+		ZButton#aPrev{
+			qproperty-zicon: "media-skip-backward";
 		}
 	
 	#playing{

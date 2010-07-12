@@ -143,8 +143,8 @@ void ZWindow::parse(const ZConfig &el){
     }
 
     _rootSurface = new ZRoot(_config,this);
-    _rootSurface->setLayout(ZuiUtils::getLayout(
-	    el.attribute("layout", ZUI_DEFAULT_LAYOUT)));
+//    _rootSurface->setLayout(ZuiUtils::getLayout(
+//	    el.attribute("layout", ZUI_DEFAULT_LAYOUT)));
     _rootSurface->setObjectName("root");
     _rootSurface->setAutoFillBackground(true);
     setLayout(new QHBoxLayout);

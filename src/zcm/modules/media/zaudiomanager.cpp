@@ -53,6 +53,7 @@ void ZAudioManager::init(){
     zEvent->registerSlot(this, SLOT(pause()));
     zEvent->registerSlot(this, SLOT(stop()));
     zEvent->registerSlot(this, SLOT(next()));
+    zEvent->registerSlot(this, SLOT(previous()));
     zEvent->registerSlot(this, SLOT(togglePlay()));
     zEvent->registerSlot(this, SLOT(playSource(QString)));
     zEvent->registerSlot(this, SLOT(playSource(QUrl)));
@@ -181,6 +182,18 @@ void ZAudioManager::next(){
     }else{
 	z_log_debug("ZAudioManager: Cannot go next, nothing next");
 	return;
+    }
+    play();
+}
+
+void ZAudioManager::previous(){
+    if(_state == Playing)
+        stop();
+
+    if((_currentQueueSource-1) >= 0){
+        --_currentQueueSource;
+    }else{
+        z_log_debug("ZAudioAdaptor: Cannot go previous, nothing before");
     }
     play();
 }

@@ -51,7 +51,8 @@ void ZAudioAdaptor::next(){
 }
 
 void ZAudioAdaptor::previous(){
-//    if(instance())
+    if(instance())
+        instance()->previous();
 }
 
 void ZAudioAdaptor::enqueue(QString location){
