@@ -1,16 +1,10 @@
 #include "ztaskbar.h"
 
-ZTaskbar::ZTaskbar(QWidget *parent)
-  : QListView(parent)
+ZTaskbar::ZTaskbar(const ZConfig &el, QWidget *parent)
+  : QListView(parent),
+    ZWidget(el,this)
 {
   setScreenPosition(SouthEdge);
-  init();
-}
-
-ZTaskbar::ZTaskbar(ZXScreenEdge edge, QWidget *parent)
-  : QListView(parent)
-{
-  setScreenPosition(edge);
   init();
 }
 
@@ -33,12 +27,17 @@ void ZTaskbar::init(){
   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+  parse(_config);
 
   connect(this, SIGNAL(clicked(QModelIndex)),
 	  this, SLOT(activate(QModelIndex)));
 
   connect(model(), SIGNAL(dataChanged()),
 	  this, SLOT(refreshWindowList()));
+}
+
+void ZTaskbar::parse(const ZConfig &el){
+
 }
 
 void ZTaskbar::setWmProperties(){

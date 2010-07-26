@@ -20,8 +20,8 @@ ZuiResult ZDEModule::prepareWidget(const QDomElement &el, QWidget *parent){
 
 #ifdef ZUI_TASKBAR
   }else if(el.tagName() == ZUI_TASKBAR){
-    zRes.widget = new ZTaskbar(zRes.parent);
-    zRes.widget->setProperty("hide-text1",QVariant("y"));
+    zRes.widget = new ZTaskbar(el, zRes.parent);
+    //zRes.widget->setProperty("hide-text1",QVariant("y"));
     zRes.widget->setLayout(ZuiUtils::getLayout(el.attribute("layout")));
 #endif  //  ZUI_TASKBAR
 #ifdef ZUI_STRUT

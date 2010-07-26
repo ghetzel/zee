@@ -8,19 +8,19 @@
 #include <zutil.h>
 #include <zui/zuiutils.h>
 #include <zui/zwidget.h>
+#include <zeventmanager.h>
 
 #include "zxwindowlistmodel.h"
 #include "zxwindowlistitem.h"
 
-class ZTaskbar : public QListView
+class ZTaskbar : public QListView, public ZWidget
 {
   Q_OBJECT
   Q_PROPERTY(int itemWidth READ itemWidth WRITE setItemWidth)
   Q_PROPERTY(int itemHeight READ itemHeight WRITE setItemHeight)
 
 public:
-  ZTaskbar(ZXScreenEdge edge, QWidget *parent = 0);
-  ZTaskbar(QWidget *parent = 0);
+  ZTaskbar(const ZConfig &el, QWidget *parent = 0);
   ~ZTaskbar();
   QSize sizeHint();
   void setScreenPosition(ZXScreenEdge edge);
@@ -40,6 +40,7 @@ private slots:
 
 private:
   virtual void init();
+  virtual void parse(const ZConfig &el);
 
 private:
    ZXScreenEdge _edge;

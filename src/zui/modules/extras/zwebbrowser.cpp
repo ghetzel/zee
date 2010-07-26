@@ -52,8 +52,7 @@ void ZWebBrowser::init(){
 
 void ZWebBrowser::parse(const ZConfig &el){
     if(el.hasAttribute("uri"))
-	if(!_home.isValid())
-	    setHome(el.attribute("uri"));
+        setHome(el.attribute("uri"));
 }
 
 void ZWebBrowser::load(QString url){
