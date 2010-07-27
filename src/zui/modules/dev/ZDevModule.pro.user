@@ -53,6 +53,8 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
    <value key="QtVersionId" type="int">0</value>
+   <value key="ToolChain" type="int">0</value>
+   <value key="addQDumper" type=""></value>
    <value key="buildConfiguration" type="int">2</value>
   </valuemap>
  </data>
@@ -61,6 +63,7 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Release</value>
    <value key="QtVersionId" type="int">0</value>
+   <value key="addQDumper" type=""></value>
    <value key="buildConfiguration" type="int">0</value>
   </valuemap>
  </data>
@@ -72,24 +75,22 @@
     <value type="QString">CVS_RSH=ssh</value>
     <value type="QString">DISPLAY=:0.0</value>
     <value type="QString">G_BROKEN_FILENAMES=1</value>
-    <value type="QString">HISTCONTROL=ignoreboth</value>
+    <value type="QString">HISTCONTROL=ignoredups</value>
     <value type="QString">HISTSIZE=1000</value>
     <value type="QString">HOME=/home/ghetzel</value>
-    <value type="QString">HOSTNAME=apollo.gammazeta.net</value>
-    <value type="QString">KDEDIRS=/usr</value>
-    <value type="QString">KDE_IS_PRELINKED=1</value>
-    <value type="QString">KMIX_PULSEAUDIO_DISABLE=1</value>
+    <value type="QString">HOSTNAME=jupiter.gammazeta.net</value>
     <value type="QString">LANG=en_US.UTF-8</value>
     <value type="QString">LD_LIBRARY_PATH=/usr/lib/qtcreator:</value>
     <value type="QString">LESSOPEN=|/usr/bin/lesspipe.sh %s</value>
     <value type="QString">LOGNAME=ghetzel</value>
     <value type="QString">MAIL=/var/spool/mail/ghetzel</value>
-    <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-ghetzel</value>
-    <value type="QString">PATH=/usr/lib/qt4/bin:/home/ghetzel/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/lib/ccache:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin</value>
+    <value type="QString">PATH=/usr/lib/qt4/bin:/usr/lib/qt-3.3/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/lib/ccache:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/ghetzel/bin</value>
     <value type="QString">PWD=/home/ghetzel</value>
     <value type="QString">QTDIR=/usr/lib/qt4</value>
+    <value type="QString">QTINC=/usr/lib/qt-3.3/include</value>
+    <value type="QString">QTLIB=/usr/lib/qt-3.3/lib</value>
     <value type="QString">SHELL=/bin/bash</value>
-    <value type="QString">SHLVL=0</value>
+    <value type="QString">SHLVL=1</value>
     <value type="QString">SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass</value>
     <value type="QString">TERM=linux</value>
     <value type="QString">USER=ghetzel</value>
@@ -102,8 +103,8 @@
     <value type="QString">-r</value>
     <value type="QString">CONFIG+=debug</value>
    </valuelist>
-   <value key="abstractProcess.command" type="QString">/home/ghetzel/bin/qmake</value>
-   <value key="abstractProcess.enabled" type="bool">true</value>
+   <value key="abstractProcess.command" type="QString">/usr/bin/qmake-qt4</value>
+   <value key="abstractProcess.enabled" type="bool">false</value>
    <value key="abstractProcess.workingDirectory" type="QString">/home/ghetzel/projects/zee/src/zui/modules/dev</value>
   </valuemap>
  </data>
@@ -115,24 +116,22 @@
     <value type="QString">CVS_RSH=ssh</value>
     <value type="QString">DISPLAY=:0.0</value>
     <value type="QString">G_BROKEN_FILENAMES=1</value>
-    <value type="QString">HISTCONTROL=ignoreboth</value>
+    <value type="QString">HISTCONTROL=ignoredups</value>
     <value type="QString">HISTSIZE=1000</value>
     <value type="QString">HOME=/home/ghetzel</value>
-    <value type="QString">HOSTNAME=apollo.gammazeta.net</value>
-    <value type="QString">KDEDIRS=/usr</value>
-    <value type="QString">KDE_IS_PRELINKED=1</value>
-    <value type="QString">KMIX_PULSEAUDIO_DISABLE=1</value>
+    <value type="QString">HOSTNAME=jupiter.gammazeta.net</value>
     <value type="QString">LANG=en_US.UTF-8</value>
     <value type="QString">LD_LIBRARY_PATH=/usr/lib/qtcreator:</value>
     <value type="QString">LESSOPEN=|/usr/bin/lesspipe.sh %s</value>
     <value type="QString">LOGNAME=ghetzel</value>
     <value type="QString">MAIL=/var/spool/mail/ghetzel</value>
-    <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-ghetzel</value>
-    <value type="QString">PATH=/usr/lib/qt4/bin:/home/ghetzel/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/lib/ccache:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin</value>
+    <value type="QString">PATH=/usr/lib/qt4/bin:/usr/lib/qt-3.3/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/lib/ccache:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/ghetzel/bin</value>
     <value type="QString">PWD=/home/ghetzel</value>
     <value type="QString">QTDIR=/usr/lib/qt4</value>
+    <value type="QString">QTINC=/usr/lib/qt-3.3/include</value>
+    <value type="QString">QTLIB=/usr/lib/qt-3.3/lib</value>
     <value type="QString">SHELL=/bin/bash</value>
-    <value type="QString">SHLVL=0</value>
+    <value type="QString">SHLVL=1</value>
     <value type="QString">SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass</value>
     <value type="QString">TERM=linux</value>
     <value type="QString">USER=ghetzel</value>
@@ -151,6 +150,10 @@
   <variable>buildconfiguration-Debug-cleanstep0</variable>
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+   <value key="cleanConfig" type="bool">true</value>
+   <valuelist key="makeargs" type="QVariantList">
+    <value type="QString">clean</value>
+   </valuelist>
   </valuemap>
  </data>
  <data>

@@ -34,7 +34,8 @@ HEADERS += zevent.h \
     zeventobject.h \
     zmethodobject.h \
     zeeadaptor.h \
-    zdbusabstractadaptor.h
+    zdbusabstractadaptor.h \
+    zui/layouts/zborderlayout.h
 SOURCES += zevent.cpp \
     zutil.cpp \
     main.cpp \
@@ -49,7 +50,8 @@ SOURCES += zevent.cpp \
     zeventobject.cpp \
     zmethodobject.cpp \
     zeeadaptor.cpp \
-    zdbusabstractadaptor.cpp
+    zdbusabstractadaptor.cpp \
+    zui/layouts/zborderlayout.cpp
 OTHER_FILES += theme.qss \
     dev/ideaman \
     theme.qss.orig \
@@ -68,6 +70,7 @@ OTHER_FILES += theme.qss \
     ../doc/zee.css
 linux-g++ { 
     INCLUDEPATH += /usr/include/
+    LIBS += -lX11
     QT += dbus
     HEADERS += zui/zx11/zxwindow.h \
         zui/zx11/zxserver.h \

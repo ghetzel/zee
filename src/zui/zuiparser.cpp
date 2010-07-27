@@ -172,7 +172,7 @@ bool ZuiParser::pushWidget(QDomElement&, QWidget *cWidget, QWidget *cParent)
 	//    layout, infiniloop)
 	if(cWidget == cParent){
 	    if(cParent->parent())
-		CAST(QWidget*,cParent->parent())->layout()->addWidget(cWidget);
+                CAST(QWidget*,cParent->parent())->layout()->addWidget(cWidget);
 	    ++depth;
 	}else{
 	    cParent->layout()->addWidget(cWidget);

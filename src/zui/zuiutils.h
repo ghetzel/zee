@@ -9,6 +9,7 @@
 #define ZUI_FORM_LAYOUT       "form"
 #define ZUI_GRID_LAYOUT       "grid"
 #define ZUI_FLOW_LAYOUT       "flow"
+#define ZUI_BORDER_LAYOUT     "border"
 
 #include <iostream>
 #include <QtCore>
@@ -17,6 +18,7 @@
 #include <QList>
 
 #include "layouts/zflowlayout.h"
+#include "layouts/zborderlayout.h"
 
 namespace ZuiUtilsNS{
   struct ActionDescriptor{

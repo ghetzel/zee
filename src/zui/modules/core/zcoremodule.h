@@ -20,6 +20,7 @@
 #include <zlabel.h>
 #include <zscreenmanager.h>
 #include <zscreen.h>
+#include <zspacer.h>
 
 #ifdef Q_WS_X11
 #include <zui/zx11/zxrootwindow.h>

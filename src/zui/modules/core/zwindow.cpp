@@ -72,7 +72,7 @@ void ZWindow::parse(const ZConfig &el){
     if(el.hasAttribute("width") && el.hasAttribute("height")){
 	QDesktopWidget *desktop = QApplication::desktop();
 	int dW = desktop->width(), dH = desktop->height();  // Desktop WxH
-	int zW = -1, zH = -1;                               // width, height
+        int zW = width(), zH = height();                    // width, height
 	int dX = -1, dY = -1;                               // x,y
 	float pX = 0.0, pY = 0.0;                           // offset x,y
 

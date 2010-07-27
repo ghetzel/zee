@@ -28,16 +28,18 @@ QLayout *ZuiUtils::getLayout(QString id)
   QLayout *layout = NULL;
 
 //	determine layout manager to install
-  if(id == ZUI_HORIZON_LAYOUT){		// horizontal layout
+  if(id == ZUI_HORIZON_LAYOUT){                 // horizontal layout
     layout = new QHBoxLayout;
-  }else if(id == ZUI_VERTICAL_LAYOUT){	// vertical layout
+  }else if(id == ZUI_VERTICAL_LAYOUT){          // vertical layout
     layout = new QVBoxLayout;
   }else if(id == ZUI_GRID_LAYOUT){		// grid layout
     layout = new QGridLayout;
   }else if(id == ZUI_FORM_LAYOUT){		// form layout
     layout = new QFormLayout;
-  }else if(id == ZUI_FLOW_LAYOUT){
+  }else if(id == ZUI_FLOW_LAYOUT){              // flow layout
     layout = new ZFlowLayout;
+  }else if(id == ZUI_BORDER_LAYOUT){            // border layout
+    layout = new ZBorderLayout;
   }else{
     layout = new ZUI_FAILOVER_LAYOUT;
   }

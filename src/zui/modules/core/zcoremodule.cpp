@@ -23,9 +23,13 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
 #endif // ZUI_APPLICATION
 #ifdef ZUI_SCREENMGR // screens: manages task visibility/navigation
     }else if(el.tagName() == ZUI_SCREENMGR){
-	zRes.widget = new ZScreenManager(el, zRes.parent);
-	zRes.parent = zRes.widget;
+        zRes.widget = new ZScreenManager(el, zRes.parent);
+        zRes.parent = zRes.widget;
 #endif // ZUI_SCREENMGR
+#ifdef ZUI_SPACER
+    }else if(el.tagName() == ZUI_SPACER){
+        zRes.widget = new ZSpacer(el, zRes.parent);
+#endif // ZUI_SPACER
 #ifdef ZUI_CONTAINERS // containers: they hold things
     }else if(ZuiUtils::getContainerNames().contains(el.tagName())){
 	//  add currentWidget to a new containing frame
