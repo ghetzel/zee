@@ -10,7 +10,7 @@
 #include <zui/zwidget.h>
 #include <zui/zroot.h>
 
-class ZWindow : public QFrame, public ZWidget
+class ZWindow : public ZWidget<QFrame>
 {
     Q_OBJECT
 

@@ -44,7 +44,8 @@ public:
     QString currentQueueSource();
     ZAudioState state();
     void setAdaptor(ZAudioAdaptor *adaptor);
-    //bool insertRows(int row, int count, const QModelIndex &parent);
+    bool removeRow(int row, const QModelIndex &parent=QModelIndex());
+
 
 public slots:
     void play();
@@ -62,6 +63,8 @@ public slots:
     void enqueue(QStringList locations);
     void enqueue(QString location);
     void enqueue(QUrl location);
+    void remove(QString location);
+    void remove(QUrl location);
     void setQueue(QStringList locations);
     void clearQueue();
     void clearBookmarks();
@@ -81,6 +84,7 @@ signals:
     void positionChanged(double);
     void timeChanged(qint64);
     void durationChanged(qint64);
+    void bufferChanged(int);
     void sourceChanged(QString);
     void queuedSongChanged(int);
     void queueCleared();
@@ -107,6 +111,7 @@ private slots:
     void stateHandler(Phonon::State is, Phonon::State);
     void _currentSourceChanged(Phonon::MediaSource newSrc);
     void _reachedBookmark(qint32);
+    void _bufferStatus(int);
     void tick(qint64);
 };
 

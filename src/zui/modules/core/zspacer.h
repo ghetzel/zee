@@ -8,7 +8,7 @@
 #include <zui/zwidget.h>
 
 
-class ZSpacer : public QFrame, public ZWidget
+class ZSpacer : public ZWidget<QFrame>
 {
 public:
     ZSpacer(const ZConfig &el, QWidget *parent=0);

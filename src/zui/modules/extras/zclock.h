@@ -9,6 +9,8 @@
 
 #include <QtCore>
 #include <QtGui>
+#include <zui/zwidget.h>
+#include <zeventmanager.h>
 
 class ZClock : public QFrame
 {

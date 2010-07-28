@@ -14,7 +14,7 @@ class ZToggleButton : public ZButton
 public:
     ZToggleButton(const ZConfig &el, QWidget *parent);
     ZToggleButton(const QString &text, const ZConfig &el, QWidget *parent);
-    ZToggleButton(const QIcon &icon, const QString &text, const ZConfig &el, QWidget *parent);
+    ZToggleButton(const QString &icon, const QString &text, const ZConfig &el, QWidget *parent);
 
 public slots:
     void check();

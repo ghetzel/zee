@@ -96,6 +96,12 @@ ZListWidget::item{
 		padding: 8px;
 	}
 
+#source{
+	background-color: #222;
+	border: 2px solid #444;
+	border-bottom-width: 6px;
+	color: #FCFCFC;
+}
 
 ZListWidget#sidebar{
 	background: #222;	

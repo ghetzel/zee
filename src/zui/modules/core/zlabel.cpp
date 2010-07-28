@@ -1,15 +1,13 @@
 #include "zlabel.h"
 
 ZLabel::ZLabel(const ZConfig &el, QWidget *parent)
-    : QLabel(parent),
-      ZWidget(el,this)
+    : ZWidget<QLabel>(el,this,parent)
 {
     init();
 }
 
 ZLabel::ZLabel(QString value, const ZConfig &el, QWidget *parent)
-    : QLabel(parent),
-      ZWidget(el,this)
+    : ZWidget<QLabel>(el,this,parent)
 {
     setText(value);
     init();

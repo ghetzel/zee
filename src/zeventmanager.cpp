@@ -72,7 +72,9 @@ void ZEventManager::registerMethod(QMetaMethod::MethodType type,
 
 	    when accessing, pass a QPair composed of object pointer and the
 	    method name, this will return the first [value()] or all [values()]
-	    of the signals/slots.  pass those to the relationship class
+            of the signals/slots.  pass those to the relationship class
+
+2010-07-28 (GWH): is this still true?
   */
     if(isSignal)
 	insertMethod(object, method, _signals);

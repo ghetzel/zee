@@ -9,7 +9,7 @@
 #include <zui/zwidget.h>
 #include <zeventmanager.h>
 
-class ZTableView : public QTableView, public ZWidget
+class ZTableView : public ZWidget<QTableView>
 {
 public:
     ZTableView(const ZConfig &el, QWidget *parent);

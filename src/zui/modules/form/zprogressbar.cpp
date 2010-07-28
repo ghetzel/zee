@@ -1,8 +1,7 @@
 #include "zprogressbar.h"
 
 ZProgressBar::ZProgressBar(const ZConfig &el, QWidget *parent)
-    : QProgressBar(parent),
-      ZWidget(el,this)
+    : ZWidget<QProgressBar>(el,this,parent)
 {
     parse(_config);
     init();

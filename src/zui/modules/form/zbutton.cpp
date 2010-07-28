@@ -3,22 +3,24 @@
 using namespace std;
 
 ZButton::ZButton(const ZConfig &el, QWidget *parent)
-    : QPushButton(parent),
-    ZWidget(el,this){
+    : ZWidget<QPushButton>(el,this,parent){
     parse(_config);
     zEvent->registerSignal(this,SIGNAL(clicked()));
 }
 
 ZButton::ZButton(const QString &text, const ZConfig &el, QWidget *parent)
-    : QPushButton(text,parent),
-    ZWidget(el,this){
+    : ZWidget<QPushButton>(el,this,parent)
+{
     parse(_config);
+    setText(text);
     zEvent->registerSignal(this,SIGNAL(clicked()));
 }
 
-ZButton::ZButton(const QIcon &icon, const QString &text, const ZConfig &el, QWidget *parent)
-    : QPushButton(icon,text,parent),
-    ZWidget(el,this){
+ZButton::ZButton(const QString &icon, const QString &text, const ZConfig &el, QWidget *parent)
+    : ZWidget<QPushButton>(el,this,parent)
+{
+    setText(text);
+    zSetIcon(icon);
     parse(_config);
     zEvent->registerSignal(this,SIGNAL(clicked()));
 }

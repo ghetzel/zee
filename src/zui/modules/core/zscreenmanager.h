@@ -19,7 +19,7 @@ using namespace std;
   \ingroup zui_plugins_core
   \brief A screen stacking manager with named elements
 */
-class ZScreenManager : public QStackedWidget, public ZWidget
+class ZScreenManager : public ZWidget<QStackedWidget>
 {
   Q_OBJECT
   Q_PROPERTY(QString screen READ screen RESET jump)

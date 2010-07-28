@@ -1,8 +1,7 @@
 #include "zscreenmanager.h"
 
 ZScreenManager::ZScreenManager(const ZConfig &el, QWidget *parent)
-  : QStackedWidget(parent),
-    ZWidget(el,this){
+  : ZWidget<QStackedWidget>(el,this,parent){
     parse(_config);
     zEvent->registerSlot(this,SLOT(jump(QString)));
 }

@@ -5,7 +5,7 @@
 #include <zeventmanager.h>
 #include <zui/zwidget.h>
 
-class ZSeekbar : public QWidget, public ZWidget
+class ZSeekbar : public ZWidget<QWidget>
 {
 public:
     ZSeekbar(const ZConfig &el, QWidget *parent=0);

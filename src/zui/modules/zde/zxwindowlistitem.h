@@ -6,7 +6,8 @@
 #include <QStyledItemDelegate>
 #include <zutil.h>
 
-class ZXWindowListItem : public QStyledItemDelegate{
+class ZXWindowListItem : public QStyledItemDelegate
+{
   Q_OBJECT
 
 public:

@@ -7,11 +7,15 @@
 #include <zeventmanager.h>
 #include <zui/zuiutils.h>
 
-class ZWidget : public ZConfigurable{
+template<class Z>
+class ZWidget: public Z, public ZConfigurable
+{
 
 public:
-    ZWidget(const ZConfig &el, QWidget *self)
-	: ZConfigurable(el,self){
+    ZWidget(const ZConfig &el, QWidget *self, QWidget *parent=0)
+        : Z(parent),
+          ZConfigurable(el,self)
+    {
 	parse(_config);
     }
 

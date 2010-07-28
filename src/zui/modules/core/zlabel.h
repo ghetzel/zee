@@ -6,7 +6,7 @@
 #include <QtCore>
 #include <zui/zwidget.h>
 
-class ZLabel : public QLabel, public ZWidget
+class ZLabel : public ZWidget<QLabel>
 {
     Q_OBJECT
 public:

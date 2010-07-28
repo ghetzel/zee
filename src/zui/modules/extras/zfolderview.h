@@ -11,7 +11,8 @@
 #include <zui/zwidget.h>
 #include "zfilebrowser.h"
 
-class ZFolderView : public ZFileBrowser{
+class ZFolderView : public ZFileBrowser
+{
   Q_OBJECT
 
 public:

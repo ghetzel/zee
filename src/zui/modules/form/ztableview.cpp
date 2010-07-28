@@ -1,8 +1,7 @@
 #include "ztableview.h"
 
 ZTableView::ZTableView(const ZConfig &el, QWidget *parent)
-    : QTableView(parent),
-      ZWidget(el,this)
+    : ZWidget<QTableView>(el,this,parent)
 {
     parse(_config);
 }

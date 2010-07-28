@@ -12,7 +12,7 @@ ZToggleButton::ZToggleButton(const QString &text, const ZConfig &el, QWidget *pa
     init();
 }
 
-ZToggleButton::ZToggleButton(const QIcon &icon, const QString &text, const ZConfig &el, QWidget *parent)
+ZToggleButton::ZToggleButton(const QString &icon, const QString &text, const ZConfig &el, QWidget *parent)
     : ZButton(icon, text, el, parent)
 {
     init();

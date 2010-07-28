@@ -7,7 +7,7 @@
 #include <zui/zwidget.h>
 
 
-class ZSlider : public QSlider, public ZWidget
+class ZSlider : public ZWidget<QSlider>
 {
     Q_OBJECT
 

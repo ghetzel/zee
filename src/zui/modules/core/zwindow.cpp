@@ -1,8 +1,7 @@
 #include "zwindow.h"
 
 ZWindow::ZWindow(const ZConfig &el, QWidget *parent)
-    : QFrame(parent),
-      ZWidget(el,this)
+    : ZWidget<QFrame>(el,this,parent)
 {
     init();
 }

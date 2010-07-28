@@ -14,7 +14,7 @@
   \brief A button with superpowers
 
 */
-class ZButton : public QPushButton, public ZWidget
+class ZButton : public ZWidget<QPushButton>
 {
     Q_OBJECT
     Q_PROPERTY(QString zicon READ zicon WRITE zSetIcon)
@@ -22,7 +22,7 @@ class ZButton : public QPushButton, public ZWidget
 public:
     ZButton(const ZConfig &el, QWidget *parent);
     ZButton(const QString &text, const ZConfig &el, QWidget *parent);
-    ZButton(const QIcon &icon, const QString &text, const ZConfig &el, QWidget *parent);
+    ZButton(const QString &icon, const QString &text, const ZConfig &el, QWidget *parent);
     QString zicon(){ return icon().themeName(); }
     void zSetIcon(QString name);
 

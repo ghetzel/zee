@@ -6,6 +6,7 @@
 	<zee:components>
 		<zee:media id="media" remote="true" />
 		<zee:media id="notifications" />
+		<zee:key id="scTest" src="browser" value="Ctrl+P" />
 	</zee:components>
 	<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
 		<zee:param name="iconTheme" value="Humanity-Dark" />
@@ -26,6 +27,7 @@
 				<zui:button id="reloadStyle" icon=":/icons/reload.svg" />
 			</zui:container>
 		</zui:container>
+		<zui:input type="text" id="source" />
 		<zui:container id="extended">
 			<zui:list id="sidebar">
 				<zui:item value="queueScreen" icon=":/icons/nowplaying.svg">Now Playing</zui:item>
@@ -58,7 +60,9 @@
 		<zee:connect from="media.durationChanged" to="seekbar.setMaximum" direct="false" />
 		<zee:connect from="media.queuedSongChanged" to="queue.setCurrentIndex" />
 		<zee:connect from="media.sourceChanged" to="status.setText" />
+		<zee:connect from="media.sourceChanged" to="source.setText" />
 		<zee:connect from="media.reachedBookmark" to="zee.log" direct="false" />
+		<zee:connect from="media.bufferChanged" to="zee.log" direct="false" />
 		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
 		<zee:connect from="streams.activated" to="media.playSource" direct="false" />
 		<zee:connect from="browser.activated" to="media.enqueue" />
@@ -66,15 +70,16 @@
 		<zee:connect from="aStop.clicked" to="media.stop" />
 		<zee:connect from="aPrev.clicked" to="media.previous" />
 		<zee:connect from="aNext.clicked" to="media.next" />
-		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" direct="false" /> 
+		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" /> 
 <!--
 	Segfaults if this isn't registered as a slot (fault in ZMethodObject?)
-		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" direct="false" /> 
+		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" /> 
 
 -->
 		<zee:connect from="compact.checked" to="extended.hide" />
 		<zee:connect from="compact.unchecked" to="extended.show" />
 		<zee:connect from="aClear.clicked" to="media.clear" />
+		<zee:connect from="source.returnPressed" to="media.enqueue" via="source.text" />
 		<zee:connect from="reloadStyle.clicked" to="zee.reloadStyleSheet" />
 		<zee:connect from="media.stopped" to="seekbar.reset" />
 <!--	Resets activated song?

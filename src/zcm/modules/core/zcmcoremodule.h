@@ -7,7 +7,7 @@
 #include <ztimer.h>
 #include <zsysteminfo.h>
 #include <zexecutor.h>
-
+#include <zshortcut.h>
 #include <zsqlquery.h>
 
 #ifdef Q_OS_LINUX

@@ -35,6 +35,8 @@ void ZAudioManager::init(){
 	    this, SLOT(_reachedBookmark(qint32)));
     connect(_mediaObject, SIGNAL(totalTimeChanged(qint64)),
 	    this, SLOT(setCurrentBookmark()));
+    connect(_mediaObject, SIGNAL(bufferStatus(int)),
+            this, SLOT(_bufferStatus(int)));
 
     zEvent->registerSignal(this,SIGNAL(buffering()));
     zEvent->registerSignal(this,SIGNAL(playing()));
@@ -49,6 +51,7 @@ void ZAudioManager::init(){
     zEvent->registerSignal(this,SIGNAL(queueCleared()));
     zEvent->registerSignal(this,SIGNAL(queuedSongChanged(int)));
     zEvent->registerSignal(this, SIGNAL(reachedBookmark(qint64)));
+    zEvent->registerSignal(this, SIGNAL(bufferChanged(int)));
     zEvent->registerSlot(this, SLOT(play()));
     zEvent->registerSlot(this, SLOT(pause()));
     zEvent->registerSlot(this, SLOT(stop()));
@@ -82,22 +85,27 @@ void ZAudioManager::stateHandler(Phonon::State is, Phonon::State){
 	    z_log_error("ZAudioManager: "+_mediaObject->errorString());
 	break;
     case Phonon::PlayingState:
+        z_log_debug("ZAudioManager: PLAYING");
 	_state = Playing;
 	emit playing();
 	break;
     case Phonon::PausedState:
+        z_log_debug("ZAudioManager: PAUSED");
 	_state = Paused;
 	emit paused();
 	break;
     case Phonon::StoppedState:
+        z_log_debug("ZAudioManager: STOPPED");
 	_state = Stopped;
 	emit stopped();
 	break;
     case Phonon::BufferingState:
+        z_log_debug("ZAudioManager: BUFFERING");
 	_state = Buffering;
 	emit buffering();
 	break;
     case Phonon::LoadingState:
+        z_log_debug("ZAudioManager: LOADING");
 	_state = Loading;
 	emit loading();
 	break;
@@ -270,6 +278,16 @@ void ZAudioManager::enqueue(QUrl location){
     }
 }
 
+void ZAudioManager::remove(QString location){
+    if(!_mediaObject)
+        return;
+    _sourceQueue.removeOne(location);
+}
+
+void ZAudioManager::remove(QUrl location){
+    remove(location.toString());
+}
+
 void ZAudioManager::setQueue(QStringList locations){
     clearQueue();
     foreach(QString l, locations)
@@ -424,14 +442,17 @@ QVariant ZAudioManager::headerData(int section, Qt::Orientation orientation,
 	return QString("Row %1").arg(section);
 }
 
-//bool ZAudioManager::insertRows(int row, int count, const QModelIndex &parent){
-//    if(!_mediaObject)
-//        return false;
-//    //beginInsertRows(QModelIndex(),_mediaObject->queue().count());
-//
-//    //endInsertRows();
-//    return true;
-//}
+bool ZAudioManager::removeRow(int row, const QModelIndex &parent){
+    if(!_mediaObject)
+        return false;
+
+    beginRemoveRows(QModelIndex(), row, row);
+
+    _sourceQueue.removeAt(row);
+
+    endRemoveRows();
+    return true;
+}
 
 
 void ZAudioManager::_songFinishing(){
@@ -443,6 +464,11 @@ void ZAudioManager::_songFinishing(){
     }else{
 	z_log_debug("ZAudioManager: Cannot queue next, nothing left in queue");
     }
+}
+
+
+void ZAudioManager::_bufferStatus(int perc){
+    emit bufferChanged(perc);
 }
 
 

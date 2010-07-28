@@ -21,7 +21,7 @@
 
 using namespace std;
 
-class ZGenericDial : public QFrame, public ZWidget
+class ZGenericDial : public ZWidget<QFrame>
 {
     Q_OBJECT
 //    Q_PROPERTY(int value READ value)

@@ -16,7 +16,7 @@
     \brief A web browser widget
 
 */
-class ZWebBrowser : public QWebView, public ZWidget{
+class ZWebBrowser : public ZWidget<QWebView>{
   Q_OBJECT
 
 private:

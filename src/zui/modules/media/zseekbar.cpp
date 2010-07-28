@@ -1,8 +1,7 @@
 #include "zseekbar.h"
 
 ZSeekbar::ZSeekbar(const ZConfig &el, QWidget *parent)
-    : QWidget(parent),
-      ZWidget(el,this)
+    : ZWidget<QWidget>(el,this,parent)
 {
     init();
 }

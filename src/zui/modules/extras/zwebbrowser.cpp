@@ -1,18 +1,18 @@
 #include "zwebbrowser.h"
 
 ZWebBrowser::ZWebBrowser(const ZConfig &el, QWidget *parent)
-  : QWebView(parent), ZWidget(el,this){
+  : ZWidget<QWebView>(el,this,parent){
   init();
 }
 
 ZWebBrowser::ZWebBrowser(QString uri, const ZConfig &el, QWidget *parent)
-  : QWebView(parent), ZWidget(el,this){
+  : ZWidget<QWebView>(el,this,parent){
   init();
   load(uri);
 }
 
 ZWebBrowser::ZWebBrowser(QUrl uri, const ZConfig &el, QWidget *parent)
-  : QWebView(parent), ZWidget(el,this){
+  : ZWidget<QWebView>(el,this,parent){
   init();
   load(uri.toString());
 }

@@ -1,8 +1,7 @@
 #include "zlistwidget.h"
 
 ZListWidget::ZListWidget(const ZConfig &el, QWidget *parent)
-    : QListView(parent),
-      ZWidget(el,this)
+    : ZWidget<QListView>(el,this,parent)
 {
     connect(this, SIGNAL(activated(QModelIndex)),
 	    this, SLOT(_activated(QModelIndex)));

@@ -1,8 +1,7 @@
 #include "ztextinput.h"
 
 ZTextInput::ZTextInput(const ZConfig &el, QWidget *parent)
-    : QLineEdit(parent),
-      ZWidget(el,this)
+    : ZWidget<QLineEdit>(el,this,parent)
 {
     _lastCursorPosition = 0;
     init();
@@ -15,10 +14,10 @@ void ZTextInput::init(){
     zEvent->registerSignal(this,SIGNAL(textChanged(QString)));
     zEvent->registerSignal(this,SIGNAL(textEdited(QString)));
     zEvent->registerSignal(this,SIGNAL(selectionChanged()));
-    zEvent->registerSignal(this,SIGNAL(cursorPositionChanged(int,int)));
+//    zEvent->registerSignal(this,SIGNAL(cursorPositionChanged(int,int)));
 
-    connect(this, SIGNAL(cursorPositionChanged(int,int)),
-	    this, SLOT(_cursorPosition(int,int)));
+//    connect(this, SIGNAL(cursorPositionChanged(int,int)),
+//	    this, SLOT(_cursorPosition(int,int)));
 
     zEvent->registerSlot(this,SLOT(setText(QString)));
     zEvent->registerSlot(this,SLOT(setDisabled(bool)));

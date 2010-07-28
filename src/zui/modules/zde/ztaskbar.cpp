@@ -1,8 +1,7 @@
 #include "ztaskbar.h"
 
 ZTaskbar::ZTaskbar(const ZConfig &el, QWidget *parent)
-  : QListView(parent),
-    ZWidget(el,this)
+  : ZWidget<QListView>(el,this,parent)
 {
   setScreenPosition(SouthEdge);
   init();

@@ -19,7 +19,7 @@ using namespace std;
   \ingroup zui_plugins_form
   \brief A list
 */
-class ZListWidget : public QListView, public ZWidget
+class ZListWidget : public ZWidget<QListView>
 {
     Q_OBJECT
 

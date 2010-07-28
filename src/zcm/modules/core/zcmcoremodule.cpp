@@ -10,6 +10,10 @@ ZcmResult ZCMCoreModule::prepare(const QDomElement &el){
     }else if(el.tagName() == ZEE_SETTING){
         rv.component = new ZSetting(el,qApp);
 #endif // ZEE_SETTING
+#ifdef ZCM_SHORTCUT
+    }else if(el.tagName() == ZCM_SHORTCUT){
+        rv.component = new ZShortcut(el,qApp);
+#endif // ZCM_SHORTCUT
 #ifdef ZEE_TIMER
     }else if(el.tagName() == ZEE_TIMER){
         rv.component = new ZTimer(el,qApp);

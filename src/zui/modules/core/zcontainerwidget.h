@@ -7,7 +7,7 @@
 #include <zui/zwidget.h>
 #include <zeventmanager.h>
 
-class ZContainerWidget : public QFrame, public ZWidget
+class ZContainerWidget : public ZWidget<QFrame>
 {
     Q_OBJECT
     Q_PROPERTY(Qt::Alignment align READ alignment WRITE setAlignment)
