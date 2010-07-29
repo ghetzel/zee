@@ -14,6 +14,7 @@
 #define ZMETA_AUDIO_COMMENT         "comment"
 
 #include <QtCore>
+#include <zutil.h>
 #include <taglib/taglib.h>
 #include <taglib/tag.h>
 #include <taglib/tfile.h>
@@ -27,8 +28,12 @@ class ZAudioMetaParser : public QObject, public ZMetaParser{
 public:
     ZAudioMetaParser();
     ZAudioMetaParser(QString location);
+    virtual void setFileName(QString location);
     virtual QVariant field(QString name);
     virtual QString type();
+
+private slots:
+    void _fileChanged();
 
 private:
     void init();

@@ -15,6 +15,11 @@ ZcmResult ZCMMediaModule::prepare(const QDomElement &el){
             c->setAdaptor(new ZAudioAdaptor(c));
         rv.component = c;
 #endif // ZEE_AUDIO
+#ifdef ZCM_METAREADER
+    }else if(el.tagName() == ZCM_METAREADER){
+        rv.component = new ZMetaReader(el,qApp);
+
+#endif // ZCM_METAREADER
     }
 
     return rv;

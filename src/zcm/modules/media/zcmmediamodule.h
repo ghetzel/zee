@@ -7,6 +7,7 @@
 #include <zcm/zcmplugin.h>
 #include <zaudiomanager.h>
 #include <zaudioadaptor.h>
+#include <zmetareader.h>
 
 class ZCMMediaModule : public ZcmPlugin
 {

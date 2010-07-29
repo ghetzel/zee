@@ -7,15 +7,7 @@
 
 class ZMetaParser{
 public:
-    ZMetaParser(){}
-    ZMetaParser(QString location){
-        setFileName(location);
-    }
-
-    void setFileName(QString location){
-        _location.setFileName(location);
-    }
-
+    virtual void setFileName(QString location)=0;
     virtual QVariant field(QString name)=0;
     virtual QString type()=0;
 

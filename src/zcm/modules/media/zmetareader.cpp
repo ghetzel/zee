@@ -7,8 +7,8 @@ ZMetaReader::ZMetaReader(const ZConfig &el, QObject *parent)
     _dataObject = new QObject(this);
     _dataObject->setObjectName("data");
 
-    init();
     parse(_config);
+    init();
 }
 
 void ZMetaReader::init(){
@@ -23,7 +23,7 @@ void ZMetaReader::parse(const ZConfig &el){
     QString metatype;
 
     for(int i = 0; i < children.count(); i++){
-        if((elem = children.item(i).toElement()).isNull()){
+        if(!(elem = children.item(i).toElement()).isNull()){
             if(elem.tagName() == ZCM_METAPROPERTY){
                 if(!(metatype = elem.attribute("type")).isEmpty() &&
                    elem.hasAttribute("name") &&
@@ -34,6 +34,8 @@ void ZMetaReader::parse(const ZConfig &el){
                     md.type = metatype;
                     md.key = elem.attribute("key");
                     _fields.append(md);
+
+                    //z_log_debug("ZMetaReader: Register metadata parser for type '"+metatype+"'");
 
                     if(!_parsers.contains(md.type)){
                         if(0){
@@ -58,9 +60,13 @@ void ZMetaReader::parse(const ZConfig &el){
 void ZMetaReader::setFilename(QString location){
     if(QFile::exists(location)){
         _source.setFileName(location);
+
+        foreach(ZMetaParser *p, _parsers.values())
+            p->setFileName(location);
         emit fileChanged(location);
-        z_log_debug("ZMetaReader: File changed to '"+_source.fileName()+"'");
         fetchMetadata();
+    }else{
+        z_log_error("ZMetaReader: Cannot find file '"+location+"'");
     }
 }
 
@@ -71,12 +77,15 @@ void ZMetaReader::fetchMetadata(){
         foreach(ZMetadata meta, _fields){
             parser = _parsers.value(meta.type);
 
-            if(parser)
+            if(parser){
                 _dataObject->setProperty(qstrdup(meta.name.toAscii().data()),
                                          parser->field(meta.key));
-
-            z_log_debug("ZMetaReader: Property updated -> "+meta.name+"="+
-                        _dataObject->property(qstrdup(meta.name.toAscii().data())).toString());
+                if(_dataObject->property(qstrdup(meta.name.toAscii().data())).isValid())
+                    z_log_debug("ZMetaReader: Property updated -> "+meta.name+"="+
+                            _dataObject->property(qstrdup(meta.name.toAscii().data())).toString());
+            }else{
+                z_log_error("ZMetaReader: Parser for type '"+meta.type+"' not found.");
+            }
         }
 
         emit dataChanged();

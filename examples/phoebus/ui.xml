@@ -6,14 +6,14 @@
 	<zee:components>
 		<zee:media id="media" remote="true" />
 		<zee:media id="notifications" />
-		<zee:metareader id="metadata">
-			<zee:metaproperty type="audio" name="artist" index="ARTIST" />
-			<zee:metaproperty type="audio" name="album" index="ALBUM" />
-			<zee:metaproperty type="audio" name="track" index="TRACK" />
-			<zee:metaproperty type="audio" name="disc" index="DISC" />
-			<zee:metaproperty type="audio" name="duration" index="DURATION" />
-			<zee:metaproperty type="audio" name="bitrate" index="BITRATE" />
-			<zee:metaproperty type="audio" name="samplerate" index="SAMPLERATE" />
+		<zee:metareader id="metareader">
+			<zee:metaproperty type="audio" name="artist" key="artist" />
+			<zee:metaproperty type="audio" name="album" key="album" />
+			<zee:metaproperty type="audio" name="track" key="track" />
+			<zee:metaproperty type="audio" name="disc" key="disc" />
+			<zee:metaproperty type="audio" name="duration" key="duration" />
+			<zee:metaproperty type="audio" name="bitrate" key="bitrate" />
+			<zee:metaproperty type="audio" name="samplerate" key="sample-rate" />
 		</zee:metareader>
 
 		<zee:setting id="vNowPlaying" value="queueScreen" />
@@ -86,7 +86,7 @@
 		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
 		<zee:connect from="streams.activated" to="media.playSource" direct="false" />
 		<zee:connect from="browser.activated" to="media.enqueue" />
-		<zee:connect from="browser.selected" to="metadata.setFilename" />
+		<zee:connect from="browser.selected" to="metareader.setFilename" direct="false" />
 		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
 		<zee:connect from="aStop.clicked" to="media.stop" />
 		<zee:connect from="aPrev.clicked" to="media.previous" />
