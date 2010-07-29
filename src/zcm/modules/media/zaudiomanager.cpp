@@ -442,17 +442,17 @@ QVariant ZAudioManager::headerData(int section, Qt::Orientation orientation,
 	return QString("Row %1").arg(section);
 }
 
-bool ZAudioManager::removeRow(int row, const QModelIndex &parent){
-    if(!_mediaObject)
-        return false;
-
-    beginRemoveRows(QModelIndex(), row, row);
-
-    _sourceQueue.removeAt(row);
-
-    endRemoveRows();
-    return true;
-}
+//bool ZAudioManager::removeRow(int row, const QModelIndex &parent){
+//    if(!_mediaObject)
+//        return false;
+//
+//    beginRemoveRows(QModelIndex(), row, row);
+//
+//    _sourceQueue.removeAt(row);
+//
+//    endRemoveRows();
+//    return true;
+//}
 
 
 void ZAudioManager::_songFinishing(){

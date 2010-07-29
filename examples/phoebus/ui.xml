@@ -7,6 +7,7 @@
 		<zee:media id="media" remote="true" />
 		<zee:media id="notifications" />
 		<zee:metareader id="metareader">
+			<zee:metaproperty type="audio" name="title" key="title" />
 			<zee:metaproperty type="audio" name="artist" key="artist" />
 			<zee:metaproperty type="audio" name="album" key="album" />
 			<zee:metaproperty type="audio" name="track" key="track" />
@@ -80,13 +81,13 @@
 		<zee:connect from="media.timeChanged" to="seekbar.setValue" direct="false" />
 		<zee:connect from="media.durationChanged" to="seekbar.setMaximum" direct="false" />
 		<zee:connect from="media.queuedSongChanged" to="queue.setCurrentIndex" />
-		<zee:connect from="media.sourceChanged" to="status.setText" />
+		<zee:connect from="media.sourceChanged" to="metareader.setFileName" />
+		<zee:connect from="metareader.dataChanged" to="status.setText" via="metareader.data.title" />
 		<zee:connect from="media.sourceChanged" to="source.setText" />
 		<zee:connect from="media.reachedBookmark" to="zee.log" direct="false" />
 		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
 		<zee:connect from="streams.activated" to="media.playSource" direct="false" />
 		<zee:connect from="browser.activated" to="media.enqueue" />
-		<zee:connect from="browser.selected" to="metareader.setFilename" direct="false" />
 		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
 		<zee:connect from="aStop.clicked" to="media.stop" />
 		<zee:connect from="aPrev.clicked" to="media.previous" />

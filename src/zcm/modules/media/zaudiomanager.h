@@ -44,7 +44,7 @@ public:
     QString currentQueueSource();
     ZAudioState state();
     void setAdaptor(ZAudioAdaptor *adaptor);
-    bool removeRow(int row, const QModelIndex &parent=QModelIndex());
+    //bool removeRow(int row, const QModelIndex &parent=QModelIndex());
 
 
 public slots:

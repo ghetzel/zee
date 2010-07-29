@@ -23,7 +23,7 @@ public:
     ZMetaReader(const ZConfig &el, QObject *parent=0);
 
 public slots:
-    void setFilename(QString location);
+    void setFileName(QString location);
 
 signals:
     void fileChanged(QString location);

@@ -14,7 +14,7 @@ ZMetaReader::ZMetaReader(const ZConfig &el, QObject *parent)
 void ZMetaReader::init(){
     zEvent->registerSignal(this, SIGNAL(fileChanged(QString)));
     zEvent->registerSignal(this, SIGNAL(dataChanged()));
-    zEvent->registerSlot(this, SLOT(setFilename(QString)));
+    zEvent->registerSlot(this, SLOT(setFileName(QString)));
 }
 
 void ZMetaReader::parse(const ZConfig &el){
@@ -57,7 +57,9 @@ void ZMetaReader::parse(const ZConfig &el){
     }
 }
 
-void ZMetaReader::setFilename(QString location){
+void ZMetaReader::setFileName(QString location){
+    location = QUrl(location).path();
+
     if(QFile::exists(location)){
         _source.setFileName(location);
 
