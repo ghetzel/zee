@@ -112,9 +112,9 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct)
 	}
     }
 
-    z_log_debug("ZEventManager: via STR: "+via);
-    z_log_debug("ZEventManager: via IN: "+STR(vias.count()));
-    z_log_debug("ZEventManager: via OUT: "+STR(viaProperties.count()));
+//    z_log_debug("ZEventManager: via STR: "+via);
+//    z_log_debug("ZEventManager: via IN: "+STR(vias.count()));
+//    z_log_debug("ZEventManager: via OUT: "+STR(viaProperties.count()));
 
     if(sender.isValid()){
        if(receiver.isValid()){
@@ -221,14 +221,14 @@ QObject *ZEventManager::findObject(QString methodString, bool objectOnly){
 		    if(((obj = (rv->objectName() == o ? rv : NULL)) ||
 			(obj = rv->findChild<QObject*>(o)))
 		     ){
-			z_log_debug("ZEventManager: Found '"+o+"', moving on...");
+                        //z_log_debug("ZEventManager: Found '"+o+"', moving on...");
 			foundIt = true;
 			rv = obj;
 
 		    }else{
 //		the next tier was not found within the given parent, exit and
 //		try the next window
-			z_log_debug("ZEventManager: No '"+o+"', staying "+rv->objectName());
+                        //z_log_debug("ZEventManager: No '"+o+"', staying "+rv->objectName());
 			foundIt = false;
 			break;
 		    }
@@ -240,11 +240,12 @@ QObject *ZEventManager::findObject(QString methodString, bool objectOnly){
 	    }
 	}
 
-	if(rv->objectName() == oname)
-	    z_log_debug("ZEventManager: Found '"+methodString+"', "
-			"it's a "+QString(rv->metaObject()->className()));
-	else
+        if(rv->objectName() == oname){
+//	    z_log_debug("ZEventManager: Found '"+methodString+"', "
+//			"it's a "+QString(rv->metaObject()->className()));
+        }else{
 	    return NULL;
+        }
     }
 
     return rv;

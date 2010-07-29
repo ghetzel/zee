@@ -6,6 +6,18 @@
 	<zee:components>
 		<zee:media id="media" remote="true" />
 		<zee:media id="notifications" />
+		<zee:metareader id="metadata">
+			<zee:metaproperty type="audio" name="artist" index="ARTIST" />
+			<zee:metaproperty type="audio" name="album" index="ALBUM" />
+			<zee:metaproperty type="audio" name="track" index="TRACK" />
+			<zee:metaproperty type="audio" name="disc" index="DISC" />
+			<zee:metaproperty type="audio" name="duration" index="DURATION" />
+			<zee:metaproperty type="audio" name="bitrate" index="BITRATE" />
+			<zee:metaproperty type="audio" name="samplerate" index="SAMPLERATE" />
+		</zee:metareader>
+
+		<zee:setting id="vNowPlaying" value="queueScreen" />
+		<zee:setting id="vLibrary" value="libraryScreen" />
 
 		<zee:key id="scNowPlaying" src="phoebus" value="Ctrl+P" />
 		<zee:key id="scLibrary" src="phoebus" value="Ctrl+L" />
@@ -71,11 +83,10 @@
 		<zee:connect from="media.sourceChanged" to="status.setText" />
 		<zee:connect from="media.sourceChanged" to="source.setText" />
 		<zee:connect from="media.reachedBookmark" to="zee.log" direct="false" />
-		<zee:connect from="media.bufferChanged" to="zee.log" direct="false" />
 		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
 		<zee:connect from="streams.activated" to="media.playSource" direct="false" />
 		<zee:connect from="browser.activated" to="media.enqueue" />
-	
+		<zee:connect from="browser.selected" to="metadata.setFilename" />
 		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
 		<zee:connect from="aStop.clicked" to="media.stop" />
 		<zee:connect from="aPrev.clicked" to="media.previous" />
@@ -85,7 +96,9 @@
 		<zee:connect from="scStop.triggered" to="media.stop" />
 		<zee:connect from="scNext.triggered" to="media.next" />
 		<zee:connect from="scPrevious.triggered" to="media.previous" />
-
+		<zee:connect from="scNowPlaying.triggered" to="screen.jump" via="vNowPlaying.value" />
+		<zee:connect from="scLibrary.triggered" to="screen.jump" via="vLibrary.value" />
+	
 		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" /> 
 <!--
 	Segfaults if this isn't registered as a slot (fault in ZMethodObject?)

@@ -1,7 +1,7 @@
-#include "zaudiometadata.h"
+#include "zaudiometaparser.h"
 
-ZAudioMetadata::ZAudioMetadata(QString location)
-    : ZMetadata(location)
+ZAudioMetaParser::ZAudioMetaParser(QString location)
+    : ZMetaParser(location)
 {
     _file = TagLib::FileRef::create(location.toAscii().data(),true);
     _properties = NULL;
@@ -10,14 +10,14 @@ ZAudioMetadata::ZAudioMetadata(QString location)
     init();
 }
 
-void ZAudioMetadata::init(){
+void ZAudioMetaParser::init(){
     if(_file && _file->isValid()){
         _properties = _file->audioProperties();
         _tag = _file->tag();
     }
 }
 
-QVariant ZAudioMetadata::property(QString name){
+QVariant ZAudioMetaParser::field(QString name){
     if(name == ZMETA_AUDIO_ARTIST)
         return QVariant(_tag->artist().toCString());
     else if(name == ZMETA_AUDIO_ALBUM)
@@ -34,4 +34,8 @@ QVariant ZAudioMetadata::property(QString name){
         return QVariant(_tag->comment().toCString());
     else
         return QVariant();
+}
+
+QString ZAudioMetaParser::type(){
+    return ZMETA_TYPE_AUDIO;
 }

@@ -1,6 +1,7 @@
-#ifndef ZAUDIOMETADATA_H
-#define ZAUDIOMETADATA_H
+#ifndef ZAUDIOMETAPARSER_H
+#define ZAUDIOMETAPARSER_H
 
+#define ZMETA_TYPE_AUDIO            "audio"
 #define ZMETA_AUDIO_ARTIST          "artist"
 #define ZMETA_AUDIO_ALBUM           "album"
 #define ZMETA_AUDIO_TITLE           "title"
@@ -18,15 +19,16 @@
 #include <taglib/tfile.h>
 #include <taglib/fileref.h>
 #include <taglib/audioproperties.h>
-#include <zcm/modules/media/zmetadata.h>
+#include <zcm/modules/media/zmetaparser.h>
 
-class ZAudioMetadata : public QObject, public ZMetadata{
+class ZAudioMetaParser : public QObject, public ZMetaParser{
     Q_OBJECT
 
 public:
-    ZAudioMetadata();
-    ZAudioMetadata(QString location);
-    virtual QVariant property(QString name);
+    ZAudioMetaParser();
+    ZAudioMetaParser(QString location);
+    virtual QVariant field(QString name);
+    virtual QString type();
 
 private:
     void init();
@@ -37,4 +39,4 @@ private:
     TagLib::Tag *_tag;
 };
 
-#endif // ZAUDIOMETADATA_H
+#endif // ZAUDIOMETAPARSER_H
