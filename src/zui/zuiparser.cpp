@@ -8,7 +8,23 @@ ZuiParser::ZuiParser(QDomElement &el)
     _currentParent = NULL;
 
     init();
-    parse(_config);
+
+    //parse(_config);
+    parse(el);
+//    QDomNodeList nn;
+
+//    nn = _config.elementsByTagName("zee:widgets");
+//    for(int i = 0; i < nn.length(); i++)
+//        parse(nn.item(i));
+//
+//    nn = _config.elementsByTagName("zee:components");
+//    for(int i = 0; i < nn.length(); i++)
+//        parse(nn.item(i));
+//
+//    nn = _config.elementsByTagName("zee:events");
+//    for(int i = 0; i < nn.length(); i++)
+//        parse(nn.item(i));
+
 
     if(qApp->topLevelWidgets().count() == 0)
 	z_log_warn("ZuiParser: No widgets added");
@@ -38,9 +54,9 @@ void ZuiParser::loadModules(){
 
 	if(module){
 	    // ZCM?
-	    ZcmPluginInterface *iZcmMod = qobject_cast<ZcmPluginInterface *>(module);
+            ZcmPluginInterface *iZcmMod = QCAST(ZcmPluginInterface*,module);
 	    // ZUI?
-	    ZuiPluginInterface *iZuiMod = qobject_cast<ZuiPluginInterface *>(module);
+            ZuiPluginInterface *iZuiMod = QCAST(ZuiPluginInterface*,module);
 
 	    if(iZuiMod){
 		zuiModules << iZuiMod;
