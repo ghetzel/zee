@@ -6,55 +6,64 @@
 	<zee:components>
 		<zee:media id="media" remote="true" />
 		<zee:media id="notifications" />
-		<zee:key id="scTest" src="browser" value="Ctrl+P" />
+
+		<zee:key id="scNowPlaying" src="phoebus" value="Ctrl+P" />
+		<zee:key id="scLibrary" src="phoebus" value="Ctrl+L" />
+
+		<zee:key id="scTogglePlay" src="phoebus" value="Alt+P" />
+		<zee:key id="scStop" src="phoebus" value="Alt+S" />
+		<zee:key id="scNext" src="phoebus" value="Alt+." />
+		<zee:key id="scPrevious" src="phoebus" value="Alt+," />
+
 	</zee:components>
-	<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
-		<zee:param name="iconTheme" value="Humanity-Dark" />
+	<zee:widgets>
+		<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
+			<zee:param name="iconTheme" value="Humanity-Dark" />
 
-		<zui:container id="mainbar">
-			<zui:container id="controls">
-				<zui:button id="aPrev">Previous</zui:button>
-				<zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
-				<zui:button id="aStop">Stop</zui:button>
-				<zui:button id="aNext">Next</zui:button>
+			<zui:container id="mainbar">
+				<zui:container id="controls">
+					<zui:button id="aPrev">Previous</zui:button>
+					<zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
+					<zui:button id="aStop">Stop</zui:button>
+					<zui:button id="aNext">Next</zui:button>
+				</zui:container>
+				<zui:container id="nowplaying" layout="vertical">
+					<zui:text id="status" value="No song selected." />
+					<zui:progress id="seekbar" />
+				</zui:container>
+				<zui:container>
+					<zui:button id="aClear" icon=":/icons/clear.svg" />
+					<zui:button id="reloadStyle" icon=":/icons/reload.svg" />
+				</zui:container>
 			</zui:container>
-			<zui:container id="nowplaying" layout="vertical">
-				<zui:text id="status" value="No song selected." />
-				<zui:progress id="seekbar" />
+			<zui:input type="text" id="source" />
+			<zui:container id="extended">
+				<zui:list id="sidebar">
+					<zui:item value="queueScreen" icon=":/icons/nowplaying.svg">Now Playing</zui:item>
+					<zui:item value="libraryScreen" icon="stock_music-library">Library</zui:item>
+					<zui:item value="streamScreen" icon="stock_internet">Radio</zui:item>
+				</zui:list>
+				<zui:screens id="screen" default="libraryScreen">
+					<zui:screen name="queueScreen">
+						<zui:list model="media" id="queue" />
+					</zui:screen>
+					<zui:screen name="libraryScreen" layout="vertical">
+						<zui:container>
+							<zui:label value="Artist" />
+							<zui:label value="Genre" />
+							<zui:label value="Album" />
+						</zui:container>
+						<zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
+					</zui:screen>
+					<zui:screen name="streamScreen">
+						<zui:list id="streams">
+							<zui:item value="http://yp.shoutcast.com/sbin/tunein-station.pls?id=1091">SmoothJazz.com</zui:item>
+						</zui:list>
+					</zui:screen>
+				</zui:screens>
 			</zui:container>
-			<zui:container>
-				<zui:button id="aClear" icon=":/icons/clear.svg" />
-				<zui:button id="reloadStyle" icon=":/icons/reload.svg" />
-			</zui:container>
-		</zui:container>
-		<zui:input type="text" id="source" />
-		<zui:container id="extended">
-			<zui:list id="sidebar">
-				<zui:item value="queueScreen" icon=":/icons/nowplaying.svg">Now Playing</zui:item>
-				<zui:item value="libraryScreen" icon="stock_music-library">Library</zui:item>
-				<zui:item value="streamScreen" icon="stock_internet">Radio</zui:item>
-			</zui:list>
-			<zui:screens id="screen" default="libraryScreen">
-				<zui:screen name="queueScreen">
-					<zui:list model="media" id="queue" />
-				</zui:screen>
-				<zui:screen name="libraryScreen" layout="vertical">
-					<zui:container>
-						<zui:label value="Artist" />
-						<zui:label value="Genre" />
-						<zui:label value="Album" />
-					</zui:container>
-					<zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
-				</zui:screen>
-				<zui:screen name="streamScreen">
-					<zui:list id="streams">
-						<zui:item value="http://yp.shoutcast.com/sbin/tunein-station.pls?id=1091">SmoothJazz.com</zui:item>
-					</zui:list>
-				</zui:screen>
-			</zui:screens>
-		</zui:container>
-	</zui:application>
-
+		</zui:application>
+	</zee:widgets>
 	<zee:events>
 		<zee:connect from="media.timeChanged" to="seekbar.setValue" direct="false" />
 		<zee:connect from="media.durationChanged" to="seekbar.setMaximum" direct="false" />
@@ -66,10 +75,17 @@
 		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
 		<zee:connect from="streams.activated" to="media.playSource" direct="false" />
 		<zee:connect from="browser.activated" to="media.enqueue" />
+	
 		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
 		<zee:connect from="aStop.clicked" to="media.stop" />
 		<zee:connect from="aPrev.clicked" to="media.previous" />
 		<zee:connect from="aNext.clicked" to="media.next" />
+
+		<zee:connect from="scTogglePlay.triggered" to="media.togglePlay" direct="false" />
+		<zee:connect from="scStop.triggered" to="media.stop" />
+		<zee:connect from="scNext.triggered" to="media.next" />
+		<zee:connect from="scPrevious.triggered" to="media.previous" />
+
 		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" /> 
 <!--
 	Segfaults if this isn't registered as a slot (fault in ZMethodObject?)

@@ -15,6 +15,9 @@ class ZShortcut : public QObject, public ZConfigurable
 public:
     ZShortcut(const ZConfig &el, QObject *parent=0);
 
+public slots:
+    void trigger();
+
 signals:
     void triggered();
 

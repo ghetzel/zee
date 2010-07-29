@@ -82,7 +82,7 @@ class ZuiParser : public QObject
   This recursive method sequentially builds the UI components from the XML
   definition file.
 */
-    void parse(QDomNode &n);
+    void parse(QDomNode n);
 
 
 /*!

@@ -10,20 +10,20 @@ ZuiParser::ZuiParser(QDomElement &el)
     init();
 
     //parse(_config);
-    parse(el);
-//    QDomNodeList nn;
+    //parse(el);
+    QDomNodeList nn;
 
-//    nn = _config.elementsByTagName("zee:widgets");
-//    for(int i = 0; i < nn.length(); i++)
-//        parse(nn.item(i));
-//
-//    nn = _config.elementsByTagName("zee:components");
-//    for(int i = 0; i < nn.length(); i++)
-//        parse(nn.item(i));
-//
-//    nn = _config.elementsByTagName("zee:events");
-//    for(int i = 0; i < nn.length(); i++)
-//        parse(nn.item(i));
+    nn = _config.elementsByTagName("zee:widgets");
+    for(int i = 0; i < nn.length(); i++)
+        parse(nn.item(i));
+
+    nn = _config.elementsByTagName("zee:components");
+    for(int i = 0; i < nn.length(); i++)
+        parse(nn.item(i));
+
+    nn = _config.elementsByTagName("zee:events");
+    for(int i = 0; i < nn.length(); i++)
+        parse(nn.item(i));
 
 
     if(qApp->topLevelWidgets().count() == 0)
@@ -80,7 +80,7 @@ void ZuiParser::loadModules(){
 }
 
 
-void ZuiParser::parse(QDomNode &n)
+void ZuiParser::parse(QDomNode n)
 {
     //attempt to find the first child
     QDomNode node = n.firstChild();
