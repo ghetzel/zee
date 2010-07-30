@@ -29,12 +29,16 @@ public:
 signals:
     void activated(QVariant);
     void selected(QVariant);
+    void clicked(QVariant);
+    void doubleClicked(QVariant);
 
 public slots:
     void setCurrentIndex(int row);
 
 private slots:
     void _activated(QModelIndex i);
+    void _clicked(QModelIndex i);
+    void _doubleClicked(QModelIndex i);
 
 private:
     void parse(const ZConfig &el);

@@ -40,9 +40,6 @@ void ZTaskbar::parse(const ZConfig &el){
 }
 
 void ZTaskbar::setWmProperties(){
-  if(_currentWindow){
-  //  _currentWindow->addStrut(QSize(width(),height()-2), _edge);
-  }
 }
 
 void ZTaskbar::refreshWindowList(){

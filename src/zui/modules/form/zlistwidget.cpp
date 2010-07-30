@@ -5,9 +5,16 @@ ZListWidget::ZListWidget(const ZConfig &el, QWidget *parent)
 {
     connect(this, SIGNAL(activated(QModelIndex)),
 	    this, SLOT(_activated(QModelIndex)));
+    connect(this, SIGNAL(clicked(QModelIndex)),
+            this, SLOT(_clicked(QModelIndex)));
+    connect(this, SIGNAL(doubleClicked(QModelIndex)),
+            this, SLOT(_doubleClicked(QModelIndex)));
+
     parse(_config);
     zEvent->registerSignal(this, SIGNAL(activated(QVariant)));
     zEvent->registerSignal(this, SIGNAL(selected(QVariant)));
+    zEvent->registerSignal(this, SIGNAL(clicked(QVariant)));
+    zEvent->registerSignal(this, SIGNAL(doubleClicked(QVariant)));
     zEvent->registerSlot(this, SLOT(setCurrentIndex(int)));
     zEvent->registerSlot(this, SLOT(setCurrentIndex(QModelIndex)));
 }
@@ -110,6 +117,20 @@ void ZListWidget::_activated(QModelIndex i){
     if(i.data(Qt::UserRole+1).isValid()){
         z_log_debug("ZListWidget: Activated "+i.data(Qt::UserRole+1).toString());
         emit activated(i.data(Qt::UserRole+1));
+    }
+}
+
+void ZListWidget::_clicked(QModelIndex i){
+    if(i.data(Qt::UserRole+1).isValid()){
+        z_log_debug("ZListWidget: Clicked "+i.data(Qt::UserRole+1).toString());
+        emit clicked(i.data(Qt::UserRole+1));
+    }
+}
+
+void ZListWidget::_doubleClicked(QModelIndex i){
+    if(i.data(Qt::UserRole+1).isValid()){
+        z_log_debug("ZListWidget: Double Clicked "+i.data(Qt::UserRole+1).toString());
+        emit doubleClicked(i.data(Qt::UserRole+1));
     }
 }
 

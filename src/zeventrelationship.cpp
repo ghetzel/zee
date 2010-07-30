@@ -6,7 +6,9 @@ ZEventRelationship::ZEventRelationship(ZMethodObject from,
 				       QList<QPair<QObject *, QString> > via,
 				       bool direct)
 {
-    //z_log_debug("ZEventRelationship: vias: "+STR(via.count()));
+    if(via.count() > 0)
+        z_log_debug("ZEventRelationship: vias: "+STR(via.count()));
+
     _signal = from;
     _slot = to;
     _via = via;

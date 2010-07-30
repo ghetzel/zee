@@ -13,16 +13,16 @@ ZuiParser::ZuiParser(QDomElement &el)
     //parse(el);
     QDomNodeList nn;
 
-    nn = _config.elementsByTagName("zee:widgets");
-    for(int i = 0; i < nn.length(); i++)
+    nn = _config.elementsByTagName("zee:components");
+    for(uint i = 0; i < nn.length(); i++)
         parse(nn.item(i));
 
-    nn = _config.elementsByTagName("zee:components");
-    for(int i = 0; i < nn.length(); i++)
+    nn = _config.elementsByTagName("zee:widgets");
+    for(uint i = 0; i < nn.length(); i++)
         parse(nn.item(i));
 
     nn = _config.elementsByTagName("zee:events");
-    for(int i = 0; i < nn.length(); i++)
+    for(uint i = 0; i < nn.length(); i++)
         parse(nn.item(i));
 
 
