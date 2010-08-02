@@ -7,8 +7,11 @@ DEPENDPATH += .
 INCLUDEPATH += .
 CONFIG += console
 CONFIG += static
+QT += network
 HEADERS += zlinuxfilenotifier.h \
     zfilenotifier.h \
-    zlocalsystem.h
+    zlocalsystem.h \
+    zhtmllistmodel.h
 SOURCES += zlinuxfilenotifier.cpp \
-    zlocalsystem.cpp
+    zlocalsystem.cpp \
+    zhtmllistmodel.cpp

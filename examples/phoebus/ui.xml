@@ -69,9 +69,7 @@
 						<zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
 					</zui:screen>
 					<zui:screen name="streamScreen">
-						<zui:list id="streams">
-							<zui:item value="http://yp.shoutcast.com/sbin/tunein-station.pls?id=1091">SmoothJazz.com</zui:item>
-						</zui:list>
+						<zui:htmlfolder id="htmltest" uri="http://home.gammazeta.net:8080/commons/" />
 					</zui:screen>
 				</zui:screens>
 			</zui:container>
@@ -89,6 +87,8 @@
 		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
 		<zee:connect from="streams.activated" to="media.playSource" direct="false" />
 		<zee:connect from="browser.activated" to="media.enqueue" />
+
+		<zee:connect from="htmltest.activated" to="htmltest.setUrl" direct="false" />
 
 		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
 		<zee:connect from="aStop.clicked" to="media.stop" />

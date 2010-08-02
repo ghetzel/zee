@@ -28,6 +28,11 @@ ZuiResult ZExtrasModule::prepareWidget(const QDomElement &el, QWidget *parent){
       zRes.widget = new ZFileBrowser(el, zRes.parent);
 
 #endif // ZUI_FILEBROWSER
+#ifdef ZUI_HTMLFOLDER
+  }else if(el.tagName() == ZUI_HTMLFOLDER){
+      zRes.widget = new ZHTMLFolderView(el, zRes.parent);
+
+#endif // ZUI_HTMLFOLDER
 #ifdef ZUI_FOLDERVIEW
   }else if(el.tagName() == ZUI_FOLDERVIEW){
       zRes.widget = new ZFolderView(el, zRes.parent);
