@@ -1,8 +1,11 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-	<qresource>
-		<file alias="icons/nowplaying.svg">images/stock_nowplaying.svg</file>
-		<file alias="icons/reload.svg">images/reload.svg</file>
-		<file alias="icons/clear.svg">images/edit-clear.svg</file>
+	<qresource prefix="/icons">
+		<file alias="nowplaying.svg">images/stock_nowplaying.svg</file>
+		<file alias="reload.svg">images/reload.svg</file>
+		<file alias="clear.svg">images/edit-clear.svg</file>
+	</qresource>
+	<qresource prefix="/gfx">
+		<file alias="media-optical.png">images/media-optical.png</file>
 	</qresource>
 </RCC>

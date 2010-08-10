@@ -9,9 +9,11 @@
 #define ZMETA_AUDIO_TRACK           "track"
 #define ZMETA_AUDIO_DISC            "disc"
 #define ZMETA_AUDIO_YEAR            "year"
+#define ZMETA_AUDIO_COMMENT         "comment"
+#define ZMETA_AUDIO_LENGTH          "length"
 #define ZMETA_AUDIO_BITRATE         "bitrate"
 #define ZMETA_AUDIO_SAMPLERATE      "sample-rate"
-#define ZMETA_AUDIO_COMMENT         "comment"
+#define ZMETA_AUDIO_CHANNELS        "channels"
 
 #include <QtCore>
 #include <zutil.h>

@@ -97,6 +97,7 @@ private:
     Phonon::MediaObject *_resolver;
     QStringList _sourceQueue;
     QHash<QString,qint64> _bookmarks;
+    QHash<QString,QIODevice*> _buffer;
     int _currentQueueSource;
     ZAudioState _state;
     ZAudioAdaptor *_adaptor;
