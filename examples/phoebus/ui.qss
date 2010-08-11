@@ -194,8 +194,8 @@ ZButton{
     min-height: 32px;
 }
 
-	#controls ZButton{
-        background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282726, stop:0.8125 #070400, stop:1 #070400);
+    #controls ZButton{
+        background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282726, stop:0.2125 #070400, stop:1 #070400);
         border: 0px;
         border-bottom: 4px solid #CC7000;
         color: #FFF;
@@ -203,24 +203,6 @@ ZButton{
     }
 
 	#controls ZButton:hover{
-		background-color: #E08223;
+	        background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #3D3C3A, stop:0.2125 #1F1F1F, stop:1 #1F1F1F);
 		color: #FFF;
 	}
-
-/*
-	#controls #aPrev{
-		background-color: #CC0000;
-	}
-
-	#controls #aPlayPause{
-		background-color: #A3CC00;
-	}
-
-	#controls #aStop{
-		background-color: #A300CC;
-	}
-
-	#controls #aNext{
-		background-color: #0058CC;
-	}
-*/

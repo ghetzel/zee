@@ -121,6 +121,13 @@
 		<zee:connect from="compact.unchecked" to="extended.show" />
 -->
 		<zee:connect from="aClear.clicked" to="media.clear" />
+		<zee:connect from="aClear.clicked" to="currentArt.reset" />
+		<zee:connect from="aClear.clicked" to="currentTitle.reset" />
+		<zee:connect from="aClear.clicked" to="currentArtist.reset" />
+		<zee:connect from="aClear.clicked" to="currentAlbum.reset" />
+		<zee:connect from="aClear.clicked" to="currentTime.reset" />
+		<zee:connect from="aClear.clicked" to="currentLength.reset" />
+
 		<zee:connect from="source.returnPressed" to="media.enqueue" via="source.text" />
 		<zee:connect from="aReloadStyle.clicked" to="zee.reloadStyleSheet" />
 <!--	Resets activated song?
