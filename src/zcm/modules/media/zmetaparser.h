@@ -9,6 +9,7 @@ class ZMetaParser{
 public:
     virtual void setFileName(QString location)=0;
     virtual QVariant field(QString name)=0;
+    virtual QVariant fieldf(QString format)=0;
     virtual QString type()=0;
 
 protected:

@@ -1,7 +1,7 @@
 ZRoot{
   background-color: rgba(0,0,0,70%);
   background-position: top left;
-  background-image: url("/home/ghetzel/images/dash-pattern-128.png");
+  background-image: url("/home/ghetzel/projects/zee/dev/gfx/dash-pattern-128.png");
   border: 0px;
   min-height: 480px;
   min-width: 800px;

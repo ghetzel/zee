@@ -36,7 +36,7 @@ void ZAudioManager::init(){
     connect(_mediaObject, SIGNAL(totalTimeChanged(qint64)),
 	    this, SLOT(setCurrentBookmark()));
     connect(_mediaObject, SIGNAL(bufferStatus(int)),
-            this, SLOT(_bufferStatus(int)));
+	    this, SLOT(_bufferStatus(int)));
 
     zEvent->registerSignal(this,SIGNAL(buffering()));
     zEvent->registerSignal(this,SIGNAL(playing()));
@@ -85,27 +85,27 @@ void ZAudioManager::stateHandler(Phonon::State is, Phonon::State){
 	    z_log_error("ZAudioManager: "+_mediaObject->errorString());
 	break;
     case Phonon::PlayingState:
-        z_log_debug("ZAudioManager: PLAYING");
+	z_log_debug("ZAudioManager: PLAYING");
 	_state = Playing;
 	emit playing();
 	break;
     case Phonon::PausedState:
-        z_log_debug("ZAudioManager: PAUSED");
+	z_log_debug("ZAudioManager: PAUSED");
 	_state = Paused;
 	emit paused();
 	break;
     case Phonon::StoppedState:
-        z_log_debug("ZAudioManager: STOPPED");
+	z_log_debug("ZAudioManager: STOPPED");
 	_state = Stopped;
 	emit stopped();
 	break;
     case Phonon::BufferingState:
-        z_log_debug("ZAudioManager: BUFFERING");
+	z_log_debug("ZAudioManager: BUFFERING");
 	_state = Buffering;
 	emit buffering();
 	break;
     case Phonon::LoadingState:
-        z_log_debug("ZAudioManager: LOADING");
+	z_log_debug("ZAudioManager: LOADING");
 	_state = Loading;
 	emit loading();
 	break;
@@ -196,12 +196,12 @@ void ZAudioManager::next(){
 
 void ZAudioManager::previous(){
     if(_state == Playing)
-        stop();
+	stop();
 
     if((_currentQueueSource-1) >= 0){
-        --_currentQueueSource;
+	--_currentQueueSource;
     }else{
-        z_log_debug("ZAudioAdaptor: Cannot go previous, nothing before");
+	z_log_debug("ZAudioAdaptor: Cannot go previous, nothing before");
     }
     play();
 }
@@ -270,6 +270,15 @@ void ZAudioManager::enqueue(QUrl location){
 			 _sourceQueue.size()-1,
 			 _sourceQueue.size()-1);
 	 _sourceQueue.push_back(location.toString());
+
+	if(!_displayTexts.contains(location.toString())){
+	    ZAudioMetaParser meta(QUrl(location.toString()).path());
+	    QString dt = meta.field("title").toString();
+	    if(dt.isEmpty())
+		dt = location.path().section("/",-1,-1);
+	    _displayTexts.insert(location.toString(), dt);
+	}
+
 	endInsertRows();
 	emit queueChanged();
 
@@ -280,7 +289,7 @@ void ZAudioManager::enqueue(QUrl location){
 
 void ZAudioManager::remove(QString location){
     if(!_mediaObject)
-        return;
+	return;
     _sourceQueue.removeOne(location);
 }
 
@@ -417,15 +426,17 @@ int ZAudioManager::rowCount(const QModelIndex&) const{
 }
 
 QVariant ZAudioManager::data(const QModelIndex &index, int role) const{
+    QString sourceFilename = _sourceQueue.at(index.row());
+
     if(!index.isValid())
 	return QVariant();
     if(index.row() >= _sourceQueue.size())
 	return QVariant();
     switch(role){
     case Qt::DisplayRole:
-	return QVariant(_sourceQueue.at(index.row()));
+	return QVariant(_displayTexts.value(sourceFilename));
     case Qt::UserRole+1:
-	return QVariant(_sourceQueue.at(index.row()));
+	return QVariant(sourceFilename);
     default:
 	return QVariant();
     }

@@ -11,6 +11,7 @@
 #include <Phonon/MediaSource>
 #include <zconfigurable.h>
 #include <zeventmanager.h>
+#include <metaparsers/zaudiometaparser.h>
 
 class ZAudioAdaptor;
 
@@ -96,6 +97,7 @@ private:
     Phonon::MediaObject *_mediaObject;
     Phonon::MediaObject *_resolver;
     QStringList _sourceQueue;
+    QHash<QString,QString> _displayTexts;
     QHash<QString,qint64> _bookmarks;
     QHash<QString,QIODevice*> _buffer;
     int _currentQueueSource;
