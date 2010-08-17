@@ -140,36 +140,35 @@ ZButton{
 		border-color: #E07000;
 	}
 
-	/*
-	#library #browser #albums QScrollBar{
-		background: transparent;
-		border: 1px solid #E07000;
-		width: 8px;
-	}*/
-
-    #extended QScrollBar,
-    #extended QScrollBar{
+	#extended QScrollBar{
 		width: 0px;
 	}
 
-	/*
-	#library #browser #albums QScrollBar::handle{
+/*
+	#extended QScrollBar{
+		background: transparent;
+		border: 1px solid #E07000;
+		width: 8px;
+	}
+
+	#extended QScrollBar::handle{
 		background: #E07000;
 		border: 1px solid #E07000;
 	}
 
-		#library #browser #albums QScrollBar::handle:horizontal{
+		#extended QScrollBar::handle:horizontal{
 			min-width: 20px;
 		}
 
-		#library #browser #albums QScrollBar::handle:vertical{
+		#extended QScrollBar::handle:vertical{
 			min-height: 20px;
 		}
 
-	#library #browser #albums QScrollBar::add-line,
-	#library #browser #albums QScrollBar::sub-line{
-		background: none;
-	}*/
+	#extended QScrollBar::add-line,
+	#extended QScrollBar::sub-line{
+		background: transparent;
+	}
+*/
 
 	#sidebar{
 		background-color: rgba(7,4,0,75%);

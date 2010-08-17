@@ -1,0 +1,9 @@
+ZRoot{
+	background-color: transparent;
+}
+
+ZTerminal{
+	background-color: transparent;	
+	font-family: "DejaVu Sans Mono";
+	font-size: 8pt;
+}

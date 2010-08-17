@@ -4,10 +4,11 @@
   xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
   xmlns:zui="http://www.gammazeta.net/zee/zui/">
 	<zee:widgets>
-		<zui:application id="main" title="zterm" width="75%" height="75%" position="center" layout="vertical">
-			<zui:container>
-				<zui:terminal shell="/bin/bash" />
-			</zui:container>
+		<zui:application id="zterm" title="zterm" width="75%" height="75%" position="center" layout="vertical">
+			<zui:terminal id="shell" />
 		</zui:application>
 	</zee:widgets>
+	<zee:events>
+		<zee:connect from="shell.finished" to="zterm.close" />
+	</zee:events>
 </zee>

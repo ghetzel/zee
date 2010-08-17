@@ -33,7 +33,6 @@ ZuiParser::ZuiParser(QDomElement &el)
 
 void ZuiParser::init()
 {
-    //load modules
     loadModules();
 }
 

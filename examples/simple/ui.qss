@@ -43,3 +43,9 @@
 #third_addrbar{
   padding: 2px;
 }
+
+ZTerminal{
+	border: 10px solid red;
+	font-family: "DejaVu Sans Mono";
+	font-size: 8pt;
+}

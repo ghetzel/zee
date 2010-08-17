@@ -3,7 +3,6 @@ MOC_DIR = moc
 OBJECTS_DIR = obj
 CONFIG += plugin
 CONFIG += console
-INCLUDEPATH += ./konsole
 INCLUDEPATH += .
 INCLUDEPATH += ../..
 INCLUDEPATH += ../../..
@@ -48,7 +47,9 @@ DESTDIR = ../../../plugins
 QT += xml
 QT += webkit
 QT += network
+
 linux-g++ { 
+    INCLUDEPATH += ./qtermwidget
     DEFINES += HAVE_POSIX_OPENPT
     HEADERS += zterminal.h \
         qtermwidget/Vt102Emulation.h \

@@ -10,14 +10,18 @@
 #define ZTERM_DEFAULT_FONT_FAMILY   "Monospace"
 
 #include <QObject>
-#include <qtermwidget/lib/qtermwidget.h>
+#include <qtermwidget/qtermwidget.h>
 #include <zwidget.h>
 #include <zeventmanager.h>
 
 class ZTerminal : public ZWidget<QFrame>
 {
+    Q_OBJECT
 public:
     ZTerminal(const ZConfig &el, QWidget *parent=0);
+
+signals:
+    void finished();
 
 private:
     void init();
