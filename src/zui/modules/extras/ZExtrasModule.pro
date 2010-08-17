@@ -11,7 +11,6 @@ INCLUDEPATH += ../../..
 DEPENDPATH += .
 DEPENDPATH += ../..
 DEPENDPATH += ../../..
-
 HEADERS += zutil.h \
     zuiutils.h \
     zwidget.h \
@@ -49,52 +48,51 @@ DESTDIR = ../../../plugins
 QT += xml
 QT += webkit
 QT += network
-
-
-linux-g++{
+linux-g++ { 
     DEFINES += HAVE_POSIX_OPENPT
     HEADERS += zterminal.h \
-        konsole/Vt102Emulation.h \
-        konsole/TerminalDisplay.h \
-        konsole/TerminalCharacterDecoder.h \
-        konsole/ShellCommand.h \
-        konsole/Session.h \
-        konsole/ScreenWindow.h \
-        konsole/Screen.h \
-        konsole/Pty.h \
-        konsole/LineFont.h \
-        konsole/kpty_p.h \
-        konsole/kpty.h \
-        konsole/konsole_wcwidth.h \
-        konsole/KeyboardTranslator.h \
-        konsole/k3processcontroller.h \
-        konsole/k3process.h \
-        konsole/History.h \
-        konsole/Filter.h \
-        konsole/ExtendedDefaultTranslator.h \
-        konsole/Emulation.h \
-        konsole/DefaultTranslatorText.h \
-        konsole/ColorTables.h \
-        konsole/CharacterColor.h \
-        konsole/Character.h \
-        konsole/BlockArray.h
-
+        qtermwidget/Vt102Emulation.h \
+        qtermwidget/TerminalDisplay.h \
+        qtermwidget/TerminalCharacterDecoder.h \
+        qtermwidget/ShellCommand.h \
+        qtermwidget/Session.h \
+        qtermwidget/ScreenWindow.h \
+        qtermwidget/Screen.h \
+        qtermwidget/qtermwidget.h \
+        qtermwidget/Pty.h \
+        qtermwidget/LineFont.h \
+        qtermwidget/kpty_p.h \
+        qtermwidget/kpty.h \
+        qtermwidget/konsole_wcwidth.h \
+        qtermwidget/KeyboardTranslator.h \
+        qtermwidget/k3processcontroller.h \
+        qtermwidget/k3process.h \
+        qtermwidget/History.h \
+        qtermwidget/Filter.h \
+        qtermwidget/ExtendedDefaultTranslator.h \
+        qtermwidget/Emulation.h \
+        qtermwidget/DefaultTranslatorText.h \
+        qtermwidget/ColorTables.h \
+        qtermwidget/CharacterColor.h \
+        qtermwidget/Character.h \
+        qtermwidget/BlockArray.h
     SOURCES += zterminal.cpp \
-        konsole/Vt102Emulation.cpp \
-        konsole/TerminalDisplay.cpp \
-        konsole/TerminalCharacterDecoder.cpp \
-        konsole/ShellCommand.cpp \
-        konsole/Session.cpp \
-        konsole/ScreenWindow.cpp \
-        konsole/Screen.cpp \
-        konsole/Pty.cpp \
-        konsole/kpty.cpp \
-        konsole/konsole_wcwidth.cpp \
-        konsole/KeyboardTranslator.cpp \
-        konsole/k3processcontroller.cpp \
-        konsole/k3process.cpp \
-        konsole/History.cpp \
-        konsole/Filter.cpp \
-        konsole/Emulation.cpp \
-        konsole/BlockArray.cpp
+        qtermwidget/Vt102Emulation.cpp \
+        qtermwidget/TerminalDisplay.cpp \
+        qtermwidget/TerminalCharacterDecoder.cpp \
+        qtermwidget/ShellCommand.cpp \
+        qtermwidget/Session.cpp \
+        qtermwidget/ScreenWindow.cpp \
+        qtermwidget/Screen.cpp \
+        qtermwidget/qtermwidget.cpp \
+        qtermwidget/Pty.cpp \
+        qtermwidget/kpty.cpp \
+        qtermwidget/konsole_wcwidth.cpp \
+        qtermwidget/KeyboardTranslator.cpp \
+        qtermwidget/k3processcontroller.cpp \
+        qtermwidget/k3process.cpp \
+        qtermwidget/History.cpp \
+        qtermwidget/Filter.cpp \
+        qtermwidget/Emulation.cpp \
+        qtermwidget/BlockArray.cpp
 }

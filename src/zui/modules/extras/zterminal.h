@@ -7,14 +7,12 @@
 #define ZTERM_FALLBACK_SHELL        "/bin/sh"
 #define ZTERM_DEFAULT_CODEC         "UTF-8"
 #define ZTERM_DEFAULT_SCROLLBACK    1000
+#define ZTERM_DEFAULT_FONT_FAMILY   "Monospace"
 
 #include <QObject>
+#include <qtermwidget/lib/qtermwidget.h>
 #include <zwidget.h>
 #include <zeventmanager.h>
-#include <konsole/Session.h>
-#include <konsole/TerminalDisplay.h>
-
-using namespace Konsole;
 
 class ZTerminal : public ZWidget<QFrame>
 {
@@ -26,8 +24,7 @@ private:
     void parse(const ZConfig &el);
 
 private:
-    TerminalDisplay *_display;
-    Session *_session;
+    QTermWidget *_terminal;
 };
 
 #endif // ZTERMINAL_H
