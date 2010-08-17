@@ -26,7 +26,9 @@ QVariant ZAudioMetaParser::field(QString name){
 	}else if(name == ZMETA_AUDIO_ALBUM){
 	    return QVariant(_tag->album().toCString());
 	}else if(name == ZMETA_AUDIO_TITLE){
-	    return QVariant(_tag->title().toCString());
+            if(_tag->title().isEmpty())
+                return QVariant(QString(_file->name()).section("/",-1,-1).section(".",0,-2));
+            return QVariant(_tag->title().toCString());
 	}else if(name == ZMETA_AUDIO_GENRE){
 	    return QVariant(_tag->genre().toCString());
 	}else if(name == ZMETA_AUDIO_YEAR){

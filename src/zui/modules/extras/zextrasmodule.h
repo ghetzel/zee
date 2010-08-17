@@ -14,6 +14,7 @@
 #include "zfolderview.h"
 #include <zhtmlfolderview.h>
 #include <zwebbrowser.h>
+#include <zterminal.h>
 
 
 /*!

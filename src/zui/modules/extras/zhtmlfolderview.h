@@ -6,7 +6,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <zutil.h>
-#include <libzee/zhtmllistmodel.h>v
+#include <libzee/zhtmllistmodel.h>
 #include <zui/zwidget.h>
 #include <zui/zuiutils.h>
 #include <zui/modules/form/zlistwidget.h>

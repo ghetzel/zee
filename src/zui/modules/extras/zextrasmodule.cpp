@@ -44,8 +44,12 @@ ZuiResult ZExtrasModule::prepareWidget(const QDomElement &el, QWidget *parent){
 //      CAST(ZWebBrowser*,zRes.widget)->show();
 //      CAST(ZWebBrowser*,zRes.widget)->setLayout(ZuiUtils::getLayout(
 //        el.attribute("layout", ZUI_DEFAULT_LAYOUT)));
-  }
 #endif // ZUI_WEBBROWSER
+#ifdef ZUI_TERMINAL
+  }else if(el.tagName() == ZUI_TERMINAL){
+      zRes.widget = new ZTerminal(el, zRes.parent);
+#endif // ZUI_TERMINAL
+  }
   return zRes;
 }
 
