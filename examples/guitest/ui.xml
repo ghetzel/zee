@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+    xmlns:zee="http://www.gammazeta.net/zee/core"
+    xmlns:zui="http://www.gammazeta.net/zee/zui"
+>
+    <zee:widgets>
+        <zui:application id="guitest" layout="vertical" position="center">
+            <zui:container>
+                <zui:frame title="Radio Box" layout="vertical">
+                    <zui:radio value="radio_1">Radio Button 1</zui:radio>
+                    <zui:radio value="radio_2">Radio Button 2</zui:radio>
+                    <zui:radio value="radio_3">Radio Button 3</zui:radio>
+                </zui:frame>
+                <zui:container>
+                    <zui:input type="text">Text input...</zui:input>
+                    <zui:input type="password">password123</zui:input>
+                    <zui:select>
+                        <zui:option default="true">Please choose...</zui:option>
+                        <zui:option value="combo_1">Option 1</zui:option>
+                        <zui:option value="combo_2">Option 2</zui:option>
+                        <zui:option value="combo_3">Option 3</zui:option>
+                    </zui:select>
+                </zui:container>
+            </zui:container>
+            <zui:container>
+                <zui:container layout="vertical">
+                    <zui:frame title="Check Box" layout="vertical">
+                        <zui:checkbox id="check_1" value="check_1">Checkbox 1</zui:checkbox>
+                        <zui:checkbox id="check_2" value="check_2">Checkbox 2</zui:checkbox>
+                        <zui:checkbox id="check_3" value="check_3">Checkbox 3</zui:checkbox>
+                    </zui:frame>
+                    <zui:progress id="progress" />
+                    <zui:slider id="slider" />
+                    <zui:scrollbar id="scroller" />
+                </zui:container>
+                <zui:container layout="vertical">
+                    <zui:splitter direction="vertical">
+                        <zui:pane>
+                            <zui:splitter>
+                                <zui:pane>
+                                    <zui:input type="textbox" />
+                                </zui:pane>
+                                <zui:pane>
+                                    <zui:text>Text Label 1</zui:text>
+                                </zui:pane>
+                            </zui:splitter>
+                        </zui:pane>
+                        <zui:pane>
+                            <zui:input type="richtext" />   
+                        </zui:pane>
+                    </zui:splitter>
+                </zui:container>
+            </zui:container>
+        </zui:application>
+    </zee:widgets>
+</zee>

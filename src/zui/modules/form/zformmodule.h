@@ -8,10 +8,11 @@
 #include <zui/zuiplugininterface.h>
 #include <zui/zuiutils.h>
 
+#include <zframe.h>
 #include <zbutton.h>
 #include <ztogglebutton.h>
 #include <ztextinput.h>
-//#include <zradiobutton.h>
+#include <zradiobutton.h>
 //#include <zcheckbox.h>
 #include <zslider.h>
 #include <zprogressbar.h>

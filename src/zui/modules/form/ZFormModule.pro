@@ -27,7 +27,8 @@ HEADERS += zuiutils.h \
     zeventobject.h \
     ztogglebutton.h \
     ztuplelistmodel.h \
-    ztableview.h
+    ztableview.h \
+    zframe.h
 SOURCES += zuiutils.cpp \
     zui/layouts/zflowlayout.cpp \
     zformmodule.cpp \
@@ -45,7 +46,8 @@ SOURCES += zuiutils.cpp \
     zeventobject.cpp \
     ztogglebutton.cpp \
     ztuplelistmodel.cpp \
-    ztableview.cpp
+    ztableview.cpp \
+    zframe.cpp
 TARGET = $$qtLibraryTarget(zui_form)
 DESTDIR = ../../../plugins
 QT += xml
