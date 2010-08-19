@@ -58,32 +58,36 @@
                     <zui:progress id="seekbar" />
                 </zui:container>
             </zui:container>
-            <zui:container id="extended">
-                <zui:list id="sidebar">
-	                <zui:item value="queueScreen" icon=":/icons/nowplaying.svg">Now Playing</zui:item>
-	                <zui:item value="libraryScreen" icon="stock_music-library">Library</zui:item>
-                </zui:list>
-                <zui:screens id="screen" default="libraryScreen">
-	                <zui:screen name="queueScreen">
-		                <zui:list model="media" id="queue" />
-	                </zui:screen>
-	                <zui:screen name="libraryScreen" layout="vertical">
-		                <zui:container>
-			                <zui:label value="Artist" />
-			                <zui:label value="Genre" />
-			                <zui:label value="Album" />
-		                </zui:container>
-		                <zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
-	                </zui:screen>
-                </zui:screens>
-            </zui:container>
+            <zui:splitter id="extended">
+		<zui:pane>
+	                <zui:list id="sidebar">
+		                <zui:item value="queueScreen" icon=":/icons/nowplaying.svg">Now Playing</zui:item>
+	        	        <zui:item value="libraryScreen" icon="stock_music-library">Library</zui:item>
+        	        </zui:list>
+		</zui:pane>
+		<zui:pane>
+	                <zui:screens id="screen" default="libraryScreen">
+	        	        <zui:screen name="queueScreen">
+			                <zui:list model="media" id="queue" />
+		                </zui:screen>
+	        	        <zui:screen name="libraryScreen" layout="vertical">
+			                <zui:container>
+				                <zui:label value="Artist" />
+			                	<zui:label value="Genre" />
+			        	        <zui:label value="Album" />
+		        	        </zui:container>
+			                <zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
+			                </zui:screen>
+                		</zui:screens>
+			</zui:pane>
+        	    </zui:splitter>
 
-            <zui:container id="controls">
-                <zui:button id="aPrev">Previous</zui:button>
-                <zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
-                <zui:button id="aStop">Stop</zui:button>
-                <zui:button id="aNext">Next</zui:button>
-            </zui:container>
+	            <zui:container id="controls">
+	                <zui:button id="aPrev">Previous</zui:button>
+	                <zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
+                	<zui:button id="aStop">Stop</zui:button>
+        	        <zui:button id="aNext">Next</zui:button>
+	            </zui:container>
 		</zui:application>
 	</zee:widgets>
 	<zee:events>

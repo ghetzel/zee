@@ -21,6 +21,7 @@
 #include <zscreenmanager.h>
 #include <zscreen.h>
 #include <zspacer.h>
+#include <zsplitter.h>
 
 #ifdef Q_WS_X11
 #include <zui/zx11/zxrootwindow.h>

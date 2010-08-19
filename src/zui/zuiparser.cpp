@@ -179,6 +179,8 @@ void ZuiParser::prepareWidget(const QDomElement &el){
 bool ZuiParser::pushWidget(QDomElement&, QWidget *cWidget, QWidget *cParent)
 {
 
+    QWidget *cWidgetParent = NULL;
+
     if(cWidget && cParent){
 	//    finally, add the widget to the hierarchy...
 	//    if the current widget is the new parent widget,
@@ -186,8 +188,12 @@ bool ZuiParser::pushWidget(QDomElement&, QWidget *cWidget, QWidget *cParent)
 	//    (otherwise you'll try adding the widget to its own
 	//    layout, infiniloop)
 	if(cWidget == cParent){
-	    if(cParent->parent())
-                CAST(QWidget*,cParent->parent())->layout()->addWidget(cWidget);
+            if(cParent->parent()){
+                cWidgetParent = CAST(QWidget*,cParent->parent());
+
+                if(cWidgetParent->layout())
+                    cWidgetParent->layout()->addWidget(cWidget);
+            }
 	    ++depth;
 	}else{
 	    cParent->layout()->addWidget(cWidget);

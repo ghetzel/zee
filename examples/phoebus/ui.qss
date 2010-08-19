@@ -22,6 +22,7 @@ ZButton{
 	border-top: 1px solid #444;
 	border-bottom: 1px solid #444;
 	padding: 2px;
+	max-height: 96px;
 }
 
 	#mainbar #npVitals{
@@ -175,8 +176,6 @@ ZButton{
 		border-left: 0px;
 		border-radius: 20px 110px;
 		margin-left: -20px;
-		max-width: 200px;
-		min-width: 200px;
 		padding: 4px 20px 4px 24px;
 	}
 
@@ -184,12 +183,12 @@ ZButton{
 		background-color: rgba(7,4,0,75%);
 		border-right: 0px;
 		border-radius: 20px 110px;
-		margin-left: 10px;
 		margin-right: -20px;
 		padding: 4px 24px 4px 20px;
 	}
 
 #controls{
+    max-height: 32px;
     min-height: 32px;
 }
 

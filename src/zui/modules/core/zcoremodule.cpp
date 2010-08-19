@@ -5,6 +5,8 @@ ZCoreModule::ZCoreModule()
     ZuiUtils::registerContainerElement(ZUI_CONTAINER);
     ZuiUtils::registerContainerElement(ZUI_SCREEN);
     ZuiUtils::registerContainerElement(ZUI_SCREENMGR);
+    ZuiUtils::registerContainerElement(ZUI_SPLITTER);
+    ZuiUtils::registerContainerElement(ZUI_PANE);
     ZuiUtils::registerContainerElement("zui:dock");
 }
 
@@ -26,6 +28,11 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
         zRes.widget = new ZScreenManager(el, zRes.parent);
         zRes.parent = zRes.widget;
 #endif // ZUI_SCREENMGR
+#ifdef ZUI_SCREENMGR // splitter: resizable child panes
+    }else if(el.tagName() == ZUI_SPLITTER){
+        zRes.widget = new ZSplitter(el, zRes.parent);
+        zRes.parent = zRes.widget;
+#endif // ZUI_SCREENMGR
 #ifdef ZUI_SPACER
     }else if(el.tagName() == ZUI_SPACER){
         zRes.widget = new ZSpacer(el, zRes.parent);
@@ -37,25 +44,18 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
 
 //	if adding a screen to the screen manager, call its add method direct,
 	if(el.tagName() == ZUI_SCREEN){	    
-            ZScreenManager *scrman = QCAST(ZScreenManager*,zRes.parent);
-            if(scrman)
-                scrman->addScreen(zRes.widget, el.attribute("name", NULL));
-	}
+            ZScreenManager *obj = QCAST(ZScreenManager*,zRes.parent);
+            if(obj)
+                obj->addScreen(zRes.widget, el.attribute("name", NULL));
+        }else if(el.tagName() == ZUI_PANE){
+            ZSplitter *obj = QCAST(ZSplitter*,zRes.parent);
+            if(obj){
+                obj->addWidget(zRes.widget);                
+            }
+        }
 
 	zRes.parent = zRes.widget;
 #endif // ZUI_CONTAINERS
-//#ifdef ZUI_SCREEN // screen: put it in a manager
-//    }else if(el.tagName() == ZUI_SCREEN){
-//	//  only create the screen if our direct parent is a ZScreenManager
-//	ZScreenManager *scrman = QCAST(ZScreenManager*,zRes.parent);
-//	if(scrman){
-//	    zRes.widget = new ZScreen(el, scrman);
-//
-//	    //  change the operating parent widget to this new one we just built
-//	    zRes.parent = zRes.widget;
-//	}
-//
-//#endif // ZUI_SCREEN
 #ifdef ZUI_TEXT // text: generic text label
     }else if(el.tagName() == "zui:text"){
 	zRes.widget = new ZLabel(el, zRes.parent);
