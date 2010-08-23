@@ -16,6 +16,10 @@ ZuiResult ZInfographModule::prepareWidget(const QDomElement &el,
   }else if(el.tagName() == ZUI_PIEGAUGE){
     zRes.widget = new ZPieGauge(el,zRes.parent);
 #endif // ZUI_PIEGAUGE
+#ifdef ZUI_CHARACTER_DISPLAY
+  }else if(el.tagName() == ZUI_CHARACTER_DISPLAY){
+    zRes.widget = new ZCharacterDisplay(el,zRes.parent);
+#endif // ZUI_CHARACTER_DISPLAY
   }
 
   return zRes;

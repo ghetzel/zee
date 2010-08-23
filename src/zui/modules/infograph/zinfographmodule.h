@@ -10,6 +10,7 @@
 #include <zui/zuiutils.h>
 #include <zui/modules/infograph/zgauge.h>
 #include <zui/modules/infograph/zpiegauge.h>
+#include <zui/modules/infograph/zcharacterdisplay.h>
 
 /*!
   \defgroup zui_plugins_infograph Information / Graphing

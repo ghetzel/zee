@@ -14,7 +14,8 @@ HEADERS += ../../../zutil.h \
     zgenericdial.h \
     zpolystateindicator.h \
     zgauge.h \
-    zpiegauge.h
+    zpiegauge.h \
+    zcharacterdisplay.h
 SOURCES += ../../../zutil.cpp \
     ../../../zeventmanager.cpp \
     ../../../zeventobject.cpp \
@@ -24,7 +25,8 @@ SOURCES += ../../../zutil.cpp \
     zgenericdial.cpp \
     zpolystateindicator.cpp \
     zgauge.cpp \
-    zpiegauge.cpp
+    zpiegauge.cpp \
+    zcharacterdisplay.cpp
 TARGET = $$qtLibraryTarget(zui_infograph)
 DESTDIR = ../../../plugins
 QT += xml
