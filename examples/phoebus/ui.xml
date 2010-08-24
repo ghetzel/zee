@@ -23,6 +23,7 @@
 
 		<zee:setting id="vNowPlaying" value="queueScreen" />
 		<zee:setting id="vLibrary" value="libraryScreen" />
+		<zee:setting id="vVideos" value="videoScreen" />
 
 		<zee:key id="scNowPlaying" src="phoebus" value="Ctrl+P" />
 		<zee:key id="scLibrary" src="phoebus" value="Ctrl+L" />
@@ -55,32 +56,37 @@
                         <zui:button id="aReloadStyle" value="Style" />
                 </zui:container>
                 <zui:container id="npVitals">
-                    <zui:progress id="seekbar" />
+                    <zui:seekbar id="seekbar" />
                 </zui:container>
             </zui:container>
             <zui:splitter id="extended">
-		<zui:pane>
-	                <zui:list id="sidebar">
-		                <zui:item value="queueScreen" icon=":/icons/nowplaying.svg">Now Playing</zui:item>
-	        	        <zui:item value="libraryScreen" icon="stock_music-library">Library</zui:item>
-        	        </zui:list>
-		</zui:pane>
-		<zui:pane>
-	                <zui:screens id="screen" default="libraryScreen">
-	        	        <zui:screen name="queueScreen">
-			                <zui:list model="media" id="queue" />
-		                </zui:screen>
-	        	        <zui:screen name="libraryScreen" layout="vertical">
-			                <zui:container>
-				                <zui:label value="Artist" />
-			                	<zui:label value="Genre" />
-			        	        <zui:label value="Album" />
-		        	        </zui:container>
-			                <zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
-			                </zui:screen>
-                		</zui:screens>
+			<zui:pane>
+		                <zui:list id="sidebar">
+		        	        <zui:item value="queueScreen" icon=":/icons/nowplaying.svg">Now Playing</zui:item>
+	        		        <zui:item value="libraryScreen" icon="stock_music-library">Library</zui:item>
+		        	        <zui:item value="videoScreen" icon="stock_video-library">Video</zui:item>
+	        	        </zui:list>
 			</zui:pane>
-        	    </zui:splitter>
+			<zui:pane>
+		                <zui:screens id="screen" default="libraryScreen">
+	        	        	<zui:screen name="queueScreen">
+				                <zui:list model="media" id="queue" />
+			                </zui:screen>
+		        	        <zui:screen name="libraryScreen" layout="vertical">
+		                	<zui:container>
+				                	<zui:label value="Artist" />
+			                		<zui:label value="Genre" />
+			        		        <zui:label value="Album" />
+	        		        </zui:container>
+			                <zui:folder id="browser" uri="/home/ghetzel/cortex/commons/flac-content/import" select="extended" />
+		                </zui:screen>
+				<zui:screen name="videoScreen" layout="vertical">
+					<zui:video id="video" />
+			                <zui:folder id="vbrowser" uri="/home/ghetzel/downloads" select="extended" />
+				</zui:screen>
+               		</zui:screens>
+		</zui:pane>
+    	    </zui:splitter>
 
 	            <zui:container id="controls">
 	                <zui:button id="aPrev">Previous</zui:button>
@@ -98,6 +104,8 @@
 		<zee:connect from="media.timeChanged" to="seekbar.setValue" direct="false" />
 		<zee:connect from="media.timeChanged" to="currentTime.setText" direct="false" />
 		<zee:connect from="media.reachedBookmark" to="zee.log" direct="false" />
+
+		<zee:connect from="seekbar.positionChanged" to="media.seek" />
 				
 		<zee:connect from="metareader.dataChanged" to="currentTitle.setText" via="metareader.data.title" />
 		<zee:connect from="metareader.dataChanged" to="currentArtist.setText" via="metareader.data.artist" />
@@ -106,6 +114,9 @@
 
 		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
 		<zee:connect from="browser.activated" to="media.enqueue" />
+
+		<zee:connect from="vbrowser.activated" to="video.load" direct="false" />
+		<zee:connect from="video.sourceChanged" to="video.play" direct="false" />
 
 		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
 		<zee:connect from="aStop.clicked" to="media.stop" />

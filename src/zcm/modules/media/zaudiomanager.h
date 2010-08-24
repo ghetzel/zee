@@ -55,6 +55,7 @@ public slots:
     void next();
     void togglePlay();
     void previous();
+    void seek(qint64 position);
     void playSource(QString location);
     void playSource(QUrl location);
     void setSource(QString location);

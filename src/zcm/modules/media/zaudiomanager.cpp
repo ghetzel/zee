@@ -56,6 +56,7 @@ void ZAudioManager::init(){
     zEvent->registerSlot(this, SLOT(pause()));
     zEvent->registerSlot(this, SLOT(stop()));
     zEvent->registerSlot(this, SLOT(next()));
+    zEvent->registerSlot(this, SLOT(seek(qint64)));
     zEvent->registerSlot(this, SLOT(previous()));
     zEvent->registerSlot(this, SLOT(togglePlay()));
     zEvent->registerSlot(this, SLOT(playSource(QString)));
@@ -204,6 +205,12 @@ void ZAudioManager::previous(){
 	z_log_debug("ZAudioAdaptor: Cannot go previous, nothing before");
     }
     play();
+}
+
+void ZAudioManager::seek(qint64 position){
+    if(_mediaObject){
+	_mediaObject->seek(position);
+    }
 }
 
 void ZAudioManager::setSource(QString location){

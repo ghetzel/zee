@@ -8,6 +8,9 @@
 #include <zui/zuiplugininterface.h>
 #include <zui/zuiutils.h>
 
+#include <zseekbar.h>
+#include <zvideowidget.h>
+
 /*!
   \defgroup zui_plugins_media Media Components
   \ingroup zui_plugins
