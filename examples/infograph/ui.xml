@@ -6,18 +6,18 @@
   <zee:components>
 	<zee:system id="system" />
   </zee:components>
-  <zui:application title="Zee Infograph Gauge" width="512" height="512" position="center" layout="vertical">
-	<zui:piegauge id="dial" value="30" max="150" start="235" range="233">
-            <zui:series name="velocity_1" interval="1" skipEvery="5" />
-            <zui:series name="velocity_5" interval="5" skipEvery="2" length="7" />
-            <zui:series name="velocity_10" interval="10" skipEvery="2" length="8" width="1" />
-            <zui:series name="velocity_20" interval="20" length="10" width="1" />
-	</zui:piegauge>
-	<zui:slider id="adjust" />
-  </zui:application>
-
+  <zee:widgets>
+	  <zui:application title="Zee Infograph Gauge" width="512" height="512" position="center" layout="vertical">
+		<zui:piegauge id="dial" value="30" max="150" start="235" range="233">
+	            <zui:series name="velocity_1" interval="1" skipEvery="5" />
+	            <zui:series name="velocity_5" interval="5" skipEvery="2" length="7" />
+	            <zui:series name="velocity_10" interval="10" skipEvery="2" length="8" width="1" />
+	            <zui:series name="velocity_20" interval="20" length="10" width="1" />
+		</zui:piegauge>
+		<zui:slider id="adjust" />
+	  </zui:application>
+  </zee:widgets>
   <zee:events>
     <zee:connect from="adjust.valueChanged" to="dial.setValue" />
-    <zee:connect from="adjust.valueChanged" to="system.notify" direct="false" />    
   </zee:events>
 </zee>

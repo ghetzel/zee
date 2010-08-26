@@ -16,8 +16,8 @@
 
 #define zApp                     Zee::instance()
 
-#include <iostream>
-#include <typeinfo>
+//#include <iostream>
+//#include <typeinfo>
 
 #include <QtCore>
 #include <QtGui>
@@ -26,6 +26,7 @@
 #include <QHash>
 #include <QMultiHash>
 #include <QList>
+#include <QtPlugin>
 
 #ifdef Q_WS_X11
 #include <X11/Xlib.h>

@@ -43,11 +43,22 @@ ZEventObject::ZMethodPair ZEventObject::match(QString localAlias,
 
     QList<ZMethodObject> local = methods(localAlias);
     QList<ZMethodObject> remote = remoteObject.methods(remoteAlias);
-    ZMethodObject rv1, rv2;
+    return ZEventObject::matchMethodsBySignature(local, remote);
+}
 
-    foreach(ZMethodObject l, local){
-        foreach(ZMethodObject r, remote){
-            if(l.args() == r.args()){
+ZEventObject::ZMethodPair ZEventObject::matchMethodsBySignature(
+        QList<ZMethodObject>signal, QList<ZMethodObject>slot, bool ignoreTypes)
+{
+    ZMethodObject rv1, rv2;
+    foreach(ZMethodObject l, signal){
+        foreach(ZMethodObject r, slot){
+        //  first check for 1-to-1 type compatibility of a given method pair;
+        //  failing that, and if we may ignore type compatibility, just try to
+        //  find any two methods with the same number of arguments.
+        //  this may be a somewhat unsophisticated fallback, but it works...
+            if(l.args() == r.args() ||
+               ( ignoreTypes && (l.args().count() == r.args().count()) ))
+            {
                 rv1 = l;
                 rv2 = r;
             }

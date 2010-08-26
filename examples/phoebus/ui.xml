@@ -20,6 +20,7 @@
 		</zee:media>
 		
 		<zee:media id="notifications" />
+		<zee:system id="system" />
 
 		<zee:setting id="vNowPlaying" value="queueScreen" />
 		<zee:setting id="vLibrary" value="libraryScreen" />
@@ -111,6 +112,8 @@
 		<zee:connect from="metareader.dataChanged" to="currentArtist.setText" via="metareader.data.artist" />
 		<zee:connect from="metareader.dataChanged" to="currentAlbum.setText" via="metareader.data.album" />
 		<zee:connect from="metareader.dataChanged" to="currentLength.setText" via="metareader.data.length" />
+
+		<!--<zee:connect from="metareader.dataChanged" to="system.notify" via="metareader.data.title,metareader.data.artist" />-->
 
 		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
 		<zee:connect from="browser.activated" to="media.enqueue" />

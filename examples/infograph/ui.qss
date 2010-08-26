@@ -1,5 +1,5 @@
 QFrame{
-	background: transparent center center no-repeat url("../../dev/gfx/dial.svg");
+	background: transparent center center no-repeat url("../../dev/pnglogo.mng");
 }
 
 ZGenericDial{

@@ -40,7 +40,8 @@ QStringList ZMethodObject::args(const char *method){
 }
 
 QString ZMethodObject::signature(const char *method){
-    return ZMethodObject::name(method)+"("+METHODARGS(method)+")";
+    return ZMethodObject::name(method)+"("+
+           ZMethodObject::args(method).join(",")+")";
 }
 
 QList<QVariant::Type> ZMethodObject::argTypes(const char *method){

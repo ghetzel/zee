@@ -23,7 +23,7 @@ public slots:
 
 private:
     void init();
-    void parse(const ZConfig &el);
+    void parse(const ZConfig&);
 
 private:
     MediaSource *_source;

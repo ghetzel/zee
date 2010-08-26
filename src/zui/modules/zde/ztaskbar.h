@@ -40,7 +40,7 @@ private slots:
 
 private:
   virtual void init();
-  virtual void parse(const ZConfig &el);
+  virtual void parse(const ZConfig&);
 
 private:
    ZXScreenEdge _edge;

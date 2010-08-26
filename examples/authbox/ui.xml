@@ -12,18 +12,20 @@
                 ]]>
 		</zee:executor>
 	</zee:components>
-	<zui:application id="authbox" width="100%" height="100%" frame="false" position="center" resizable="false" layout="vertical" type="dialog" align="AlignCenter">
-		<zui:container id="dialog" layout="vertical">
-			<zui:container id="header" layout="vertical">
-				<zui:text id="title" />
+	<zee:widgets>
+		<zui:application id="authbox" width="100%" height="100%" frame="false" position="center" resizable="false" layout="vertical" type="dialog" align="AlignCenter">
+			<zui:container id="dialog" layout="vertical">
+				<zui:container id="header" layout="vertical">
+					<zui:text id="title" />
+				</zui:container>
+				<zui:container id="content" layout="vertical">
+					<zui:progress id="remaining" max="20000" />
+					<zui:input id="password" type="password" />		
+					<zui:progress id="elapsed" max="20000" />
+				</zui:container>
 			</zui:container>
-			<zui:container id="content" layout="vertical">
-				<zui:progress id="remaining" max="20000" />
-				<zui:input id="password" type="password" />		
-				<zui:progress id="elapsed" max="20000" />
-			</zui:container>
-		</zui:container>
-	</zui:application>
+		</zui:application>
+	</zee:widgets>
 	<zee:events>
 		<zee:connect from="password.returnPressed" to="zee.output" via="password.text" />
 		<zee:connect from="password.returnPressed" to="zee.quit" />

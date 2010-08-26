@@ -15,7 +15,7 @@ public:
 
 
 private:
-    void parse(const ZConfig &el);
+    void parse(const ZConfig&);
 };
 
 #endif // ZSPACER_H

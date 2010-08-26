@@ -18,6 +18,9 @@ public:
     ZMethodPair match(QString localAlias,
                       QString remoteAlias,
                       ZEventObject &remoteObject);
+    static ZMethodPair matchMethodsBySignature(QList<ZMethodObject> signal,
+                                               QList<ZMethodObject> slot,
+                                               bool ignoreTypes=false);
 
 private:
     QObject *_object;

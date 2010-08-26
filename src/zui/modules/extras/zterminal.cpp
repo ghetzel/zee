@@ -27,5 +27,5 @@ void ZTerminal::init(){
     layout()->addWidget(_terminal);
 }
 
-void ZTerminal::parse(const ZConfig &el){
+void ZTerminal::parse(const ZConfig&){
 }

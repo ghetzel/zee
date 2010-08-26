@@ -9,11 +9,13 @@
 			<zee:dbus-signal>BrightnessChanged(uint)</zee:dbus-signal>
 		</zee:dbus>
 	</zee:components>
-	<zui:application id="main">
-		<zui:slider id="adjust" />
-	</zui:application>
-	<zee:events>
-		<zee:connect from="adjust.valueChanged" to="lcd.remote.SetBrightness" direct="false" />
-		<zee:connect from="lcd.remote.BrightnessChanged" to="main.setWindowTitle" direct="false" />
-	</zee:events>
+	<zee:widgets>
+		<zui:application id="main">
+			<zui:slider id="adjust" />
+		</zui:application>
+		<zee:events>
+			<zee:connect from="adjust.valueChanged" to="lcd.remote.SetBrightness" direct="false" />
+			<zee:connect from="lcd.remote.BrightnessChanged" to="main.setWindowTitle" direct="false" />
+		</zee:events>
+	</zee:widgets>
 </zee>

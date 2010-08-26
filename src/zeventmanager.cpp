@@ -127,25 +127,23 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct)
 	       signal = methodMatch.first;
 	       slot = methodMatch.second;
 	   }else{
+            //! \hack
 	    // by arbitratily choosing the first method from each, it may lead to
 	    // trying to adapt an unadaptable type when an adaptable alternative
 	    // exists
-		QList<ZMethodObject> m;
-		m = sender.methods(CALLALIAS(from));
-		if(!m.isEmpty()){
-		    signal = m.first();
-		}else{
-		    z_log_error("ZEventManager: No signals found for '"+
-				CALLALIAS(from)+"'");
-		    return; }
+                ZEventObject::ZMethodPair matchedPair;
+                matchedPair = ZEventObject::matchMethodsBySignature(
+                        sender.methods(CALLALIAS(from)),
+                        receiver.methods(CALLALIAS(to)),
+                        true);
+                if(! (matchedPair.first.isValid() &&
+                      matchedPair.second.isValid())){
+                    z_log_error("ZEventManager: Could not find compatible "
+                                "signal-slot pair.");
+                    return; }
 
-		m = receiver.methods(CALLALIAS(to));
-		if(!m.isEmpty()){
-		    slot = m.first();
-		}else{
-		    z_log_error("ZEventManager: No slots found for '"+
-				CALLALIAS(to)+"'");
-		    return; }
+                signal = matchedPair.first;
+                slot = matchedPair.second;
 	   }
 
 	   if(!signal.isValid()){
@@ -158,7 +156,7 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct)
 //	    by this point, we have verfied the presence of all necessary arguments,
 //	    found the objects in the hierarchy, retreived the methods for those
 //	    objects...let's map the damned connection already
-	    _mappings.append(new ZEventRelationship(signal, slot, viaProperties,
+            _mappings.append(new ZEventRelationship(signal, slot, viaProperties,
 						direct));
 	}else{
 	    z_log_error("ZEventManager: Cannot map, receiving object not found ("+to+")");

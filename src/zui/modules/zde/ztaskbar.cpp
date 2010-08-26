@@ -35,7 +35,7 @@ void ZTaskbar::init(){
 	  this, SLOT(refreshWindowList()));
 }
 
-void ZTaskbar::parse(const ZConfig &el){
+void ZTaskbar::parse(const ZConfig&){
 
 }
 

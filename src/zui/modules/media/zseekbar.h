@@ -13,7 +13,7 @@ class ZSeekbar : public ZProgressBar
     Q_OBJECT
 public:
     ZSeekbar(const ZConfig &el, QWidget *parent=0);
-    void parse(const ZConfig &el);
+    void parse(const ZConfig&);
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *e);
     void mouseMoveEvent(QMouseEvent *e);

@@ -12,6 +12,7 @@
 #define ZSYS_LNOTIFY_SVCNM  "org.freedesktop.Notifications"
 #define ZSYS_LNOTIFY_OPATH  "/org/freedesktop/Notifications"
 #define ZSYS_LNOTIFY_IFACE  "org.freedesktop.Notifications"
+#define ZSYS_LNOTIFY_METHOD "Notify"
 #include <QtDBus>
 #endif
 
@@ -28,7 +29,7 @@ public:
 
 public slots:
     void notify(QString title, QString message=QString(),
-		QString icon=QString(), uint duration=ZSYS_NOTIFY_DURATION);
+                QString icon=QString(), int duration=ZSYS_NOTIFY_DURATION);
 
 private:
     ZLocalSystem *_sysinfo;

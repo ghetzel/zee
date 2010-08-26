@@ -15,7 +15,7 @@ void ZVideoWidget::init(){
     parse(_config);
 }
 
-void ZVideoWidget::parse(const ZConfig &el){
+void ZVideoWidget::parse(const ZConfig&){
 
 }
 

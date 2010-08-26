@@ -11,7 +11,7 @@ void ZSeekbar::init(){
     parse(_config);
 }
 
-void ZSeekbar::parse(const ZConfig &el){
+void ZSeekbar::parse(const ZConfig&){
 
 }
 

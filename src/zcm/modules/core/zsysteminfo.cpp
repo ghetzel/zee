@@ -9,11 +9,10 @@ ZSystemInfo::ZSystemInfo(const ZConfig &el, QObject *parent)
 }
 
 void ZSystemInfo::parse(const ZConfig&){
-
     zEvent->registerSlot(this, SLOT(notify(QString)));
     zEvent->registerSlot(this, SLOT(notify(QString,QString)));
     zEvent->registerSlot(this, SLOT(notify(QString,QString,QString)));
-    zEvent->registerSlot(this, SLOT(notify(QString,QString,QString,uint)));
+    zEvent->registerSlot(this, SLOT(notify(QString,QString,QString,int)));
 }
 
 qint64 ZSystemInfo::time(){
@@ -25,11 +24,14 @@ qint64 ZSystemInfo::timems(){
 }
 
 void ZSystemInfo::notify(QString title, QString message, QString icon,
-			 uint duration)
+                         int duration)
 {
 #ifdef Q_OS_LINUX
     QDBusInterface i(ZSYS_LNOTIFY_SVCNM,ZSYS_LNOTIFY_OPATH,ZSYS_LNOTIFY_IFACE);
-    i.call("Notify",ZEE_APPNAME,uint(0),icon,title,message,QStringList(),
+    QDBusMessage res;
+    res = i.call(ZSYS_LNOTIFY_METHOD,ZEE_APPNAME,uint(0),icon,title,message,QStringList(),
 	   QVariantMap(),duration);
+#else
+    z_log("ZSystemInfo: Notification support is not currently implemented for your platform.");
 #endif
 }

@@ -6,6 +6,6 @@ ZSpacer::ZSpacer(const ZConfig &el, QWidget *parent)
     parse(_config);
 }
 
-void ZSpacer::parse(const ZConfig &el){
+void ZSpacer::parse(const ZConfig&){
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }

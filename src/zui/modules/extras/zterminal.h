@@ -25,7 +25,7 @@ signals:
 
 private:
     void init();
-    void parse(const ZConfig &el);
+    void parse(const ZConfig&);
 
 private:
     QTermWidget *_terminal;

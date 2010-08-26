@@ -198,7 +198,7 @@ void Zee::parseUI()
 	//make sure we can open the file
 	if(!zui.open(QIODevice::ReadOnly)){
 	    z_log_error("Failed to open UI definition file '"+zui.fileName()+"'");
-	    QCoreApplication::exit(ZEE_EXIT_ZUI_DEF_INACCESSIBLE);
+            ::exit(ZEE_EXIT_ZUI_DEF_INACCESSIBLE);
 	}
 
 	//make sure we can load the data
@@ -206,7 +206,7 @@ void Zee::parseUI()
 	{
 	    z_log_error("Invalid UI definition file '"+(*zDocErr)+"'");
 	    zui.close();
-	    QCoreApplication::exit(ZEE_EXIT_INVALID_ZUI_DEF);
+            ::exit(ZEE_EXIT_INVALID_ZUI_DEF);
 	}
 
 	//we're done with this
@@ -221,7 +221,7 @@ void Zee::parseUI()
     }
 
     z_log_error("Unable to locate UI definition file '"+zui.fileName()+"'");
-    QCoreApplication::exit(ZEE_EXIT_NO_ZUI_DEF);
+    ::exit(ZEE_EXIT_NO_ZUI_DEF);
 }
 
 void Zee::output(QString msg){      z_out(msg);         }
