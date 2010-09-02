@@ -9,17 +9,25 @@
 
 class ZCharacterDisplay : public ZWidget<QFrame>
 {
+    Q_OBJECT
+
 public:
     ZCharacterDisplay(const ZConfig &el, QWidget *parent=0);
+
+public slots:
+    void setText(QString text);
+    void updateDisplay();
 
 private:
     void init();
     void parse(const ZConfig &el);
-    void updateDisplay();
+
+    void addCharacter();
 
 private:
     QString _text;
     QList<QLabel*> _characters;
+    QString _charImagePath;
 };
 
 #endif // ZCHARACTERDISPLAY_H

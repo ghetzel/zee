@@ -3,11 +3,24 @@
   xmlns:zee="http://www.gammazeta.net/zee/core/"
   xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
   xmlns:zui="http://www.gammazeta.net/zee/zui/">
+	<zee:components>
+		<zee:system id="system-time">
+			<zee:param name="timeFormat" value=" hh:mm:ss " />
+		</zee:system>
+		<zee:system id="system-date">
+			<zee:param name="timeFormat" value="yyyy-MM-dd" />
+		</zee:system>
+		<zee:timer id="tm1s" interval="1000" onstart="true" />
+	</zee:components>
 	<zee:widgets>
-		<zui:application id="main" title="zterm" width="75%" height="75%" position="center" layout="vertical">
-			<zui:container>
-				<zui:marquee value="Test" />
-			</zui:container>
+		<zui:application id="main" width="648" height="72" position="nw" layout="vertical" type="desktop">
+			<zui:marquee id="time" value="NEXT TEST" images="/home/ghetzel/projects/gzn/njt-segmented-sign/chars/%1.png" />
 		</zui:application>
 	</zee:widgets>
+	<zee:events>
+
+		<zee:connect from="tm1s.timeout" to="time.setText" via="system-time.ftime" />
+<!--		<zee:connect from="tm1s.timeout" to="date.setText" via="system-date.ftime" />
+-->
+	</zee:events>
 </zee>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+
+	<zee:widgets>
+		<zui:application id="main" position="center" layout="vertical">
+			<zui:splitter>
+				<zui:pane>
+					<zui:text>Test 1</zui:text>
+				</zui:pane>
+				<zui:pane>
+					<zui:text>Test 2</zui:text>
+				</zui:pane>
+			</zui:splitter>
+		</zui:application>
+	</zee:widgets>
+<!--  
+	<zee:events>
+		<zee:connect from="main.clicked" to="zee.quit" />
+	</zee:events>
+-->
+</zee>

@@ -5,14 +5,20 @@ ZSystemInfo::ZSystemInfo(const ZConfig &el, QObject *parent)
       ZConfigurable(el,this)
 {
     _sysinfo = ZLocalSystem::instance();
-    parse(_config);
-}
+    _dateTimeFormat = ZSYS_FTIME_DEFAULT_FMT;
 
-void ZSystemInfo::parse(const ZConfig&){
     zEvent->registerSlot(this, SLOT(notify(QString)));
     zEvent->registerSlot(this, SLOT(notify(QString,QString)));
     zEvent->registerSlot(this, SLOT(notify(QString,QString,QString)));
     zEvent->registerSlot(this, SLOT(notify(QString,QString,QString,int)));
+
+    parse(_config);
+}
+
+void ZSystemInfo::parse(const ZConfig&){
+    if(param("timeFormat").isValid())
+        _dateTimeFormat = param("timeFormat").toString();
+
 }
 
 qint64 ZSystemInfo::time(){
@@ -21,6 +27,10 @@ qint64 ZSystemInfo::time(){
 
 qint64 ZSystemInfo::timems(){
     return _sysinfo->systemTimeEpoch();
+}
+
+QString ZSystemInfo::ftime(){
+    return _sysinfo->systemTime().toString(_dateTimeFormat);
 }
 
 void ZSystemInfo::notify(QString title, QString message, QString icon,

@@ -1,0 +1,206 @@
+ZRoot{
+  background-color: rgba(0,0,0,70%);
+  background-position: top left;
+  background-image: url("/home/ghetzel/projects/zee/dev/gfx/dash-pattern-128.png");
+  border: 0px;
+  min-height: 480px;
+  min-width: 800px;
+}
+
+ZLabel{
+  color: #FFF;
+}
+
+ZButton{
+    background-color: #222;
+    border: 2px solid #444;
+    color: #FFF;
+}
+
+#mainbar{
+	background-color: rgb(3, 3, 3, 75%);
+	border-top: 1px solid #444;
+	border-bottom: 1px solid #444;
+	padding: 2px;
+	max-height: 96px;
+}
+
+	#mainbar #npVitals{
+		margin: 6px 8px;
+		margin-bottom: 0px;
+		padding-bottom: 2px;
+		max-height: 12px;
+		min-height: 12px;
+	}
+	
+	#mainbar #npDetails{
+	    border: 1px solid #444;
+	    border-radius: 10px;
+	    margin: 3px 6px;
+	}
+
+	#mainbar > #npTime{
+		max-width: 116px;
+		min-width: 116px;
+	}
+
+		#currentArt{
+			background: rgba(40,40,40,50%) middle middle no-repeat url(":/gfx/media-optical.png");
+			border-radius: 6px;
+			margin: 4px;
+			max-height: 66px;
+			max-width: 66px;
+			min-height: 66px;
+			min-width: 66px;
+		}
+
+	#currentTitle{
+		font-family: Akzidenz Grotesk Roman;
+		font-size: 24px;
+		font-weight: bold;
+		margin-bottom: 2px;
+		margin-left: 8px;
+		min-width: 760px;
+	}
+
+	#currentArtist{
+		font-family: Akzidenz Grotesk Light;
+		font-size: 16px;
+		font-weight: bold;
+		margin-left: 10px;
+		margin-bottom: 4px;
+		min-width: 760px;
+	}
+
+	#currentAlbum{
+		font-family: Akzidenz Grotesk Light;
+		font-size: 14px;
+		font-style: italic;
+		font-weight: bold;
+		margin-left: 10px;
+	}
+
+	#seekbar{
+		background-color: transparent;
+		border: 1px solid #E07000;
+		color: transparent;
+		max-height: 6px;
+		min-height: 6px;
+		min-width: 776px;
+		padding: 1px;
+	}
+
+#seekbar::chunk{
+		background-color: #E07000;
+}
+
+	#currentTime{
+		color: #AAA;
+		font-family: Nimbus Sans L;
+		font-size: 32px;
+		font-weight: bold;
+		max-height: 36px;
+		max-width: 116px;
+	}
+
+	#currentLength{
+		color: #AAA;
+		font-family: Nimbus Sans L;
+		font-size: 14px;
+		font-weight: bold;
+		max-height: 36px;
+		max-width: 116px;
+	}
+
+	#extended QListView{
+		border: 6px solid #444;
+		color: #888;
+		font-size: 10px;
+		font-weight: bold;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+
+	#extended QListView:focus{
+		border-color: #E07000;
+	}
+
+	#extended QListView::item{
+		background-color: rgba(10,10,10,50%);
+		border: 2px solid #333;
+		border-radius: 8px;
+		margin: 1px;
+	}
+
+	#extended QListView::item:selected{
+		background-color: #333;
+		color: #FFF;
+	}
+
+	#extended QListView::item:selected:focus{
+		border-color: #E07000;
+	}
+
+	#extended QScrollBar{
+		width: 0px;
+	}
+
+/*
+	#extended QScrollBar{
+		background: transparent;
+		border: 1px solid #E07000;
+		width: 8px;
+	}
+
+	#extended QScrollBar::handle{
+		background: #E07000;
+		border: 1px solid #E07000;
+	}
+
+		#extended QScrollBar::handle:horizontal{
+			min-width: 20px;
+		}
+
+		#extended QScrollBar::handle:vertical{
+			min-height: 20px;
+		}
+
+	#extended QScrollBar::add-line,
+	#extended QScrollBar::sub-line{
+		background: transparent;
+	}
+*/
+
+	#sidebar{
+		background-color: rgba(7,4,0,75%);
+		border-left: 0px;
+		border-radius: 20px 110px;
+		margin-left: -20px;
+		padding: 4px 20px 4px 24px;
+	}
+
+	#queue, #browser{
+		background-color: rgba(7,4,0,75%);
+		border-right: 0px;
+		border-radius: 20px 110px;
+		margin-right: -20px;
+		padding: 4px 24px 4px 20px;
+	}
+
+#controls{
+    max-height: 32px;
+    min-height: 32px;
+}
+
+    #controls ZButton{
+        background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282726, stop:0.2125 #070400, stop:1 #070400);
+        border: 0px;
+        border-bottom: 4px solid #CC7000;
+        color: #FFF;
+        min-height: 32px;
+    }
+
+	#controls ZButton:hover{
+	        background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #3D3C3A, stop:0.2125 #1F1F1F, stop:1 #1F1F1F);
+		color: #FFF;
+	}
