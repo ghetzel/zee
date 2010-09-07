@@ -50,7 +50,7 @@ bool ZUtil::hasFlag(ulong flag, ulong flags)
   return ((flags & flag) == flag);
 }
 
-QString ZUtil::exec(QString command){
+QString ZUtil::exec(QString command){    
     FILE* pipe = popen(command.toAscii().data(), "r");
     if (!pipe)
             return QString();
@@ -66,4 +66,80 @@ QString ZUtil::exec(QString command){
 
 QString ZUtil::execln(QString command, QString terminator){
     return ZUtil::exec(command).replace(QRegExp("[\n\r]"),terminator);
+}
+
+
+QString ZUtil::trsym(QChar in){
+    switch(in.toAscii()){
+    case ' ':
+        return ZSYM_SPACE;
+    case '\t':
+        return ZSYM_TAB;
+    case '.':
+        return ZSYM_DOT;
+    case '/':
+        return ZSYM_SLASH;
+    case '\\':
+        return ZSYM_BSLASH;
+    case '`':
+        return ZSYM_BTICK;
+    case '~':
+        return ZSYM_TILDE;
+    case '!':
+        return ZSYM_EXCLAIM;
+    case '@':
+        return ZSYM_AT;
+    case '#':
+        return ZSYM_HASH;
+    case '$':
+        return ZSYM_DOLLAR;
+    case '%':
+        return ZSYM_PERCENT;
+    case '^':
+        return ZSYM_CARAT;
+    case '&':
+        return ZSYM_AMPERSAND;
+    case '*':
+        return ZSYM_ASTERISK;
+    case '(':
+        return ZSYM_PAREN1;
+    case ')':
+        return ZSYM_PAREN2;
+    case '-':
+        return ZSYM_HYPHEN;
+    case '_':
+        return ZSYM_UNDERSCORE;
+    case '+':
+        return ZSYM_PLUS;
+    case '=':
+        return ZSYM_EQUALS;
+    case '{':
+        return ZSYM_BRACE1;
+    case '}':
+        return ZSYM_BRACE2;
+    case '[':
+        return ZSYM_SQUARE1;
+    case ']':
+        return ZSYM_SQUARE2;
+    case '|':
+        return ZSYM_PIPE;
+    case ';':
+        return ZSYM_SEMICOLON;
+    case ':':
+        return ZSYM_COLON;
+    case '"':
+        return ZSYM_DQUOTE;
+    case '\'':
+        return ZSYM_QUOTE;
+    case '<':
+        return ZSYM_LCARAT;
+    case '>':
+        return ZSYM_RCARAT;
+    case ',':
+        return ZSYM_COMMA;
+    case '?':
+        return ZSYM_QUESTION;
+    }
+
+    return QString(in);
 }

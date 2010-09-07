@@ -3,12 +3,11 @@ ZRoot{
 }
 
 ZCharacterDisplay{
+	background-color: rgba(44, 52, 0, 50%);
 	padding: 4px;
-	spacing: 0px;
 }
 
 ZCharacterDisplay > QLabel{
-	background-color: rgba(44, 52, 0, 50%);
 	color: #E2FF40;
 	font-family: URW Gothic L;
 	font-size: 48px;

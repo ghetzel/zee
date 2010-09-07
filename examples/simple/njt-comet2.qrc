@@ -1,0 +1,62 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+	<qresource>
+        <file alias="chars/0.svg">images/0.svg</file>
+        <file alias="chars/1.svg">images/1.svg</file>
+        <file alias="chars/2.svg">images/2.svg</file>
+        <file alias="chars/3.svg">images/3.svg</file>
+        <file alias="chars/4.svg">images/4.svg</file>
+        <file alias="chars/5.svg">images/5.svg</file>
+        <file alias="chars/6.svg">images/6.svg</file>
+        <file alias="chars/7.svg">images/7.svg</file>
+        <file alias="chars/8.svg">images/8.svg</file>
+        <file alias="chars/9.svg">images/9.svg</file>
+        
+        <file alias="chars/A.svg">images/A.svg</file>
+        <file alias="chars/B.svg">images/B.svg</file>
+        <file alias="chars/C.svg">images/C.svg</file>
+        <file alias="chars/D.svg">images/D.svg</file>
+        <file alias="chars/E.svg">images/E.svg</file>
+        <file alias="chars/F.svg">images/F.svg</file>
+        <file alias="chars/G.svg">images/G.svg</file>
+        <file alias="chars/H.svg">images/H.svg</file>
+        <file alias="chars/I.svg">images/I.svg</file>
+        <file alias="chars/J.svg">images/J.svg</file>
+        <file alias="chars/K.svg">images/K.svg</file>
+        <file alias="chars/L.svg">images/L.svg</file>
+        <file alias="chars/M.svg">images/M.svg</file>
+        <file alias="chars/N.svg">images/N.svg</file>
+        <file alias="chars/O.svg">images/O.svg</file>
+        <file alias="chars/P.svg">images/P.svg</file>
+        <file alias="chars/Q.svg">images/Q.svg</file>
+        <file alias="chars/R.svg">images/R.svg</file>
+        <file alias="chars/S.svg">images/S.svg</file>
+        <file alias="chars/T.svg">images/T.svg</file>
+        <file alias="chars/U.svg">images/U.svg</file>
+        <file alias="chars/V.svg">images/V.svg</file>
+        <file alias="chars/W.svg">images/W.svg</file>
+        <file alias="chars/X.svg">images/X.svg</file>
+        <file alias="chars/Y.svg">images/Y.svg</file>
+        <file alias="chars/Z.svg">images/Z.svg</file>
+
+        <file alias="chars/asterisk.svg">images/asterisk.svg</file>
+        <file alias="chars/at.svg">images/at.svg</file>
+        <file alias="chars/backslash.svg">images/backslash.svg</file>
+        <file alias="chars/brace1.svg">images/brace1.svg</file>
+        <file alias="chars/brace2.svg">images/brace2.svg</file>
+        <file alias="chars/colon.svg">images/colon.svg</file>
+        <file alias="chars/comma.svg">images/comma.svg</file>
+        <file alias="chars/dot.svg">images/dot.svg</file>
+        <file alias="chars/double-quote.svg">images/double-quote.svg</file>
+        <file alias="chars/hyphen.svg">images/hyphen.svg</file>
+        <file alias="chars/parens1.svg">images/parens1.svg</file>
+        <file alias="chars/parens2.svg">images/parens2.svg</file>
+        <file alias="chars/pipe.svg">images/pipe.svg</file>
+        <file alias="chars/plus.svg">images/plus.svg</file>
+        <file alias="chars/quote.svg">images/quote.svg</file>        
+        <file alias="chars/semicolon.svg">images/semicolon.svg</file>
+        <file alias="chars/slash.svg">images/slash.svg</file>
+        <file alias="chars/square1.svg">images/square1.svg</file>
+        <file alias="chars/square2.svg">images/square2.svg</file>
+	</qresource>
+</RCC>
