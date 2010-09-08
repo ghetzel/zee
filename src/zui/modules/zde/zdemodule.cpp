@@ -43,4 +43,4 @@ ZuiResult ZDEModule::prepareWidget(const QDomElement &el, QWidget *parent){
   return zRes;
 }
 
-Q_EXPORT_PLUGIN2(zmod_zde, ZDEModule)
+Q_EXPORT_PLUGIN2(zui_zde, ZDEModule)

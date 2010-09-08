@@ -26,6 +26,17 @@ protected:
 	return _properties.value(key,QVariant());
     }
 
+    QList<QDomElement> childElements(QString tagName){
+        QList<QDomElement> retval;
+        QDomElement nextEl;
+
+        while(!(nextEl = _config.nextSiblingElement(tagName)).isNull()){
+            retval << nextEl;
+        }
+
+        return retval;
+    }
+
 private:
     void init(){
     //	set ID

@@ -42,6 +42,6 @@ SOURCES +=  zuiutils.cpp \
             zx11/zxserver.cpp \
             zx11/zxrootwindow.cpp \
             zx11/zxevent.cpp
-TARGET = $$qtLibraryTarget(zmod_zde)
+TARGET = $$qtLibraryTarget(zui_zde)
 DESTDIR = ../../../plugins
 QT += xml

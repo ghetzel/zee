@@ -1,0 +1,22 @@
+ZRoot{
+	background-color: transparent;
+}
+
+ZCharacterDisplay{
+	background-color: rgba(44, 52, 0, 50%);
+	padding: 4px;
+}
+
+ZCharacterDisplay > QLabel{
+	color: #E2FF40;
+	font-family: URW Gothic L;
+	font-size: 48px;
+	font-weight: bold;
+}
+
+
+ZTerminal{
+	border: 10px solid red;
+	font-family: "DejaVu Sans Mono";
+	font-size: 8pt;
+}

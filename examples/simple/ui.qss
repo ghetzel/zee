@@ -1,22 +1,30 @@
 ZRoot{
-	background-color: transparent;
+	background-color: black;
+	spacing: 0px;
 }
 
-ZCharacterDisplay{
-	background-color: rgba(44, 52, 0, 50%);
-	padding: 4px;
-}
-
-ZCharacterDisplay > QLabel{
-	color: #E2FF40;
-	font-family: URW Gothic L;
-	font-size: 48px;
+ZButton{
+	background: transparent;
+	border: 18px 40px 18px 18px;
+	border-image: url("button1.png") 18 40 18 18 stretch;
+	color: #222;
+	font-family: PF Tempesta Seven;
+	font-size: 8px;
 	font-weight: bold;
+	max-height: 32px;
+	min-height: 32px;
+	max-width: 96px;
+	min-width: 96px;
+	padding-left: 40px;
 }
 
 
-ZTerminal{
-	border: 10px solid red;
-	font-family: "DejaVu Sans Mono";
-	font-size: 8pt;
+#r1c4{
+	background-color: #00B700;
+	color: #004A00;
+}
+
+#r2c2{
+	background-color: #B70000;
+	color: #4A0000;
 }
