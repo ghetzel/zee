@@ -55,6 +55,7 @@ public slots:
     void next();
     void togglePlay();
     void previous();
+    void mark();
     void seek(qint64 position);
     void playSource(QString location);
     void playSource(QUrl location);
@@ -75,6 +76,9 @@ public slots:
     void setCrossfade(int);
     void setBookmark(qint64);
     void setBookmark(QString,qint64);
+    void setBookmarks(QString);
+    void setBookmarks(QString,QString);
+
 
 signals:
     void playing();
@@ -91,6 +95,7 @@ signals:
     void queuedSongChanged(int);
     void queueCleared();
     void queueChanged();
+    void bookmarkAdded(qint64);
     void reachedBookmark(qint64);
 
 private:

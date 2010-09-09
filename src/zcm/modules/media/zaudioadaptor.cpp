@@ -13,6 +13,10 @@ ZAudioAdaptor::ZAudioAdaptor(QString name, ZAudioManager *parent)
 }
 
 void ZAudioAdaptor::init(){
+    if(instance())
+        connect(instance(), SIGNAL(reachedBookmark(qint64)),
+                this, SIGNAL(reachedBookmark(qint64)));
+
     registerService();
 }
 
@@ -64,6 +68,16 @@ void ZAudioAdaptor::enqueue(QString location){
 void ZAudioAdaptor::clear(){
     if(instance())
         instance()->clear();
+}
+
+void ZAudioAdaptor::mark(){
+    if(instance())
+        instance()->mark();
+}
+
+void ZAudioAdaptor::setBookmarks(QString marks){
+    if(instance())
+        instance()->setBookmarks(marks);
 }
 
 void ZAudioAdaptor::_stateHandler(ZAudioManager::ZAudioState state){

@@ -23,6 +23,8 @@ public slots:
     void previous();
     void enqueue(QString);
     void clear();
+    void mark();
+    void setBookmarks(QString);
 
 signals:
     void playing();
@@ -31,6 +33,7 @@ signals:
     void loading();
     void buffering();
     void error();
+    void reachedBookmark(qint64);
 
 private:
     void init();

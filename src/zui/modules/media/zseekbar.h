@@ -19,6 +19,10 @@ public:
     void mouseMoveEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
 
+public slots:
+    void reset();
+    void addBookmark(qint64 msec);
+
 signals:
     void positionChanged(qint64);
 
@@ -26,6 +30,7 @@ private:
     void init();
 
 private:
+    QList<qint64> _bookmarks;
 };
 
 #endif // ZSEEKBAR_H

@@ -50,6 +50,25 @@ QVariant ZAudioMetaParser::field(QString name){
 	    if(_properties)
 		return QVariant(_properties->channels());
 	}else{
+        //  Arbitrary Field Name Tag Query
+        //
+        //  A little dirty, but it gets the job done.
+        //
+        //  Test for specific kinds of tags, because certain tags
+        //  are just name-value pairs, which let's us pull out
+        //  field names not explcitly defined above.
+        //  An example of this are Xiph Comments, which can contain any
+        //  field name.  If a given key is requested, check to see if it is a
+        //  tag type that can be queried like this, then do so.
+            TagLib::String tlKeyName(name.toLatin1().data());
+            QStringList retval;
+
+            if(DCAST(TagLib::FLAC::File*,_file)){
+                if(DCAST(TagLib::FLAC::File*,_file)->xiphComment(0)->contains(
+                        tlKeyName))
+                    z_log_debug("ZAudioMetaParser: FLAC");
+                    return QVariant();
+            }
 	    return QVariant();
 	}
     }

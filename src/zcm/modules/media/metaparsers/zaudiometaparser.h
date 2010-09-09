@@ -35,7 +35,11 @@
 #include <taglib/tag.h>
 #include <taglib/tfile.h>
 #include <taglib/fileref.h>
+#include <taglib/flacfile.h>
+#include <taglib/oggflacfile.h>
+#include <taglib/oggfile.h>
 #include <taglib/audioproperties.h>
+#include <taglib/tmap.h>
 #include <zcm/modules/media/zmetaparser.h>
 
 class ZAudioMetaParser : public QObject, public ZMetaParser{

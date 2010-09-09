@@ -13,6 +13,7 @@
   			<zee:metaproperty type="audio" name="length" key="length" />
 			<zee:metaproperty type="audio" name="bitrate" key="bitrate" />
 			<zee:metaproperty type="audio" name="samplerate" key="sample-rate" />
+			<zee:metaproperty type="audio" name="bookmarks" key="bookmarks" />
 		</zee:metareader>
 
 		<zee:media id="media" remote="true">
@@ -94,6 +95,7 @@
 	                <zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
                 	<zui:button id="aStop">Stop</zui:button>
         	        <zui:button id="aNext">Next</zui:button>
+        	        <zui:button id="aMark">Mark</zui:button>
 	            </zui:container>
 		</zui:application>
 	</zee:widgets>
@@ -105,6 +107,7 @@
 		<zee:connect from="media.timeChanged" to="seekbar.setValue" direct="false" />
 		<zee:connect from="media.timeChanged" to="currentTime.setText" direct="false" />
 		<zee:connect from="media.reachedBookmark" to="zee.log" direct="false" />
+		<zee:connect from="media.bookmarkAdded" to="seekbar.addBookmark" />
 
 		<zee:connect from="seekbar.positionChanged" to="media.seek" />
 				
@@ -112,6 +115,7 @@
 		<zee:connect from="metareader.dataChanged" to="currentArtist.setText" via="metareader.data.artist" />
 		<zee:connect from="metareader.dataChanged" to="currentAlbum.setText" via="metareader.data.album" />
 		<zee:connect from="metareader.dataChanged" to="currentLength.setText" via="metareader.data.length" />
+		<zee:connect from="metareader.dataChanged" to="media.setBookmarks" via="metareader.data.bookmarks" />
 
 		<!--<zee:connect from="metareader.dataChanged" to="system.notify" via="metareader.data.title,metareader.data.artist" />-->
 
@@ -125,6 +129,7 @@
 		<zee:connect from="aStop.clicked" to="media.stop" />
 		<zee:connect from="aPrev.clicked" to="media.previous" />
 		<zee:connect from="aNext.clicked" to="media.next" />
+		<zee:connect from="aMark.clicked" to="media.mark" />
 
 		<zee:connect from="scTogglePlay.triggered" to="media.togglePlay" direct="false" />
 		<zee:connect from="scStop.triggered" to="media.stop" />

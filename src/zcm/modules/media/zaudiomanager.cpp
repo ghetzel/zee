@@ -50,6 +50,7 @@ void ZAudioManager::init(){
     zEvent->registerSignal(this,SIGNAL(queueChanged()));
     zEvent->registerSignal(this,SIGNAL(queueCleared()));
     zEvent->registerSignal(this,SIGNAL(queuedSongChanged(int)));
+    zEvent->registerSignal(this, SIGNAL(bookmarkAdded(qint64)));
     zEvent->registerSignal(this, SIGNAL(reachedBookmark(qint64)));
     zEvent->registerSignal(this, SIGNAL(bufferChanged(int)));
     zEvent->registerSlot(this, SLOT(play()));
@@ -59,6 +60,7 @@ void ZAudioManager::init(){
     zEvent->registerSlot(this, SLOT(seek(qint64)));
     zEvent->registerSlot(this, SLOT(previous()));
     zEvent->registerSlot(this, SLOT(togglePlay()));
+    zEvent->registerSlot(this, SLOT(mark()));
     zEvent->registerSlot(this, SLOT(playSource(QString)));
     zEvent->registerSlot(this, SLOT(playSource(QUrl)));
     zEvent->registerSlot(this, SLOT(setSource(QString)));
@@ -74,6 +76,7 @@ void ZAudioManager::init(){
     zEvent->registerSlot(this, SLOT(setCrossfade(int)));
     zEvent->registerSlot(this, SLOT(setGapless()));
     zEvent->registerSlot(this, SLOT(setBookmark(qint64)));
+    zEvent->registerSlot(this, SLOT(setBookmarks(QString)));
 }
 
 void ZAudioManager::stateHandler(Phonon::State is, Phonon::State){
@@ -210,6 +213,13 @@ void ZAudioManager::previous(){
 void ZAudioManager::seek(qint64 position){
     if(_mediaObject){
 	_mediaObject->seek(position);
+    }
+}
+
+void ZAudioManager::mark(){
+    if(_state == Playing ||
+       _state == Paused){
+        setBookmark(currentTime());
     }
 }
 
@@ -353,9 +363,25 @@ void ZAudioManager::setBookmark(qint64 position){
 }
 
 void ZAudioManager::setBookmark(QString file, qint64 position){
+//  don't duplicate bookmarks
+    if(_bookmarks.values(file).contains(position))
+        return;
+
     z_log_debug("ZAudioManager: Setting bookmark at "+STR(position)+" on "+file);
     _bookmarks.insertMulti(file, position);
     setCurrentBookmark();
+    emit bookmarkAdded(position);
+}
+
+void ZAudioManager::setBookmarks(QString marks){
+    if(_currentQueueSource < _sourceQueue.size())
+        setBookmarks(_sourceQueue.at(_currentQueueSource), marks);
+}
+
+void ZAudioManager::setBookmarks(QString file, QString marks){
+    QStringList bmks = marks.split(QRegExp("\\D+"), QString::SkipEmptyParts);
+    foreach(QString bm, bmks)
+        setBookmark(file, bm.toULongLong());
 }
 
 void ZAudioManager::_reachedBookmark(qint32 position){
