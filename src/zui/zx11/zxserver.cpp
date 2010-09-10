@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zxserver.h"
 
 QHash<QString,Atom> ZXServer::_atoms;
@@ -121,27 +138,27 @@ WindowPropertyReturn ZXServer::getProperty(QString key, Window w, Display *d){
 
   if(_atoms.contains(key)){
     retval.result = XGetWindowProperty(d,
-                       w,
-                       _atoms[key],
-                       0,
-                       0x7fffffff,
-                       0,
-                       AnyPropertyType,
-                       &retval.returnType,
-                       &retval.bitFormat,
-                       &retval.itemsReturned,
-                       &retval.bytesRemaining,
-                       &tempdata);
+		       w,
+		       _atoms[key],
+		       0,
+		       0x7fffffff,
+		       0,
+		       AnyPropertyType,
+		       &retval.returnType,
+		       &retval.bitFormat,
+		       &retval.itemsReturned,
+		       &retval.bytesRemaining,
+		       &tempdata);
 
     retval.rawData = tempdata;
 
     if(retval.result == Success){
       if(retval.bitFormat == 8)
-        retval.data.asChar = (char*)tempdata;
+	retval.data.asChar = (char*)tempdata;
       else if(retval.bitFormat == 16)
-        retval.data.asShort = (short*)tempdata;
+	retval.data.asShort = (short*)tempdata;
       else if(retval.bitFormat == 32)
-        retval.data.asLong = (long*)tempdata;
+	retval.data.asLong = (long*)tempdata;
     }
 
     //z_log_debug("Key: "+QVariant(XGetAtomName(QX11Info::display(),_atoms[key])).toString());
@@ -210,7 +227,7 @@ QIcon ZXServer::getIcon(QString key, Window w, Display *d){
 //    z_log_debug("ICON: "+QVariant(len).toString());
 
     while(ptr < len)
-    {      
+    {
       w = r.data.asLong[ptr]; // item 0: width
       h = r.data.asLong[ptr+1]; // item 1: height
 
@@ -349,14 +366,14 @@ void ZXServer::addStrut(QSize dimensions, ZXScreenEdge edge, Window w, Display *
   }
 
   z_log_debug("Add Strut: "+QVariant(dimensions.width()).toString() + "x"
-              + QVariant(dimensions.height()).toString());
+	      + QVariant(dimensions.height()).toString());
 
   XChangeProperty(d,
-                  w,
-                  ZXServer::atom(_NET_WM_STRUT_PARTIAL),
-                  XA_CARDINAL,
-                  32,
-                  PropModeReplace,
-                  (unsigned char*)&strut,
-                  12);
+		  w,
+		  ZXServer::atom(_NET_WM_STRUT_PARTIAL),
+		  XA_CARDINAL,
+		  32,
+		  PropModeReplace,
+		  (unsigned char*)&strut,
+		  12);
 }

@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zaudiomanager.h"
 
 ZAudioManager::ZAudioManager(const ZConfig &el, QObject *parent)
@@ -219,7 +236,7 @@ void ZAudioManager::seek(qint64 position){
 void ZAudioManager::mark(){
     if(_state == Playing ||
        _state == Paused){
-        setBookmark(currentTime());
+	setBookmark(currentTime());
     }
 }
 
@@ -365,9 +382,10 @@ void ZAudioManager::setBookmark(qint64 position){
 void ZAudioManager::setBookmark(QString file, qint64 position){
 //  don't duplicate bookmarks
     if(_bookmarks.values(file).contains(position))
-        return;
+	return;
 
     z_log_debug("ZAudioManager: Setting bookmark at "+STR(position)+" on "+file);
+
     _bookmarks.insertMulti(file, position);
     setCurrentBookmark();
     emit bookmarkAdded(position);
@@ -375,13 +393,15 @@ void ZAudioManager::setBookmark(QString file, qint64 position){
 
 void ZAudioManager::setBookmarks(QString marks){
     if(_currentQueueSource < _sourceQueue.size())
-        setBookmarks(_sourceQueue.at(_currentQueueSource), marks);
+	setBookmarks(_sourceQueue.at(_currentQueueSource), marks);
 }
 
 void ZAudioManager::setBookmarks(QString file, QString marks){
     QStringList bmks = marks.split(QRegExp("\\D+"), QString::SkipEmptyParts);
+    z_log_debug("ZAudioManager: Set bookmarks:"+bmks.join(", "));
+
     foreach(QString bm, bmks)
-        setBookmark(file, bm.toULongLong());
+	setBookmark(file, bm.toULongLong());
 }
 
 void ZAudioManager::_reachedBookmark(qint32 position){

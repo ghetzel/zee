@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #ifndef ZWIDGET_H
 #define ZWIDGET_H
 
@@ -17,8 +34,8 @@ class ZWidget: public Z, public ZConfigurable
 
 public:
     ZWidget(const ZConfig &el, QWidget *self, QWidget *parent=0)
-        : Z(parent),
-          ZConfigurable(el,self)
+	: Z(parent),
+	  ZConfigurable(el,self)
     {
 	parse(_config);
     }
@@ -35,9 +52,9 @@ private:
     //  build any additional states specified, populating each state with its
     //  target properties and values
     //  ...
-        foreach(QDomElement cel, childElements("zui:state")){
-            //if(cel.hasAttribute("name"))
-        }
+	foreach(QDomElement cel, childElements("zui:state")){
+	    //if(cel.hasAttribute("name"))
+	}
     }
 
     void initDefaultState(){
@@ -60,20 +77,20 @@ private:
     //      We know to store the 'color' property because other specified
     //      states explicitly change it.
     //
-        if(!_monitoredProperties.isEmpty()){
-            QState *state = new QState();
+	if(!_monitoredProperties.isEmpty()){
+	    QState *state = new QState();
 
-            foreach(QString p, _monitoredProperties){
-                if(_self)
-                    state->assignProperty(_self,
-                                          p.toLatin1().data(),
-                                          _self->property(p.toLatin1().data()));
-            }
+	    foreach(QString p, _monitoredProperties){
+		if(_self)
+		    state->assignProperty(_self,
+					  p.toLatin1().data(),
+					  _self->property(p.toLatin1().data()));
+	    }
 
-            _states.insert(ZWIDGET_DEFAULT_STATE, state);
-            _stateMachine.addState(state);
-            _stateMachine.setInitialState(state);
-        }
+	    _states.insert(ZWIDGET_DEFAULT_STATE, state);
+	    _stateMachine.addState(state);
+	    _stateMachine.setInitialState(state);
+	}
     }
 
 private:

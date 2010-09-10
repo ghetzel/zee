@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zdemodule.h"
 
 ZDEModule::ZDEModule(){
@@ -31,11 +48,11 @@ ZuiResult ZDEModule::prepareWidget(const QDomElement &el, QWidget *parent){
       QString pos = el.attribute("position");
 
       if( (pos=="n" || pos=="s") && el.hasAttribute("height") )
-        zxApp->addStrut(QSize(0,el.attribute("height").toInt()),
-                        (pos=="n" ? NorthEdge : SouthEdge));
+	zxApp->addStrut(QSize(0,el.attribute("height").toInt()),
+			(pos=="n" ? NorthEdge : SouthEdge));
       else if( (pos=="e" || pos=="w") && el.hasAttribute("width") )
-        zxApp->addStrut(QSize(el.attribute("width").toInt(),0),
-                        (pos=="e" ? EastEdge : WestEdge));
+	zxApp->addStrut(QSize(el.attribute("width").toInt(),0),
+			(pos=="e" ? EastEdge : WestEdge));
     }
 #endif  //  ZUI_STRUT
   }

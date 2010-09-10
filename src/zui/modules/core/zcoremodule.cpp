@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zcoremodule.h"
 
 ZCoreModule::ZCoreModule()
@@ -17,25 +34,25 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
 
     if(0){
 #ifdef ZUI_APPLICATION // application: the app window itself
-    }else if(el.tagName() == ZUI_APPLICATION){        
-        ZWindow *w = new ZWindow(el);
-        zRes.widget = w->rootSurface();
-        zRes.parent = zRes.widget;
+    }else if(el.tagName() == ZUI_APPLICATION){
+	ZWindow *w = new ZWindow(el);
+	zRes.widget = w->rootSurface();
+	zRes.parent = zRes.widget;
 
 #endif // ZUI_APPLICATION
 #ifdef ZUI_SCREENMGR // screens: manages task visibility/navigation
     }else if(el.tagName() == ZUI_SCREENMGR){
-        zRes.widget = new ZScreenManager(el, zRes.parent);
-        zRes.parent = zRes.widget;
+	zRes.widget = new ZScreenManager(el, zRes.parent);
+	zRes.parent = zRes.widget;
 #endif // ZUI_SCREENMGR
 #ifdef ZUI_SCREENMGR // splitter: resizable child panes
     }else if(el.tagName() == ZUI_SPLITTER){
-        zRes.widget = new ZSplitter(el, zRes.parent);
-        zRes.parent = zRes.widget;
+	zRes.widget = new ZSplitter(el, zRes.parent);
+	zRes.parent = zRes.widget;
 #endif // ZUI_SCREENMGR
 #ifdef ZUI_SPACER
     }else if(el.tagName() == ZUI_SPACER){
-        zRes.widget = new ZSpacer(el, zRes.parent);
+	zRes.widget = new ZSpacer(el, zRes.parent);
 #endif // ZUI_SPACER
 #ifdef ZUI_CONTAINERS // containers: they hold things
     }else if(ZuiUtils::getContainerNames().contains(el.tagName())){
@@ -43,16 +60,16 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
 	zRes.widget = new ZContainerWidget(el, zRes.parent);
 
 //	if adding a screen to the screen manager, call its add method direct,
-	if(el.tagName() == ZUI_SCREEN){	    
-            ZScreenManager *obj = QCAST(ZScreenManager*,zRes.parent);
-            if(obj)
-                obj->addScreen(zRes.widget, el.attribute("name", NULL));
-        }else if(el.tagName() == ZUI_PANE){
-            ZSplitter *obj = QCAST(ZSplitter*,zRes.parent);
-            if(obj){
-                obj->addWidget(zRes.widget);                
-            }
-        }
+	if(el.tagName() == ZUI_SCREEN){
+	    ZScreenManager *obj = QCAST(ZScreenManager*,zRes.parent);
+	    if(obj)
+		obj->addScreen(zRes.widget, el.attribute("name", NULL));
+	}else if(el.tagName() == ZUI_PANE){
+	    ZSplitter *obj = QCAST(ZSplitter*,zRes.parent);
+	    if(obj){
+		obj->addWidget(zRes.widget);
+	    }
+	}
 
 	zRes.parent = zRes.widget;
 #endif // ZUI_CONTAINERS
@@ -63,7 +80,7 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
 #endif // ZUI_TEXT
 #ifdef ZUI_IMAGE // image: generic image display
     }else if(el.tagName() == ZUI_IMAGE){
-        zRes.widget = new ZLabel(el, zRes.parent);
+	zRes.widget = new ZLabel(el, zRes.parent);
 
 #endif // ZUI_IMAGE
     }

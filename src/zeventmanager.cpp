@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include <zeventmanager.h>
 
 ZEventManager *ZEventManager::_instance = 0;
@@ -72,7 +89,7 @@ void ZEventManager::registerMethod(QMetaMethod::MethodType type,
 
 	    when accessing, pass a QPair composed of object pointer and the
 	    method name, this will return the first [value()] or all [values()]
-            of the signals/slots.  pass those to the relationship class
+	    of the signals/slots.  pass those to the relationship class
 
 2010-07-28 (GWH): is this still true?
   */
@@ -127,23 +144,23 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct)
 	       signal = methodMatch.first;
 	       slot = methodMatch.second;
 	   }else{
-            //! \hack
+	    //! \hack
 	    // by arbitratily choosing the first method from each, it may lead to
 	    // trying to adapt an unadaptable type when an adaptable alternative
 	    // exists
-                ZEventObject::ZMethodPair matchedPair;
-                matchedPair = ZEventObject::matchMethodsBySignature(
-                        sender.methods(CALLALIAS(from)),
-                        receiver.methods(CALLALIAS(to)),
-                        true);
-                if(! (matchedPair.first.isValid() &&
-                      matchedPair.second.isValid())){
-                    z_log_error("ZEventManager: Could not find compatible "
-                                "signal-slot pair.");
-                    return; }
+		ZEventObject::ZMethodPair matchedPair;
+		matchedPair = ZEventObject::matchMethodsBySignature(
+			sender.methods(CALLALIAS(from)),
+			receiver.methods(CALLALIAS(to)),
+			true);
+		if(! (matchedPair.first.isValid() &&
+		      matchedPair.second.isValid())){
+		    z_log_error("ZEventManager: Could not find compatible "
+				"signal-slot pair.");
+		    return; }
 
-                signal = matchedPair.first;
-                slot = matchedPair.second;
+		signal = matchedPair.first;
+		slot = matchedPair.second;
 	   }
 
 	   if(!signal.isValid()){
@@ -156,7 +173,7 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct)
 //	    by this point, we have verfied the presence of all necessary arguments,
 //	    found the objects in the hierarchy, retreived the methods for those
 //	    objects...let's map the damned connection already
-            _mappings.append(new ZEventRelationship(signal, slot, viaProperties,
+	    _mappings.append(new ZEventRelationship(signal, slot, viaProperties,
 						direct));
 	}else{
 	    z_log_error("ZEventManager: Cannot map, receiving object not found ("+to+")");
@@ -219,14 +236,14 @@ QObject *ZEventManager::findObject(QString methodString, bool objectOnly){
 		    if(((obj = (rv->objectName() == o ? rv : NULL)) ||
 			(obj = rv->findChild<QObject*>(o)))
 		     ){
-                        //z_log_debug("ZEventManager: Found '"+o+"', moving on...");
+			//z_log_debug("ZEventManager: Found '"+o+"', moving on...");
 			foundIt = true;
 			rv = obj;
 
 		    }else{
 //		the next tier was not found within the given parent, exit and
 //		try the next window
-                        //z_log_debug("ZEventManager: No '"+o+"', staying "+rv->objectName());
+			//z_log_debug("ZEventManager: No '"+o+"', staying "+rv->objectName());
 			foundIt = false;
 			break;
 		    }
@@ -238,12 +255,12 @@ QObject *ZEventManager::findObject(QString methodString, bool objectOnly){
 	    }
 	}
 
-        if(rv->objectName() == oname){
+	if(rv->objectName() == oname){
 //	    z_log_debug("ZEventManager: Found '"+methodString+"', "
 //			"it's a "+QString(rv->metaObject()->className()));
-        }else{
+	}else{
 	    return NULL;
-        }
+	}
     }
 
     return rv;

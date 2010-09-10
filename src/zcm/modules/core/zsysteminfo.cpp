@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zsysteminfo.h"
 
 ZSystemInfo::ZSystemInfo(const ZConfig &el, QObject *parent)
@@ -17,7 +34,7 @@ ZSystemInfo::ZSystemInfo(const ZConfig &el, QObject *parent)
 
 void ZSystemInfo::parse(const ZConfig&){
     if(param("timeFormat").isValid())
-        _dateTimeFormat = param("timeFormat").toString();
+	_dateTimeFormat = param("timeFormat").toString();
 
 }
 
@@ -34,7 +51,7 @@ QString ZSystemInfo::ftime(){
 }
 
 void ZSystemInfo::notify(QString title, QString message, QString icon,
-                         int duration)
+			 int duration)
 {
 #ifdef Q_OS_LINUX
     QDBusInterface i(ZSYS_LNOTIFY_SVCNM,ZSYS_LNOTIFY_OPATH,ZSYS_LNOTIFY_IFACE);

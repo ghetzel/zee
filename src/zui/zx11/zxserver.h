@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #ifndef ZXSERVER_H
 #define ZXSERVER_H
 
@@ -102,8 +119,8 @@ private:
 
 public:
   static WindowPropertyReturn getProperty(QString key,
-                                          Window w,
-                                          Display *d=QX11Info::display());
+					  Window w,
+					  Display *d=QX11Info::display());
 
 public:
 /*!
@@ -122,47 +139,47 @@ public:
   invalid.
 */
   static unsigned int getCardinal(QString key,
-                                  Window w,
-                                  Display *d=QX11Info::display());
+				  Window w,
+				  Display *d=QX11Info::display());
 
 /*!
   Retrieves property \a key as a UTF8 encoded string or an empty string if not
   found or is invalid.
 */
   static QString getString(QString key,
-                           Window w,
-                           Display *d=QX11Info::display());
+			   Window w,
+			   Display *d=QX11Info::display());
 
 /*!
   Returns \a key as an Atom or NULL if not found or is invalid.
 */
   static Atom getAtom(QString key,
-                      Window w,
-                      Display *d=QX11Info::display());
+		      Window w,
+		      Display *d=QX11Info::display());
 
 /*!
   Retrieves property \a key as a list of Atoms or an empty list if not found
   or is invalid.
 */
   static QList<Atom> getAtoms(QString key,
-                              Window w,
-                              Display *d=QX11Info::display());
+			      Window w,
+			      Display *d=QX11Info::display());
 
 /*!
   Retrieves property \a key as a valid X window ID or NULL if not found or is
   invalid.
 */
   static Window getWindow(QString key,
-                          Window w,
-                          Display *d=QX11Info::display());
+			  Window w,
+			  Display *d=QX11Info::display());
 
 /*!
   Retrieves property \a key as a list of valid X window IDs or an empty list if
   not found or is invalid.
 */
   static QList<Window> getWindows(QString key,
-                                  Window w,
-                                  Display *d=QX11Info::display());
+				  Window w,
+				  Display *d=QX11Info::display());
 
 /*!
   Retrieves property \a key as a QIcon or and empty QIcon if not found or is
@@ -171,14 +188,14 @@ public:
   property
 */
   static QIcon getIcon(QString key,
-                       Window w,
-                       Display *d=QX11Info::display());
+		       Window w,
+		       Display *d=QX11Info::display());
 
 //! Creates a strut of given dimensions along a given edge
   static void addStrut(QSize dimensions,
-                       ZXScreenEdge edge,
-                       Window winId,
-                       Display *display = QX11Info::display());
+		       ZXScreenEdge edge,
+		       Window winId,
+		       Display *display = QX11Info::display());
 
 
 /*-- Most of this is just here for reference and will be going away

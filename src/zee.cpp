@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zee.h"
 
 Zee *Zee::_app = 0;
@@ -198,7 +215,7 @@ void Zee::parseUI()
 	//make sure we can open the file
 	if(!zui.open(QIODevice::ReadOnly)){
 	    z_log_error("Failed to open UI definition file '"+zui.fileName()+"'");
-            ::exit(ZEE_EXIT_ZUI_DEF_INACCESSIBLE);
+	    ::exit(ZEE_EXIT_ZUI_DEF_INACCESSIBLE);
 	}
 
 	//make sure we can load the data
@@ -206,7 +223,7 @@ void Zee::parseUI()
 	{
 	    z_log_error("Invalid UI definition file '"+(*zDocErr)+"'");
 	    zui.close();
-            ::exit(ZEE_EXIT_INVALID_ZUI_DEF);
+	    ::exit(ZEE_EXIT_INVALID_ZUI_DEF);
 	}
 
 	//we're done with this

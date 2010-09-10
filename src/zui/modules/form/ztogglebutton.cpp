@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "ztogglebutton.h"
 
 ZToggleButton::ZToggleButton(const ZConfig &el, QWidget *parent)
@@ -35,7 +52,7 @@ void ZToggleButton::init(){
 
 void ZToggleButton::parse(const ZConfig &el){
     if(el.hasAttribute("value2"))
-        _otherLabel = el.attribute("value2");
+	_otherLabel = el.attribute("value2");
 }
 
 void ZToggleButton::check(){
@@ -48,9 +65,9 @@ void ZToggleButton::uncheck(){
 
 void ZToggleButton::toggle(){
     if(isChecked())
-        uncheck();
+	uncheck();
     else
-        check();
+	check();
 }
 
 void ZToggleButton::toggleLabel(){
@@ -61,9 +78,9 @@ void ZToggleButton::toggleLabel(){
 
 void ZToggleButton::_toggled(bool on){
     if(on){
-        emit checked();
+	emit checked();
     }else{
-        emit unchecked();
+	emit unchecked();
     }
     toggleLabel();
 }

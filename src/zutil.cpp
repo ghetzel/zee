@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zutil.h"
 
 ZUtil::ZLogLevel ZUtil::logLevel = ZUTL_DEFAULT_LOG_LEVEL;
@@ -50,15 +67,15 @@ bool ZUtil::hasFlag(ulong flag, ulong flags)
   return ((flags & flag) == flag);
 }
 
-QString ZUtil::exec(QString command){    
+QString ZUtil::exec(QString command){
     FILE* pipe = popen(command.toAscii().data(), "r");
     if (!pipe)
-            return QString();
+	    return QString();
     char buffer[128];
     QString result;
     while(!feof(pipe)){
-            if(fgets(buffer, 128, pipe) != NULL)
-                    result += buffer;
+	    if(fgets(buffer, 128, pipe) != NULL)
+		    result += buffer;
     }
     pclose(pipe);
     return result;
@@ -72,73 +89,73 @@ QString ZUtil::execln(QString command, QString terminator){
 QString ZUtil::trsym(QChar in){
     switch(in.toAscii()){
     case ' ':
-        return ZSYM_SPACE;
+	return ZSYM_SPACE;
     case '\t':
-        return ZSYM_TAB;
+	return ZSYM_TAB;
     case '.':
-        return ZSYM_DOT;
+	return ZSYM_DOT;
     case '/':
-        return ZSYM_SLASH;
+	return ZSYM_SLASH;
     case '\\':
-        return ZSYM_BSLASH;
+	return ZSYM_BSLASH;
     case '`':
-        return ZSYM_BTICK;
+	return ZSYM_BTICK;
     case '~':
-        return ZSYM_TILDE;
+	return ZSYM_TILDE;
     case '!':
-        return ZSYM_EXCLAIM;
+	return ZSYM_EXCLAIM;
     case '@':
-        return ZSYM_AT;
+	return ZSYM_AT;
     case '#':
-        return ZSYM_HASH;
+	return ZSYM_HASH;
     case '$':
-        return ZSYM_DOLLAR;
+	return ZSYM_DOLLAR;
     case '%':
-        return ZSYM_PERCENT;
+	return ZSYM_PERCENT;
     case '^':
-        return ZSYM_CARAT;
+	return ZSYM_CARAT;
     case '&':
-        return ZSYM_AMPERSAND;
+	return ZSYM_AMPERSAND;
     case '*':
-        return ZSYM_ASTERISK;
+	return ZSYM_ASTERISK;
     case '(':
-        return ZSYM_PAREN1;
+	return ZSYM_PAREN1;
     case ')':
-        return ZSYM_PAREN2;
+	return ZSYM_PAREN2;
     case '-':
-        return ZSYM_HYPHEN;
+	return ZSYM_HYPHEN;
     case '_':
-        return ZSYM_UNDERSCORE;
+	return ZSYM_UNDERSCORE;
     case '+':
-        return ZSYM_PLUS;
+	return ZSYM_PLUS;
     case '=':
-        return ZSYM_EQUALS;
+	return ZSYM_EQUALS;
     case '{':
-        return ZSYM_BRACE1;
+	return ZSYM_BRACE1;
     case '}':
-        return ZSYM_BRACE2;
+	return ZSYM_BRACE2;
     case '[':
-        return ZSYM_SQUARE1;
+	return ZSYM_SQUARE1;
     case ']':
-        return ZSYM_SQUARE2;
+	return ZSYM_SQUARE2;
     case '|':
-        return ZSYM_PIPE;
+	return ZSYM_PIPE;
     case ';':
-        return ZSYM_SEMICOLON;
+	return ZSYM_SEMICOLON;
     case ':':
-        return ZSYM_COLON;
+	return ZSYM_COLON;
     case '"':
-        return ZSYM_DQUOTE;
+	return ZSYM_DQUOTE;
     case '\'':
-        return ZSYM_QUOTE;
+	return ZSYM_QUOTE;
     case '<':
-        return ZSYM_LCARAT;
+	return ZSYM_LCARAT;
     case '>':
-        return ZSYM_RCARAT;
+	return ZSYM_RCARAT;
     case ',':
-        return ZSYM_COMMA;
+	return ZSYM_COMMA;
     case '?':
-        return ZSYM_QUESTION;
+	return ZSYM_QUESTION;
     }
 
     return QString(in);

@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zeventhandler.h"
 
 bool ZEventHandler::hasReceiver(QString title)
@@ -82,10 +99,10 @@ void ZEventHandler::invokeEventAction(QObject *watched, QString event)
 
 //    if a handler is registered to this receiver...
       if(_handlers.contains(actdesc.receiver)){
-        hnd = _handlers.value(actdesc.receiver);
+	hnd = _handlers.value(actdesc.receiver);
 
-        if(hnd.contains(event))
-            invokeAction(actdesc);
+	if(hnd.contains(event))
+	    invokeAction(actdesc);
       }
     }
   }
@@ -106,36 +123,36 @@ void ZEventHandler::invokeAction(ActionDescriptor actdesc){
     {
 
       cout << "INVOKE: " << recv->metaObject()->className() << "@"
-           << actdesc.action.toStdString()
-           << " ('" << actdesc.arguments.join(", '").toStdString() << "')"
-           << endl; flush(cout);
+	   << actdesc.action.toStdString()
+	   << " ('" << actdesc.arguments.join(", '").toStdString() << "')"
+	   << endl; flush(cout);
 
 //    call the invoke() slot from across the shared library boundary
       if(QMetaObject::invokeMethod(recv,
-           "invoke",
-           Qt::DirectConnection,
-           Q_RETURN_ARG(bool, invokeRetVal),
-           Q_ARG(QString, actdesc.action),
-           Q_ARG(QString, actdesc.arguments.value(0)),
-           Q_ARG(QString, actdesc.arguments.value(1)),
-           Q_ARG(QString, actdesc.arguments.value(2)),
-           Q_ARG(QString, actdesc.arguments.value(3)),
-           Q_ARG(QString, actdesc.arguments.value(4)),
-           Q_ARG(QString, actdesc.arguments.value(5)))){
+	   "invoke",
+	   Qt::DirectConnection,
+	   Q_RETURN_ARG(bool, invokeRetVal),
+	   Q_ARG(QString, actdesc.action),
+	   Q_ARG(QString, actdesc.arguments.value(0)),
+	   Q_ARG(QString, actdesc.arguments.value(1)),
+	   Q_ARG(QString, actdesc.arguments.value(2)),
+	   Q_ARG(QString, actdesc.arguments.value(3)),
+	   Q_ARG(QString, actdesc.arguments.value(4)),
+	   Q_ARG(QString, actdesc.arguments.value(5)))){
 
-        if(!invokeRetVal)
-          cout << "Invocation failure at receiver" << endl; flush(cout);
+	if(!invokeRetVal)
+	  cout << "Invocation failure at receiver" << endl; flush(cout);
 
       }else{
-        cout << "Invocation failure: "
-             << actdesc.receiver.toStdString() << "@"
-             << actdesc.action.toStdString()
-             << " (" << recv->metaObject()->className() << ")"
-             << endl; flush(cout);
+	cout << "Invocation failure: "
+	     << actdesc.receiver.toStdString() << "@"
+	     << actdesc.action.toStdString()
+	     << " (" << recv->metaObject()->className() << ")"
+	     << endl; flush(cout);
       }
     }else{
       cout << "Receiver " << recv->metaObject()->className()
-           << " is not a ZEvent" << endl; flush(cout);
+	   << " is not a ZEvent" << endl; flush(cout);
     }
   }catch(exception& e){
     cout << "Error Fail" << endl; flush(cout);
@@ -167,11 +184,11 @@ bool ZEventHandler::eventFilter(QObject *watched, QEvent *event)
     default:
       QVariant a;
       if(QMetaObject::invokeMethod(watched,
-                                "query",
-                                Qt::DirectConnection,
-                                Q_RETURN_ARG(QVariant, a),
-                                Q_ARG(QString, "test")))
-        break;
+				"query",
+				Qt::DirectConnection,
+				Q_RETURN_ARG(QVariant, a),
+				Q_ARG(QString, "test")))
+	break;
   }
 
   return false;

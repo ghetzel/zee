@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zuiparser.h"
 
 ZuiParser::ZuiParser(QDomElement &el)
@@ -15,15 +32,15 @@ ZuiParser::ZuiParser(QDomElement &el)
 
     nn = _config.elementsByTagName("zee:components");
     for(uint i = 0; i < nn.length(); i++)
-        parse(nn.item(i));
+	parse(nn.item(i));
 
     nn = _config.elementsByTagName("zee:widgets");
     for(uint i = 0; i < nn.length(); i++)
-        parse(nn.item(i));
+	parse(nn.item(i));
 
     nn = _config.elementsByTagName("zee:events");
     for(uint i = 0; i < nn.length(); i++)
-        parse(nn.item(i));
+	parse(nn.item(i));
 
 
     if(qApp->topLevelWidgets().count() == 0)
@@ -53,9 +70,9 @@ void ZuiParser::loadModules(){
 
 	if(module){
 	    // ZCM?
-            ZcmPluginInterface *iZcmMod = QCAST(ZcmPluginInterface*,module);
+	    ZcmPluginInterface *iZcmMod = QCAST(ZcmPluginInterface*,module);
 	    // ZUI?
-            ZuiPluginInterface *iZuiMod = QCAST(ZuiPluginInterface*,module);
+	    ZuiPluginInterface *iZuiMod = QCAST(ZuiPluginInterface*,module);
 
 	    if(iZuiMod){
 		zuiModules << iZuiMod;
@@ -188,12 +205,12 @@ bool ZuiParser::pushWidget(QDomElement&, QWidget *cWidget, QWidget *cParent)
 	//    (otherwise you'll try adding the widget to its own
 	//    layout, infiniloop)
 	if(cWidget == cParent){
-            if(cParent->parent()){
-                cWidgetParent = CAST(QWidget*,cParent->parent());
+	    if(cParent->parent()){
+		cWidgetParent = CAST(QWidget*,cParent->parent());
 
-                if(cWidgetParent->layout())
-                    cWidgetParent->layout()->addWidget(cWidget);
-            }
+		if(cWidgetParent->layout())
+		    cWidgetParent->layout()->addWidget(cWidget);
+	    }
 	    ++depth;
 	}else{
 	    cParent->layout()->addWidget(cWidget);

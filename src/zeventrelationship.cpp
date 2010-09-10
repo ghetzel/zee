@@ -1,5 +1,21 @@
-#include <zeventrelationship.h>
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
 
+#include <zeventrelationship.h>
 
 ZEventRelationship::ZEventRelationship(ZMethodObject from,
 				       ZMethodObject to,
@@ -7,7 +23,7 @@ ZEventRelationship::ZEventRelationship(ZMethodObject from,
 				       bool direct)
 {
     if(via.count() > 0)
-        z_log_debug("ZEventRelationship: vias: "+STR(via.count()));
+	z_log_debug("ZEventRelationship: vias: "+STR(via.count()));
 
     _signal = from;
     _slot = to;
@@ -173,38 +189,38 @@ void ZEventRelationship::invokeSlot(QList<QVariant> args){
 		    if(slotArgs.at(1) == QVariant::Int){ //	    (int,int)
 			emit adapted(args.at(0).toInt(),args.at(1).toInt());
 		    }
-                }else if(slotArgs.at(0) == QVariant::String){
-                    if(slotArgs.at(1) == QVariant::String){ //	    (QString,QString)
-                        emit adapted(args.at(0).toString(),
-                                     args.at(1).toString());
-                    }
-                }
+		}else if(slotArgs.at(0) == QVariant::String){
+		    if(slotArgs.at(1) == QVariant::String){ //	    (QString,QString)
+			emit adapted(args.at(0).toString(),
+				     args.at(1).toString());
+		    }
+		}
     //	    3 arguments
-            }else if(slotArgs.length() == 3){
-                if(slotArgs.at(0) == QVariant::String){
-                    if(slotArgs.at(1) == QVariant::String){
-                        if(slotArgs.at(2) == QVariant::String){ //  (QString,QString,QString)
-                            emit adapted(args.at(0).toString(),
-                                         args.at(1).toString(),
-                                         args.at(2).toString());
-                        }
-                    }
-                }
+	    }else if(slotArgs.length() == 3){
+		if(slotArgs.at(0) == QVariant::String){
+		    if(slotArgs.at(1) == QVariant::String){
+			if(slotArgs.at(2) == QVariant::String){ //  (QString,QString,QString)
+			    emit adapted(args.at(0).toString(),
+					 args.at(1).toString(),
+					 args.at(2).toString());
+			}
+		    }
+		}
     //	    4 arguments
-            }else if(slotArgs.length() == 4){
-                if(slotArgs.at(0) == QVariant::String){
-                    if(slotArgs.at(1) == QVariant::String){
-                        if(slotArgs.at(2) == QVariant::String){
-                            if(slotArgs.at(3) == QVariant::UInt){ //  (QString,QString,QString,uint)
-                                emit adapted(args.at(0).toString(),
-                                             args.at(1).toString(),
-                                             args.at(2).toString(),
-                                             args.at(3).toUInt());
-                            }
-                        }
-                    }
-                }
-            }
+	    }else if(slotArgs.length() == 4){
+		if(slotArgs.at(0) == QVariant::String){
+		    if(slotArgs.at(1) == QVariant::String){
+			if(slotArgs.at(2) == QVariant::String){
+			    if(slotArgs.at(3) == QVariant::UInt){ //  (QString,QString,QString,uint)
+				emit adapted(args.at(0).toString(),
+					     args.at(1).toString(),
+					     args.at(2).toString(),
+					     args.at(3).toUInt());
+			    }
+			}
+		    }
+		}
+	    }
 	}else{
 	    z_log_error("ZEventRelationship: Cannot invoke unnamed method of "+
 			_slot.object()->objectName());

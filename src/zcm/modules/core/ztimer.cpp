@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "ztimer.h"
 
 ZTimer::ZTimer(const ZConfig &el, QObject *parent)
@@ -18,31 +35,31 @@ ZTimer::ZTimer(const ZConfig &el, QObject *parent)
 
 ZTimer::~ZTimer(){
     if(_tracker->isActive())
-        _tracker->stop();
+	_tracker->stop();
     stop();
 }
 
-void ZTimer::parse(const ZConfig &el){    
+void ZTimer::parse(const ZConfig &el){
     if(el.hasAttribute("interval")){
-        if(QVariant(el.attribute("once")).toBool())
-            setSingleShot(true);
+	if(QVariant(el.attribute("once")).toBool())
+	    setSingleShot(true);
 
-        _interval = el.attribute("interval").toInt();
+	_interval = el.attribute("interval").toInt();
 
-        if(ZuiUtils::attributeTrue(el, "onstart")){
-            setInterval(0);
-            connect(this, SIGNAL(timeout()), this, SLOT(startEmit()));
-        }else{
-            setInterval(_interval);
-        }
+	if(ZuiUtils::attributeTrue(el, "onstart")){
+	    setInterval(0);
+	    connect(this, SIGNAL(timeout()), this, SLOT(startEmit()));
+	}else{
+	    setInterval(_interval);
+	}
 
-        if(el.hasAttribute("tracking")){
-            uint tintv = QVariant(el.attribute("tracking")).toUInt();
-            trackStart(tintv);
-        }
-        start();
+	if(el.hasAttribute("tracking")){
+	    uint tintv = QVariant(el.attribute("tracking")).toUInt();
+	    trackStart(tintv);
+	}
+	start();
     }else{
-        z_log_error("ZTimer: Cannot start timer without an interval");
+	z_log_error("ZTimer: Cannot start timer without an interval");
     }
 }
 
@@ -59,21 +76,21 @@ void ZTimer::startEmit(){
 
 void ZTimer::trackStart(int intv){
     if(intv >= ZTIMER_TRACKING_INTV){
-        _elapsed = 0;
-        _tracker->setInterval(intv);
-        connect(_tracker, SIGNAL(timeout()), this, SLOT(trackTick()), Qt::UniqueConnection);
-        _tracker->start();
+	_elapsed = 0;
+	_tracker->setInterval(intv);
+	connect(_tracker, SIGNAL(timeout()), this, SLOT(trackTick()), Qt::UniqueConnection);
+	_tracker->start();
     }
 }
 
 void ZTimer::trackTick(){
     _elapsed += _tracker->interval();
     if(_elapsed >= _interval){
-        trackFinish();
+	trackFinish();
     }else{
-        emit tick();
-        emit elapsed(_elapsed);
-        emit remaining(_interval-_elapsed);
+	emit tick();
+	emit elapsed(_elapsed);
+	emit remaining(_interval-_elapsed);
     }
 }
 

@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zaudiometaparser.h"
 
 ZAudioMetaParser::ZAudioMetaParser(QString location)
@@ -26,9 +43,9 @@ QVariant ZAudioMetaParser::field(QString name){
 	}else if(name == ZMETA_AUDIO_ALBUM){
 	    return QVariant(_tag->album().toCString());
 	}else if(name == ZMETA_AUDIO_TITLE){
-            if(_tag->title().isEmpty())
-                return QVariant(QString(_file->name()).section("/",-1,-1).section(".",0,-2));
-            return QVariant(_tag->title().toCString());
+	    if(_tag->title().isEmpty())
+		return QVariant(QString(_file->name()).section("/",-1,-1).section(".",0,-2));
+	    return QVariant(_tag->title().toCString());
 	}else if(name == ZMETA_AUDIO_GENRE){
 	    return QVariant(_tag->genre().toCString());
 	}else if(name == ZMETA_AUDIO_YEAR){
@@ -50,25 +67,39 @@ QVariant ZAudioMetaParser::field(QString name){
 	    if(_properties)
 		return QVariant(_properties->channels());
 	}else{
-        //  Arbitrary Field Name Tag Query
-        //
-        //  A little dirty, but it gets the job done.
-        //
-        //  Test for specific kinds of tags, because certain tags
-        //  are just name-value pairs, which let's us pull out
-        //  field names not explcitly defined above.
-        //  An example of this are Xiph Comments, which can contain any
-        //  field name.  If a given key is requested, check to see if it is a
-        //  tag type that can be queried like this, then do so.
-            TagLib::String tlKeyName(name.toLatin1().data());
-            QStringList retval;
+	//  Arbitrary Field Name Tag Query
+	//
+	//  A little dirty, but it gets the job done.
+	//
+	//  Test for specific kinds of tags, because certain tags
+	//  are just name-value pairs, which let's us pull out
+	//  field names not explcitly defined above.
+	//  An example of this are Xiph Comments, which can contain any
+	//  field name.  If a given key is requested, check to see if it is a
+	//  tag type that can be queried like this, then do so.
+	    TagLib::String tlKeyName(name.toUpper().toLatin1().data());
 
-            if(DCAST(TagLib::FLAC::File*,_file)){
-                if(DCAST(TagLib::FLAC::File*,_file)->xiphComment(0)->contains(
-                        tlKeyName))
-                    z_log_debug("ZAudioMetaParser: FLAC");
-                    return QVariant();
-            }
+	//  FLAC Xiph Tag
+	    if(DCAST(TagLib::FLAC::File*,_file)){
+	    //	if the tag contains the field name...
+		if(DCAST(TagLib::FLAC::File*,_file)->xiphComment(0)->contains(
+			tlKeyName)){
+		//  grab the STL map of all fields
+		    TagLib::Ogg::FieldListMap flm = DCAST(
+			    TagLib::FLAC::File*,
+			    _file)->xiphComment(0)->fieldListMap();
+		//  find the field name, grab its iterator
+		    TagLib::Ogg::FieldListMap::ConstIterator i =
+			    flm.find(tlKeyName);
+		//  if the field came back, return the joined output of all tags
+		    if(i != flm.end()){
+			return QVariant(i->second.toString(
+				ZMETA_AUDIO_FIELD_SEP).toCString());
+		    }
+		}
+		    z_log_debug("ZAudioMetaParser: FLAC");
+		    return QVariant();
+	    }
 	    return QVariant();
 	}
     }

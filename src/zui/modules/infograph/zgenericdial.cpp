@@ -1,3 +1,20 @@
+/******************************************************************************
+*    This file is part of Zee.
+*
+*    Zee is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    Zee is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
+******************************************************************************/
+
 #include "zgenericdial.h"
 
 ZGenericDial::ZGenericDial(const ZConfig &el, QWidget *parent)
@@ -105,14 +122,14 @@ void ZGenericDial::paintEvent(QPaintEvent *event)
 	    p->drawPath(t);
 	p->restore();
 
-        p->drawText(cX-(75/2),cY-(25/2),75,32,Qt::AlignCenter,QVariant(_value).toString());
+	p->drawText(cX-(75/2),cY-(25/2),75,32,Qt::AlignCenter,QVariant(_value).toString());
 
 	p->drawEllipse(ZGENERIC_DIAL_X_PAD,
 		       ZGENERIC_DIAL_Y_PAD,
 		       width()-(2*ZGENERIC_DIAL_X_PAD),
 		       height()-(2*ZGENERIC_DIAL_Y_PAD));
 
-        //p->drawConvexPolygon(indicator);
+	//p->drawConvexPolygon(indicator);
 	p->end();
     }
 
