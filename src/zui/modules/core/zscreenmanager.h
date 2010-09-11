@@ -15,6 +15,16 @@
 *    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
+/*!
+  \class ZScreenManager
+  \ingroup zui_plugins_core
+  \brief A screen stacking manager with named elements
+
+  \zconfig  zui:screens
+  \zconfopt{string,default} The name of the default screen to display
+*/
+
+
 #ifndef ZSCREEN_MANAGER_
 #define ZSCREEN_MANAGER_
 
@@ -31,11 +41,6 @@
 
 using namespace std;
 
-/*!
-  \class ZScreenManager
-  \ingroup zui_plugins_core
-  \brief A screen stacking manager with named elements
-*/
 class ZScreenManager : public ZWidget<QStackedWidget>
 {
   Q_OBJECT

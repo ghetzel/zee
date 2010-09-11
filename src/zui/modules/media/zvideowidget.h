@@ -20,7 +20,7 @@
 
 #define	ZUI_VIDEO		"zui:video"
 
-#define	ZVIDEO_AUDIO_BITRATE    "audioBitrate"
+#define	ZVIDEO_AUDIO_BITRATE    "audioBitrate" //! \zproperty{zui:video} audioBitrate
 #define	ZVIDEO_AUDIO_FORMAT	"audioFormat"
 #define	ZVIDEO_FPS		"fps"
 #define	ZVIDEO_LENGTH		"length"
