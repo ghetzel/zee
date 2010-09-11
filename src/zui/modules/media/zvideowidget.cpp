@@ -18,13 +18,24 @@
 #include "zvideowidget.h"
 
 ZVideoWidget::ZVideoWidget(const ZConfig &el, QWidget *parent)
-    : ZWidget<VideoPlayer>(el,this,parent)
+    : ZWidget<QMPwidget>(el,this,parent)
 {
     init();
+    QMPwidget::start();
 }
 
 void ZVideoWidget::init(){
+    _dataObject = new QObject(this);
+    _dataObject->setObjectName("data");
+
+    connect(this, SIGNAL(mediaInfoUpdated(QMPwidget::MediaInfo)),
+	    this, SLOT(_updateMediaInfo(QMPwidget::MediaInfo)));
+    connect(this, SIGNAL(positionChanged(double)),
+	    this, SLOT(_streamPositionChanged(double)));
+
     zEvent->registerSignal(this,SIGNAL(sourceChanged(QString)));
+    zEvent->registerSignal(this, SIGNAL(positionChanged(qint64)));
+    zEvent->registerSignal(this, SIGNAL(dataChanged()));
     zEvent->registerSlot(this, SLOT(play()));
     zEvent->registerSlot(this, SLOT(pause()));
     zEvent->registerSlot(this, SLOT(stop()));
@@ -36,9 +47,25 @@ void ZVideoWidget::parse(const ZConfig&){
 
 }
 
-void ZVideoWidget::load(QString location){
-    _source = new MediaSource(location);
-    VideoPlayer::load(*_source);
-    emit sourceChanged(_source->fileName());
-    z_log_debug("ZVideoWidget: "+STR(totalTime()));
+void ZVideoWidget::_streamPositionChanged(double pos){
+    emit positionChanged(pos*1000.0);
+}
+
+void ZVideoWidget::_updateMediaInfo(QMPwidget::MediaInfo info){
+    if(info.ok){
+	_dataObject->setProperty(ZVIDEO_AUDIO_BITRATE,	info.audioBitrate);
+	_dataObject->setProperty(ZVIDEO_AUDIO_FORMAT,	info.audioFormat);
+	_dataObject->setProperty(ZVIDEO_FPS,		info.framesPerSecond);
+	_dataObject->setProperty(ZVIDEO_LENGTH,		info.length*1000.0);
+	_dataObject->setProperty(ZVIDEO_AUDIO_CHANNELS,	info.numChannels);
+	_dataObject->setProperty(ZVIDEO_SAMPLE_RATE,	info.sampleRate);
+	_dataObject->setProperty(ZVIDEO_SEEKABLE,	info.seekable);
+	//_dataObject->setProperty(ZVIDEO_TAGS,		info.tags);
+	_dataObject->setProperty(ZVIDEO_BITRATE,	info.videoBitrate);
+	_dataObject->setProperty(ZVIDEO_FORMAT,		info.videoFormat);
+	_dataObject->setProperty(ZVIDEO_WIDTH,		info.size.width());
+	_dataObject->setProperty(ZVIDEO_HEIGHT,		info.size.height());
+
+	emit dataChanged();
+    }
 }

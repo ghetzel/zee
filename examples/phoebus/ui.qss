@@ -17,6 +17,13 @@ ZButton{
     color: #FFF;
 }
 
+ZTextInput{
+	background-color: rgba(0,0,0,70%);
+	border: 2px solid #444;
+	color: #FFF;
+	margin: 2px;
+}
+
 #mainbar{
 	background-color: rgb(3, 3, 3, 75%);
 	border-top: 1px solid #444;
@@ -88,6 +95,7 @@ ZButton{
 		min-height: 6px;
 		min-width: 776px;
 		padding: 1px;
+		qproperty-bookmarkColor: rgba(128,128,128,50%);
 	}
 
 #seekbar::chunk{
@@ -179,7 +187,7 @@ ZButton{
 		padding: 4px 20px 4px 24px;
 	}
 
-	#queue, #browser{
+	#queue, #browser, #vbrowser{
 		background-color: rgba(7,4,0,75%);
 		border-right: 0px;
 		border-radius: 20px 110px;

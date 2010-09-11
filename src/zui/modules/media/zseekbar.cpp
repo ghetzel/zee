@@ -57,21 +57,24 @@ void ZSeekbar::addBookmarks(QString marks){
 
 void ZSeekbar::paintEvent(QPaintEvent *e){
     ZProgressBar::paintEvent(e);
-    QPainter *p = new QPainter(this);
+    QStyleOption option;
+    QStylePainter p(this);
     QPen bookmarkPen;
+    option.init(this);
+
     qint64 valRange = (maximum()-minimum());
 
-    bookmarkPen.setColor(QColor(128,128,128,255));
+    bookmarkPen.setColor(_bookmarkColor);
     bookmarkPen.setWidth(3);
 
-    p->setPen(bookmarkPen);
+    p.setPen(bookmarkPen);
 
     foreach(qint64 bookmark, _bookmarks){
 	int x = (CAST(qreal,bookmark)/valRange)*CAST(qreal,width());
-	p->drawLine(x,0,x,height());
+	p.drawLine(x,0,x,height());
     }
 
-    p->end();
+    p.drawPrimitive(QStyle::PE_Widget,option);
 }
 
 void ZSeekbar::mousePressEvent(QMouseEvent *e){
@@ -89,4 +92,12 @@ void ZSeekbar::mouseReleaseEvent(QMouseEvent *e){
     qreal valPerPx = (maximum()-minimum()) / width();
     setValue(valPerPx*e->x());
     emit positionChanged(value());
+}
+
+QColor ZSeekbar::bookmarkColor(){
+    return _bookmarkColor;
+}
+
+void ZSeekbar::setBookmarkColor(QColor color){
+    _bookmarkColor = color;
 }

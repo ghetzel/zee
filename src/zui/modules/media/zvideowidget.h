@@ -18,15 +18,29 @@
 #ifndef ZVIDEOWIDGET_H
 #define ZVIDEOWIDGET_H
 
-#define	ZUI_VIDEO	    "zui:video"
+#define	ZUI_VIDEO		"zui:video"
 
-#include <Phonon/VideoPlayer>
+#define	ZVIDEO_AUDIO_BITRATE    "audioBitrate"
+#define	ZVIDEO_AUDIO_FORMAT	"audioFormat"
+#define	ZVIDEO_FPS		"fps"
+#define	ZVIDEO_LENGTH		"length"
+#define	ZVIDEO_AUDIO_CHANNELS	"channels"
+#define	ZVIDEO_SAMPLE_RATE	"samplerate"
+#define	ZVIDEO_SEEKABLE		"seekable"
+#define	ZVIDEO_SIZE		"size"
+#define	ZVIDEO_TAGS		"tags"
+#define	ZVIDEO_BITRATE		"bitrate"
+#define	ZVIDEO_FORMAT		"format"
+#define ZVIDEO_WIDTH		"width"
+#define ZVIDEO_HEIGHT		"height"
+
+#include <qmpwidget/qmpwidget.h>
 #include <zeventmanager.h>
 #include <zui/zwidget.h>
 
-using namespace Phonon;
+//using namespace Phonon;
 
-class ZVideoWidget : public ZWidget<VideoPlayer>
+class ZVideoWidget : public ZWidget<QMPwidget>
 {
     Q_OBJECT
 public:
@@ -34,16 +48,19 @@ public:
 
 signals:
     void sourceChanged(QString);
+    void positionChanged(qint64);
+    void dataChanged();
 
-public slots:
-    void load(QString location);
+private slots:
+    void _streamPositionChanged(double);
+    void _updateMediaInfo(QMPwidget::MediaInfo);
 
 private:
     void init();
     void parse(const ZConfig&);
 
 private:
-    MediaSource *_source;
+    QObject *_dataObject;
 };
 
 #endif // ZVIDEOWIDGET_H

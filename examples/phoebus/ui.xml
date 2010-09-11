@@ -13,7 +13,7 @@
   			<zee:metaproperty type="audio" name="length" key="length" />
 			<zee:metaproperty type="audio" name="bitrate" key="bitrate" />
 			<zee:metaproperty type="audio" name="samplerate" key="sample-rate" />
-			<zee:metaproperty type="audio" name="bookmarks" key="bookmarks" />
+			<zee:metaproperty type="audio" name="bookmarks" key="bookmark" />
 		</zee:metareader>
 
 		<zee:media id="media" remote="true">
@@ -80,10 +80,16 @@
 			                		<zui:label value="Genre" />
 			        		        <zui:label value="Album" />
 	        		        </zui:container>
-			                <zui:folder id="browser" uri="/home/ghetzel/cortex/commons/flac-content/import" select="extended" />
+			                <zui:folder id="browser" uri="/home/ghetzel/cortex/commons/flac-content/import/Stargate Atlantis" select="extended" />
 		                </zui:screen>
 				<zui:screen name="videoScreen" layout="vertical">
 					<zui:video id="video" />
+					<zui:container>
+						<zui:button id="aVidPlay">Play</zui:button>
+						<zui:button id="aVidPause">Pause</zui:button>
+						<zui:button id="aVidStop">Stop</zui:button>
+					</zui:container>
+					<zui:input type="text" id="vidMRL" />
 			                <zui:folder id="vbrowser" uri="/home/ghetzel/downloads" select="extended" />
 				</zui:screen>
                		</zui:screens>
@@ -108,6 +114,7 @@
 		<zee:connect from="media.timeChanged" to="currentTime.setText" direct="false" />
 		<zee:connect from="media.reachedBookmark" to="zee.log" direct="false" />
 		<zee:connect from="media.bookmarkAdded" to="seekbar.addBookmark" />
+		<zee:connect from="media.sourceChanged" to="seekbar.addBookmarks" via="metareader.data.bookmarks" />
 
 		<zee:connect from="seekbar.positionChanged" to="media.seek" />
 				
@@ -123,7 +130,14 @@
 		<zee:connect from="browser.activated" to="media.enqueue" />
 
 		<zee:connect from="vbrowser.activated" to="video.load" direct="false" />
-		<zee:connect from="video.sourceChanged" to="video.play" direct="false" />
+		<zee:connect from="aVidPlay.clicked" to="video.play" />
+		<zee:connect from="aVidPause.clicked" to="video.pause" />
+		<zee:connect from="aVidStop.clicked" to="video.stop" />
+
+		<zee:connect from="video.sourceChanged" to="vidMRL.setText" />
+		<zee:connect from="video.dataChanged" to="seekbar.setMaximum" via="video.data.length" />
+		<zee:connect from="video.positionChanged" to="seekbar.setValue" direct="false" />
+		<zee:connect from="vidMRL.returnPressed" to="video.load" via="vidMRL.text" />
 
 		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
 		<zee:connect from="aStop.clicked" to="media.stop" />

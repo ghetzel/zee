@@ -37,3 +37,8 @@ TARGET = $$qtLibraryTarget(zui_media)
 DESTDIR = ../../../plugins
 QT += xml
 QT += phonon
+QT += opengl
+QT += network
+CONFIG += pipemode
+
+include(qmpwidget.pri)

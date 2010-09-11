@@ -5,15 +5,14 @@
   xmlns:zui="http://www.gammazeta.net/zee/zui/">
 	<zee:components />
 	<zee:widgets>
-		<zui:application id="main" width="132" height="516" position="nw" x="16" y="32" layout="vertical" type="desktop">
-			<zui:button id="r1c1" value="MASTER ALARM" />
-			<zui:button id="r2c4" value="MEMORY POOL" />
-			<zui:button id="r1c2" value="CPU0 LOAD" />
-			<zui:button id="r1c3" value="CPU1 LOAD" />
-			<zui:button id="r1c4" value="NET WAIT" />
-			<zui:button id="r2c1" value="DATA LINK" />
-			<zui:button id="r2c2" value="CORE DRIVE" />
-			<zui:button id="r2c3" value="OUTBOUND LINK" />
+		<zui:application id="main" width="100%" height="128" position="nw" layout="vertical">
+  			<zui:marquee id="time" value="--:--:--" images="../../dev/njt-segmented-sign/chars/%1.svg" width="80" height="120">
+<!--				<zui:lines>
+					<zui:line>SECAUCUS</zui:line>
+					<zui:line>TEST 2</zui:line>
+					<zui:line>TEST 3</zui:line>
+				</zui:lines> -->
+			</zui:marquee>
 		</zui:application>
 	</zee:widgets>
 	<zee:events>

@@ -28,6 +28,7 @@
 class ZSeekbar : public ZProgressBar
 {
     Q_OBJECT
+    Q_PROPERTY(QColor bookmarkColor READ bookmarkColor WRITE setBookmarkColor)
 public:
     ZSeekbar(const ZConfig &el, QWidget *parent=0);
     void parse(const ZConfig&);
@@ -35,6 +36,8 @@ public:
     void mousePressEvent(QMouseEvent *e);
     void mouseMoveEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
+    QColor bookmarkColor();
+    void setBookmarkColor(QColor color);
 
 public slots:
     void reset();
@@ -49,6 +52,7 @@ private:
 
 private:
     QList<qint64> _bookmarks;
+    QColor _bookmarkColor;
 };
 
 #endif // ZSEEKBAR_H
