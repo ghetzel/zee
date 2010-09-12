@@ -17,17 +17,16 @@
 
 #include "zuiparser.h"
 
-ZuiParser::ZuiParser(QDomElement &el)
+ZuiParser::ZuiParser(QDomElement &el, ZCoreApplication *parent)
 {
     //init basic variables
+    _parent = parent;
     _config = el;
     depth = 0;
     _currentParent = NULL;
 
     init();
 
-    //parse(_config);
-    //parse(el);
     QDomNodeList nn;
 
     nn = _config.elementsByTagName("zee:components");
@@ -54,16 +53,16 @@ void ZuiParser::init()
 }
 
 void ZuiParser::loadModules(){
-    QDir zModulesDir = QDir(qApp->applicationDirPath());
+    QDir zModulesDir;
 
-#if defined(Q_OS_WIN)
-    if (zModulesDir.dirName().toLower() == "debug" || zModulesDir.dirName().toLower() == "release")
-	zModulesDir.cdUp();
-#endif
+    if(_parent && _parent->hasArg("prefix"))
+	zModulesDir.setPath(_parent->arg("prefix").toString());
+    else
+	zModulesDir.setPath(qApp->applicationDirPath());
 
     zModulesDir.cd("plugins");
 
-    //for each module in <approot>/plugins/zui/...
+    //for each module in <prefix>/plugins/zui/...
     foreach(QString modFile, zModulesDir.entryList(QDir::Files)){
 	QPluginLoader loader(zModulesDir.absoluteFilePath(modFile));
 	QObject *module = loader.instance();

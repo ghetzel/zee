@@ -26,6 +26,7 @@
 #include <QPluginLoader>
 #include <QList>
 
+#include <zcoreapplication.h>
 #include <zconfigurable.h>
 #include <zeventhandler.h>
 #include <zplugininterface.h>
@@ -59,7 +60,7 @@ class ZuiParser : public QObject
   Q_OBJECT
 
   private:
-    Zee *_parent;
+    ZCoreApplication *_parent;
     QWidget *_currentParent;
     ZConfigurable::ZConfig _config;
     int depth;
@@ -72,7 +73,7 @@ class ZuiParser : public QObject
   dictated by widgetes created in one or more plugins, is parented at
   \a destWidget.
 */
-    ZuiParser(QDomElement &el);
+    ZuiParser(QDomElement &el, ZCoreApplication *parent=0);
 
   private:
 /*!

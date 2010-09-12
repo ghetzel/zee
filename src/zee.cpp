@@ -98,7 +98,7 @@ void Zee::init()
 
     if(hasArg("debug-style")){
 	QTimer *styleTimer = new QTimer(this);
-	int intv = arg("debug-style").toInt()*1000;
+	int intv = qAbs(arg("debug-style").toInt())*1000;
 
 	if(intv < 1000) // if not specified or less than 1s, set to default interval
 	    intv = 3000;
@@ -130,6 +130,8 @@ void Zee::parseArguments(){
 	    _arguments.insert("style", QVariant(args.at(i+1)));
 	}else if(args.at(i) == "-R" || args.at(i) == "--resources"){
 	    _arguments.insert("resources", QVariant(args.at(i+1)));
+	}else if(args.at(i) == "-P" || args.at(i) == "--prefix"){
+	    _arguments.insert("prefix", QVariant(args.at(i+1)));
 	}else if(args.at(i) == "--debug-style"){
 	    _arguments.insert("debug-style", QVariant(args.at(i+1)));
 	}else if(args.at(i) == "-V" || args.at(i) == "--verbosity"){

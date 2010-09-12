@@ -49,6 +49,7 @@
 #include <X11/Xlib.h>
 #endif // Q_WS_X11
 
+#include <zcoreapplication.h>
 #include <zutil.h>
 #include <zeventmanager.h>
 #include <zui/zuiparser.h>
@@ -65,7 +66,7 @@
   StyleSheets functionality.
 */
 
-class Zee : public QApplication
+class Zee : public QApplication, public ZCoreApplication
 {
   Q_OBJECT
 

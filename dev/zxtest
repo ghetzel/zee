@@ -1,12 +1,10 @@
 #!/bin/sh
 # The New Hotness
 
-ZEE_DIR="$HOME/.config/zee/authbox/"
-cd $ZEE_DIR
 Xephyr -ac -screen 800x480 -br -reset -terminate :1 &
 sleep 1s
 DISPLAY=:1.0
-zee
+zdm -P /usr/lib/zee -c /etc/zdm/zdm.xml -s /etc/zdm/zdm.qss -R /etc/zdm/zdm.rcc
 
 #
 # Old and Busted:	Xvfb + x11vnc method
