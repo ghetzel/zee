@@ -11,7 +11,9 @@
 			echo "Authorization Required // $USER@`hostname` // `date +'%Y-%m-%d %H:%M:%S.%N'`"
                 ]]>
 		</zee:executor>
-		<zee:linuxauth id="auth" />
+		<zee:setting id="strGranted" value="ACCESS GRANTED" />
+		<zee:setting id="strDenied" value="ACCESS DENIED" />
+		<zee:linuxauth id="zdm" />
 	</zee:components>
 	<zee:widgets>
 		<zui:application id="authbox" width="100%" height="100%" frame="false" position="center" resizable="false" layout="vertical" type="dialog" align="AlignCenter">
@@ -29,7 +31,9 @@
 		</zui:application>
 	</zee:widgets>
 	<zee:events>
-		<zee:connect from="password.returnPressed" to="auth.authenticate" via="username.text,password.text" />
+		<zee:connect from="password.returnPressed" to="zdm.authenticate" via="username.text,password.text" />
+		<zee:connect from="zdm.granted" to="title.setText" via="strGranted.value" />
+		<zee:connect from="zdm.denied" to="title.setText" via="strDenied.value" />
 <!--
 		<zee:connect from="password.returnPressed" to="zee.quit" />
 		<zee:connect from="timer.timeout" to="hosttime.exec" />

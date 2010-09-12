@@ -56,48 +56,27 @@ void ZEventManager::registerMethod(QMetaMethod::MethodType type,
 {
     //  some sanity checks
     if(!object){
-	z_log_error("ZEventManager: Object not specified, skip register");
+	z_log_debug("ZEventManager: Object not specified, skip register");
 	return; }
     if(!method){
 	z_log_error("ZEventManager: Method not specified, skip register");
 	return; }
     if(object->objectName().isEmpty()){
-	z_log_error("ZEventManager: Object name not specified, skip register");
+	z_log_debug("ZEventManager: Object name not specified, skip register");
 	return; }
 /*  ------------------------------------------------------------------------- */
-    bool isSignal = false;
 
     switch(type){
     case QMetaMethod::Signal:
-	isSignal = true;
+	insertMethod(object, method, _signals);
 	break;
     case QMetaMethod::Slot:
-	isSignal = false;
+	insertMethod(object, method, _slots);
 	break;
     default:
 	z_log_error("ZEventManager: Only signals and slots can be registered");
 	return;
     }
-
-//  insert the data into the registration object
-/*! \bug    this doesnt work...the registration needs to be keyed by both the
-	    object pointer AND the method name.  this gives a unique entry
-	    for all objects and their signals/slots (multiples for different
-	    argument signatures)
-
-	    (ZLabel,setText) -->  <data>
-
-	    when accessing, pass a QPair composed of object pointer and the
-	    method name, this will return the first [value()] or all [values()]
-	    of the signals/slots.  pass those to the relationship class
-
-2010-07-28 (GWH): is this still true?
-  */
-    if(isSignal)
-	insertMethod(object, method, _signals);
-    else
-	insertMethod(object, method, _slots);
-
 }
 
 void ZEventManager::registerSignal(QObject *source, const char *signal){

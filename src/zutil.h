@@ -82,7 +82,7 @@
 #define QCAST(t,v)      qobject_cast<t>(v)
 
 #define	STR(x)		QVariant(x).toString()
-#define CSTR(x)         qstrdup(STR(x).toAscii().data())
+#define CSTR(x)         qstrdup(STR(x).toLocal8Bit().data())
 #define METHODNAME(x)	QString(x).section("(",0,0)
 #define METHODARGS(x)	QString(x).section("(",1,1).section(")",0,0)
 #define DETYPESIG(x)	QString(x).right(QString(x).length()-1)

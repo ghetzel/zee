@@ -12,6 +12,10 @@ ZWindow > ZRoot{
 	max-width: 680px;
 }
 
+#granted{
+	background: transparent top left no-repeat url(":/images/grantedBg.png");
+}
+
 #header{
 	min-height: 22px;
 	qproperty-align: "AlignTop";

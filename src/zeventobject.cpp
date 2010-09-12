@@ -93,7 +93,7 @@ ZEventObject::ZMethodPair ZEventObject::matchMethodsBySignature(
 	//  find any two methods with the same number of arguments.
 	//  this may be a somewhat unsophisticated fallback, but it works...
 	    if((!surrogateArgs.isEmpty() &&
-		    surrogateArgs == r.args())	||
+		    (surrogateArgs.count() == r.args().count()))	||
 		    l.args() == r.args()		||
 	       ( ignoreTypes && (l.args().count() == r.args().count()) ))
 	    {
