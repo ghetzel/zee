@@ -20,8 +20,6 @@
   \ingroup zui_plugins_core
   \brief A screen stacking manager with named elements
 
-  \zconfig  zui:screens
-  \zconfopt{string,default} The name of the default screen to display
 */
 
 

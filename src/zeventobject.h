@@ -35,14 +35,15 @@ public:
     ZMethodPair match(QString localAlias,
 		      QString remoteAlias,
 		      ZEventObject &remoteObject);
+    static QStringList getSurrogateArgs(QString surrogates);
     static ZMethodPair matchMethodsBySignature(QList<ZMethodObject> signal,
 					       QList<ZMethodObject> slot,
-					       bool ignoreTypes=false);
+					       bool ignoreTypes=false,
+					       QString surrogates=QString());
 
 private:
     QObject *_object;
     QHash<QString, ZMethodObject> _methods;
-
 private:
     void init();
 };

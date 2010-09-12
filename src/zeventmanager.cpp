@@ -144,15 +144,12 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct)
 	       signal = methodMatch.first;
 	       slot = methodMatch.second;
 	   }else{
-	    //! \hack
-	    // by arbitratily choosing the first method from each, it may lead to
-	    // trying to adapt an unadaptable type when an adaptable alternative
-	    // exists
 		ZEventObject::ZMethodPair matchedPair;
 		matchedPair = ZEventObject::matchMethodsBySignature(
 			sender.methods(CALLALIAS(from)),
 			receiver.methods(CALLALIAS(to)),
-			true);
+			true,
+			via);
 		if(! (matchedPair.first.isValid() &&
 		      matchedPair.second.isValid())){
 		    z_log_error("ZEventManager: Could not find compatible "

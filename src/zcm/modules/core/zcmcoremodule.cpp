@@ -54,6 +54,11 @@ ZcmResult ZCMCoreModule::prepare(const QDomElement &el){
 	ZDBusInterface *dbi = new ZDBusInterface(el,qApp);
 	rv.component = dbi->interface();
 #endif // ZCM_DBUS_INTERFACE
+
+#ifdef ZCM_LINUX_AUTH
+    }else if(el.tagName() == ZCM_LINUX_AUTH){
+	rv.component = new ZLinuxAuthenticator(el,qApp);
+#endif
     }
 
     return rv;

@@ -11,6 +11,7 @@
 			echo "Authorization Required // $USER@`hostname` // `date +'%Y-%m-%d %H:%M:%S.%N'`"
                 ]]>
 		</zee:executor>
+		<zee:linuxauth id="auth" />
 	</zee:components>
 	<zee:widgets>
 		<zui:application id="authbox" width="100%" height="100%" frame="false" position="center" resizable="false" layout="vertical" type="dialog" align="AlignCenter">
@@ -20,6 +21,7 @@
 				</zui:container>
 				<zui:container id="content" layout="vertical">
 					<zui:progress id="remaining" max="20000" />
+					<zui:input id="username" type="text" />
 					<zui:input id="password" type="password" />		
 					<zui:progress id="elapsed" max="20000" />
 				</zui:container>
@@ -27,7 +29,8 @@
 		</zui:application>
 	</zee:widgets>
 	<zee:events>
-		<zee:connect from="password.returnPressed" to="zee.output" via="password.text" />
+		<zee:connect from="password.returnPressed" to="auth.authenticate" via="username.text,password.text" />
+<!--
 		<zee:connect from="password.returnPressed" to="zee.quit" />
 		<zee:connect from="timer.timeout" to="hosttime.exec" />
 		<zee:connect from="hosttime.executed" to="title.setText" />
@@ -35,5 +38,6 @@
 		<zee:connect from="closer.elapsed" to="elapsed.setValue" />
 		<zee:connect from="closer.remaining" to="remaining.setValue" />
 		<zee:connect from="password.textChanged" to="closer.reset" direct="false" />
+-->
 	</zee:events>
 </zee>

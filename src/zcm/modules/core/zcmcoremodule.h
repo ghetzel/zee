@@ -26,6 +26,7 @@
 #include <zexecutor.h>
 #include <zshortcut.h>
 #include <zsqlquery.h>
+#include <zlinuxauthenticator.h>
 
 #ifdef Q_OS_LINUX
 #include "zdbusinterface.h"

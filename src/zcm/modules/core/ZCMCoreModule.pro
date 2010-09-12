@@ -23,7 +23,8 @@ HEADERS += zcmcoremodule.h \
     zsysteminfo.h \
     zexecutor.h \
     zsqlquery.h \
-    zshortcut.h
+    zshortcut.h \
+    zlinuxauthenticator.h
 SOURCES += zcmcoremodule.cpp \
     libzee/zlocalsystem.cpp \
     zutil.cpp \
@@ -37,7 +38,8 @@ SOURCES += zcmcoremodule.cpp \
     zsysteminfo.cpp \
     zexecutor.cpp \
     zsqlquery.cpp \
-    zshortcut.cpp
+    zshortcut.cpp \
+    zlinuxauthenticator.cpp
 DESTDIR = ../../../plugins
 TARGET = $$qtLibraryTarget(zcm_core)
 QT += xml \
