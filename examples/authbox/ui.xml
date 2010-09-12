@@ -6,9 +6,9 @@
 	<zee:components>
 		<zee:timer id="timer" interval="113" onstart="true" />
 		<zee:timer id="closer" interval="20000" tracking="125" />
-		<zee:executor id="hosttime" oneline=" ">
+		<zee:executor id="desktop-session">
                 <![CDATA[
-			echo "Authorization Required // $USER@`hostname` // `date +'%Y-%m-%d %H:%M:%S.%N'`"
+			openbox-session
                 ]]>
 		</zee:executor>
 		<zee:setting id="strGranted" value="ACCESS GRANTED" />
@@ -32,9 +32,10 @@
 	</zee:widgets>
 	<zee:events>
 		<zee:connect from="password.returnPressed" to="zdm.authenticate" via="username.text,password.text" />
-		<zee:connect from="zdm.granted" to="title.setText" via="strGranted.value" />
+		<zee:connect from="zdm.granted" to="zee.quit" />
 		<zee:connect from="zdm.denied" to="title.setText" via="strDenied.value" />
 <!--
+		<zee:connect from="zdm.granted" to="desktop-session.exec" />
 		<zee:connect from="password.returnPressed" to="zee.quit" />
 		<zee:connect from="timer.timeout" to="hosttime.exec" />
 		<zee:connect from="hosttime.executed" to="title.setText" />

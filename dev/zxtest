@@ -1,10 +1,11 @@
 #!/bin/sh
-ZEE_DIR="$HOME/.config/zee/apps/catalina/"
+# The New Hotness
+
+ZEE_DIR="$HOME/.config/zee/authbox/"
 cd $ZEE_DIR
 Xephyr -ac -screen 800x480 -br -reset -terminate :1 &
 sleep 1s
 DISPLAY=:1.0
-openbox &
 zee
 
 #

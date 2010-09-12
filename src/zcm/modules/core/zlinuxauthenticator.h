@@ -35,6 +35,7 @@ public:
     ZLinuxAuthenticator(const ZConfig &el, QObject *parent=0);
 
 signals:
+    void authenticating();
     void granted();
     void denied();
 
@@ -46,8 +47,13 @@ private:
     void parse(const ZConfig &el);
 
 private:
+    QString _serviceName;
 #ifdef USE_PAM
     pam_handle_t *_pam;
+    static int _pamCallback(int num_msg,
+			    const struct pam_message **msgm,
+			    struct pam_response **response,
+			    void *appdata_ptr);
 #endif
 };
 
