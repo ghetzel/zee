@@ -58,6 +58,8 @@ void ZTimer::parse(const ZConfig &el){
 	    trackStart(tintv);
 	}
 	start();
+    }else if(el.hasAttribute("countdown")){
+
     }else{
 	z_log_error("ZTimer: Cannot start timer without an interval");
     }
