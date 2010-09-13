@@ -160,7 +160,7 @@ bool ZuiParser::parseNode(QDomNode &node)
 		    _currentParent = zResult.parent;
 		    break;
 		}
-	    }
+            }
 
 	    //  connect handlers, set properties, and display the widget
 	    pushWidget(el, zResult.widget, zResult.parent);
@@ -192,10 +192,11 @@ void ZuiParser::prepareWidget(const QDomElement &el){
 }
 
 
-bool ZuiParser::pushWidget(QDomElement&, QWidget *cWidget, QWidget *cParent)
+bool ZuiParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
 {
 
     QWidget *cWidgetParent = NULL;
+    QLayout *targetLayout = NULL;
 
     if(cWidget && cParent){
 	//    finally, add the widget to the hierarchy...
@@ -207,13 +208,62 @@ bool ZuiParser::pushWidget(QDomElement&, QWidget *cWidget, QWidget *cParent)
 	    if(cParent->parent()){
 		cWidgetParent = CAST(QWidget*,cParent->parent());
 
-		if(cWidgetParent->layout())
-		    cWidgetParent->layout()->addWidget(cWidget);
+                if(cWidgetParent->layout())
+                    cWidgetParent->layout()->addWidget(cWidget);
+//                if(cWidgetParent->layout())
+//                    targetLayout = cWidgetParent->layout();
 	    }
 	    ++depth;
 	}else{
-	    cParent->layout()->addWidget(cWidget);
+            cParent->layout()->addWidget(cWidget);
+//            targetLayout = cParent->layout();
 	}
+
+//  "void value not ignored as it ought to be" in QtGui/qlayout.h
+//        if(targetLayout){
+//            QDomElement elp = el.parentNode().toElement();
+//            if(!elp.isNull()){
+//            //  make sure we have a layout directive
+//                if(elp.tagName() == "zui:layout"){
+//                //  for border layouts...
+//                    if(QCAST(ZBorderLayout*,targetLayout)){
+//                        ZBorderLayout *lom = QCAST(ZBorderLayout*,targetLayout);
+//                    //  specifies side of border layout to insert into
+//                        if(elp.hasAttribute("side")){
+//                            if(elp.attribute("side") == "n"){       // North
+//                                lom->addWidget(cWidget, ZBorderLayout::North);
+//                            }else if(elp.attribute("side") == "s"){ // South
+//                                lom->addWidget(cWidget, ZBorderLayout::South);
+//                            }else if(elp.attribute("side") == "e"){ // East
+//                                lom->addWidget(cWidget, ZBorderLayout::East);
+//                            }else if(elp.attribute("side") == "w"){ // West
+//                                lom->addWidget(cWidget, ZBorderLayout::West);
+//                            }else{                                  // Center
+//                                lom->addWidget(cWidget, ZBorderLayout::Center);
+//                            }
+//                        }else{                                      // Fallback
+//                            lom->addWidget(cWidget, ZBorderLayout::Center);
+//                        }
+//                    }else if(QCAST(QGridLayout*,targetLayout)){
+//                        QGridLayout *lom = QCAST(QGridLayout*,targetLayout);
+//
+//                        if(elp.hasAttribute("cell")){
+//                            QStringList elcell = elp.attribute("cell").split(",");
+//                            if(elcell.length() == 2){
+//                                QPoint cell(elcell.value(0).toInt(),
+//                                            elcell.value(1).toInt());
+//
+//                                lom->addWidget(cWidget, cell.x(), cell.y(),
+//                                               elp.attribute("rowspan").toInt(),
+//                                               elp.attribute("colspan").toInt());
+//                            }
+//                        }
+//                    }
+//                }else{
+//                    targetLayout->addWidget(cWidget);
+//                }
+//            }
+//        }
 
 	return true;
     }

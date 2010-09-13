@@ -13,7 +13,7 @@
 		</zee:executor>
 		<zee:setting id="strGranted" value="ACCESS GRANTED" />
 		<zee:setting id="strDenied" value="ACCESS DENIED" />
-		<zee:linuxauth id="zdm" />
+		<zee:linuxauth id="zdm" service="login" />
 	</zee:components>
 	<zee:widgets>
 		<zui:application id="authbox" width="100%" height="100%" frame="false" position="center" resizable="false" layout="vertical" type="dialog" align="AlignCenter">

@@ -38,6 +38,11 @@ public:
 	  ZConfigurable(el,self)
     {
 	parse(_config);
+
+        QWidget *t_Widget = NULL;
+        if( (t_Widget = QCAST(QWidget*,this)) ){
+            zEvent->registerSlot(t_Widget, SIGNAL(setDisabled(bool)));
+        }
     }
 
 private:

@@ -49,13 +49,18 @@ void ZLinuxAuthenticator::authenticate(QString username, QString password){
 
     int status;
     // setup the PAM transaction
+    // DEADLY-CRITICAL IMPORTANT INFORMATION
+    //  if you are unfamiliar with how PAM does its thing, know this:
+    //  you must first create a facility named the same as the value
+    //  in _serviceName for PAM to work.  Create in /etc/pam.d/
+    //
     status = pam_start(CSTR(_serviceName),
 		       cred.username,
 		       &pamConversation,
 		       &_pam);
 
     // perform the authentication
-    if(status==PAM_SUCCESS && _pam){
+    if(_pam && status == PAM_SUCCESS){
 	z_log_debug("ZLinuxAuthenticator: PAM Initialized");
 	status = pam_authenticate(_pam, 0);
 
