@@ -55,7 +55,11 @@ void ZTextInput::parse(const ZConfig &el){
     if(!el.text().isEmpty()) //! default text
 	setText(el.text());
 
-    if(el.hasAttribute("disabled") && el.attribute("disabled") == "true") //! disabled
+
+    if(el.hasAttribute("align"))
+        setAlignment(ZuiUtils::getAlignment(el.attribute("align")));
+
+    if(ZuiUtils::attributeTrue(el.attribute("disabled"))) //! disabled
 	setDisabled(true);
 
     if(el.hasAttribute("maxlength")) //! max character length

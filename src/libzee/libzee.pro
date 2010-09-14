@@ -11,7 +11,9 @@ QT += network
 HEADERS += zlinuxfilenotifier.h \
     zfilenotifier.h \
     zlocalsystem.h \
-    zhtmllistmodel.h
+    zhtmllistmodel.h \
+    zint64.h
 SOURCES += zlinuxfilenotifier.cpp \
     zlocalsystem.cpp \
-    zhtmllistmodel.cpp
+    zhtmllistmodel.cpp \
+    zint64.cpp

@@ -44,6 +44,9 @@ void ZLabel::parse(const ZConfig &el){
     else
 	setText(el.text());
     _initValue = text();
+
+    if(el.hasAttribute("align"))
+        setAlignment(ZuiUtils::getAlignment(el.attribute("align")));
 }
 
 void ZLabel::reset(){

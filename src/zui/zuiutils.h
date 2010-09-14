@@ -18,15 +18,35 @@
 #ifndef ZUIUTILS_H
 #define ZUIUTILS_H
 
-#define ZUI_DEFAULT_LAYOUT    "horizontal"
-#define ZUI_FAILOVER_LAYOUT   QHBoxLayout
+#define ZUI_DEFAULT_LAYOUT              "horizontal"
+#define ZUI_FAILOVER_LAYOUT             QHBoxLayout
 
-#define ZUI_HORIZON_LAYOUT    "horizontal"
-#define ZUI_VERTICAL_LAYOUT   "vertical"
-#define ZUI_FORM_LAYOUT       "form"
-#define ZUI_GRID_LAYOUT       "grid"
-#define ZUI_FLOW_LAYOUT       "flow"
-#define ZUI_BORDER_LAYOUT     "border"
+#define ZCONFIG_ATTRIB_BOOL_TRUE        "true|1|yes|on"
+#define ZCONFIG_ATTRIB_BOOL_FALSE       "false|0|no|off"
+#define ZCONFIG_ATTRIB_CARD_E           "e|east"
+#define ZCONFIG_ATTRIB_CARD_N           "n|north"
+#define ZCONFIG_ATTRIB_CARD_NE          "ne|northeast"
+#define ZCONFIG_ATTRIB_CARD_NW          "nw|northwest"
+#define ZCONFIG_ATTRIB_CARD_S           "s|south"
+#define ZCONFIG_ATTRIB_CARD_SE          "se|southeast"
+#define ZCONFIG_ATTRIB_CARD_SW          "sw|southwest"
+#define ZCONFIG_ATTRIB_CARD_W           "w|west"
+#define ZCONFIG_ATTRIB_ALIGN_RIGHT      "right"
+#define ZCONFIG_ATTRIB_ALIGN_LEFT       "left"
+#define ZCONFIG_ATTRIB_ALIGN_CENTER     "center"
+#define ZCONFIG_ATTRIB_ALIGN_JUSTIFY    "justify"
+#define ZCONFIG_ATTRIB_ALIGN_HCENTER    "hcenter"
+#define ZCONFIG_ATTRIB_ALIGN_VCENTER    "vcenter"
+#define ZCONFIG_ATTRIB_ALIGN_TOP        "top"
+#define ZCONFIG_ATTRIB_ALIGN_BOTTOM     "bottom"
+
+
+#define ZUI_HORIZON_LAYOUT              "horizontal"
+#define ZUI_VERTICAL_LAYOUT             "vertical"
+#define ZUI_FORM_LAYOUT                 "form"
+#define ZUI_GRID_LAYOUT                 "grid"
+#define ZUI_FLOW_LAYOUT                 "flow"
+#define ZUI_BORDER_LAYOUT                "border"
 
 #include <iostream>
 #include <QtCore>
@@ -34,6 +54,7 @@
 #include <QDomElement>
 #include <QList>
 
+#include <zutil.h>
 #include "layouts/zflowlayout.h"
 #include "layouts/zborderlayout.h"
 
@@ -88,6 +109,28 @@ private:
   static QList<QString> _containers;
 
 public:
+  enum ZConfigAttribOption{
+      AlignBottom,
+      AlignCenter,
+      AlignHCenter,
+      AlignJustify,
+      AlignLeft,
+      AlignRight,
+      AlignTop,
+      AlignVCenter,
+      BooleanFalse,
+      BooleanTrue,
+      CardinalEast,
+      CardinalNorth,
+      CardinalNorthEast,
+      CardinalNorthWest,
+      CardinalSouth,
+      CardinalSouthEast,
+      CardinalSouthWest,
+      CardinalWest
+  };
+
+public:
 
 /*!
   Should be called once when the program initializes
@@ -116,25 +159,29 @@ public:
   static QLayout *getLayout(QString id);
 
 /*!
+  Returns the Qt::Alignment enum value for the given configuration value
+*/
+  static Qt::Alignment getAlignment(QString configVal);
+
+/*!
   Returns a QIcon by filename, freedesktop.org-compliant theme
 */
   static QIcon getIcon(QString name);
 
 /*!
-  Performs common tasks on \a newWidget that prepare it to be a container
-  element, using information from \a el to do so.
+  Returns true if \a source is an acceptable value of \a option
 */
-  static void prepareContainer(QWidget *newWidget, const QDomElement *el);
+  static bool attribute(QString source, ZConfigAttribOption option);
 
-  /*!
-    Checks for the presence of and truthiness of an attribute \a name in \a el
-  */
-    static bool attributeTrue(QDomElement el, QString name);
+/*!
+  Checks for the presence of and truthiness of an attribute \a name in \a el
+*/
+  static bool attributeTrue(QString);
 
 /*!
   Checks for the presence of and falsitude of an attribute \a name in \a el
 */
-  static bool attributeFalse(QDomElement el, QString name);
+  static bool attributeFalse(QString);
 
 /*!
   Checks for the presence of and matchiness of an attribute \a name to \a match

@@ -30,23 +30,9 @@
 
 #define ZUTL_DEFAULT_LOG_LEVEL   ZUtil::LogDebug
 
-#define ZEE_APPNAME     "Zee"
-#define ZEE_OBJNAME     "zee"
-#define ZEE_PROGNAME    "zee"
-
-#define ZCONFIG_ATTRIB_BOOL_TRUE        "true|1|yes|on"
-#define ZCONFIG_ATTRIB_BOOL_FALSE       "false|0|no|off"
-#define ZCONFIG_ATTRIB_CARD_E           "e|east"
-#define ZCONFIG_ATTRIB_CARD_N           "n|north"
-#define ZCONFIG_ATTRIB_CARD_NE          "ne|northeast"
-#define ZCONFIG_ATTRIB_CARD_NW          "nw|northwest"
-#define ZCONFIG_ATTRIB_CARD_S           "s|south"
-#define ZCONFIG_ATTRIB_CARD_SE          "se|southeast"
-#define ZCONFIG_ATTRIB_CARD_SW          "sw|southwest"
-#define ZCONFIG_ATTRIB_CARD_W           "w|west"
-#define ZCONFIG_ATTRIB_ALIGN_RIGHT      "right"
-#define ZCONFIG_ATTRIB_ALIGN_LEFT       "left"
-#define ZCONFIG_ATTRIB_ALIGN_CENTER     "center"
+#define ZEE_APPNAME                     "Zee"
+#define ZEE_OBJNAME                     "zee"
+#define ZEE_PROGNAME                    "zee"
 
 #define ZSYM_SPACE                      "space"
 #define ZSYM_TAB                        "tab"
@@ -133,22 +119,6 @@ public:
     LogDebug    = 6
   };
 
-  enum ZConfigAttribOption{
-      AlignCenter,
-      AlignLeft,
-      AlignRight,
-      BooleanFalse,
-      BooleanTrue,
-      CardinalEast,
-      CardinalNorth,
-      CardinalNorthEast,
-      CardinalNorthWest,
-      CardinalSouth,
-      CardinalSouthEast,
-      CardinalSouthWest,
-      CardinalWest
-  };
-
   static ZLogLevel logLevel;
 
 public:
@@ -194,11 +164,6 @@ public:
   separated list of strings
 */
   static bool in(QString source, QString list);
-
-/*!
-  Returns true if \a source is an acceptable value of \a option
-*/
-  static bool configValue(QString source, ZConfigAttribOption option);
 };
 
 #endif // ZUTIL_H

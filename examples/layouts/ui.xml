@@ -5,20 +5,76 @@
   xmlns:zui="http://www.gammazeta.net/zee/zui/">
 
 	<zee:widgets>
-		<zui:application title="Zee UI Demo" width="75%" height="75%" position="center">
+		<zui:application title="Layout Example" position="center" layout="vertical">
 			<zui:container layout="border">
 				<zui:layout side="n">
-					<zui:text id="header">N</zui:text>
+					<zui:text>N</zui:text>
+				</zui:layout>
+				<zui:layout side="s">
+					<zui:text>S</zui:text>
+				</zui:layout>
+				<zui:layout side="w">
+					<zui:text>W1</zui:text>
+					<zui:text>W2</zui:text>
+				</zui:layout>
+				<zui:layout side="e">
+					<zui:text>E1</zui:text>
+					<zui:text>E2</zui:text>
+				</zui:layout>
+				<zui:layout>
+                    <zui:container layout="border">                    
+                        <zui:layout side="north">
+                            <zui:text>N1</zui:text>
+                            <zui:text>N2</zui:text>
+                        </zui:layout>
+                        <zui:layout side="south">
+                            <zui:text>S1</zui:text>
+                            <zui:text>S2</zui:text>
+                        </zui:layout>
+                        
+                        <zui:layout side="east">
+                            <zui:text align="top">E1</zui:text>
+                            <zui:text align="center">E2</zui:text>
+                            <zui:text align="bottom">E3</zui:text>
+                            <zui:text align="center">E4</zui:text>
+                            <zui:text align="top">E5</zui:text>
+                            <zui:text align="center">E6</zui:text>
+                            <zui:text align="bottom">E7</zui:text>
+                            <zui:text align="center">E8</zui:text>
+                        </zui:layout>
+                        
+                        <zui:layout side="west">
+                            <zui:text>W1</zui:text>
+                            <zui:text>W2</zui:text>
+                            <zui:text>W3</zui:text>
+                            <zui:text>W4</zui:text>
+                            <zui:text>W5</zui:text>
+                            <zui:text>W6</zui:text>
+                            <zui:text>W7</zui:text>
+                            <zui:text>W8</zui:text>
+                        </zui:layout>
+                        
+                        <zui:layout>
+                            <zui:text align="center">CENTER</zui:text>
+                        </zui:layout>
+                    </zui:container>
 				</zui:layout>
 			</zui:container>
 
 
-<!--
+
 			<zui:container layout="grid">
 				<zui:layout cell="0,0"><zui:text>0,0</zui:text></zui:layout>
 				<zui:layout cell="0,1"><zui:text>0,1</zui:text></zui:layout>
+                <zui:layout cell="0,2"><zui:text>0,2</zui:text></zui:layout>
+                <zui:layout cell="0,3"><zui:text>0,3</zui:text></zui:layout>
+
+				<zui:layout cell="1,0" align="right"><zui:text>1,0</zui:text></zui:layout>
+				<zui:layout cell="1,1" align="left"><zui:text>1,1</zui:text></zui:layout>
+                <zui:layout cell="1,2" align="right"><zui:text>1,2</zui:text></zui:layout>
+                <zui:layout cell="1,3" align="left"><zui:text>1,3</zui:text></zui:layout>
 			</zui:container>
--->			
+
 		</zui:application>
 	</zee:widgets>
 	<zee:events />

@@ -66,6 +66,81 @@ QLayout *ZuiUtils::getLayout(QString id)
   return layout;
 }
 
+bool ZuiUtils::attribute(QString source, ZConfigAttribOption option){
+    if(source.isEmpty())
+        return false;
+
+//  normalize source string
+    source = source.toLower();
+    source = source.remove(QRegExp("[-_ ]"));
+
+    switch(option){
+    case AlignBottom:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_BOTTOM);
+    case AlignCenter:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_CENTER);
+    case AlignHCenter:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_HCENTER);
+    case AlignJustify:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_JUSTIFY);
+    case AlignLeft:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_LEFT);
+    case AlignRight:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_RIGHT);
+    case AlignTop:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_TOP);
+    case AlignVCenter:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_VCENTER);
+    case BooleanFalse:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_BOOL_FALSE);
+    case BooleanTrue:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_BOOL_TRUE);
+    case CardinalEast:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_E);
+    case CardinalNorth:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_N);
+    case CardinalNorthEast:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_NE);
+    case CardinalNorthWest:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_NW);
+    case CardinalSouth:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_S);
+    case CardinalSouthEast:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_SE);
+    case CardinalSouthWest:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_SW);
+    case CardinalWest:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_W);
+    }
+
+    return false;
+}
+
+Qt::Alignment ZuiUtils::getAlignment(QString configVal){
+    Qt::Alignment retval = 0;
+    QStringList cvs = configVal.split(QRegExp("\\W+"));
+
+    foreach(QString cv, cvs)
+        if(ZuiUtils::attribute(cv,ZuiUtils::AlignLeft))
+            retval |= Qt::AlignLeft;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignRight))
+            retval |= Qt::AlignRight;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignCenter))
+            retval |= Qt::AlignCenter;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignJustify))
+            retval |= Qt::AlignJustify;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignHCenter))
+            retval |= Qt::AlignHCenter;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignVCenter))
+            retval |= Qt::AlignVCenter;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignTop))
+            retval |= Qt::AlignTop;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignBottom))
+            retval |= Qt::AlignBottom;
+
+    return retval;
+}
+
 
 QIcon ZuiUtils::getIcon(QString name){
     if(QFile::exists(name))
@@ -74,23 +149,12 @@ QIcon ZuiUtils::getIcon(QString name){
 	return QIcon::fromTheme(name);
 }
 
-void ZuiUtils::prepareContainer(QWidget *newWidget, const QDomElement *el){
-  newWidget->setLayout(ZuiUtils::getLayout(
-    el->attribute("layout", ZUI_DEFAULT_LAYOUT)));
-
-  if(el->hasAttribute("align")){
-    if(el->attribute("align") == "right"){
-      //newWidget->setLayoutDirection(Qt::RightToLeft);
-    }
-  }
+bool ZuiUtils::attributeTrue(QString value){
+    return ZuiUtils::attribute(value, ZuiUtils::BooleanTrue);
 }
 
-bool ZuiUtils::attributeTrue(QDomElement el, QString name){
-    return (el.hasAttribute(name) && QVariant(el.attribute(name)).toBool());
-}
-
-bool ZuiUtils::attributeFalse(QDomElement el, QString name){
-    return !ZuiUtils::attributeTrue(el,name);
+bool ZuiUtils::attributeFalse(QString value){
+    return ZuiUtils::attribute(value, ZuiUtils::BooleanFalse);
 }
 
 bool ZuiUtils::attributeEquals(QDomElement el, QString name, QVariant match){

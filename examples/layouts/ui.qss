@@ -6,6 +6,7 @@ ZLabel{
 	border: 1px solid red;
 }
 
-#header{
-    min-height: 96px;
+ZLabel:hover{
+    background-color: red;
+    color: white;
 }

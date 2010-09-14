@@ -60,6 +60,7 @@ public:
     Qt::Orientations expandingDirections() const;
     bool hasHeightForWidth() const;
     int count() const;
+    int count(Position type) const;
     QLayoutItem *itemAt(int index) const;
     QSize minimumSize() const;
     void setGeometry(const QRect &rect);

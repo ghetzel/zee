@@ -82,6 +82,14 @@ int ZBorderLayout::count() const
     return list.size();
 }
 
+int ZBorderLayout::count(Position type) const{
+    int count = 0;
+    foreach(ItemWrapper *iw, list)
+        if(iw->position == type)
+            ++count;
+    return count;
+}
+
 QLayoutItem *ZBorderLayout::itemAt(int index) const
 {
     ItemWrapper *wrapper = list.value(index);

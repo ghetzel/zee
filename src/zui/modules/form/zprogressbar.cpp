@@ -31,6 +31,9 @@ void ZProgressBar::parse(const ZConfig &el){
 	setMaximum(el.attribute("max","0").toInt());
     if(el.hasAttribute("value"))
 	setValue(el.attribute("value","0").toInt());
+
+    if(el.hasAttribute("align"))
+        setAlignment(ZuiUtils::getAlignment(el.attribute("align")));
 }
 
 void ZProgressBar::init(){

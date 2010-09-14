@@ -244,15 +244,16 @@ bool ZuiParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
 
                     //  specifies side of border layout to insert into
                         if(elp.hasAttribute("side")){
-                            if(ZUtil::configValue(elp.attribute("side"),ZUtil::CardinalNorth)){       // North
+                            if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalNorth)){       // North
                                 lom->addWidget(cWidget, ZBorderLayout::North);
-                            }else if(ZUtil::configValue(elp.attribute("side"),ZUtil::CardinalSouth)){ // South
+                            }else if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalSouth)){ // South
                                 lom->addWidget(cWidget, ZBorderLayout::South);
-                            }else if(ZUtil::configValue(elp.attribute("side"),ZUtil::CardinalEast)){ // East
+                            }else if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalEast)){ // East
                                 lom->addWidget(cWidget, ZBorderLayout::East);
-                            }else if(ZUtil::configValue(elp.attribute("side"),ZUtil::CardinalWest)){ // West
+                            }else if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalWest)){ // West
                                 lom->addWidget(cWidget, ZBorderLayout::West);
                             }else{                                  // Center
+                                z_log_debug("ZuiParser: Border Center Count = "+STR(lom->count(ZBorderLayout::Center)));
                                 lom->addWidget(cWidget, ZBorderLayout::Center);
                             }
                         }else{                                      // Fallback
@@ -267,11 +268,10 @@ bool ZuiParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
                                 QPoint cell(elcell.value(1).toInt(),
                                             elcell.value(0).toInt());
 
-                                z_log_debug("ZuiParser: QGridLayout: "+STR(cell.y())+","+STR(cell.x()));
-
                                 lom->addWidget(cWidget, cell.y(), cell.x(),
-                                               elp.attribute("rowspan").toInt(),
-                                               elp.attribute("colspan").toInt());
+                                               elp.attribute("rowspan","1").toInt(),
+                                               elp.attribute("colspan","1").toInt(),
+                                               ZuiUtils::getAlignment(elp.attribute("align")));
                             }
                         }
                     }

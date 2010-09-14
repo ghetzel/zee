@@ -46,7 +46,7 @@ void ZTimer::parse(const ZConfig &el){
 
 	_interval = el.attribute("interval").toInt();
 
-	if(ZuiUtils::attributeTrue(el, "onstart")){
+        if(ZuiUtils::attributeTrue(el.attribute("onstart"))){
 	    setInterval(0);
 	    connect(this, SIGNAL(timeout()), this, SLOT(startEmit()));
 	}else{

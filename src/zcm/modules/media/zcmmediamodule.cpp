@@ -28,7 +28,7 @@ ZcmResult ZCMMediaModule::prepare(const QDomElement &el){
 #ifdef ZEE_AUDIO
     }else if(el.tagName() == ZEE_AUDIO){
 	ZAudioManager *c = new ZAudioManager(el,qApp);
-	if(ZuiUtils::attributeTrue(el,"remote"))
+        if(ZuiUtils::attributeTrue(el.attribute("remote")))
 	    c->setAdaptor(new ZAudioAdaptor(c));
 	rv.component = c;
 #endif // ZEE_AUDIO
