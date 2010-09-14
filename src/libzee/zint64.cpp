@@ -101,6 +101,14 @@ bool zint64::operator !=(const qint64 val) const{
     return !(*this == val);
 }
 
+qint32 zint64::high() const{
+    return _high;
+}
+
+qint32 zint64::low() const{
+    return _low;
+}
+
 
 
 void zint64::setValue(const zint64 &val){
