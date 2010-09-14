@@ -1,0 +1,11 @@
+ZRoot{
+	background-color: palette(window);
+}
+
+ZLabel{
+	border: 1px solid red;
+}
+
+#header{
+    min-height: 96px;
+}

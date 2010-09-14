@@ -71,7 +71,8 @@ OTHER_FILES += theme.qss \
     sidebar.xml \
     zde.xml \
     zui-def.xml \
-    ../doc/zee.css
+    ../doc/zee.css \
+    zcm.pri
 linux-g++ { 
     INCLUDEPATH += /usr/include/
     LIBS += -lX11

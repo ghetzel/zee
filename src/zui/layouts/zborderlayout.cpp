@@ -43,18 +43,12 @@
 
 #include "zborderlayout.h"
 
-ZBorderLayout::ZBorderLayout(QWidget *parent, int margin, int spacing)
+ZBorderLayout::ZBorderLayout(int margin, int spacing, QWidget *parent)
     : QLayout(parent)
 {
     setMargin(margin);
     setSpacing(spacing);
 }
-
-ZBorderLayout::ZBorderLayout(int spacing)
-{
-    setSpacing(spacing);
-}
-
 
 ZBorderLayout::~ZBorderLayout()
 {
@@ -187,7 +181,7 @@ QLayoutItem *ZBorderLayout::takeAt(int index)
 
 void ZBorderLayout::add(QLayoutItem *item, Position position)
 {
-    list.append(new ItemWrapper(item, position));
+    list.prepend(new ItemWrapper(item, position));
 }
 
 QSize ZBorderLayout::calculateSize(SizeType sizeType) const

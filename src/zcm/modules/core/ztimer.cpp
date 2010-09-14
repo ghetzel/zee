@@ -59,7 +59,7 @@ void ZTimer::parse(const ZConfig &el){
 	}
 	start();
     }else if(el.hasAttribute("countdown")){
-
+        _targetTime = QDateTime::fromString(el.attribute("countdown"));
     }else{
 	z_log_error("ZTimer: Cannot start timer without an interval");
     }

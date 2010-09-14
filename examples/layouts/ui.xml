@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+
+	<zee:widgets>
+		<zui:application title="Zee UI Demo" width="75%" height="75%" position="center">
+			<zui:container layout="border">
+				<zui:layout side="n">
+					<zui:text id="header">N</zui:text>
+				</zui:layout>
+			</zui:container>
+
+
+<!--
+			<zui:container layout="grid">
+				<zui:layout cell="0,0"><zui:text>0,0</zui:text></zui:layout>
+				<zui:layout cell="0,1"><zui:text>0,1</zui:text></zui:layout>
+			</zui:container>
+-->			
+		</zui:application>
+	</zee:widgets>
+	<zee:events />
+</zee>

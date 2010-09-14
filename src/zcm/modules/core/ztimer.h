@@ -53,6 +53,7 @@ private:
     int _interval;
     bool _emitOnStart;
     QTimer *_tracker;
+    QDateTime _targetTime;
     int _elapsed;
 };
 

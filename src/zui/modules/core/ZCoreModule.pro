@@ -10,6 +10,7 @@ DEPENDPATH += ../../..
 RESOURCES = res/zee.qrc
 HEADERS += zuiutils.h \
     zui/layouts/zflowlayout.h \
+    zui/layouts/zborderlayout.h \
     zcoremodule.h \
     zscreenmanager.h \
     zuiplugin.h \
@@ -28,6 +29,7 @@ HEADERS += zuiutils.h \
     zsplitter.h
 SOURCES += zuiutils.cpp \
     zui/layouts/zflowlayout.cpp \
+    zui/layouts/zborderlayout.cpp \
     zcoremodule.cpp \
     zscreenmanager.cpp \
     zutil.cpp \

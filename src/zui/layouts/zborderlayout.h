@@ -48,11 +48,11 @@
 
 class ZBorderLayout : public QLayout
 {
+    Q_OBJECT
 public:
     enum Position { West, North, South, East, Center };
 
-    ZBorderLayout(QWidget *parent, int margin = 0, int spacing = -1);
-    ZBorderLayout(int spacing = -1);
+    ZBorderLayout(int margin = 0, int spacing = -1, QWidget *parent=0);
     ~ZBorderLayout();
 
     void addItem(QLayoutItem *item);

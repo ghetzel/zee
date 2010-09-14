@@ -85,6 +85,51 @@ QString ZUtil::execln(QString command, QString terminator){
     return ZUtil::exec(command).replace(QRegExp("[\n\r]"),terminator);
 }
 
+bool ZUtil::in(QString source, QString list){
+    QStringList lst = list.split(QRegExp("\\W+"));
+    return lst.contains(source);
+}
+
+bool ZUtil::configValue(QString source, ZConfigAttribOption option){
+    if(source.isEmpty())
+        return false;
+
+//  normalize source string
+    source = source.toLower();
+    source = source.remove(QRegExp("[-_ ]"));
+            
+    switch(option){
+    case AlignCenter:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_CENTER);
+    case AlignLeft:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_LEFT);
+    case AlignRight:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_RIGHT);
+    case BooleanFalse:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_BOOL_FALSE);
+    case BooleanTrue:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_BOOL_TRUE);
+    case CardinalEast:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_E);
+    case CardinalNorth:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_N);
+    case CardinalNorthEast:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_NE);
+    case CardinalNorthWest:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_NW);
+    case CardinalSouth:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_S);
+    case CardinalSouthEast:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_SE);
+    case CardinalSouthWest:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_SW);
+    case CardinalWest:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_W);
+    }
+
+    return false;
+}
+
 
 QString ZUtil::trsym(QChar in){
     switch(in.toAscii()){

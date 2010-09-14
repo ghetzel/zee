@@ -22,6 +22,7 @@
 #include <QtGlobal>
 #include <QtDebug>
 #include <QString>
+#include <QStringList>
 #include <QVariant>
 #include <QFile>
 #include <QRegExp>
@@ -33,40 +34,54 @@
 #define ZEE_OBJNAME     "zee"
 #define ZEE_PROGNAME    "zee"
 
-#define ZSYM_SPACE      "space"
-#define ZSYM_TAB        "tab"
-#define ZSYM_DOT        "dot"
-#define ZSYM_SLASH      "slash"
-#define ZSYM_BSLASH     "backslash"
-#define ZSYM_BTICK      "backtick"
-#define ZSYM_TILDE      "tilde"
-#define ZSYM_EXCLAIM    "exclaim"
-#define ZSYM_AT         "at"
-#define ZSYM_HASH       "hash"
-#define ZSYM_DOLLAR     "dollar"
-#define ZSYM_PERCENT    "percent"
-#define ZSYM_CARAT      "carat"
-#define ZSYM_AMPERSAND  "ampersand"
-#define ZSYM_ASTERISK   "asterisk"
-#define ZSYM_PAREN1     "paren1"
-#define ZSYM_PAREN2     "paren2"
-#define ZSYM_HYPHEN     "hyphen"
-#define ZSYM_UNDERSCORE "underscore"
-#define ZSYM_PLUS       "plus"
-#define ZSYM_EQUALS     "equals"
-#define ZSYM_BRACE1     "brace1"
-#define ZSYM_BRACE2     "brace2"
-#define ZSYM_SQUARE1    "square1"
-#define ZSYM_SQUARE2    "square2"
-#define ZSYM_PIPE       "pipe"
-#define ZSYM_SEMICOLON  "semicolon"
-#define ZSYM_COLON      "colon"
-#define ZSYM_DQUOTE     "double-quote"
-#define ZSYM_QUOTE      "quote"
-#define ZSYM_LCARAT     "left-carat"
-#define ZSYM_RCARAT     "right-carat"
-#define ZSYM_COMMA      "comma"
-#define ZSYM_QUESTION   "question"
+#define ZCONFIG_ATTRIB_BOOL_TRUE        "true|1|yes|on"
+#define ZCONFIG_ATTRIB_BOOL_FALSE       "false|0|no|off"
+#define ZCONFIG_ATTRIB_CARD_E           "e|east"
+#define ZCONFIG_ATTRIB_CARD_N           "n|north"
+#define ZCONFIG_ATTRIB_CARD_NE          "ne|northeast"
+#define ZCONFIG_ATTRIB_CARD_NW          "nw|northwest"
+#define ZCONFIG_ATTRIB_CARD_S           "s|south"
+#define ZCONFIG_ATTRIB_CARD_SE          "se|southeast"
+#define ZCONFIG_ATTRIB_CARD_SW          "sw|southwest"
+#define ZCONFIG_ATTRIB_CARD_W           "w|west"
+#define ZCONFIG_ATTRIB_ALIGN_RIGHT      "right"
+#define ZCONFIG_ATTRIB_ALIGN_LEFT       "left"
+#define ZCONFIG_ATTRIB_ALIGN_CENTER     "center"
+
+#define ZSYM_SPACE                      "space"
+#define ZSYM_TAB                        "tab"
+#define ZSYM_DOT                        "dot"
+#define ZSYM_SLASH                      "slash"
+#define ZSYM_BSLASH                     "backslash"
+#define ZSYM_BTICK                      "backtick"
+#define ZSYM_TILDE                      "tilde"
+#define ZSYM_EXCLAIM                    "exclaim"
+#define ZSYM_AT                         "at"
+#define ZSYM_HASH                       "hash"
+#define ZSYM_DOLLAR                     "dollar"
+#define ZSYM_PERCENT                    "percent"
+#define ZSYM_CARAT                      "carat"
+#define ZSYM_AMPERSAND                  "ampersand"
+#define ZSYM_ASTERISK                   "asterisk"
+#define ZSYM_PAREN1                     "paren1"
+#define ZSYM_PAREN2                     "paren2"
+#define ZSYM_HYPHEN                     "hyphen"
+#define ZSYM_UNDERSCORE                 "underscore"
+#define ZSYM_PLUS                       "plus"
+#define ZSYM_EQUALS                     "equals"
+#define ZSYM_BRACE1                     "brace1"
+#define ZSYM_BRACE2                     "brace2"
+#define ZSYM_SQUARE1                    "square1"
+#define ZSYM_SQUARE2                    "square2"
+#define ZSYM_PIPE                       "pipe"
+#define ZSYM_SEMICOLON                  "semicolon"
+#define ZSYM_COLON                      "colon"
+#define ZSYM_DQUOTE                     "double-quote"
+#define ZSYM_QUOTE                      "quote"
+#define ZSYM_LCARAT                     "left-carat"
+#define ZSYM_RCARAT                     "right-carat"
+#define ZSYM_COMMA                      "comma"
+#define ZSYM_QUESTION                   "question"
 
 #define z_out(x)        ZUtil::output(x);
 #define z_log(x)        ZUtil::log(x)
@@ -95,8 +110,8 @@
 #ifndef Q_PI
 static const double Q_PI   = 3.14159265358979323846;
 
-#define RADIANS(x)      (x)*(Q_PI/180)
-#define DEGREES(x)      (x)*(180/Q_PI)
+#define RADIANS(x)      (x)*(Q_PI/180.0)
+#define DEGREES(x)      (x)*(180.0/Q_PI)
 #endif
 
 using namespace std;
@@ -110,12 +125,28 @@ class ZUtil{
 
 public:
   enum ZLogLevel{
-    LogNone = 1,
+    LogNone     = 1,
     LogCritical = 2,
-    LogError = 3,
-    LogWarning = 4,
-    LogInfo = 5,
-    LogDebug = 6
+    LogError    = 3,
+    LogWarning  = 4,
+    LogInfo     = 5,
+    LogDebug    = 6
+  };
+
+  enum ZConfigAttribOption{
+      AlignCenter,
+      AlignLeft,
+      AlignRight,
+      BooleanFalse,
+      BooleanTrue,
+      CardinalEast,
+      CardinalNorth,
+      CardinalNorthEast,
+      CardinalNorthWest,
+      CardinalSouth,
+      CardinalSouthEast,
+      CardinalSouthWest,
+      CardinalWest
   };
 
   static ZLogLevel logLevel;
@@ -157,6 +188,17 @@ public:
   Returns a printable version of \a symbol suitable for use in filenames
 */
   static QString trsym(QChar in);
+
+/*!
+  Returns whether a given string \a source is in a non-alphanumeric character-
+  separated list of strings
+*/
+  static bool in(QString source, QString list);
+
+/*!
+  Returns true if \a source is an acceptable value of \a option
+*/
+  static bool configValue(QString source, ZConfigAttribOption option);
 };
 
 #endif // ZUTIL_H

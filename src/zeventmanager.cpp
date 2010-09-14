@@ -62,7 +62,7 @@ void ZEventManager::registerMethod(QMetaMethod::MethodType type,
 	z_log_error("ZEventManager: Method not specified, skip register");
 	return; }
     if(object->objectName().isEmpty()){
-	z_log_debug("ZEventManager: Object name not specified, skip register");
+        //z_log_debug("ZEventManager: Object name not specified, skip register");
 	return; }
 /*  ------------------------------------------------------------------------- */
 
