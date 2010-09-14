@@ -110,5 +110,5 @@ void zint64::setValue(const zint64 &val){
 void zint64::setValue(const qint64 val){
     _value = val;
     _high = ((val & 0xFFFFFFFF00000000) >> 32);
-    _low = (val & 0xFFFFFFFF);
+    _low =   (val & 0x00000000FFFFFFFF);
 }
