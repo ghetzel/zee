@@ -155,8 +155,8 @@ void ZEventRelationship::invokeSlot(QList<QVariant> args){
 
 //	    1 argument
 	    }if(slotArgs.length() == 1){
-		if(slotArgs.at(0) == QVariant::Int){ //		    (int)
-		    emit adapted(args.at(0).toInt());
+                if(slotArgs.at(0) == QVariant::Int){ //             (int)
+                    emit adapted(args.at(0).toInt());
 		}else if(slotArgs.at(0) == QVariant::UInt){ //	    (uint)
 		    emit adapted(args.at(0).toUInt());
 		}else if(slotArgs.at(0) == QVariant::LongLong){ //  (qlonglong)
@@ -180,7 +180,7 @@ void ZEventRelationship::invokeSlot(QList<QVariant> args){
 		}else if(slotArgs.at(0) == QVariant::Url){ //	    (QUrl)
 		    emit adapted(args.at(0).toUrl());
 		}else{
-		    return;
+                    emit adapted(args.at(0));
 		}
 
 //	    2 arguments
@@ -193,8 +193,12 @@ void ZEventRelationship::invokeSlot(QList<QVariant> args){
 		    if(slotArgs.at(1) == QVariant::String){ //	    (QString,QString)
 			emit adapted(args.at(0).toString(),
 				     args.at(1).toString());
-		    }
-		}
+                    }else{
+                        emit adapted(args.at(0), args.at(1), args.at(2));
+                    }
+                }else{
+                    emit adapted(args.at(0), args.at(1));
+                }
     //	    3 arguments
 	    }else if(slotArgs.length() == 3){
 		if(slotArgs.at(0) == QVariant::String){
@@ -203,9 +207,15 @@ void ZEventRelationship::invokeSlot(QList<QVariant> args){
 			    emit adapted(args.at(0).toString(),
 					 args.at(1).toString(),
 					 args.at(2).toString());
-			}
-		    }
-		}
+                        }else{
+                            emit adapted(args.at(0), args.at(1), args.at(2));
+                        }
+                    }else{
+                        emit adapted(args.at(0), args.at(1), args.at(2));
+                    }
+                }else{
+                    emit adapted(args.at(0), args.at(1), args.at(2));
+                }
     //	    4 arguments
 	    }else if(slotArgs.length() == 4){
 		if(slotArgs.at(0) == QVariant::String){
@@ -216,10 +226,22 @@ void ZEventRelationship::invokeSlot(QList<QVariant> args){
 					     args.at(1).toString(),
 					     args.at(2).toString(),
 					     args.at(3).toUInt());
-			    }
-			}
-		    }
-		}
+                            }else{
+                                emit adapted(args.at(0), args.at(1),
+                                             args.at(2), args.at(3));
+                            }
+                        }else{
+                            emit adapted(args.at(0), args.at(1),
+                                         args.at(2), args.at(3));
+                        }
+                    }else{
+                        emit adapted(args.at(0), args.at(1),
+                                     args.at(2), args.at(3));
+                    }
+                }else{
+                    emit adapted(args.at(0), args.at(1),
+                                 args.at(2), args.at(3));
+                }
 	    }
 	}else{
 	    z_log_error("ZEventRelationship: Cannot invoke unnamed method of "+

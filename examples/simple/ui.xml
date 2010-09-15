@@ -4,21 +4,22 @@
   xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
   xmlns:zui="http://www.gammazeta.net/zee/zui/">
 	<zee:components>
-		<zee:timer id="tm" countdown="2010-09-17 18:00:00" tracking="37" />
+		<zee:timer id="tm" countdown="2010-09-17 18:00:00" tracking="11" />
+		
+		<zee:formatter id="countdownFormat" type="date" method="format" value="d:hh:mm:ss.zzz || u" />
+		
+	    <!--<zee:transform id="dateTransformer" />-->
 	</zee:components>
+	
 	<zee:widgets>
-		<zui:application id="main" width="100%" height="128" position="nw" layout="vertical">
-  			<zui:marquee id="time" value="--:--:--" images="../../dev/njt-segmented-sign/chars/%1.svg" width="80" height="120">
-<!--				<zui:lines>
-					<zui:line>SECAUCUS</zui:line>
-					<zui:line>TEST 2</zui:line>
-					<zui:line>TEST 3</zui:line>
-				</zui:lines> -->
-			</zui:marquee>
-		</zui:application>
+	    <zui:application width="100%" height="96" type="desktop" position="nw">
+            <zui:marquee id="time" images="../../dev/njt-segmented-sign/chars/%1.svg" width="80" height="120" />
+   	    </zui:application>
 	</zee:widgets>
+	
 	<zee:events>
-		<zee:connect from="tm.remaining" to="time.setText" direct="false" />
+		<zee:connect from="tm.remaining" to="countdownFormat.transform" direct="false" />
+    	<zee:connect from="countdownFormat.ready" to="time.setText" direct="false" />
 		<zee:connect from="tm.timeout" to="zee.quit" />
 	</zee:events>
 </zee>
