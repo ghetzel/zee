@@ -39,7 +39,8 @@ HEADERS += zevent.h \
     zeeadaptor.h \
     zdbusabstractadaptor.h \
     zui/layouts/zborderlayout.h \
-    zcoreapplication.h
+    zcoreapplication.h \
+    libzee/zint64.h
 SOURCES += zevent.cpp \
     zutil.cpp \
     main.cpp \
@@ -55,7 +56,8 @@ SOURCES += zevent.cpp \
     zmethodobject.cpp \
     zeeadaptor.cpp \
     zdbusabstractadaptor.cpp \
-    zui/layouts/zborderlayout.cpp
+    zui/layouts/zborderlayout.cpp \
+    libzee/zint64.cpp
 OTHER_FILES += theme.qss \
     dev/ideaman \
     theme.qss.orig \

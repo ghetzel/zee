@@ -1,5 +1,5 @@
 ZRoot{
-	background-color: black;
+	background-color: transparent;
 	spacing: 0px;
 }
 

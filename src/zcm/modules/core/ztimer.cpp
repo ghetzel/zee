@@ -23,8 +23,8 @@ ZTimer::ZTimer(const ZConfig &el, QObject *parent)
 {
     _tracker = new QTimer(this);
     zEvent->registerSignal(this, SIGNAL(timeout()));
-    zEvent->registerSignal(this, SIGNAL(elapsed(int)));
-    zEvent->registerSignal(this, SIGNAL(remaining(int)));
+    zEvent->registerSignal(this, SIGNAL(elapsed(qint64)));
+    zEvent->registerSignal(this, SIGNAL(remaining(qint64)));
     zEvent->registerSignal(this, SIGNAL(tick()));
     zEvent->registerSlot(this, SLOT(start()));
     zEvent->registerSlot(this, SLOT(start(int)));
@@ -46,7 +46,7 @@ void ZTimer::parse(const ZConfig &el){
 
 	_interval = el.attribute("interval").toInt();
 
-        if(ZuiUtils::attributeTrue(el.attribute("onstart"))){
+	if(ZuiUtils::attributeTrue(el.attribute("onstart"))){
 	    setInterval(0);
 	    connect(this, SIGNAL(timeout()), this, SLOT(startEmit()));
 	}else{
@@ -57,12 +57,28 @@ void ZTimer::parse(const ZConfig &el){
 	    uint tintv = QVariant(el.attribute("tracking")).toUInt();
 	    trackStart(tintv);
 	}
+
 	start();
     }else if(el.hasAttribute("countdown")){
-        _targetTime = QDateTime::fromString(el.attribute("countdown"));
+	_targetTime = QVariant(el.attribute("countdown")).toDateTime();
+
+	if(_targetTime.isValid()){
+	    _interval = (CAST(quint64,_targetTime.toTime_t())*1000LL)-NOW_MSEC();
+
+	    if(_interval > 0)
+		trackStart(QVariant(el.attribute("tracking","1000")).toUInt());
+
+	    z_log_debug("ZTimer: ToDate = "+_targetTime.toString("yyyy-MM-dd"));
+	    z_log_debug("ZTimer: To = "+STR(CAST(quint64,_targetTime.toTime_t())*1000LL));
+	    z_log_debug("ZTimer: Now = "+STR(NOW_MSEC()));
+	    z_log_debug("ZTimer: Countdown Interval: "+STR(_interval));
+	}
+
     }else{
 	z_log_error("ZTimer: Cannot start timer without an interval");
+	return;
     }
+
 }
 
 
@@ -77,18 +93,22 @@ void ZTimer::startEmit(){
 }
 
 void ZTimer::trackStart(int intv){
-    if(intv >= ZTIMER_TRACKING_INTV){
-	_elapsed = 0;
-	_tracker->setInterval(intv);
-	connect(_tracker, SIGNAL(timeout()), this, SLOT(trackTick()), Qt::UniqueConnection);
+    _elapsed = 0;
+    _tracker->setInterval(intv);
+    if(connect(_tracker, SIGNAL(timeout()), this, SLOT(trackTick()), Qt::UniqueConnection))
 	_tracker->start();
-    }
 }
 
 void ZTimer::trackTick(){
     _elapsed += _tracker->interval();
     if(_elapsed >= _interval){
 	trackFinish();
+	emit elapsed(_interval);
+	emit remaining(0);
+	emit tick();
+
+	if(!_targetTime.isNull())
+	    emit timeout();
     }else{
 	emit tick();
 	emit elapsed(_elapsed);

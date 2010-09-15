@@ -54,6 +54,8 @@
 #include <zeventmanager.h>
 #include <zui/zuiparser.h>
 
+#include <libzee/zint64.h>
+
 /*!
   \class Zee
   \ingroup zeeapp

@@ -2,14 +2,20 @@
 
 zint64::zint64(){
     _value = 0;
-    _high = 0;
-    _low  = 0;
+}
+
+zint64::zint64(const zint64 &val){
+    if(this != &val)
+	setValue(val);
+}
+
+zint64::zint64(const qint64 val){
+    setValue(val);
 }
 
 zint64 &zint64::operator =(const zint64 &val){
-//  self-assignment check
     if(this != &val)
-        setValue(val);
+	setValue(val);
     return *this;
 }
 
@@ -102,14 +108,16 @@ bool zint64::operator !=(const qint64 val) const{
 }
 
 qint32 zint64::high() const{
-    return _high;
+    if(_value > 0xFFFFFFFF)
+	return LOW32(_value)+HIGH32(_value);
+    return HIGH32(_value);
 }
 
-qint32 zint64::low() const{
-    return _low;
+quint32 zint64::low() const{
+    if(_value > 0xFFFFFFFF)
+	return 0xFFFFFFFF;
+    return LOW32(_value);
 }
-
-
 
 void zint64::setValue(const zint64 &val){
     setValue(val._value);
@@ -117,6 +125,8 @@ void zint64::setValue(const zint64 &val){
 
 void zint64::setValue(const qint64 val){
     _value = val;
-    _high = ((val & 0xFFFFFFFF00000000) >> 32);
-    _low =   (val & 0x00000000FFFFFFFF);
+}
+
+qint64 zint64::toLongLong() const{
+    return _value;
 }

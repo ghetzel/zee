@@ -22,6 +22,7 @@ Zee *Zee::_app = 0;
 Zee::Zee(int argc, char *argv[])
     : QApplication(argc, argv){
     _app = this;
+
     init();
 }
 
