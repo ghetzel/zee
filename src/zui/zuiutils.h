@@ -39,7 +39,12 @@
 #define ZCONFIG_ATTRIB_ALIGN_VCENTER    "vcenter"
 #define ZCONFIG_ATTRIB_ALIGN_TOP        "top"
 #define ZCONFIG_ATTRIB_ALIGN_BOTTOM     "bottom"
-
+#define ZCONFIG_ATTRIB_SEV_DEBUG	"debug|debugging|d"
+#define ZCONFIG_ATTRIB_SEV_INFO		"info|information|i"
+#define ZCONFIG_ATTRIB_SEV_WARN		"warn|warning|w"
+#define ZCONFIG_ATTRIB_SEV_ERROR	"err|error|e"
+#define ZCONFIG_ATTRIB_SEV_CRIT		"crit|critical|c"
+#define ZCONFIG_ATTRIB_SEV_QUESTION	"question|help|q"
 
 #define ZUI_HORIZON_LAYOUT              "horizontal"
 #define ZUI_VERTICAL_LAYOUT             "vertical"
@@ -127,7 +132,13 @@ public:
       CardinalSouth,
       CardinalSouthEast,
       CardinalSouthWest,
-      CardinalWest
+      CardinalWest,
+      SeverityCritical,
+      SeverityDebug,
+      SeverityError,
+      SeverityInfo,
+      SeverityQuestion,
+      SeverityWarning
   };
 
 public:

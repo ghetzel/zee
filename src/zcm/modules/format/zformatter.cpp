@@ -30,23 +30,23 @@ ZFormatter::ZFormatter(const ZConfig &el, QObject *parent)
 
 void ZFormatter::parse(const ZConfig &el){
     if(el.hasAttribute("type") && el.hasAttribute("method")){
-        _formatter = formatter(el.attribute("type"));        
-        if(_formatter){
-            _formatter->setMethod(el.attribute("method"));
+	_formatter = formatter(el.attribute("type"));
+	if(_formatter){
+	    _formatter->setMethod(el.attribute("method"));
 
-            foreach(QString arg, el.attribute("value").split(" || "))
-                _formatter->pushArgument(arg);
+	    foreach(QString arg, el.attribute("value").split(" || "))
+		_formatter->pushArgument(arg);
 
-            connect(_formatter, SIGNAL(ready(QVariant)), this, SIGNAL(ready(QVariant)));
-        }
+	    connect(_formatter, SIGNAL(ready(QVariant)), this, SIGNAL(ready(QVariant)));
+	}
     }
 }
 
 void ZFormatter::transform(QVariant val){
     if(_formatter)
-        _formatter->transform(val);
+	_formatter->transform(val);
     else
-        z_log_debug("ZFormatter: No formatter found.");
+	z_log_debug("ZFormatter: No formatter found.");
 }
 
 
@@ -55,15 +55,15 @@ ZAbstractFormatter *ZFormatter::formatter(QString name){
 
 //  create the proper formatter
     if(name == "string"){
-        rv = new ZStringFormatter(this);
+	rv = new ZStringFormatter(this);
     }else if(name == "number"){
     }else if(name == "date"){
-        rv = new ZDateFormatter(this);
+	rv = new ZDateFormatter(this);
     }
 
     if(rv){
-        rv->setObjectName(name);
-        return rv;
+	rv->setObjectName(name);
+	return rv;
     }
 
     return NULL;
@@ -71,6 +71,6 @@ ZAbstractFormatter *ZFormatter::formatter(QString name){
 
 QString ZFormatter::type(){
     if(_formatter)
-        return _formatter->objectName();
+	return _formatter->objectName();
     return QString();
 }

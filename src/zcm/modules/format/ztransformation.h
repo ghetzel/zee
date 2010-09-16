@@ -19,6 +19,7 @@
 #define ZTRANSFORMATION_H
 
 #define ZCM_TRANSFORMATION          "zee:transform"
+#define ZTRANS_FORMATTER	    "zee:apply"
 
 #include <QObject>
 #include <zconfigurable.h>

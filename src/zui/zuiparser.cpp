@@ -41,7 +41,6 @@ ZuiParser::ZuiParser(QDomElement &el, ZCoreApplication *parent)
     for(uint i = 0; i < nn.length(); i++)
 	parse(nn.item(i));
 
-
     if(qApp->topLevelWidgets().count() == 0)
 	z_log_warn("ZuiParser: No widgets added");
 }
@@ -160,7 +159,7 @@ bool ZuiParser::parseNode(QDomNode &node)
 		    _currentParent = zResult.parent;
 		    break;
 		}
-            }
+	    }
 
 	    //  connect handlers, set properties, and display the widget
 	    pushWidget(el, zResult.widget, zResult.parent);
@@ -210,76 +209,76 @@ bool ZuiParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
 
 //                if(cWidgetParent->layout())
 //                    cWidgetParent->layout()->addWidget(cWidget);
-                if(cWidgetParent->layout())
-                    targetLayout = cWidgetParent->layout();
+		if(cWidgetParent->layout())
+		    targetLayout = cWidgetParent->layout();
 	    }
 	    ++depth;
 	}else{
 //            cParent->layout()->addWidget(cWidget);
-            targetLayout = cParent->layout();
+	    targetLayout = cParent->layout();
 	}
 
-        if(targetLayout){
-            QDomElement elp = el.parentNode().toElement();
-            if(!elp.isNull()){                
-            //  make sure we have a layout directive
-                if(elp.tagName() == "zui:layout"){
-                //  Border Layout
-                //  Ex.:
-                //        <zui:container layout="border">
-                //            <zui:layout side="north">
-                //                ... NORTH WIDGETS ...
-                //            </zui:layout>
-                //            <zui:layout side="east">
-                //                ... EAST WIDGETS ...
-                //            </zui:layout>
-                //
-                //            <zui:layout>
-                //                ... CENTER WIDGETS ...
-                //            </zui:layout>
-                //        </zui:container>
-                //
-                    if(DCAST(ZBorderLayout*,targetLayout)){
-                        ZBorderLayout *lom = DCAST(ZBorderLayout*,targetLayout);
+	if(targetLayout){
+	    QDomElement elp = el.parentNode().toElement();
+	    if(!elp.isNull()){
+	    //  make sure we have a layout directive
+		if(elp.tagName() == "zui:layout"){
+		//  Border Layout
+		//  Ex.:
+		//        <zui:container layout="border">
+		//            <zui:layout side="north">
+		//                ... NORTH WIDGETS ...
+		//            </zui:layout>
+		//            <zui:layout side="east">
+		//                ... EAST WIDGETS ...
+		//            </zui:layout>
+		//
+		//            <zui:layout>
+		//                ... CENTER WIDGETS ...
+		//            </zui:layout>
+		//        </zui:container>
+		//
+		    if(DCAST(ZBorderLayout*,targetLayout)){
+			ZBorderLayout *lom = DCAST(ZBorderLayout*,targetLayout);
 
-                    //  specifies side of border layout to insert into
-                        if(elp.hasAttribute("side")){
-                            if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalNorth)){       // North
-                                lom->addWidget(cWidget, ZBorderLayout::North);
-                            }else if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalSouth)){ // South
-                                lom->addWidget(cWidget, ZBorderLayout::South);
-                            }else if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalEast)){ // East
-                                lom->addWidget(cWidget, ZBorderLayout::East);
-                            }else if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalWest)){ // West
-                                lom->addWidget(cWidget, ZBorderLayout::West);
-                            }else{                                  // Center
-                                z_log_debug("ZuiParser: Border Center Count = "+STR(lom->count(ZBorderLayout::Center)));
-                                lom->addWidget(cWidget, ZBorderLayout::Center);
-                            }
-                        }else{                                      // Fallback
-                            lom->addWidget(cWidget, ZBorderLayout::Center);
-                        }
-                    }else if(DCAST(QGridLayout*,targetLayout)){
-                        QGridLayout *lom = DCAST(QGridLayout*,targetLayout);
+		    //  specifies side of border layout to insert into
+			if(elp.hasAttribute("side")){
+			    if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalNorth)){       // North
+				lom->addWidget(cWidget, ZBorderLayout::North);
+			    }else if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalSouth)){ // South
+				lom->addWidget(cWidget, ZBorderLayout::South);
+			    }else if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalEast)){ // East
+				lom->addWidget(cWidget, ZBorderLayout::East);
+			    }else if(ZuiUtils::attribute(elp.attribute("side"),ZuiUtils::CardinalWest)){ // West
+				lom->addWidget(cWidget, ZBorderLayout::West);
+			    }else{                                  // Center
+				z_log_debug("ZuiParser: Border Center Count = "+STR(lom->count(ZBorderLayout::Center)));
+				lom->addWidget(cWidget, ZBorderLayout::Center);
+			    }
+			}else{                                      // Fallback
+			    lom->addWidget(cWidget, ZBorderLayout::Center);
+			}
+		    }else if(DCAST(QGridLayout*,targetLayout)){
+			QGridLayout *lom = DCAST(QGridLayout*,targetLayout);
 
-                        if(elp.hasAttribute("cell")){
-                            QStringList elcell = elp.attribute("cell").split(",");
-                            if(elcell.length() == 2){
-                                QPoint cell(elcell.value(1).toInt(),
-                                            elcell.value(0).toInt());
+			if(elp.hasAttribute("cell")){
+			    QStringList elcell = elp.attribute("cell").split(",");
+			    if(elcell.length() == 2){
+				QPoint cell(elcell.value(1).toInt(),
+					    elcell.value(0).toInt());
 
-                                lom->addWidget(cWidget, cell.y(), cell.x(),
-                                               elp.attribute("rowspan","1").toInt(),
-                                               elp.attribute("colspan","1").toInt(),
-                                               ZuiUtils::getAlignment(elp.attribute("align")));
-                            }
-                        }
-                    }
-                }else{
-                    targetLayout->addWidget(cWidget);
-                }
-            }
-        }
+				lom->addWidget(cWidget, cell.y(), cell.x(),
+					       elp.attribute("rowspan","1").toInt(),
+					       elp.attribute("colspan","1").toInt(),
+					       ZuiUtils::getAlignment(elp.attribute("align")));
+			    }
+			}
+		    }
+		}else{
+		    targetLayout->addWidget(cWidget);
+		}
+	    }
+	}
 
 	return true;
     }

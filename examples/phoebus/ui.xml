@@ -16,12 +16,16 @@
 			<zee:metaproperty type="audio" name="bookmarks" key="bookmark" />
 		</zee:metareader>
 
-		<zee:media id="media" remote="true">
-		    
-		</zee:media>
-		
-		<zee:media id="notifications" />
+		<zee:media id="media" remote="true" />		    
 		<zee:system id="system" />
+
+		<zee:formatter id="fmtTimeLength" type="date" method="format" value="mm:ss || U" />
+		<zee:formatter id="fmtTimeLengthMSec" type="date" method="format" value="mm:ss || u" />
+
+		<zee:transform id="fmtSongTitle">
+			<zee:apply type="string" method="rightOf" value=" - " />
+			<zee:apply type="string" method="upcase" />
+		</zee:transform>
 
 		<zee:setting id="vNowPlaying" value="queueScreen" />
 		<zee:setting id="vLibrary" value="libraryScreen" />
@@ -29,12 +33,12 @@
 
 		<zee:key id="scNowPlaying" src="phoebus" value="Ctrl+P" />
 		<zee:key id="scLibrary" src="phoebus" value="Ctrl+L" />
-
 		<zee:key id="scTogglePlay" src="phoebus" value="Alt+P" />
 		<zee:key id="scStop"       src="phoebus" value="Alt+S" />
 		<zee:key id="scNext"       src="phoebus" value="Alt+." />
 		<zee:key id="scPrevious"   src="phoebus" value="Alt+," />
 
+		<zee:trayicon id="tray" icon=":/icons/zee.svg" tip="Phoebus" />
 	</zee:components>
 	<zee:widgets>
 		<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
@@ -80,7 +84,7 @@
 			                		<zui:label value="Genre" />
 			        		        <zui:label value="Album" />
 	        		        </zui:container>
-			                <zui:folder id="browser" uri="/home/ghetzel/cortex/commons/flac-content/import/Stargate Atlantis" select="extended" />
+			                <zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
 		                </zui:screen>
 				<zui:screen name="videoScreen" layout="vertical">
 					<zui:video id="video" />
@@ -111,7 +115,10 @@
 		<zee:connect from="media.queuedSongChanged" to="queue.setCurrentIndex" />		
 		<zee:connect from="media.durationChanged" to="seekbar.setMaximum" direct="false" />	
 		<zee:connect from="media.timeChanged" to="seekbar.setValue" direct="false" />
-		<zee:connect from="media.timeChanged" to="currentTime.setText" direct="false" />
+
+		<zee:connect from="media.timeChanged" to="fmtTimeLengthMSec.transform" direct="false" />
+		<zee:connect from="fmtTimeLengthMSec.ready" to="currentTime.setText" direct="false" />
+
 		<zee:connect from="media.reachedBookmark" to="zee.log" direct="false" />
 		<zee:connect from="media.bookmarkAdded" to="seekbar.addBookmark" />
 		<zee:connect from="media.sourceChanged" to="seekbar.addBookmarks" via="metareader.data.bookmarks" />
@@ -119,9 +126,13 @@
 		<zee:connect from="seekbar.positionChanged" to="media.seek" />
 				
 		<zee:connect from="metareader.dataChanged" to="currentTitle.setText" via="metareader.data.title" />
+
 		<zee:connect from="metareader.dataChanged" to="currentArtist.setText" via="metareader.data.artist" />
 		<zee:connect from="metareader.dataChanged" to="currentAlbum.setText" via="metareader.data.album" />
-		<zee:connect from="metareader.dataChanged" to="currentLength.setText" via="metareader.data.length" />
+
+		<zee:connect from="metareader.dataChanged" to="fmtTimeLength.transform" via="metareader.data.length" />
+		<zee:connect from="fmtTimeLength.ready" to="currentLength.setText" direct="false" />
+
 		<zee:connect from="metareader.dataChanged" to="media.setBookmarks" via="metareader.data.bookmarks" />
 
 		<!--<zee:connect from="metareader.dataChanged" to="system.notify" via="metareader.data.title,metareader.data.artist" />-->
@@ -176,5 +187,8 @@
 -->
 		<zee:connect from="sidebar.selected" to="screen.jump" direct="false" />
 		<zee:connect from="media.stopped" to="seekbar.reset" />
+
+		<zee:connect from="tray.doubleClicked" to="media.togglePlay" />
+
 	</zee:events>
 </zee>

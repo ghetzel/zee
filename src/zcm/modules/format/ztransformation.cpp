@@ -22,6 +22,9 @@ ZTransformation::ZTransformation(const ZConfig &el, QObject *parent)
       ZConfigurable(el,this)
 {
     parse(_config);
+
+    zEvent->registerSignal(this, SIGNAL(ready(QVariant)));
+    zEvent->registerSlot(this, SLOT(transform(QVariant)));
 }
 
 void ZTransformation::parse(const ZConfig &el){
@@ -29,24 +32,32 @@ void ZTransformation::parse(const ZConfig &el){
     QDomElement elfmt;
 
     for(int i = 0; i < elc.length(); i++){
-        elfmt = elc.at(i).toElement();
-        if(elfmt.tagName() == ZCM_FORMATTER){
-            _formatters << new ZFormatter(elfmt,this);
-        }
+	elfmt = elc.at(i).toElement();
+	if(elfmt.tagName() == ZTRANS_FORMATTER){
+	    elfmt.setAttribute("id", objectName()+"_formatter"+QString(i));
+	    _formatters << new ZFormatter(elfmt,this);
+	}
     }
+
+    chainFormatters();
 }
 
-//void ZTransformation::chainFormatters(){
-//    if(!_formatters.isEmpty()){
-//        connect(this, SIGNAL(start(QVariant)),
-//                _formatters.first(), SLOT(transform(QVariant)));
-//
-//        foreach(ZFormatter *formatter, _formatters){
-//            connect(formatter, SIGNAL(ready(QVariant)),
-//                    //next,   transform())
-//        }
-//    }
-//}
+void ZTransformation::chainFormatters(){
+    if(!_formatters.isEmpty()){
+	connect(this, SIGNAL(start(QVariant)),
+		_formatters.first(), SLOT(transform(QVariant)));
+
+	for(int i = 0; i < _formatters.length(); i++){
+	    if(_formatters.at(i) == _formatters.last()){
+		connect(_formatters.at(i), SIGNAL(ready(QVariant)),
+			this, SIGNAL(ready(QVariant)));
+	    }else{
+		connect(_formatters.at(i), SIGNAL(ready(QVariant)),
+			_formatters.at(i+1), SLOT(transform(QVariant)));
+	    }
+	}
+    }
+}
 
 void ZTransformation::transform(QVariant val){
     emit start(val);
