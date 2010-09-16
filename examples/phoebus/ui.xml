@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zee
 	xmlns:zee="http://www.gammazeta.net/zee/core/"
-	xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
 	xmlns:zui="http://www.gammazeta.net/zee/zui/">
 	<zee:components>
-		<zee:metareader id="metareader">
-			<zee:metaproperty type="audio" name="title" key="title" />
-			<zee:metaproperty type="audio" name="artist" key="artist" />
-			<zee:metaproperty type="audio" name="album" key="album" />
-			<zee:metaproperty type="audio" name="track" key="track" />
-			<zee:metaproperty type="audio" name="disc" key="disc" />
-  			<zee:metaproperty type="audio" name="length" key="length" />
-			<zee:metaproperty type="audio" name="bitrate" key="bitrate" />
-			<zee:metaproperty type="audio" name="samplerate" key="sample-rate" />
-			<zee:metaproperty type="audio" name="bookmarks" key="bookmark" />
-		</zee:metareader>
-
-		<zee:media id="media" remote="true" />		    
-		<zee:system id="system" />
+        <zee:media id="media" remote="true" interval="63" />     
+        
+        <zee:metareader id="meta" remote="true">
+            <zee:metaproperty type="audio" name="title" key="title" />
+            <zee:metaproperty type="audio" name="artist" key="artist" />
+            <zee:metaproperty type="audio" name="album" key="album" />
+            <zee:metaproperty type="audio" name="track" key="track" />
+            <zee:metaproperty type="audio" name="disc" key="disc" />
+            <zee:metaproperty type="audio" name="length" key="length" />
+            <zee:metaproperty type="audio" name="bitrate" key="bitrate" />
+            <zee:metaproperty type="audio" name="samplerate" key="sample-rate" />
+            <zee:metaproperty type="audio" name="bookmarks" key="bookmark" />
+        </zee:metareader>
+        
+        <zee:trayicon id="tray" icon=":/icons/zee.svg" tip="Phoebus" />
 
 		<zee:formatter id="fmtTimeLength" type="date" method="format" value="mm:ss || U" />
-		<zee:formatter id="fmtTimeLengthMSec" type="date" method="format" value="mm:ss || u" />
+		<zee:formatter id="fmtTimeLengthMSec" type="date" method="format" value="mm:ss.zzz || u" />
 
-		<zee:transform id="fmtSongTitle">
-			<zee:apply type="string" method="rightOf" value=" - " />
-			<zee:apply type="string" method="upcase" />
-		</zee:transform>
-
+        <zee:setting id="iconDefault" value=":/icons/zee.svg" />
+        <zee:setting id="iconPlay" value="media-playback-start" />
+        <zee:setting id="iconPause" value="media-playback-pause" />
+        <zee:setting id="iconStop" value="media-playback-stop" />
 		<zee:setting id="vNowPlaying" value="queueScreen" />
 		<zee:setting id="vLibrary" value="libraryScreen" />
 		<zee:setting id="vVideos" value="videoScreen" />
@@ -37,43 +36,47 @@
 		<zee:key id="scStop"       src="phoebus" value="Alt+S" />
 		<zee:key id="scNext"       src="phoebus" value="Alt+." />
 		<zee:key id="scPrevious"   src="phoebus" value="Alt+," />
-
-		<zee:trayicon id="tray" icon=":/icons/zee.svg" tip="Phoebus" />
 	</zee:components>
+	
+	
 	<zee:widgets>
-		<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
+		<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="border">
 			<zee:param name="iconTheme" value="Humanity-Dark" />
-
-            <zui:container id="mainbar" layout="vertical">
-                <zui:container>
-                    <zui:container id="npDetails">
-                        <zui:image id="currentArt" />
-                        <zui:container layout="vertical">
-                            <zui:text id="currentTitle" />
-                            <zui:text id="currentArtist" />
-                            <zui:text id="currentAlbum" />
+			
+            <zui:layout side="north">
+                <zui:container id="mainbar" layout="vertical">
+                    <zui:container>
+                        <zui:container id="npDetails">
+                            <zui:image id="currentArt" icon="media-playback-stop" />
+                            <zui:container layout="vertical">
+                                <zui:text id="currentTitle" />
+                                <zui:text id="currentArtist" />
+                                <zui:text id="currentAlbum" />
+                            </zui:container>
                         </zui:container>
+                        <zui:container id="npTime" layout="vertical">
+                            <zui:text id="currentTime" />
+                            <zui:text id="currentLength" />
+                        </zui:container>
+                        <zui:container layout="vertical">
+                            <zui:button id="aClear" value="Clear Queue" />
+                            <zui:button id="aReloadStyle" value="Style" />
+                        </zui:container>                            
                     </zui:container>
-                    <zui:container id="npTime" layout="vertical">
-                        <zui:text id="currentTime" />
-                        <zui:text id="currentLength" />
+                    <zui:container id="npVitals">
+                        <zui:seekbar id="seekbar" />
                     </zui:container>
-                        <zui:button id="aClear" value="Clear Queue" />
-                        <zui:button id="aReloadStyle" value="Style" />
                 </zui:container>
-                <zui:container id="npVitals">
-                    <zui:seekbar id="seekbar" />
-                </zui:container>
-            </zui:container>
-            <zui:splitter id="extended">
-			<zui:pane>
+            </zui:layout>
+            
+            <zui:layout side="west">
 		                <zui:list id="sidebar">
 		        	        <zui:item value="queueScreen" icon=":/icons/nowplaying.svg">Now Playing</zui:item>
 	        		        <zui:item value="libraryScreen" icon="stock_music-library">Library</zui:item>
 		        	        <zui:item value="videoScreen" icon="stock_video-library">Video</zui:item>
 	        	        </zui:list>
-			</zui:pane>
-			<zui:pane>
+			</zui:layout>
+			<zui:layout>
 		                <zui:screens id="screen" default="libraryScreen">
 	        	        	<zui:screen name="queueScreen">
 				                <zui:list model="media" id="queue" />
@@ -97,9 +100,9 @@
 			                <zui:folder id="vbrowser" uri="/home/ghetzel/downloads" select="extended" />
 				</zui:screen>
                		</zui:screens>
-		</zui:pane>
-    	    </zui:splitter>
+            </zui:layout>
 
+            <zui:layout side="south">
 	            <zui:container id="controls">
 	                <zui:button id="aPrev">Previous</zui:button>
 	                <zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
@@ -107,88 +110,61 @@
         	        <zui:button id="aNext">Next</zui:button>
         	        <zui:button id="aMark">Mark</zui:button>
 	            </zui:container>
+            </zui:layout>
 		</zui:application>
 	</zee:widgets>
-	<zee:events>
-		<zee:connect from="media.sourceChanged" to="metareader.setFileName" />
-		<zee:connect from="media.sourceChanged" to="source.setText" />
-		<zee:connect from="media.queuedSongChanged" to="queue.setCurrentIndex" />		
-		<zee:connect from="media.durationChanged" to="seekbar.setMaximum" direct="false" />	
-		<zee:connect from="media.timeChanged" to="seekbar.setValue" direct="false" />
-
-		<zee:connect from="media.timeChanged" to="fmtTimeLengthMSec.transform" direct="false" />
-		<zee:connect from="fmtTimeLengthMSec.ready" to="currentTime.setText" direct="false" />
-
-		<zee:connect from="media.reachedBookmark" to="zee.log" direct="false" />
-		<zee:connect from="media.bookmarkAdded" to="seekbar.addBookmark" />
-		<zee:connect from="media.sourceChanged" to="seekbar.addBookmarks" via="metareader.data.bookmarks" />
-
-		<zee:connect from="seekbar.positionChanged" to="media.seek" />
-				
-		<zee:connect from="metareader.dataChanged" to="currentTitle.setText" via="metareader.data.title" />
-
-		<zee:connect from="metareader.dataChanged" to="currentArtist.setText" via="metareader.data.artist" />
-		<zee:connect from="metareader.dataChanged" to="currentAlbum.setText" via="metareader.data.album" />
-
-		<zee:connect from="metareader.dataChanged" to="fmtTimeLength.transform" via="metareader.data.length" />
-		<zee:connect from="fmtTimeLength.ready" to="currentLength.setText" direct="false" />
-
-		<zee:connect from="metareader.dataChanged" to="media.setBookmarks" via="metareader.data.bookmarks" />
-
-		<!--<zee:connect from="metareader.dataChanged" to="system.notify" via="metareader.data.title,metareader.data.artist" />-->
-
-		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
-		<zee:connect from="browser.activated" to="media.enqueue" />
-
-		<zee:connect from="vbrowser.activated" to="video.load" direct="false" />
-		<zee:connect from="aVidPlay.clicked" to="video.play" />
-		<zee:connect from="aVidPause.clicked" to="video.pause" />
-		<zee:connect from="aVidStop.clicked" to="video.stop" />
-
-		<zee:connect from="video.sourceChanged" to="vidMRL.setText" />
-		<zee:connect from="video.dataChanged" to="seekbar.setMaximum" via="video.data.length" />
-		<zee:connect from="video.positionChanged" to="seekbar.setValue" direct="false" />
-		<zee:connect from="vidMRL.returnPressed" to="video.load" via="vidMRL.text" />
-
-		<zee:connect from="aPlayPause.toggled" to="media.togglePlay" direct="false" />
-		<zee:connect from="aStop.clicked" to="media.stop" />
-		<zee:connect from="aPrev.clicked" to="media.previous" />
-		<zee:connect from="aNext.clicked" to="media.next" />
-		<zee:connect from="aMark.clicked" to="media.mark" />
-
-		<zee:connect from="scTogglePlay.triggered" to="media.togglePlay" direct="false" />
-		<zee:connect from="scStop.triggered" to="media.stop" />
-		<zee:connect from="scNext.triggered" to="media.next" />
-		<zee:connect from="scPrevious.triggered" to="media.previous" />
-		<zee:connect from="scNowPlaying.triggered" to="screen.jump" via="vNowPlaying.value" />
-		<zee:connect from="scLibrary.triggered" to="screen.jump" via="vLibrary.value" />
 	
-<!--		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" /> -->
-<!--
-	Segfaults if this isn't registered as a slot (fault in ZMethodObject?)
-		<zee:connect from="aMark.clicked" to="media.setBookmark" via="media.position" /> 
-
--->
-<!--		<zee:connect from="compact.checked" to="extended.hide" />
-		<zee:connect from="compact.unchecked" to="extended.show" />
--->
-		<zee:connect from="aClear.clicked" to="media.clear" />
-		<zee:connect from="aClear.clicked" to="currentArt.reset" />
-		<zee:connect from="aClear.clicked" to="currentTitle.reset" />
-		<zee:connect from="aClear.clicked" to="currentArtist.reset" />
-		<zee:connect from="aClear.clicked" to="currentAlbum.reset" />
-		<zee:connect from="aClear.clicked" to="currentTime.reset" />
-		<zee:connect from="aClear.clicked" to="currentLength.reset" />
-
-		<zee:connect from="source.returnPressed" to="media.enqueue" via="source.text" />
-		<zee:connect from="aReloadStyle.clicked" to="zee.reloadStyleSheet" />
-<!--	Resets activated song?
-		<zee:connect from="media.stopped" to="status.reset" /> 
--->
-		<zee:connect from="sidebar.selected" to="screen.jump" direct="false" />
-		<zee:connect from="media.stopped" to="seekbar.reset" />
-
-		<zee:connect from="tray.doubleClicked" to="media.togglePlay" />
-
+	
+	<zee:events>
+        <zee:connect from="media.sourceChanged"     to="meta.setFileName" />
+        <zee:connect from="media.playing"           to="tray.setIcon"           via="iconPlay.value" />
+        <zee:connect from="media.paused"            to="tray.setIcon"           via="iconPause.value" />
+        <zee:connect from="media.stopped"           to="tray.setIcon"           via="iconDefault.value" />
+		<zee:connect from="media.stopped"           to="seekbar.reset" />
+		<zee:connect from="media.sourceChanged"     to="meta.setFileName" />
+		<zee:connect from="media.sourceChanged"     to="source.setText" />
+		<zee:connect from="media.queuedSongChanged" to="queue.setCurrentIndex" />		
+		<zee:connect from="media.durationChanged"   to="seekbar.setMaximum"     direct="false" />	
+		<zee:connect from="media.timeChanged"       to="seekbar.setValue"       direct="false" />
+		<zee:connect from="media.timeChanged"       to="currentTime.setText"    formatter="fmtTimeLengthMSec" />
+		<zee:connect from="media.reachedBookmark"   to="zee.log"                direct="false" />
+		<zee:connect from="media.bookmarkAdded"     to="seekbar.addBookmark" />
+		<zee:connect from="media.sourceChanged"     to="seekbar.addBookmarks"   via="meta.data.bookmarks" />
+		<zee:connect from="seekbar.positionChanged" to="media.seek" />
+		<zee:connect from="meta.dataChanged"        to="currentTitle.setText"   via="meta.data.title" />
+		<zee:connect from="meta.dataChanged"        to="currentArtist.setText"  via="meta.data.artist" />
+		<zee:connect from="meta.dataChanged"        to="currentAlbum.setText"   via="meta.data.album" />
+		<zee:connect from="meta.dataChanged"        to="currentLength.setText"  via="meta.data.length"              formatter="fmtTimeLength" />
+		<zee:connect from="meta.dataChanged"        to="media.setBookmarks"     via="meta.data.bookmarks" />
+		<zee:connect from="queue.activated"         to="media.changeTo"         direct="false" />
+		<zee:connect from="browser.activated"       to="media.enqueue" />
+		<zee:connect from="vbrowser.activated"      to="video.load"             direct="false" />
+		<zee:connect from="aVidPlay.clicked"        to="video.play" />
+		<zee:connect from="aVidPause.clicked"       to="video.pause" />
+		<zee:connect from="aVidStop.clicked"        to="video.stop" />
+		<zee:connect from="video.sourceChanged"     to="vidMRL.setText" />
+		<zee:connect from="video.dataChanged"       to="seekbar.setMaximum"     via="video.data.length" />
+		<zee:connect from="video.positionChanged"   to="seekbar.setValue"       direct="false" />
+		<zee:connect from="vidMRL.returnPressed"    to="video.load"             via="vidMRL.text" />
+		<zee:connect from="aPlayPause.toggled"      to="media.togglePlay"       direct="false" />
+		<zee:connect from="aStop.clicked"           to="media.stop" />
+		<zee:connect from="aPrev.clicked"           to="media.previous" />
+		<zee:connect from="aNext.clicked"           to="media.next" />
+		<zee:connect from="aMark.clicked"           to="media.mark" />
+		<zee:connect from="scTogglePlay.triggered"  to="media.togglePlay"       direct="false" />
+		<zee:connect from="scStop.triggered"        to="media.stop" />
+		<zee:connect from="scNext.triggered"        to="media.next" />
+		<zee:connect from="scPrevious.triggered"    to="media.previous" />
+		<zee:connect from="scNowPlaying.triggered"  to="screen.jump"            via="vNowPlaying.value" />
+		<zee:connect from="scLibrary.triggered"     to="screen.jump"            via="vLibrary.value" />
+		<zee:connect from="sidebar.selected"        to="screen.jump"            direct="false" />
+		<zee:connect from="aClear.clicked"          to="media.clear" />
+		<zee:connect from="aClear.clicked"          to="currentArt.reset" />
+		<zee:connect from="aClear.clicked"          to="currentTitle.reset" />
+		<zee:connect from="aClear.clicked"          to="currentArtist.reset" />
+		<zee:connect from="aClear.clicked"          to="currentAlbum.reset" />
+		<zee:connect from="aClear.clicked"          to="currentTime.reset" />
+		<zee:connect from="aClear.clicked"          to="currentLength.reset" />
+		<zee:connect from="aReloadStyle.clicked"    to="zee.reloadStyleSheet" />
 	</zee:events>
 </zee>

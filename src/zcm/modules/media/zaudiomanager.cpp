@@ -24,8 +24,9 @@ ZAudioManager::ZAudioManager(const ZConfig &el, QObject *parent)
     init();
 }
 
-void ZAudioManager::parse(const ZConfig&){
+void ZAudioManager::parse(const ZConfig &el){
     setCrossfade(param("crossfade").toInt());
+    _mediaObject->setTickInterval(el.attribute("interval","500").toInt());
 }
 
 void ZAudioManager::init(){
@@ -37,7 +38,6 @@ void ZAudioManager::init(){
 
     parse(_config);
 
-    _mediaObject->setTickInterval(500);
     Phonon::createPath(_mediaObject, _output);
 
     connect(_mediaObject, SIGNAL(stateChanged(Phonon::State,Phonon::State)),

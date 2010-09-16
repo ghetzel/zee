@@ -15,26 +15,36 @@
 *    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#ifndef ZCMMEDIAMODULE_H
-#define ZCMMEDIAMODULE_H
+#ifndef ZIMAGE_H
+#define ZIMAGE_H
 
-#include <QObject>
-#include <zutil.h>
-#include <zui/zuiutils.h>
-#include <zcm/zcmplugin.h>
-#include <zaudiomanager.h>
-#include <zaudioadaptor.h>
-#include <zmetareader.h>
-#include <zmetareaderadaptor.h>
+#define ZUI_IMAGE              "zui:image"
 
-class ZCMMediaModule : public ZcmPlugin
+#include <QLabel>
+#include <zeventmanager.h>
+#include <zui/zwidget.h>
+
+
+class ZImage : public ZWidget<QLabel>
 {
     Q_OBJECT
-    Q_INTERFACES(ZcmPluginInterface)
+    Q_PROPERTY(QString icon READ icon WRITE setIcon)
+    Q_PROPERTY(QString image READ image WRITE setImage)
 
 public:
-    ZCMMediaModule();
-    ZcmResult prepare(const QDomElement &el);
+    ZImage(const ZConfig &el, QWidget *parent=0);
+    QString icon() const;
+    QString image() const;
+    void setIcon(QString);
+    void setImage(QString);
+
+private:
+    void parse(const ZConfig &el);
+
+private:
+    QIcon _icon;
+    QString _iconName;
+    QString _imagePath;
 };
 
-#endif // ZCMMEDIAMODULE_H
+#endif // ZIMAGE_H

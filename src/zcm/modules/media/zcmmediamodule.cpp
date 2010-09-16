@@ -34,7 +34,10 @@ ZcmResult ZCMMediaModule::prepare(const QDomElement &el){
 #endif // ZEE_AUDIO
 #ifdef ZCM_METAREADER
     }else if(el.tagName() == ZCM_METAREADER){
-	rv.component = new ZMetaReader(el,qApp);
+        ZMetaReader *c = new ZMetaReader(el,qApp);
+        if(ZuiUtils::attributeTrue(el.attribute("remote")))
+            c->setAdaptor(new ZMetareaderAdaptor(c));
+        rv.component = c;
 
 #endif // ZCM_METAREADER
     }

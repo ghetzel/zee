@@ -80,7 +80,7 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
 #endif // ZUI_TEXT
 #ifdef ZUI_IMAGE // image: generic image display
     }else if(el.tagName() == ZUI_IMAGE){
-	zRes.widget = new ZLabel(el, zRes.parent);
+        zRes.widget = new ZImage(el, zRes.parent);
 
 #endif // ZUI_IMAGE
     }

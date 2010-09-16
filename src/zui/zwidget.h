@@ -47,6 +47,8 @@ public:
 
 private:
     void parse(const ZConfig &el){
+        scanProperties();
+
     //	tell the object what element spawned it (for style ~*MAGIC*~)
 	_self->setProperty("element", QVariant(el.tagName()));
 

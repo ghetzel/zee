@@ -19,6 +19,7 @@
 
 #include <QtCore>
 #include <QtXml>
+#include <zutil.h>
 
 class ZConfigurable
 {
@@ -53,6 +54,15 @@ protected:
 	return retval;
     }
 
+    void scanProperties(){
+        QDomNamedNodeMap attr = _config.attributes();
+
+        for(uint i = 0; i < attr.length(); i++){
+            _self->setProperty(CSTR(attr.item(i).nodeName()),
+                               attr.item(i).nodeValue());
+        }
+    }
+
 private:
     void init(){
     //	set ID
@@ -60,8 +70,10 @@ private:
 	    _self->setObjectName(_config.attribute("id"));
 
     //	set specified value
-	if(_config.hasAttribute("value"))
-	    _self->setProperty("value", QVariant(_config.attribute("value")));
+//	if(_config.hasAttribute("value"))
+//	    _self->setProperty("value", QVariant(_config.attribute("value")));
+
+        scanProperties();
 
 	QDomNodeList elst = _config.childNodes();
 	for(uint i = 0; i < elst.length(); i++){

@@ -15,26 +15,37 @@
 *    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#ifndef ZCMMEDIAMODULE_H
-#define ZCMMEDIAMODULE_H
+#include "zimage.h"
 
-#include <QObject>
-#include <zutil.h>
-#include <zui/zuiutils.h>
-#include <zcm/zcmplugin.h>
-#include <zaudiomanager.h>
-#include <zaudioadaptor.h>
-#include <zmetareader.h>
-#include <zmetareaderadaptor.h>
+ZImage::ZImage(const ZConfig &el, QWidget *parent)
+    : ZWidget<QLabel>(el,this,parent){
+    parse(_config);
+}
 
-class ZCMMediaModule : public ZcmPlugin
-{
-    Q_OBJECT
-    Q_INTERFACES(ZcmPluginInterface)
+void ZImage::parse(const ZConfig &el){
 
-public:
-    ZCMMediaModule();
-    ZcmResult prepare(const QDomElement &el);
-};
+}
 
-#endif // ZCMMEDIAMODULE_H
+void ZImage::setIcon(QString name){
+    z_log_debug("ZImage: SET ICON ="+name);
+
+    _icon = ZuiUtils::getIcon(name);
+
+    if(!_icon.isNull())
+        setPixmap(_icon.pixmap(width(), height(), QIcon::Normal));
+}
+
+QString ZImage::icon() const{
+    return _iconName;
+}
+
+void ZImage::setImage(QString name){
+    if(QFile::exists(name)){
+        _imagePath = name;
+        setPixmap(name);
+    }
+}
+
+QString ZImage::image() const{
+    return _imagePath;
+}

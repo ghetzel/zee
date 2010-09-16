@@ -68,7 +68,7 @@ bool ZUtil::hasFlag(ulong flag, ulong flags)
 }
 
 QString ZUtil::exec(QString command){
-    FILE* pipe = popen(command.toAscii().data(), "r");
+    FILE* pipe = popen(CSTR(command), "r");
     if (!pipe)
 	    return QString();
     char buffer[128];

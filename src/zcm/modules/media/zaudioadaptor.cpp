@@ -30,9 +30,38 @@ ZAudioAdaptor::ZAudioAdaptor(QString name, ZAudioManager *parent)
 }
 
 void ZAudioAdaptor::init(){
-    if(instance())
+    if(instance()){
+        connect(instance(), SIGNAL(bookmarkAdded(qint64)),
+                this,       SIGNAL(bookmarkAdded(qint64)));
+        connect(instance(), SIGNAL(bufferChanged(int)),
+                this,       SIGNAL(bufferChanged(int)));
+        connect(instance(), SIGNAL(buffering()),
+                this,       SIGNAL(buffering()));
+        connect(instance(), SIGNAL(durationChanged(qint64)),
+                this,       SIGNAL(durationChanged(qint64)));
+        connect(instance(), SIGNAL(loading()),
+                this,       SIGNAL(loading()));
+        connect(instance(), SIGNAL(paused()),
+                this,       SIGNAL(paused()));
+        connect(instance(), SIGNAL(playing()),
+                this,       SIGNAL(playing()));
+        connect(instance(), SIGNAL(positionChanged(double)),
+                this,       SIGNAL(positionChanged(double)));
+        connect(instance(), SIGNAL(queueChanged()),
+                this,       SIGNAL(queueChanged()));
+        connect(instance(), SIGNAL(queueCleared()),
+                this,       SIGNAL(queueCleared()));
+        connect(instance(), SIGNAL(queuedSongChanged(int)),
+                this,       SIGNAL(queuedSongChanged(int)));
 	connect(instance(), SIGNAL(reachedBookmark(qint64)),
-		this, SIGNAL(reachedBookmark(qint64)));
+                this,       SIGNAL(reachedBookmark(qint64)));
+        connect(instance(), SIGNAL(sourceChanged(QString)),
+                this,       SIGNAL(sourceChanged(QString)));
+        connect(instance(), SIGNAL(stopped()),
+                this,       SIGNAL(stopped()));
+        connect(instance(), SIGNAL(timeChanged(qint64)),
+                this,       SIGNAL(timeChanged(qint64)));
+    }
 
     registerService();
 }
@@ -41,61 +70,62 @@ ZAudioManager *ZAudioAdaptor::instance(){
     return QCAST(ZAudioManager*,ZDBusAbstractAdaptor::instance());
 }
 
-void ZAudioAdaptor::play(){
-    if(instance())
-	instance()->play();
-}
-
-void ZAudioAdaptor::playSource(QString location){
-    if(instance())
-	instance()->playSource(location);
-}
-
-void ZAudioAdaptor::pause(){
-    if(instance())
-	instance()->pause();
-}
-
-void ZAudioAdaptor::togglePlay(){
-    if(instance())
-	instance()->togglePlay();
-}
-
-void ZAudioAdaptor::stop(){
-    if(instance())
-	instance()->stop();
-}
-
-void ZAudioAdaptor::next(){
-    if(instance())
-	instance()->next();
-}
-
-void ZAudioAdaptor::previous(){
-    if(instance())
-	instance()->previous();
-}
-
-void ZAudioAdaptor::enqueue(QString location){
-    z_log_debug("ZAudioAdaptor: Queue "+location);
-    if(instance())
-	instance()->enqueue(location);
-}
+void ZAudioAdaptor::changeTo(QString location){
+    if(instance()) instance()->changeTo(location);                           }
 
 void ZAudioAdaptor::clear(){
-    if(instance())
-	instance()->clear();
-}
+    if(instance()) instance()->clear();                                      }
+
+void ZAudioAdaptor::clearBookmarks(){
+    if(instance()) instance()->clearBookmarks();                             }
+
+void ZAudioAdaptor::clearQueue(){
+    if(instance()) instance()->clearQueue();                                 }
+
+void ZAudioAdaptor::enqueue(QString location){
+    if(instance()) instance()->enqueue(location);                            }
 
 void ZAudioAdaptor::mark(){
-    if(instance())
-	instance()->mark();
-}
+    if(instance()) instance()->mark();                                       }
+
+void ZAudioAdaptor::next(){
+    if(instance()) instance()->next();                                       }
+
+void ZAudioAdaptor::pause(){
+    if(instance()) instance()->pause();                                      }
+
+void ZAudioAdaptor::play(){
+    if(instance()) instance()->play();                                       }
+
+void ZAudioAdaptor::playSource(QString location){
+    if(instance()) instance()->playSource(location);                         }
+
+void ZAudioAdaptor::previous(){
+    if(instance()) instance()->previous();                                   }
+
+void ZAudioAdaptor::remove(QString location){
+    if(instance()) instance()->remove(location);                             }
+
+void ZAudioAdaptor::seek(qint64 position){
+    if(instance()) instance()->seek(position);                               }
 
 void ZAudioAdaptor::setBookmarks(QString marks){
-    if(instance())
-	instance()->setBookmarks(marks);
-}
+    if(instance()) instance()->setBookmarks(marks);                          }
+
+void ZAudioAdaptor::setCrossfade(int msec){
+    if(instance()) instance()->setCrossfade(msec);                           }
+
+void ZAudioAdaptor::setGapless(){
+    if(instance()) instance()->setGapless();                                 }
+
+void ZAudioAdaptor::setSource(QString location){
+    if(instance()) instance()->setSource(location);                          }
+
+void ZAudioAdaptor::stop(){
+    if(instance()) instance()->stop();                                       }
+
+void ZAudioAdaptor::togglePlay(){
+    if(instance()) instance()->togglePlay();                                 }
 
 void ZAudioAdaptor::_stateHandler(ZAudioManager::ZAudioState state){
     switch(state){

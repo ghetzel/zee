@@ -173,9 +173,9 @@ void Zee::reloadStyleSheet()
 	QTextStream style(&qss);
 	setStyleSheet(style.readAll());
 	qss.close();
-	z_log_debug("Loaded stylesheet '"+qss.fileName()+"'");
+        z_log_debug("Zee: Loaded stylesheet '"+qss.fileName()+"'");
     }else{
-	z_log_error("Unable to locate stylesheet '"+qss.fileName()+"'");
+        z_log_error("Zee: Unable to locate stylesheet '"+qss.fileName()+"'");
     }
 
     emit styleReloaded();
@@ -214,17 +214,20 @@ void Zee::parseUI()
 
     if(zui.exists()){
 	QDomDocument zuiDef("zui");
-	QString *zDocErr = NULL;
+        QString zDocErr;
+        int zDocErrLine;
+        int zDocErrCol;
 	//make sure we can open the file
 	if(!zui.open(QIODevice::ReadOnly)){
-	    z_log_error("Failed to open UI definition file '"+zui.fileName()+"'");
+            z_log_error("Zee: Failed to open UI definition file '"+zui.fileName()+"'");
 	    ::exit(ZEE_EXIT_ZUI_DEF_INACCESSIBLE);
 	}
 
 	//make sure we can load the data
-	if(!zuiDef.setContent(&zui, zDocErr))
+        if(!zuiDef.setContent(&zui, &zDocErr, &zDocErrLine, &zDocErrCol))
 	{
-	    z_log_error("Invalid UI definition file '"+(*zDocErr)+"'");
+            z_log_error("Zee: ZML Parse Error: line "+STR(zDocErrLine)+", column "+
+                        STR(zDocErrCol)+" '"+STR(zDocErr)+"'");
 	    zui.close();
 	    ::exit(ZEE_EXIT_INVALID_ZUI_DEF);
 	}
@@ -232,7 +235,7 @@ void Zee::parseUI()
 	//we're done with this
 	zui.close();
 
-	z_log("Loaded UI definition '"+zui.fileName()+"'");
+        z_log("Zee: Loaded UI definition '"+zui.fileName()+"'");
 
 	QDomElement root = zuiDef.documentElement();
 	ZuiParser parser(root);
@@ -240,7 +243,7 @@ void Zee::parseUI()
 	return;
     }
 
-    z_log_error("Unable to locate UI definition file '"+zui.fileName()+"'");
+    z_log_error("Zee: Unable to locate UI definition file '"+zui.fileName()+"'");
     ::exit(ZEE_EXIT_NO_ZUI_DEF);
 }
 

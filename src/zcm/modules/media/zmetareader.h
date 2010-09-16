@@ -27,6 +27,8 @@
 #include <zmetaparser.h>
 #include <metaparsers/zaudiometaparser.h>
 
+class ZMetareaderAdaptor;
+
 struct ZMetadata{
     QString name;
     QString type;
@@ -36,15 +38,19 @@ struct ZMetadata{
 class ZMetaReader : public QObject, public ZConfigurable
 {
     Q_OBJECT
+
 public:
     ZMetaReader(const ZConfig &el, QObject *parent=0);
+    void setAdaptor(ZMetareaderAdaptor *adaptor);
 
 public slots:
     void setFileName(QString location);
+    void field(QString name);
 
 signals:
     void fileChanged(QString location);
     void dataChanged();
+    void data(QVariant);
 
 private:
     void init();
@@ -52,6 +58,7 @@ private:
     void fetchMetadata();
 
 private:
+    ZMetareaderAdaptor *_adaptor;
     QList<ZMetadata> _fields;
     QHash<QString,ZMetaParser*> _parsers;
     QFile _source;

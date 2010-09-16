@@ -70,7 +70,7 @@
 #define ZSYM_QUESTION                   "question"
 
 #define z_out(x)        ZUtil::output(x);
-#define z_log(x)        ZUtil::log(x)
+#define z_log(x)        ZUtil::log(x,ZUtil::LogInfo)
 #define z_log_error(x)  ZUtil::log(x,ZUtil::LogError)
 #define z_log_debug(x)  ZUtil::log(x,ZUtil::LogDebug)
 #define z_log_warn(x)   ZUtil::log(x,ZUtil::LogWarning)

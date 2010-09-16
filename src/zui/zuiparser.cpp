@@ -43,6 +43,8 @@ ZuiParser::ZuiParser(QDomElement &el, ZCoreApplication *parent)
 
     if(qApp->topLevelWidgets().count() == 0)
 	z_log_warn("ZuiParser: No widgets added");
+
+    z_log("ZuiParser: **Configuration Parsing Complete**");
 }
 
 
@@ -182,10 +184,24 @@ void ZuiParser::prepareWidget(const QDomElement &el){
 	if(el.hasAttribute("from") &&
 	   el.hasAttribute("to"))
 	{
-	    zEvent->map(el.attribute("from"),
-			el.attribute("to"),
-			el.attribute("via"),
-			QVariant(el.attribute("direct","true")).toBool());
+            if(el.hasAttribute("formatter")){
+                z_log_debug("ZuiParser: Autoconnect "+el.attribute("from")+"("+el.attribute("via")+") --> "+
+                            el.attribute("formatter")+" --> "+el.attribute("to"));
+
+                zEvent->map(el.attribute("from"),
+                            QString(el.attribute("formatter")+".transform"),
+                            el.attribute("via"),
+                            false);
+                zEvent->map(QString(el.attribute("formatter")+".ready"),
+                            el.attribute("to"),
+                            QString(),
+                            false);
+            }else{
+                zEvent->map(el.attribute("from"),
+                            el.attribute("to"),
+                            el.attribute("via"),
+                            QVariant(el.attribute("direct","true")).toBool());
+            }
 	}
     }
 }

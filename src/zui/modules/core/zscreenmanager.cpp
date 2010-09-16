@@ -55,7 +55,7 @@ void ZScreenManager::jump(QString screen){
     else
 	_currentScreen = screen;
 
-    z_log_debug("Jumping: '"+_currentScreen+"' ("+STR(_screens.value(_currentScreen))+")");
+    z_log_debug("ZScreenManager: Jumping: '"+_currentScreen+"' ("+STR(_screens.value(_currentScreen))+")");
     setCurrentIndex(_screens.value(_currentScreen));
 }
 

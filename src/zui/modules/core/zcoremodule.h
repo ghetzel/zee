@@ -35,6 +35,7 @@
 #include <zwindow.h>
 #include <zcontainerwidget.h>
 #include <zlabel.h>
+#include <zimage.h>
 #include <zscreenmanager.h>
 #include <zscreen.h>
 #include <zspacer.h>

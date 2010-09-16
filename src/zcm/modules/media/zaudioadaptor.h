@@ -31,26 +31,43 @@ public:
     ZAudioAdaptor(QString name, ZAudioManager *parent);
 
 public slots:
+    void changeTo(QString location);
+    void clear();
+    void clearBookmarks();
+    void clearQueue();
+    void enqueue(QString);
+    void mark();
+    void next();
+    void pause();
     void play();
     void playSource(QString);
-    void pause();
-    void togglePlay();
-    void stop();
-    void next();
     void previous();
-    void enqueue(QString);
-    void clear();
-    void mark();
+    void remove(QString);
+    void seek(qint64);
     void setBookmarks(QString);
+    void setCrossfade(int);
+    void setGapless();
+    void setSource(QString);
+    void stop();
+    void togglePlay();
 
 signals:
-    void playing();
-    void paused();
-    void stopped();
-    void loading();
+    void bookmarkAdded(qint64);
+    void bufferChanged(int);
     void buffering();
+    void durationChanged(qint64);
     void error();
+    void loading();
+    void paused();
+    void playing();
+    void positionChanged(double);
+    void queueChanged();
+    void queueCleared();
+    void queuedSongChanged(int);
     void reachedBookmark(qint64);
+    void stopped();
+    void sourceChanged(QString);
+    void timeChanged(qint64);
 
 private:
     void init();

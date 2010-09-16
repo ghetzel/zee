@@ -22,7 +22,7 @@ public slots:
     void show();
     void hide();
     void message(QString title, QString body="", QString icon="", int timeout=ZTRAY_MESSAGE_TIMEOUT);
-    void setToolTip(QString);
+    void setTitle(QString);
     void setIcon(QString);
 
 signals:
@@ -32,7 +32,7 @@ signals:
     void rightClicked();
 
 private slots:
-    void _activated(ActivationReason);
+    void _activated(QSystemTrayIcon::ActivationReason);
 
 private:
     void parse(const ZConfig &el);

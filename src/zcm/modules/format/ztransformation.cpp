@@ -31,7 +31,7 @@ void ZTransformation::parse(const ZConfig &el){
     QDomNodeList elc = el.childNodes();
     QDomElement elfmt;
 
-    for(int i = 0; i < elc.length(); i++){
+    for(uint i = 0; i < elc.length(); i++){
 	elfmt = elc.at(i).toElement();
 	if(elfmt.tagName() == ZTRANS_FORMATTER){
 	    elfmt.setAttribute("id", objectName()+"_formatter"+QString(i));

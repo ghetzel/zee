@@ -15,26 +15,38 @@
 *    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#ifndef ZCMMEDIAMODULE_H
-#define ZCMMEDIAMODULE_H
+#ifndef ZMETAREADERADAPTOR_H
+#define ZMETAREADERADAPTOR_H
 
-#include <QObject>
-#include <zutil.h>
-#include <zui/zuiutils.h>
-#include <zcm/zcmplugin.h>
-#include <zaudiomanager.h>
-#include <zaudioadaptor.h>
+#include <zdbusabstractadaptor.h>
 #include <zmetareader.h>
-#include <zmetareaderadaptor.h>
 
-class ZCMMediaModule : public ZcmPlugin
+
+class ZMetareaderAdaptor : public ZDBusAbstractAdaptor
 {
     Q_OBJECT
-    Q_INTERFACES(ZcmPluginInterface)
+    Q_CLASSINFO("D-Bus Interface", "net.gammazeta.zee.MetadataReader")
 
 public:
-    ZCMMediaModule();
-    ZcmResult prepare(const QDomElement &el);
+    ZMetareaderAdaptor(ZMetaReader *parent);
+    ZMetareaderAdaptor(QString name, ZMetaReader *parent);
+
+public slots:
+    void setFileName(QString location);
+    void field(QString name);
+
+signals:
+    void fileChanged(QString location);
+    void dataChanged();
+    void data(QVariant);
+
+private:
+    void init();
+    ZMetaReader *instance();
+
+private:
+    ZMetaReader *_instance();
+
 };
 
-#endif // ZCMMEDIAMODULE_H
+#endif // ZMETAREADERADAPTOR_H

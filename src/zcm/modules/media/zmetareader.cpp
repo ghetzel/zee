@@ -89,6 +89,15 @@ void ZMetaReader::setFileName(QString location){
     }
 }
 
+void ZMetaReader::field(QString name){
+    QVariant rv;
+
+    if(_dataObject)
+        rv = _dataObject->property(CSTR(name));
+
+    emit data(rv);
+}
+
 void ZMetaReader::fetchMetadata(){
     ZMetaParser *parser = NULL;
 
@@ -109,4 +118,8 @@ void ZMetaReader::fetchMetadata(){
 
 	emit dataChanged();
     }
+}
+
+void ZMetaReader::setAdaptor(ZMetareaderAdaptor *adaptor){
+    _adaptor = adaptor;
 }
