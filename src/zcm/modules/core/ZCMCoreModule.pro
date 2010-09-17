@@ -5,9 +5,12 @@ CONFIG += plugin
 CONFIG += console
 INCLUDEPATH += .
 INCLUDEPATH += ../../..
+INCLUDEPATH += ../../../libzee/sigar/include/
+INCLUDEPATH += ../../../libzee/sigar/src/os/linux/
 DEPENDPATH += .
 DEPENDPATH += ../../..
 include(../../../zcm.pri)
+include(../../../sigar.pri)
 HEADERS += zcmcoremodule.h \
     libzee/zlocalsystem.h \
     zsetting.h \
@@ -39,3 +42,4 @@ linux-g++ {
     HEADERS += zdbusinterface.h
     SOURCES += zdbusinterface.cpp
 }
+OTHER_FILES += 

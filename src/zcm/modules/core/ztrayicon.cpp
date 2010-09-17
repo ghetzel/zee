@@ -7,7 +7,7 @@ ZTrayIcon::ZTrayIcon(const ZConfig &el, QObject *parent)
     parse(_config);
 
     connect(this, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-            this, SLOT(_activated(QSystemTrayIcon::ActivationReason)));
+	    this, SLOT(_activated(QSystemTrayIcon::ActivationReason)));
 
     zEvent->registerSignal(this, SIGNAL(clicked()));
     zEvent->registerSignal(this, SIGNAL(doubleClicked()));
@@ -31,7 +31,7 @@ void ZTrayIcon::parse(const ZConfig &el){
 	QSystemTrayIcon::setIcon(ZuiUtils::getIcon(el.attribute("icon")));
 
     if(el.hasAttribute("tip"))
-        setTitle(el.attribute("tip"));
+	setTitle(el.attribute("tip"));
 }
 
 void ZTrayIcon::message(QString title, QString body, QString icon, int timeout){
