@@ -116,10 +116,10 @@
 	
 	
 	<zee:events>
-        <zee:connect from="media.sourceChanged"     to="meta.setFileName" />
-        <zee:connect from="media.playing"           to="tray.setIcon"           via="iconPlay.value" />
-        <zee:connect from="media.paused"            to="tray.setIcon"           via="iconPause.value" />
-        <zee:connect from="media.stopped"           to="tray.setIcon"           via="iconDefault.value" />
+	        <zee:connect from="media.sourceChanged"     to="meta.setFileName" />
+	        <zee:connect from="media.playing"           to="tray.setIcon"           via="iconPlay.value" />
+	        <zee:connect from="media.paused"            to="tray.setIcon"           via="iconPause.value" />
+	        <zee:connect from="media.stopped"           to="tray.setIcon"           via="iconDefault.value" />
 		<zee:connect from="media.stopped"           to="seekbar.reset" />
 		<zee:connect from="media.sourceChanged"     to="meta.setFileName" />
 		<zee:connect from="media.sourceChanged"     to="source.setText" />

@@ -103,7 +103,7 @@ ZTextInput{
 
 	#currentTime{
 		color: #AAA;
-		font-family: Nimbus Sans L;
+		font-family: Droid Sans Mono;
 		font-size: 32px;
 		font-weight: bold;
 		max-height: 36px;
@@ -111,7 +111,7 @@ ZTextInput{
 
 	#currentLength{
 		color: #AAA;
-		font-family: Nimbus Sans L;
+		font-family: Droid Sans Mono;
 		font-size: 14px;
 		font-weight: bold;
 		max-height: 36px;
