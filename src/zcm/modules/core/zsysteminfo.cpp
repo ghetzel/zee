@@ -42,83 +42,81 @@ void ZSystemInfo::parse(const ZConfig&){
 
 
     if(info){
-	sigar_cpu_list_t cpu;
-	sigar_cpu_list_get(info, &cpu);
+        sigar_cpu_list_t cpu;
+        sigar_cpu_list_get(info, &cpu);
 
-	sigar_mem_t mem;
-	sigar_mem_get(info, &mem);
+        sigar_mem_t mem;
+        sigar_mem_get(info, &mem);
 
-	sigar_net_interface_list_t netif;
-	sigar_net_interface_list_get(info, &netif);
+        sigar_net_interface_list_t netif;
+        sigar_net_interface_list_get(info, &netif);
 
-	sigar_uptime_t uptime;
-	sigar_uptime_get(info, &uptime);
+        sigar_uptime_t uptime;
+        sigar_uptime_get(info, &uptime);
 
-	sigar_loadavg_t load;
-	sigar_loadavg_get(info, &load);
+        sigar_loadavg_t load;
+        sigar_loadavg_get(info, &load);
 
-	sigar_cpu_info_list_t cpuinfo;
-	sigar_cpu_info_list_get(info, &cpuinfo);
+        sigar_cpu_info_list_t cpuinfo;
+        sigar_cpu_info_list_get(info, &cpuinfo);
 
-	sigar_net_info_t netinfo;
-	sigar_net_info_get(info, &netinfo);
+        sigar_net_info_t netinfo;
+        sigar_net_info_get(info, &netinfo);
 
-	sigar_file_system_list_t fslist;
-	sigar_file_system_list_get(info, &fslist);
+        sigar_file_system_list_t fslist;
+        sigar_file_system_list_get(info, &fslist);
 
-	sigar_net_address_t na;
-	sigar_net_connection_t nc;
-	sigar_net_interface_stat_t nifs;
+        sigar_net_address_t na;
+        sigar_net_connection_t nc;
+        sigar_net_interface_stat_t nifs;
 
-	sigar_sys_info_t sys;
-	sigar_sys_info_get(info, &sys);
-
-
-	qDebug() << "ZSystemInfo: SYSMACH " << sys.machine;
-	qDebug() << "ZSystemInfo: SYSARCH " << sys.arch;
-	qDebug() << "ZSystemInfo: SYSDESC " << sys.description;
-	qDebug() << "ZSystemInfo: SYSNAME " << sys.name;
-	qDebug() << "ZSystemInfo: PATCHLV " << sys.patch_level;
-	qDebug() << "ZSystemInfo: VERSION " << sys.version;
-	qDebug() << "ZSystemInfo: VENDOR  " << sys.vendor;
-	qDebug() << "ZSystemInfo: VENDCNM " << sys.vendor_code_name;
-	qDebug() << "ZSystemInfo: VENDNAM " << sys.vendor_name;
-	qDebug() << "ZSystemInfo: VENDVER " << sys.vendor_version;
-
-	qDebug() << "ZSystemInfo: HOST " << netinfo.host_name << "." << netinfo.domain_name;
-	qDebug() << "ZSystemInfo: GW " << netinfo.default_gateway;
-	qDebug() << "ZSystemInfo: DNS1 " << netinfo.primary_dns;
-	qDebug() << "ZSystemInfo: DNS2 " << netinfo.secondary_dns;
-
-	qDebug() << "ZSystemInfo: CPU " << cpu.number;
-	for(int i = 0; i < cpuinfo.number; i++){
-	    qDebug() << "\tCLOCK"<< i << cpuinfo.data[i].mhz;
-	    qDebug() << "\tCACHE"<< i << cpuinfo.data[i].cache_size;
-	    qDebug() << "\tCRSCK"<< i << cpuinfo.data[i].cores_per_socket;
-	    qDebug() << "\tCORES"<< i << cpuinfo.data[i].total_cores;
-	    qDebug() << "\tSOCKS"<< i << cpuinfo.data[i].total_sockets;
-	    qDebug() << "\tVENDR"<< i << cpuinfo.data[i].vendor;
-	    qDebug() << "\tMODEL"<< i << cpuinfo.data[i].model;
-
-	}
-
-	qDebug() << "ZSystemInfo: RAM " << mem.used_percent;
-	qDebug() << "ZSystemInfo: UPTIME " << uptime.uptime;
-	qDebug() << "ZSystemInfo: LOAD 1 =" << load.loadavg[0] << " 5 =" << load.loadavg[1] << " 15 =" << load.loadavg[2];
-
-	qDebug() << "ZSystemInfo: FS " << fslist.number;
-	for(int i = 0; i < fslist.number; i++){
-	    qDebug() << "DEV"<< fslist.data[i].dev_name;
-	    qDebug() << "\tDIR"<< fslist.data[i].dir_name;
-	    qDebug() << "\tTYPE" << fslist.data[i].type_name << " ("<<fslist.data[i].type<<")";
-	    qDebug() << "\tFLAG"<< i << fslist.data[i].flags;
-	    qDebug() << "\tOPTS"<< i << fslist.data[i].options;
-	    qDebug() << "\tSYSTYP"<< i << fslist.data[i].sys_type_name;
-	    qDebug() << "";
-	}
+        sigar_sys_info_t sys;
+        sigar_sys_info_get(info, &sys);
 
 
-    }
+        qDebug() << "ZSystemInfo: SYSMACH " << sys.machine;
+        qDebug() << "ZSystemInfo: SYSARCH " << sys.arch;
+        qDebug() << "ZSystemInfo: SYSDESC " << sys.description;
+        qDebug() << "ZSystemInfo: SYSNAME " << sys.name;
+        qDebug() << "ZSystemInfo: PATCHLV " << sys.patch_level;
+        qDebug() << "ZSystemInfo: VERSION " << sys.version;
+        qDebug() << "ZSystemInfo: VENDOR  " << sys.vendor;
+        qDebug() << "ZSystemInfo: VENDCNM " << sys.vendor_code_name;
+        qDebug() << "ZSystemInfo: VENDNAM " << sys.vendor_name;
+        qDebug() << "ZSystemInfo: VENDVER " << sys.vendor_version;
+
+        qDebug() << "ZSystemInfo: HOST " << netinfo.host_name << "." << netinfo.domain_name;
+        qDebug() << "ZSystemInfo: GW " << netinfo.default_gateway;
+        qDebug() << "ZSystemInfo: DNS1 " << netinfo.primary_dns;
+        qDebug() << "ZSystemInfo: DNS2 " << netinfo.secondary_dns;
+
+        qDebug() << "ZSystemInfo: CPU " << cpu.number;
+        for(int i = 0; i < cpuinfo.number; i++){
+            qDebug() << "\tCLOCK"<< i << cpuinfo.data[i].mhz;
+            qDebug() << "\tCACHE"<< i << cpuinfo.data[i].cache_size;
+            qDebug() << "\tCRSCK"<< i << cpuinfo.data[i].cores_per_socket;
+            qDebug() << "\tCORES"<< i << cpuinfo.data[i].total_cores;
+            qDebug() << "\tSOCKS"<< i << cpuinfo.data[i].total_sockets;
+            qDebug() << "\tVENDR"<< i << cpuinfo.data[i].vendor;
+            qDebug() << "\tMODEL"<< i << cpuinfo.data[i].model;
+
+        }
+
+        qDebug() << "ZSystemInfo: RAM " << mem.used_percent;
+        qDebug() << "ZSystemInfo: UPTIME " << uptime.uptime;
+        qDebug() << "ZSystemInfo: LOAD 1 =" << load.loadavg[0] << " 5 =" << load.loadavg[1] << " 15 =" << load.loadavg[2];
+
+        qDebug() << "ZSystemInfo: FS " << fslist.number;
+        for(int i = 0; i < fslist.number; i++){
+            qDebug() << "DEV"<< fslist.data[i].dev_name;
+            qDebug() << "\tDIR"<< fslist.data[i].dir_name;
+            qDebug() << "\tTYPE" << fslist.data[i].type_name << " ("<<fslist.data[i].type<<")";
+            qDebug() << "\tFLAG"<< i << fslist.data[i].flags;
+            qDebug() << "\tOPTS"<< i << fslist.data[i].options;
+            qDebug() << "\tSYSTYP"<< i << fslist.data[i].sys_type_name;
+            qDebug() << "";
+        }
+  }
 }
 
 qint64 ZSystemInfo::time(){

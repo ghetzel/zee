@@ -24,7 +24,7 @@
 #include <iostream>
 #include <QObject>
 #include <libzee/zlocalsystem.h>
-#include <libzee/sigar/include/sigar.h>
+#include <sigar.h>
 #include <zconfigurable.h>
 #include <zeventmanager.h>
 #ifdef Q_OS_LINUX

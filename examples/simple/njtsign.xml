@@ -13,7 +13,7 @@
 		<zee:timer id="tm1s" interval="37" onstart="true" />
 	</zee:components>
 	<zee:widgets>
-		<zui:application id="main" width="100%" height="128" position="nw" layout="vertical">
+		<zui:application id="main" width="100%" height="128" position="nw" layout="vertical" type="desktop">
   			<zui:marquee id="time" value="--:--:--" images="../../dev/njt-segmented-sign/chars/%1.svg" width="80" height="120">
 <!--				<zui:lines>
 					<zui:line>SECAUCUS</zui:line>

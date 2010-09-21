@@ -5,12 +5,13 @@ CONFIG += plugin
 CONFIG += console
 INCLUDEPATH += .
 INCLUDEPATH += ../../..
-INCLUDEPATH += ../../../libzee/sigar/include/
-INCLUDEPATH += ../../../libzee/sigar/src/os/linux/
+INCLUDEPATH += /usr/local/include/
 DEPENDPATH += .
 DEPENDPATH += ../../..
 include(../../../zcm.pri)
-include(../../../sigar.pri)
+
+LIBS += -lsigar
+
 HEADERS += zcmcoremodule.h \
     libzee/zlocalsystem.h \
     zsetting.h \
