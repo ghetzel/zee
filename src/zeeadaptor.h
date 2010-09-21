@@ -37,9 +37,14 @@ public slots:
     void logError(QString);
     void logCritical(QString);
     void logDebug(QString);
+    QString queryProperty(QString);
 
 signals:
     void styleReloaded();
+    void propertyResponse(QString);
+    
+private slots:
+    void _propertyResponse(QVariant);
 
 private:
     void init();

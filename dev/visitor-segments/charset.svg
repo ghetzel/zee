@@ -36,11 +36,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="10.24"
-     inkscape:cx="-7.5568002"
-     inkscape:cy="9.7995589"
+     inkscape:zoom="14.481547"
+     inkscape:cx="-4.6121314"
+     inkscape:cy="14.292901"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g2852"
      showgrid="true"
      inkscape:window-width="1280"
      inkscape:window-height="750"
@@ -72,7 +72,7 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1028.3622)"
-     style="display:inline">
+     style="display:none">
     <g
        id="g3647"
        transform="translate(-293,463)">
@@ -128,6 +128,50 @@
            x="295"
            y="587.36218">:</tspan></text>
     </g>
+  </g>
+  <g
+     inkscape:label="dot"
+     inkscape:groupmode="layer"
+     id="g2852"
+     transform="translate(0,-1028.3622)"
+     style="display:inline">
+    <rect
+       style="fill:#1a1a1a;fill-opacity:1;stroke:none"
+       id="rect2856"
+       width="8"
+       height="24"
+       x="0"
+       y="1028.3622"
+       inkscape:export-filename="/home/ghetzel/projects/gzn/zee/dev/visitor-segments/dot.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#333333;fill-opacity:1;stroke:none;font-family:Visitor TT1 BRK;-inkscape-font-specification:Visitor TT1 BRK"
+       x="2"
+       y="1050.3622"
+       id="text2858"
+       inkscape:export-filename="/home/ghetzel/projects/gzn/zee/dev/visitor-segments/dot.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2860"
+         x="2"
+         y="1050.3622">:</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Visitor TT1 BRK;-inkscape-font-specification:Visitor TT1 BRK"
+       x="2"
+       y="1050.3622"
+       id="text3658"
+       inkscape:export-filename="/home/ghetzel/projects/gzn/zee/dev/visitor-segments/dot.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan3660"
+         x="2"
+         y="1050.3622"
+         style="fill:#5eae00;fill-opacity:1">.</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"

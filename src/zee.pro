@@ -13,8 +13,7 @@ QT += sql
 QT += svg
 QT += network
 CONFIG += static
-QTPLUGIN += qmng \
-    qgif
+#QTPLUGIN += qmng qgif
 RESOURCES = res/zee.qrc
 HEADERS += zevent.h \
     zplugininterface.h \

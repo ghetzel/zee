@@ -43,7 +43,6 @@
 #include <QHash>
 #include <QMultiHash>
 #include <QList>
-#include <QtPlugin>
 
 #ifdef Q_WS_X11
 #include <X11/Xlib.h>
@@ -140,10 +139,12 @@ class Zee : public QApplication, public ZCoreApplication
     void logError(QString);
     void logCritical(QString);
     void logDebug(QString);
+    QVariant queryProperty(QString zObjPath);
 
 signals:
     void styleReloaded();
     void loadComplete();
+    void propertyResponse(QVariant);
 #ifdef Q_WS_X11
     void x11EventReceived(XEvent*);
 #endif

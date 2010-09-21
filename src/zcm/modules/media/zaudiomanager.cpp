@@ -537,6 +537,8 @@ void ZAudioManager::_bufferStatus(int perc){
 
 
 ZAudioManager::~ZAudioManager(){
-    if(_mediaObject)
-	_mediaObject->deleteLater();
+//    if(_mediaObject){
+//        _mediaObject->stop();
+//	_mediaObject->deleteLater();
+//    }
 }

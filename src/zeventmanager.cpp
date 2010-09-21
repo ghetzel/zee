@@ -184,6 +184,12 @@ QObject *ZEventManager::findObject(QString methodString, bool objectOnly){
 	    proc.removeLast();
 	}
 
+        if(proc.isEmpty()){
+            z_log_error("ZEventManager: Object not found, invalid path.");
+            return NULL;
+        }
+
+
 //	and the last element here now is the object we're ultimately looking for
 	oname = proc.last();
 

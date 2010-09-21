@@ -32,41 +32,46 @@ void ZeeAdaptor::init(){
     registerService();
 
     connect(instance(), SIGNAL(styleReloaded()),
-	    this, SIGNAL(styleReloaded()));
+            this,       SIGNAL(styleReloaded()));
+    connect(instance(), SIGNAL(propertyResponse(QVariant)),
+            this,       SLOT(_propertyResponse(QVariant)));
 }
 
 Zee *ZeeAdaptor::instance(){
     return QCAST(Zee*,ZDBusAbstractAdaptor::instance());
 }
 
+void ZeeAdaptor::_propertyResponse(QVariant res){
+    emit propertyResponse(res.toString());
+}
 
 
 void ZeeAdaptor::reloadStyleSheet(){
-    if(instance())
-	instance()->reloadStyleSheet();
+    if(instance()) instance()->reloadStyleSheet();
 }
 
 void ZeeAdaptor::log(QString msg){
-    if(instance())
-	instance()->log(msg);
+    if(instance()) instance()->log(msg);
 }
 
 void ZeeAdaptor::logWarning(QString msg){
-    if(instance())
-	instance()->logWarning(msg);
+    if(instance()) instance()->logWarning(msg);
 }
 
 void ZeeAdaptor::logError(QString msg){
-    if(instance())
-	instance()->logError(msg);
+    if(instance()) instance()->logError(msg);
 }
 
 void ZeeAdaptor::logCritical(QString msg){
-    if(instance())
-	instance()->logCritical(msg);
+    if(instance()) instance()->logCritical(msg);
 }
 
 void ZeeAdaptor::logDebug(QString msg){
+    if(instance()) instance()->logDebug(msg);
+}
+
+QString ZeeAdaptor::queryProperty(QString zObjPath){
     if(instance())
-	instance()->logDebug(msg);
+        return instance()->queryProperty(zObjPath).toString();
+    return QString();
 }

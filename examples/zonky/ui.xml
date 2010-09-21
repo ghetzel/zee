@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core"
+  xmlns:zui="http://www.gammazeta.net/zee/zui">
+	<zee:components>
+		<zee:dbus id="meta" service="net.gammazeta.zee" interface="net.gammazeta.zee.MetadataReader" path="/meta">
+			<zee:dbus-signal>dataChanged()</zee:dbus-signal>
+		</zee:dbus>
+
+		<zee:dbus id="phoebus" service="net.gammazeta.zee" interface="net.gammazeta.zee.Zee" path="/zee">
+			<zee:dbus-method>queryProperty(QString)</zee:dbus-method>
+			<zee:dbus-signal>propertyResponse(QString)</zee:dbus-signal>
+		</zee:dbus>
+
+		<zee:setting id="rTitle" value="meta.data.title" />
+		<zee:setting id="rArtist" value="meta.data.artist" />
+		<zee:setting id="rAlbum" value="meta.data.album" />
+	</zee:components>
+
+	<zee:widgets>
+		<zui:application>
+			<zui:text id="title" value="Title" />
+			<zui:text id="artist" value="Artist" />
+			<zui:text id="album" value="Album" />
+		</zui:application>
+	</zee:widgets>
+
+	<zee:events>
+		<zee:connect from="meta.remote.dataChanged" to="phoebus.remote.queryProperty" via="rTitle.value" />
+		<zee:connect from="meta.remote.dataChanged" to="phoebus.remote.queryProperty" via="rArtist.value" />
+		<zee:connect from="meta.remote.dataChanged" to="phoebus.remote.queryProperty" via="rAlbum.value" />
+
+		<zee:connect from="phoebus.remote.propertyResponse" to="title.setText"  />
+		<zee:connect from="phoebus.remote.propertyResponse" to="artist.setText" />
+		<zee:connect from="phoebus.remote.propertyResponse" to="album.setText" />
+	</zee:events>
+</zee>

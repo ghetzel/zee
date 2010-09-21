@@ -3,12 +3,15 @@
   xmlns:zee="http://www.gammazeta.net/zee/core/"
   xmlns:zui="http://www.gammazeta.net/zee/zui/">
 	<zee:components>
-		<zee:timer id="tm" countdown="2010-09-25 10:00:00" tracking="37" />		
-		<zee:formatter id="countdownFormat" type="date" method="format" value="hh:mm:ss.zzz || u" />		
+		<zee:timer id="tm" countdown="2010-09-20 17:50:00" tracking="37" />
+		
+		<zee:formatter id="countdownFormat" type="date" method="format" value="mm:ss.zzz || u" />
+		
+	    <!--<zee:transform id="dateTransformer" />-->
 	</zee:components>
 	
 	<zee:widgets>
-	    <zui:application width="384" height="96" type="desktop" position="n">
+	    <zui:application width="265" height="16" type="desktop" position="n">
 	            <zui:marquee id="time" images="../../dev/visitor-segments/%1.png" width="24" height="24" />
    	    </zui:application>
 	</zee:widgets>

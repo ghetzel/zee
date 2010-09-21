@@ -255,6 +255,27 @@ void Zee::logCritical(QString msg){ z_log_crit(msg);    }
 void Zee::logDebug(QString msg){    z_log_debug(msg);   }
 
 
+QVariant Zee::queryProperty(QString zObjPath){
+    if(!zObjPath.isEmpty()){
+        QObject *obj = zEvent->findObject(zObjPath);
+
+        if(obj){
+            QVariant pval = obj->property(CSTR(zObjPath.section(".",-1,-1)));
+
+            if(pval.isValid()){
+                emit propertyResponse(pval);
+                return pval;
+            }else{
+                z_log_error("Zee: Property '"+zObjPath.section(".",-1,-1)+"' not found at path '"+zObjPath+"'");
+            }
+        }else{
+            z_log_error("Zee: Object not found at path '"+zObjPath+"'");
+        }
+    }
+
+    return QVariant();
+}
+
 
 #ifdef Q_WS_X11
 bool Zee::x11EventFilter(XEvent *e){
