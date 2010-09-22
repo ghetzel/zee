@@ -22,6 +22,10 @@ ZTimer::ZTimer(const ZConfig &el, QObject *parent)
       ZConfigurable(el,this)
 {
     _tracker = new QTimer(this);
+    _prestart = new QTimer(this);
+
+    zEvent->registerSignal(this, SIGNAL(started()));
+    zEvent->registerSignal(this, SIGNAL(stopped()));
     zEvent->registerSignal(this, SIGNAL(timeout()));
     zEvent->registerSignal(this, SIGNAL(elapsed(qint64)));
     zEvent->registerSignal(this, SIGNAL(remaining(qint64)));
@@ -30,6 +34,10 @@ ZTimer::ZTimer(const ZConfig &el, QObject *parent)
     zEvent->registerSlot(this, SLOT(start(int)));
     zEvent->registerSlot(this, SLOT(stop()));
     zEvent->registerSlot(this, SLOT(reset()));
+
+    connect(_prestart,  SIGNAL(timeout()),
+            this,       SLOT(start()));
+
     parse(_config);
 }
 
@@ -41,11 +49,20 @@ ZTimer::~ZTimer(){
 
 void ZTimer::parse(const ZConfig &el){
     if(el.hasAttribute("interval")){
+        int startDelay = -1;
+
+//!     @once: timeout once then stop
 	if(QVariant(el.attribute("once")).toBool())
 	    setSingleShot(true);
 
+//!     @delay: time to wait before starting in milliseconds
+        if( (startDelay = el.attribute("delay").toInt()) > 0 )
+            _prestart->setInterval(startDelay);
+
+//!     @interval: length of timeout interval in milliseconds
 	_interval = el.attribute("interval").toInt();
 
+//!     @onstart: emit timeout() immediately after start?
 	if(ZuiUtils::attributeTrue(el.attribute("onstart"))){
 	    setInterval(0);
 	    connect(this, SIGNAL(timeout()), this, SLOT(startEmit()));
@@ -53,27 +70,15 @@ void ZTimer::parse(const ZConfig &el){
 	    setInterval(_interval);
 	}
 
+//!     @tracking: frequency of interim ticks to monitor timer progress
 	if(el.hasAttribute("tracking")){
 	    uint tintv = QVariant(el.attribute("tracking")).toUInt();
-	    trackStart(tintv);
+            if(_prestart->interval() > 0)
+                trackStart(tintv);
 	}
 
-	start();
-    }else if(el.hasAttribute("countdown")){
-	_targetTime = QVariant(el.attribute("countdown")).toDateTime();
-
-	if(_targetTime.isValid()){
-	    _interval = (CAST(quint64,_targetTime.toTime_t())*1000LL)-NOW_MSEC();
-
-	    if(_interval > 0)
-		trackStart(QVariant(el.attribute("tracking","1000")).toUInt());
-
-	    z_log_debug("ZTimer: ToDate = "+_targetTime.toString("yyyy-MM-dd"));
-	    z_log_debug("ZTimer: To = "+STR(CAST(quint64,_targetTime.toTime_t())*1000LL));
-	    z_log_debug("ZTimer: Now = "+STR(NOW_MSEC()));
-	    z_log_debug("ZTimer: Countdown Interval: "+STR(_interval));
-	}
-
+        if(_prestart->interval() > 0)
+            start();
     }else{
 	z_log_error("ZTimer: Cannot start timer without an interval");
 	return;
@@ -81,6 +86,18 @@ void ZTimer::parse(const ZConfig &el){
 
 }
 
+void ZTimer::start(){
+    _tracker->start();
+    ZTimer::start();
+    emit started();
+}
+
+void ZTimer::stop(){
+    if(_tracker->isActive())
+        _tracker->stop();
+    ZTimer::stop();
+    emit stopped();
+}
 
 void ZTimer::reset(){
     stop();
@@ -106,9 +123,6 @@ void ZTimer::trackTick(){
 	emit elapsed(_interval);
 	emit remaining(0);
 	emit tick();
-
-	if(!_targetTime.isNull())
-	    emit timeout();
     }else{
 	emit tick();
 	emit elapsed(_elapsed);

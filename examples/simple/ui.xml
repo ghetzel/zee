@@ -3,7 +3,7 @@
   xmlns:zee="http://www.gammazeta.net/zee/core/"
   xmlns:zui="http://www.gammazeta.net/zee/zui/">
 	<zee:components>
-		<zee:timer id="tm" countdown="2010-09-20 17:50:00" tracking="37" />
+		<zee:countdown id="tm" target="today 17:50:00" />
 		
 		<zee:formatter id="countdownFormat" type="date" method="format" value="mm:ss.zzz || u" />
 		

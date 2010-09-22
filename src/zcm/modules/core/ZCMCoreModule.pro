@@ -9,9 +9,7 @@ INCLUDEPATH += /usr/local/include/
 DEPENDPATH += .
 DEPENDPATH += ../../..
 include(../../../zcm.pri)
-
-LIBS += -lsigar
-
+LIBS += -lsigar -lboost_date_time -lzee
 HEADERS += zcmcoremodule.h \
     libzee/zlocalsystem.h \
     zsetting.h \
@@ -21,7 +19,8 @@ HEADERS += zcmcoremodule.h \
     zsqlquery.h \
     zshortcut.h \
     zlinuxauthenticator.h \
-    ztrayicon.h
+    ztrayicon.h \
+    zcountdown.h
 SOURCES += zcmcoremodule.cpp \
     libzee/zlocalsystem.cpp \
     zsetting.cpp \
@@ -31,7 +30,8 @@ SOURCES += zcmcoremodule.cpp \
     zsqlquery.cpp \
     zshortcut.cpp \
     zlinuxauthenticator.cpp \
-    ztrayicon.cpp
+    ztrayicon.cpp \
+    zcountdown.cpp
 DESTDIR = ../../../plugins
 TARGET = $$qtLibraryTarget(zcm_core)
 QT += xml \

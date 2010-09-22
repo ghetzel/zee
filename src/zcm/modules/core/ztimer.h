@@ -21,8 +21,6 @@
 #define ZEE_TIMER               "zee:timer"
 #define ZTIMER_TRACKING_INTV    125
 
-#define NOW_MSEC()		(CAST(qint64,QDateTime::currentDateTime().toTime_t())*1000LL)+CAST(qint64,QTime::currentTime().msec())
-
 #include <QTimer>
 #include <zutil.h>
 #include <zui/zuiutils.h>
@@ -39,9 +37,13 @@ public:
     void parse(const ZConfig &el);
 
 public slots:
+    void start();
+    void stop();
     void reset();
 
 signals:
+    void started();
+    void stopped();
     void elapsed(qint64);
     void remaining(qint64);
     void tick();
@@ -57,7 +59,7 @@ private:
     qint64 _interval;
     qint64 _elapsed;
     QTimer *_tracker;
-    QDateTime _targetTime;
+    QTimer *_prestart;
 };
 
 #endif // ZTIMER_H

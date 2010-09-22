@@ -33,8 +33,12 @@ ZcmResult ZCMCoreModule::prepare(const QDomElement &el){
 #endif // ZCM_SHORTCUT
 #ifdef ZEE_TIMER
     }else if(el.tagName() == ZEE_TIMER){
-	rv.component = new ZTimer(el,qApp);
+        rv.component = new ZTimer(el,qApp);
 #endif // ZEE_TIMER
+#ifdef ZCM_COUNTDOWN
+    }else if(el.tagName() == ZCM_COUNTDOWN){
+        rv.component = new ZCountdown(el,qApp);
+#endif
 #ifdef ZCM_EXECUTOR
     }else if(el.tagName() == ZCM_EXECUTOR){
 	rv.component = new ZExecutor(el,qApp);
