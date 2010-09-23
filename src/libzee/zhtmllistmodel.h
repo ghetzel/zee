@@ -49,11 +49,11 @@ public slots:
     void setExcludeExpression(QRegExp rx);
     void setExcludeExpression(QString rx);
     void fetchBase();
-    void authenticate(QString username, QString password);
+    //void authenticate(QString username, QString password);
 
 private slots:
     void _finished(QNetworkReply *r);
-    void _authenticationRequired(QNetworkReply *r, QAuthenticator *auth);
+    //void _authenticationRequired(QNetworkReply *r, QAuthenticator *auth);
     void _downloadProgress(qint64 in, qint64 total);
 
 private:

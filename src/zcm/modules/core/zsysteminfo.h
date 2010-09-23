@@ -24,6 +24,7 @@
 #include <iostream>
 #include <QObject>
 #include <libzee/zlocalsystem.h>
+#include <libzee/zdatetime.h>
 #include <sigar.h>
 #include <zconfigurable.h>
 #include <zeventmanager.h>
@@ -39,14 +40,13 @@ class ZSystemInfo : public QObject, public ZConfigurable
 {
     Q_OBJECT
     Q_PROPERTY(qint64 time READ time)
-    Q_PROPERTY(qint64 timems READ timems)
-    Q_PROPERTY(QString ftime READ ftime)
+    Q_PROPERTY(qint64 timeMsec READ timeMsec)
+
 public:
     ZSystemInfo(const ZConfig &el, QObject *parent=0);
     void parse(const ZConfig&);
     qint64 time();
-    qint64 timems();
-    QString ftime();
+    qint64 timeMsec();
 
 public slots:
     void notify(QString title, QString message=QString(),

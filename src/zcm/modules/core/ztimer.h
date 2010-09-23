@@ -27,7 +27,7 @@
 #include <zconfigurable.h>
 #include <zeventmanager.h>
 
-class ZTimer : public QTimer, public ZConfigurable
+class ZTimer : public QObject, public ZConfigurable
 {
     Q_OBJECT
 
@@ -35,6 +35,8 @@ public:
     ZTimer(const ZConfig &el, QObject *parent=0);
     ~ZTimer();
     void parse(const ZConfig &el);
+    void setInterval(qint64);
+    bool isActive();
 
 public slots:
     void start();
@@ -42,6 +44,7 @@ public slots:
     void reset();
 
 signals:
+    void timeout();
     void started();
     void stopped();
     void elapsed(qint64);
@@ -58,6 +61,7 @@ private:
     bool _emitOnStart;
     qint64 _interval;
     qint64 _elapsed;
+    QTimer *_timer;
     QTimer *_tracker;
     QTimer *_prestart;
 };

@@ -27,9 +27,16 @@
 
 class ZSetting : public QObject, public ZConfigurable
 {
+    Q_OBJECT
 public:
     ZSetting(const ZConfig &el, QObject *parent=0);
     void parse(const ZConfig&);
+
+public slots:
+    void setValue(QVariant);
+
+signals:
+    void valueChanged(QVariant);
 };
 
 #endif // ZSETTING_H

@@ -16,12 +16,14 @@ HEADERS += zcmmediamodule.h \
     zmetareader.h \
     zmetaparser.h \
     metaparsers/zaudiometaparser.h \
-    zmetareaderadaptor.h
+    zmetareaderadaptor.h \
+    zsound.h
 SOURCES += zcmmediamodule.cpp \
     zaudiomanager.cpp \
     zmetareader.cpp \
     metaparsers/zaudiometaparser.cpp \
-    zmetareaderadaptor.cpp
+    zmetareaderadaptor.cpp \
+    zsound.cpp
 TARGET = $$qtLibraryTarget(zcm_media)
 DESTDIR = ../../../plugins
 QT += xml

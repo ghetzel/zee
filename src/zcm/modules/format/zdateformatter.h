@@ -26,6 +26,7 @@
 #define ZFMT_DATE_FORMAT_IN_UXMSEC  "u"
 
 #include <zabstractformatter.h>
+#include <libzee/zdatetime.h>
 
 class ZDateFormatter : public ZAbstractFormatter
 {

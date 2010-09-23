@@ -120,15 +120,11 @@ void ZSystemInfo::parse(const ZConfig&){
 }
 
 qint64 ZSystemInfo::time(){
-    return CAST(qint64,_sysinfo->systemTime().toTime_t());
+    return ZDateTime::now_t();
 }
 
-qint64 ZSystemInfo::timems(){
-    return _sysinfo->systemTimeEpoch();
-}
-
-QString ZSystemInfo::ftime(){
-    return _sysinfo->systemTime().toString(_dateTimeFormat);
+qint64 ZSystemInfo::timeMsec(){
+    return ZDateTime::nowMsec_t();
 }
 
 void ZSystemInfo::notify(QString title, QString message, QString icon,

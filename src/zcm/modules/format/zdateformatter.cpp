@@ -40,13 +40,12 @@ QVariant ZDateFormatter::_format(QVariant in, QString dateFormat,
     else
     //! format option: unix time (seconds)
         if(inputFormat == ZFMT_DATE_FORMAT_IN_UXSEC){
-            input = input.fromTime_t(in.toUInt());
+            input = ZDateTime::fromUnix(in.toUInt());
             return input.toString(dateFormat);
 
     //! format option: unix time (milliseconds)
         }else if(inputFormat == ZFMT_DATE_FORMAT_IN_UXMSEC){
-            input = input.fromTime_t(in.toUInt()/1000);
-            input = input.addMSecs(in.toUInt() % 1000);
+            input = ZDateTime::fromUnixMsec(in.toUInt());
             return input.toString(dateFormat);
 
     //! format option: autodetect

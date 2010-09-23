@@ -2,10 +2,7 @@
 #define ZCOUNTDOWN_H
 
 #define ZCM_COUNTDOWN           "zee:countdown"
-
 #define ZCDWN_DEFAULT_INTV      1000
-
-#define NOW_MSEC()		(CAST(qint64,QDateTime::currentDateTime().toTime_t())*1000LL)+CAST(qint64,QTime::currentTime().msec())
 
 #include <ztimer.h>
 #include <libzee/libzee.h>
@@ -19,6 +16,7 @@ class ZCountdown : public QObject, public ZConfigurable
 public:
     ZCountdown(const ZConfig &el, QObject *parent=0);
     ~ZCountdown();
+    bool isActive();
 
 public slots:
     void start();
@@ -42,6 +40,7 @@ private:
 private:
     ZTimer *_tracker;
     qint64 _startMsec;
+    QDateTime _target;
     qint64 _targetMsec;
 };
 

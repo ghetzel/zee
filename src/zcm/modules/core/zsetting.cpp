@@ -21,7 +21,13 @@ ZSetting::ZSetting(const ZConfig &el, QObject *parent)
     : QObject(parent),
       ZConfigurable(el,this)
 {
-    parse(_config);
+    zEvent->registerSignal(this, SIGNAL(valueChanged(QVariant)));
+    zEvent->registerSlot(this, SLOT(setValue(QVariant)));
 }
 
 void ZSetting::parse(const ZConfig&){}
+
+void ZSetting::setValue(QVariant val){
+    setProperty("value", val);
+    emit valueChanged(val);
+}

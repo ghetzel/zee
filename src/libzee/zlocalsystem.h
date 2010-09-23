@@ -19,7 +19,8 @@
 #define ZLOCALSYSTEM_H
 
 #include <QObject>
-#include <QDateTime>
+#include "zdatetime.h"
+
 
 class ZLocalSystem
 {
@@ -33,8 +34,6 @@ public:
 
 public:
     ZLocalSystem();
-    virtual QDateTime systemTime();
-    virtual qint64 systemTimeEpoch();
     virtual qint64 uptime();
     virtual ZLocalSystem::SystemLoad systemLoad();
 

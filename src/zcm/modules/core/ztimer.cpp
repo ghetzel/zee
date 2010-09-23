@@ -18,11 +18,18 @@
 #include "ztimer.h"
 
 ZTimer::ZTimer(const ZConfig &el, QObject *parent)
-    : QTimer(parent),
+    : QObject(parent),
       ZConfigurable(el,this)
 {
+    _timer = new QTimer(this);
     _tracker = new QTimer(this);
     _prestart = new QTimer(this);
+    _prestart->setSingleShot(true);
+
+    connect(_prestart,  SIGNAL(timeout()),
+            this,       SLOT(start()));
+    connect(_timer,     SIGNAL(timeout()),
+            this,       SIGNAL(timeout()));
 
     zEvent->registerSignal(this, SIGNAL(started()));
     zEvent->registerSignal(this, SIGNAL(stopped()));
@@ -35,8 +42,6 @@ ZTimer::ZTimer(const ZConfig &el, QObject *parent)
     zEvent->registerSlot(this, SLOT(stop()));
     zEvent->registerSlot(this, SLOT(reset()));
 
-    connect(_prestart,  SIGNAL(timeout()),
-            this,       SLOT(start()));
 
     parse(_config);
 }
@@ -53,7 +58,7 @@ void ZTimer::parse(const ZConfig &el){
 
 //!     @once: timeout once then stop
 	if(QVariant(el.attribute("once")).toBool())
-	    setSingleShot(true);
+            _timer->setSingleShot(true);
 
 //!     @delay: time to wait before starting in milliseconds
         if( (startDelay = el.attribute("delay").toInt()) > 0 )
@@ -65,7 +70,7 @@ void ZTimer::parse(const ZConfig &el){
 //!     @onstart: emit timeout() immediately after start?
 	if(ZuiUtils::attributeTrue(el.attribute("onstart"))){
 	    setInterval(0);
-	    connect(this, SIGNAL(timeout()), this, SLOT(startEmit()));
+            connect(this, SIGNAL(timeout()), this, SLOT(startEmit()));
 	}else{
 	    setInterval(_interval);
 	}
@@ -73,11 +78,11 @@ void ZTimer::parse(const ZConfig &el){
 //!     @tracking: frequency of interim ticks to monitor timer progress
 	if(el.hasAttribute("tracking")){
 	    uint tintv = QVariant(el.attribute("tracking")).toUInt();
-            if(_prestart->interval() > 0)
+            if(_prestart->interval() == 0)
                 trackStart(tintv);
 	}
 
-        if(_prestart->interval() > 0)
+        if(_prestart->interval() == 0)
             start();
     }else{
 	z_log_error("ZTimer: Cannot start timer without an interval");
@@ -86,16 +91,24 @@ void ZTimer::parse(const ZConfig &el){
 
 }
 
+void ZTimer::setInterval(qint64 msec){
+    _timer->setInterval(msec);
+}
+
+bool ZTimer::isActive(){
+    return _timer->isActive();
+}
+
 void ZTimer::start(){
-    _tracker->start();
-    ZTimer::start();
+    if(_tracker->interval() > 0) _tracker->start();
+    _timer->start();
     emit started();
 }
 
 void ZTimer::stop(){
     if(_tracker->isActive())
         _tracker->stop();
-    ZTimer::stop();
+    _timer->stop();
     emit stopped();
 }
 
@@ -122,12 +135,13 @@ void ZTimer::trackTick(){
 	trackFinish();
 	emit elapsed(_interval);
 	emit remaining(0);
-	emit tick();
+
     }else{
-	emit tick();
 	emit elapsed(_elapsed);
 	emit remaining(_interval-_elapsed);
     }
+
+    emit tick();
 }
 
 void ZTimer::trackFinish(){

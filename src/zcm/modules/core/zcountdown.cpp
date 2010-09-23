@@ -8,7 +8,7 @@ ZCountdown::ZCountdown(const ZConfig &el, QObject *parent)
     parse(_config);   
 
     if(_tracker){
-        connect(_tracker,   SIGNAL(tick()),
+        connect(_tracker,   SIGNAL(timeout()),
                 this,       SLOT(_tick()));
         connect(_tracker,   SIGNAL(started()),
                 this,       SIGNAL(started()));
@@ -34,45 +34,47 @@ ZCountdown::~ZCountdown(){
 
 void ZCountdown::parse(const ZConfig &el){
 //! @target: the target time for the countdown
-    _targetMsec = (ZDateTime::strtotime_t(el.attribute("target")) * 1000LL);
-    qint64 now = (ZDateTime::now_t() * 1000LL);
+    _target = ZDateTime::strtotime(el.attribute("target"));
 
-    if(target.isValid()){
-        _targetMsec = target.toTime_t()*1000LL;
+    if(_target.isValid()){
+        _targetMsec = (_target.toTime_t()*1000LL)+_target.time().msec();
+        qint64 now = ZDateTime::nowMsec_t();
 
         if(!el.hasAttribute("interval"))
             _config.setAttribute("interval", ZCDWN_DEFAULT_INTV);
 
-        if(_targetMsec > )
-            _tracker = new ZTimer(_config, this);
+        if(_targetMsec > 0)
+            _tracker = new ZTimer(_config.toElement(), this);
 
-        z_log_debug("ZCountdown: Target epoch = "+STR(_targetMsec) + " -> "+target.toString("yyyy-MM-dd hh:mm:ss"));
-        z_log_debug("ZCountdown: Current epoch = "+STR(ZDateTime::now_t()));
+        z_log_debug("ZCountdown: Target epoch  = "+STR(_targetMsec));
+        z_log_debug("ZCountdown: Current epoch = "+STR(now));
+        z_log_debug("ZCountdown: ---- DIFF ----  "+STR(_targetMsec-now));
     }else{
         z_log_error("ZCountdown: Invalid target date specified.");
     }
 }
 
 void ZCountdown::_tick(){
-    qint64 nowMsec = NOW_MSEC();
+    qint64 nowMsec = ZDateTime::nowMsec_t();
 
     if(nowMsec < _targetMsec){
-        z_log_debug("ZCountdown: Current epoch = "+STR(nowMsec));
-        z_log_debug("ZCountdown: Elapsed = "+STR(nowMsec - _startMsec));
-        z_log_debug("ZCountdown: Remains = "+STR(_targetMsec - nowMsec));
-
         emit elapsed(nowMsec - _startMsec);
         emit remaining(_targetMsec - nowMsec);
         emit tick();
     }else{
         z_log_debug("ZCountdown: COMPLETED");
+        _tracker->stop();
         emit timeout();
     }
 }
 
+bool ZCountdown::isActive(){
+    return _tracker->isActive();
+}
+
 void ZCountdown::start(){
     if(_tracker) _tracker->start();
-    _startMsec = NOW_MSEC();
+    _startMsec = ZDateTime::nowMsec_t();
 }
 
 void ZCountdown::stop(){

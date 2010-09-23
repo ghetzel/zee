@@ -23,3 +23,5 @@ SOURCES +=  zee.cpp                       \
             zui/layouts/zflowlayout.cpp   \
             zui/layouts/zborderlayout.cpp
 
+LIBS +=     -lzee
+

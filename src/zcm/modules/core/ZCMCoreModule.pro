@@ -5,13 +5,13 @@ CONFIG += plugin
 CONFIG += console
 INCLUDEPATH += .
 INCLUDEPATH += ../../..
+INCLUDEPATH += ../../../libzee/
 INCLUDEPATH += /usr/local/include/
 DEPENDPATH += .
 DEPENDPATH += ../../..
 include(../../../zcm.pri)
-LIBS += -lsigar -lboost_date_time -lzee
+LIBS += -lsigar -lboost_date_time
 HEADERS += zcmcoremodule.h \
-    libzee/zlocalsystem.h \
     zsetting.h \
     ztimer.h \
     zsysteminfo.h \
@@ -22,7 +22,6 @@ HEADERS += zcmcoremodule.h \
     ztrayicon.h \
     zcountdown.h
 SOURCES += zcmcoremodule.cpp \
-    libzee/zlocalsystem.cpp \
     zsetting.cpp \
     ztimer.cpp \
     zsysteminfo.cpp \
