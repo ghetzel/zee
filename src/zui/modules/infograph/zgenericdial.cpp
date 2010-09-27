@@ -146,8 +146,8 @@ void ZGenericDial::refreshTicks(ZDialTickRule r){
     int val = 0;
     qreal step = (_range/(_maxValue-_minValue))*r.every;
     qreal c,s;
-    qreal xRadius = (width()-(ZGENERIC_DIAL_X_PAD*2))/2;
-    qreal yRadius = (height()-(ZGENERIC_DIAL_Y_PAD*2))/2;
+    qreal xRadius = (width()-(ZGENERIC_DIAL_X_PAD*2.0))/2.0;
+    qreal yRadius = (height()-(ZGENERIC_DIAL_Y_PAD*2.0))/2.0;
     qreal innerXRadius = xRadius-r.length;
     qreal innerYRadius = yRadius-r.length;
 

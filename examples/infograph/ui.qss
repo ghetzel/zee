@@ -1,5 +1,4 @@
 QFrame{
-	background: transparent center center no-repeat url("../../dev/pnglogo.mng");
 }
 
 ZGenericDial{

@@ -4,12 +4,10 @@
   xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
   xmlns:zui="http://www.gammazeta.net/zee/zui/">
 	<zee:components>
-		<zee:system id="system-time">
-			<zee:param name="timeFormat" value="hh:mm:ss AP" />
-		</zee:system>
-		<zee:system id="system-date">
-			<zee:param name="timeFormat" value="yyyy-MM-dd" />
-		</zee:system>
+		<zee:system id="system" />
+
+		<zee:formatter id="nowFormat" type="date" method="format" value="hh:mm:ss.zzz AP || u" />
+
 		<zee:timer id="tm1s" interval="37" onstart="true" />
 	</zee:components>
 	<zee:widgets>
@@ -24,10 +22,6 @@
 		</zui:application>
 	</zee:widgets>
 	<zee:events>
-		<zee:connect from="tm1s.timeout" to="time.setText" via="system-time.ftime" />
-
-<!--
-		<zee:connect from="tm1s.timeout" to="date.setText" via="system-date.ftime" />
--->
+		<zee:connect from="tm1s.timeout" to="time.setText" via="system.timeMsec" formatter="nowFormat" />
 	</zee:events>
 </zee>

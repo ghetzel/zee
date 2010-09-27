@@ -81,7 +81,7 @@ private:
 protected:
     virtual void paintEvent(QPaintEvent *event);
 
-private:
+protected:
     QHash<QString,QPainterPath> _ticks;
     QHash<QString,ZDialTickRule> _rules;
     qreal _value;

@@ -29,6 +29,9 @@ public:
 
 private:
     void paintEvent(QPaintEvent *event);
+
+private:
+    int _ringWidth;
 };
 
 #endif // ZPIEGAUGE_H
