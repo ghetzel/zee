@@ -38,6 +38,7 @@ ZListWidget::ZListWidget(const ZConfig &el, QWidget *parent)
 
 
 void ZListWidget::parse(const ZConfig &el){
+//! @scroll (hidden|scroll|auto) - the display policy for scrollbars
     if(el.hasAttribute("scroll"))
     {
       if(el.attribute("scroll") == "hidden"){
@@ -49,6 +50,15 @@ void ZListWidget::parse(const ZConfig &el){
       }
     }
 
+/*! @select (multi|extended|single|contiguous|none) - the selection policy for
+        items.
+
+        #multi      - allow multiple random selections
+        #extended   - ???
+        #single     - allow a single item to be selected
+        #contiguous - allow multiple adjacent items to be selected
+        #none       - prevent item selection
+  */
     if(el.hasAttribute("select")){
 	if(el.attribute("select") == "multi")
 	    setSelectionMode(QAbstractItemView::MultiSelection);
@@ -62,11 +72,13 @@ void ZListWidget::parse(const ZConfig &el){
 	    setSelectionMode(QAbstractItemView::NoSelection);
     }
 
+//! @view (list|icon) - the manner in which items are displayed
     if(el.attribute("view","list") == "list")
 	setViewMode(QListView::ListMode);
     else
 	setViewMode(QListView::IconMode);
 
+//! @grid - the size of the icon arrangement grid (format: ##x##)
     if(el.hasAttribute("grid")){
       QStringList gridWH = el.attribute("grid","32x32").split("x");
       int gW = QString(gridWH.first()).toInt();
@@ -74,6 +86,7 @@ void ZListWidget::parse(const ZConfig &el){
       setGridSize(QSize(gW,gH));
     }
 
+//! @icons - the size of the icons (format: ##x##)
     QStringList icosz = el.attribute("icons","16x16").split("x");
     int iW = icosz.first().toInt();
     int iH = icosz.last().toInt();
@@ -81,6 +94,7 @@ void ZListWidget::parse(const ZConfig &el){
 
     setEditTriggers(0);
 
+//! @flow (vertical|horizontal) - the direction icon items flow in
     if(el.attribute("flow","vertical") == "vertical")
       setFlow(QListView::TopToBottom);
     else
@@ -109,6 +123,8 @@ void ZListWidget::parse(const ZConfig &el){
 	}
 
 	setModel(m);
+
+//! @model - object path to the data model
     }else if(el.hasAttribute("model")){
 	QObject *target = zEvent->findObject(el.attribute("model"),true);
 

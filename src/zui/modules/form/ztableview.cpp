@@ -24,6 +24,7 @@ ZTableView::ZTableView(const ZConfig &el, QWidget *parent)
 }
 
 void ZTableView::parse(const ZConfig &el){
+//! @model - the object path to the data model
     if(el.hasAttribute("model")){
 	QObject *target = zEvent->findObject(el.attribute("model"),true);
 

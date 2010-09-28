@@ -52,6 +52,7 @@ void ZButton::parse(const ZConfig &el){
     else if(!el.attribute("value","").isEmpty())
 	setText(el.attribute("value"));
 
+//! @icon - system name or path of the icon to display
     if(el.hasAttribute("icon"))
 	zSetIcon(el.attribute("icon"));
 }

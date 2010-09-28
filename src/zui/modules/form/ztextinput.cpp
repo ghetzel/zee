@@ -46,8 +46,10 @@ void ZTextInput::init(){
 }
 
 void ZTextInput::parse(const ZConfig &el){
+//! @type - the type of text input field
     QString fieldtype = el.attribute("type");
 
+//! @type#password - a password entry field
     if(fieldtype == "password"){
 	setEchoMode(QLineEdit::Password);
     }
@@ -55,16 +57,19 @@ void ZTextInput::parse(const ZConfig &el){
     if(!el.text().isEmpty()) //! default text
 	setText(el.text());
 
-
+//! @align - the text alignment of the field
     if(el.hasAttribute("align"))
         setAlignment(ZuiUtils::getAlignment(el.attribute("align")));
 
+//! @disabled - whether the field is initially disabled
     if(ZuiUtils::attributeTrue(el.attribute("disabled"))) //! disabled
 	setDisabled(true);
 
+//! @maxlength - the maximum number of characters the field will accept
     if(el.hasAttribute("maxlength")) //! max character length
 	setMaxLength(el.attribute("maxlength").toInt());
 
+//! @mask - the text mask to format the input to
     if(el.hasAttribute("mask")) //! See QLineEdit#inputMask for mask examples
 	setInputMask(el.attribute("mask"));
 }

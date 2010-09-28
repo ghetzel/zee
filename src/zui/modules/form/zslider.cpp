@@ -33,6 +33,7 @@ void ZSlider::init(){
 }
 
 void ZSlider::parse(const ZConfig &el){
+//! @direction - the lateral orientation of the slider
     if(el.attribute("direction","horizontal") == "vertical")
 	setOrientation(Qt::Vertical);
     else

@@ -51,6 +51,7 @@ void ZToggleButton::init(){
 
 
 void ZToggleButton::parse(const ZConfig &el){
+//! @value2 - the alternate value of this button
     if(el.hasAttribute("value2"))
 	_otherLabel = el.attribute("value2");
 }

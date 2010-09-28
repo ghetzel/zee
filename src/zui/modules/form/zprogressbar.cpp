@@ -25,13 +25,18 @@ ZProgressBar::ZProgressBar(const ZConfig &el, QWidget *parent)
 }
 
 void ZProgressBar::parse(const ZConfig &el){
+//! @min - the lowest value of the bar [default: 0]
     if(el.hasAttribute("min"))
-	setMinimum(el.attribute("min","0").toInt());
+        setMinimum(qRound(el.attribute("min","0").toFloat()));
+//! @max - the highest value of the bar [default: 100]
     if(el.hasAttribute("max"))
-	setMaximum(el.attribute("max","0").toInt());
-    if(el.hasAttribute("value"))
-	setValue(el.attribute("value","0").toInt());
+        setMaximum(qRound(el.attribute("max","100").toFloat()));
 
+//! @value - the starting value
+    if(el.hasAttribute("value"))
+        setValue(qRound(el.attribute("value","0").toFloat()));
+
+//! @align (left|right|center) - alignment of the text indicator [default: left]
     if(el.hasAttribute("align"))
         setAlignment(ZuiUtils::getAlignment(el.attribute("align")));
 }

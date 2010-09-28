@@ -1,0 +1,18 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+	<qresource>
+		<file>0.png</file>
+		<file>1.png</file>
+		<file>2.png</file>
+		<file>3.png</file>
+		<file>4.png</file>
+		<file>5.png</file>
+		<file>6.png</file>
+		<file>7.png</file>
+		<file>8.png</file>
+		<file>9.png</file>
+		<file>dot.png</file>
+		<file>space.png</file>
+		<file>colon.png</file>
+	</qresource>
+</RCC>
