@@ -30,7 +30,7 @@
 #include "zxwindowlistmodel.h"
 #include "zxwindowlistitem.h"
 
-class ZTaskbar : public ZWidget<QListView>
+class ZTaskbar : public QListView, public ZWidget
 {
   Q_OBJECT
   Q_PROPERTY(int itemWidth READ itemWidth WRITE setItemWidth)

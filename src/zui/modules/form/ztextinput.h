@@ -23,7 +23,7 @@
 #include <zutil.h>
 #include <zui/zwidget.h>
 
-class ZTextInput : public ZWidget<QLineEdit>
+class ZTextInput : public QLineEdit, public ZWidget
 {
     Q_OBJECT
     Q_PROPERTY(int lastCursorPosition READ lastCursorPosition)

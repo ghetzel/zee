@@ -17,6 +17,13 @@
 
 #include "zcheckbox.h"
 
-ZCheckBox::ZCheckBox()
+ZCheckBox::ZCheckBox(const ZConfig &el, QWidget *parent)
+    : QCheckBox(parent),
+      ZWidget(el,this)
 {
+    parse(_config);
+}
+
+void ZCheckBox::parse(const ZConfig &el){
+
 }

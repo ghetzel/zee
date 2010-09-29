@@ -24,7 +24,7 @@
 #include <zui/zwidget.h>
 #include <zeventmanager.h>
 
-class ZContainerWidget : public ZWidget<QFrame>
+class ZContainerWidget : public QFrame, public ZWidget
 {
     Q_OBJECT
     Q_PROPERTY(Qt::Alignment align READ alignment WRITE setAlignment)

@@ -25,7 +25,7 @@
 #include <zui/zwidget.h>
 
 
-class ZSpacer : public ZWidget<QFrame>
+class ZSpacer : public QFrame, public ZWidget
 {
 public:
     ZSpacer(const ZConfig &el, QWidget *parent=0);

@@ -18,7 +18,8 @@
 #include "zcharacterdisplay.h"
 
 ZCharacterDisplay::ZCharacterDisplay(const ZConfig &el, QWidget *parent)
-    : ZWidget<QFrame>(el,this,parent)
+    : QFrame(parent),
+      ZWidget(el,this)
 {
     init();
     parse(_config);

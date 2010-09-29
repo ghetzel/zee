@@ -36,7 +36,7 @@ using namespace std;
   \ingroup zui_plugins_form
   \brief A list
 */
-class ZListWidget : public ZWidget<QListView>
+class ZListWidget : public QListView, public ZWidget
 {
     Q_OBJECT
 

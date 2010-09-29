@@ -27,7 +27,8 @@ HEADERS += zuiutils.h \
     zwindow.h \
     zspacer.h \
     zsplitter.h \
-    zimage.h
+    zimage.h \
+    zmenu.h
 SOURCES += zuiutils.cpp \
     zui/layouts/zflowlayout.cpp \
     zui/layouts/zborderlayout.cpp \
@@ -44,7 +45,8 @@ SOURCES += zuiutils.cpp \
     zeventobject.cpp \
     zspacer.cpp \
     zsplitter.cpp \
-    zimage.cpp
+    zimage.cpp \
+    zmenu.cpp
 linux-g++ { 
     HEADERS += zui/zx11/zxrootwindow.h \
         zui/zx11/zxwindow.h \

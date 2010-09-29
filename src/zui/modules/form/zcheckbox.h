@@ -18,10 +18,15 @@
 #ifndef ZCHECKBOX_H
 #define ZCHECKBOX_H
 
-class ZCheckBox
+#include <QCheckBox>
+#include <zeventmanager.h>
+#include <zui/zwidget.h>
+
+class ZCheckBox : public QCheckBox, public ZWidget
 {
 public:
-    ZCheckBox();
+    ZCheckBox(const ZConfig &el, QWidget *parent=0);
+    void parse(const ZConfig &el);
 };
 
 #endif // ZCHECKBOX_H

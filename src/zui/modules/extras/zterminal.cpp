@@ -18,7 +18,8 @@
 #include "zterminal.h"
 
 ZTerminal::ZTerminal(const ZConfig &el, QWidget *parent)
-    : ZWidget<QFrame>(el,this,parent)
+    : QFrame(parent),
+      ZWidget(el,this)
 {
     init();
 }

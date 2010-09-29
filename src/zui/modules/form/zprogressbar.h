@@ -24,7 +24,7 @@
 #include <zutil.h>
 #include <zui/zwidget.h>
 
-class ZProgressBar : public ZWidget<QProgressBar>
+class ZProgressBar : public QProgressBar, public ZWidget
 {
     Q_OBJECT
 

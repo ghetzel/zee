@@ -20,13 +20,15 @@
 using namespace std;
 
 ZButton::ZButton(const ZConfig &el, QWidget *parent)
-    : ZWidget<QPushButton>(el,this,parent){
+    : QPushButton(parent),
+      ZWidget(el,this){
     parse(_config);
     zEvent->registerSignal(this,SIGNAL(clicked()));
 }
 
 ZButton::ZButton(const QString &text, const ZConfig &el, QWidget *parent)
-    : ZWidget<QPushButton>(el,this,parent)
+    : QPushButton(parent),
+      ZWidget(el,this)
 {
     parse(_config);
     setText(text);
@@ -34,7 +36,8 @@ ZButton::ZButton(const QString &text, const ZConfig &el, QWidget *parent)
 }
 
 ZButton::ZButton(const QString &icon, const QString &text, const ZConfig &el, QWidget *parent)
-    : ZWidget<QPushButton>(el,this,parent)
+    : QPushButton(parent),
+      ZWidget(el,this)
 {
     setText(text);
     zSetIcon(icon);

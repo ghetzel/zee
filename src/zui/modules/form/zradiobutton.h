@@ -24,7 +24,7 @@
 #include <zeventmanager.h>
 #include <zwidget.h>
 
-class ZRadioButton : public ZWidget<QRadioButton>
+class ZRadioButton : public QRadioButton, public ZWidget
 {
     Q_OBJECT
 

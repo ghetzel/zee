@@ -33,7 +33,7 @@
     \brief A web browser widget
 
 */
-class ZWebBrowser : public ZWidget<QWebView>{
+class ZWebBrowser : public QWebView, ZWidget{
   Q_OBJECT
 
 private:

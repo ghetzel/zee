@@ -41,13 +41,12 @@
 	
 	<zee:widgets>
 		<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="border">
-			<zee:param name="iconTheme" value="Humanity-Dark" />
-			
+				
             <zui:layout side="north">
                 <zui:container id="mainbar" layout="vertical">
                     <zui:container>
                         <zui:container id="npDetails">
-                            <zui:image id="currentArt" icon="media-playback-stop" />
+                            <zui:image id="currentArt" src=":/icons/48/no-art.png" />
                             <zui:container layout="vertical">
                                 <zui:text id="currentTitle" />
                                 <zui:text id="currentArtist" />

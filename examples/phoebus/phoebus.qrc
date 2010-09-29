@@ -5,7 +5,12 @@
 		<file alias="reload.svg">images/reload.svg</file>
 		<file alias="clear.svg">images/edit-clear.svg</file>
 	</qresource>
+
+	<qresource prefix="/icons/48">
+		<file alias="no-art.png">images/media-cdrom-audio.png</file>
+	</qresource>
+
 	<qresource prefix="/gfx">
-		<file alias="media-optical.png">images/media-optical.png</file>
+		<file alias="no-art.svg">images/media-cdrom-audio.svg</file>
 	</qresource>
 </RCC>

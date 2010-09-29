@@ -38,7 +38,7 @@
 
 using namespace std;
 
-class ZGenericDial : public ZWidget<QWidget>
+class ZGenericDial : public QWidget, public ZWidget
 {
     Q_OBJECT
 //    Q_PROPERTY(int value READ value)

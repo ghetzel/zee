@@ -18,7 +18,8 @@
 #include "zradiobutton.h"
 
 ZRadioButton::ZRadioButton(const ZConfig &el, QWidget *parent)
-    : ZWidget<QRadioButton>(el,this,parent)
+    : QRadioButton(parent),
+      ZWidget(el,this)
 {
     parse(_config);
 }

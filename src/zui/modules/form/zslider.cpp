@@ -18,7 +18,8 @@
 #include "zslider.h"
 
 ZSlider::ZSlider(const ZConfig &el, QWidget *parent)
-    : ZWidget<QSlider>(el,this,parent)
+    : QSlider(parent),
+      ZWidget(el,this)
 {
     init();
 }

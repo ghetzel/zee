@@ -14,25 +14,13 @@ HEADERS += zlinuxfilenotifier.h \
     zhtmllistmodel.h \
     zint64.h \
     zdatetime.h \
-    libzee.h \
-    sys/znetworkinfo.h \
-    sys/zsysteminfo.h \
-    sys/zprocessorinfo.h \
-    sys/znetinterfaceinfo.h \
-    sys/zmemoryinfo.h \
-    sys/zdiskinfo.h \
-    sys/zhardwareinfo.h \
-    sys/zcpuinfo.h
+    libzee.h
 SOURCES += zlinuxfilenotifier.cpp \
     zlocalsystem.cpp \
     zhtmllistmodel.cpp \
     zint64.cpp \
-    zdatetime.cpp \
-    sys/znetworkinfo.cpp \
-    sys/zsysteminfo.cpp \
-    sys/zprocessorinfo.cpp \
-    sys/znetinterfaceinfo.cpp \
-    sys/zmemoryinfo.cpp \
-    sys/zdiskinfo.cpp \
-    sys/zhardwareinfo.cpp \
-    sys/zcpuinfo.cpp
+    zdatetime.cpp
+linux-g++ { 
+    INCLUDEPATH += /usr/include
+    INCLUDEPATH += /usr/local/include
+}

@@ -26,7 +26,7 @@
 #include <zui/zwidget.h>
 #include <zeventmanager.h>
 
-class ZTableView : public ZWidget<QTableView>
+class ZTableView : public QTableView, public ZWidget
 {
 public:
     ZTableView(const ZConfig &el, QWidget *parent);

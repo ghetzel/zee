@@ -31,7 +31,7 @@
   \brief A button with superpowers
 
 */
-class ZButton : public ZWidget<QPushButton>
+class ZButton : public QPushButton, public ZWidget
 {
     Q_OBJECT
     Q_PROPERTY(QString zicon READ zicon WRITE zSetIcon)

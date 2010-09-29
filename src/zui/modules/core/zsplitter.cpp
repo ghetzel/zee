@@ -18,7 +18,8 @@
 #include "zsplitter.h"
 
 ZSplitter::ZSplitter(const ZConfig &el, QWidget *parent)
-    : ZWidget<QSplitter>(el,this,parent)
+    : QSplitter(parent),
+      ZWidget(el,this)
 {
     parse(_config);
 }

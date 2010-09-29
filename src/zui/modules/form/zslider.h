@@ -24,7 +24,7 @@
 #include <zui/zwidget.h>
 
 
-class ZSlider : public ZWidget<QSlider>
+class ZSlider : public QSlider, public ZWidget
 {
     Q_OBJECT
 

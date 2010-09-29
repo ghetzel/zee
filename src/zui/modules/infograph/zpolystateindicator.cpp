@@ -17,6 +17,13 @@
 
 #include "zpolystateindicator.h"
 
-ZPolystateIndicator::ZPolystateIndicator()
+ZPolystateIndicator::ZPolystateIndicator(const ZConfig &el, QWidget *parent)
+    : QLabel(parent),
+      ZWidget(el,this)
 {
+    parse(_config);
+}
+
+void ZPolystateIndicator::parse(const ZConfig &el){
+
 }

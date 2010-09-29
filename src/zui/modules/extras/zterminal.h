@@ -31,7 +31,7 @@
 #include <zwidget.h>
 #include <zeventmanager.h>
 
-class ZTerminal : public ZWidget<QFrame>
+class ZTerminal : public QFrame, public ZWidget
 {
     Q_OBJECT
 public:

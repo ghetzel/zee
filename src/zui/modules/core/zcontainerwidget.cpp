@@ -18,7 +18,8 @@
 #include "zcontainerwidget.h"
 
 ZContainerWidget::ZContainerWidget(const ZConfig &el, QWidget *parent)
-    : ZWidget<QFrame>(el,this,parent)
+    : QFrame(parent),
+      ZWidget(el,this)
 {
     parse(_config);
     zEvent->registerSlot(this, SLOT(hide()));

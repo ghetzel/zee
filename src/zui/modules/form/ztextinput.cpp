@@ -18,7 +18,8 @@
 #include "ztextinput.h"
 
 ZTextInput::ZTextInput(const ZConfig &el, QWidget *parent)
-    : ZWidget<QLineEdit>(el,this,parent)
+    : QLineEdit(parent),
+      ZWidget(el,this)
 {
     _lastCursorPosition = 0;
     init();

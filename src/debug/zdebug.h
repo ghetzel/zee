@@ -4,6 +4,9 @@
 #include <QCoreApplication>
 #include <zutil.h>
 #include <libzee/libzee.h>
+#include <QGtkStyle>
+#include <QIcon>
+
 
 class ZDebug : public QCoreApplication
 {

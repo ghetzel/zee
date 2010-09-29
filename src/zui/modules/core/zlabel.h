@@ -23,7 +23,7 @@
 #include <QtCore>
 #include <zui/zwidget.h>
 
-class ZLabel : public ZWidget<QLabel>
+class ZLabel : public QLabel, public ZWidget
 {
     Q_OBJECT
 public:

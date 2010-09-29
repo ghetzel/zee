@@ -18,17 +18,30 @@
 #include "zimage.h"
 
 ZImage::ZImage(const ZConfig &el, QWidget *parent)
-    : ZWidget<QLabel>(el,this,parent){
+    : QLabel(parent),
+      ZWidget(el,this){
     parse(_config);
 }
 
 void ZImage::parse(const ZConfig &el){
+//! @src - the path to an image file
+    if(el.hasAttribute("src")){
+        setImage(el.attribute("src"));
+
+//! @icon - the path or system name of an icon
+    }else if(el.hasAttribute("icon")){
+        setIcon(el.attribute("icon"));
+    }
+
+//! @align - the alignment of the image
+    if(el.hasAttribute("align"))
+        setAlignment(ZuiUtils::getAlignment(el.attribute("align")));
+    else
+        setAlignment(Qt::AlignCenter);
 
 }
 
 void ZImage::setIcon(QString name){
-    z_log_debug("ZImage: SET ICON ="+name);
-
     _icon = ZuiUtils::getIcon(name);
 
     if(!_icon.isNull())
@@ -40,6 +53,7 @@ QString ZImage::icon() const{
 }
 
 void ZImage::setImage(QString name){
+    z_log_debug("ZImage: "+name);
     if(QFile::exists(name)){
         _imagePath = name;
         setPixmap(name);

@@ -28,21 +28,19 @@
 #include <zeventmanager.h>
 #include <zui/zuiutils.h>
 
-template<class Z>
-class ZWidget: public Z, public ZConfigurable
+class ZWidget: public ZConfigurable
 {
 
 public:
-    ZWidget(const ZConfig &el, QWidget *self, QWidget *parent=0)
-	: Z(parent),
-	  ZConfigurable(el,self)
+    ZWidget(const ZConfig &el, QWidget *self)
+        : ZConfigurable(el,self)
     {
 	parse(_config);
 
-        QWidget *t_Widget = NULL;
-        if( (t_Widget = QCAST(QWidget*,this)) ){
-            zEvent->registerSlot(t_Widget, SIGNAL(setDisabled(bool)));
-        }
+//        QWidget *t_Widget = NULL;
+//        if( (t_Widget = QCAST(QWidget*,this)) ){
+//            zEvent->registerSlot(t_Widget, SIGNAL(setDisabled(bool)));
+//        }
     }
 
 private:

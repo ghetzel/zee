@@ -18,10 +18,15 @@
 #ifndef ZPOLYSTATEINDICATOR_H
 #define ZPOLYSTATEINDICATOR_H
 
-class ZPolystateIndicator
+#include <QLabel>
+#include <zeventmanager.h>
+#include <zui/zwidget.h>
+
+class ZPolystateIndicator : public QLabel, public ZWidget
 {
 public:
-    ZPolystateIndicator();
+    ZPolystateIndicator(const ZConfig &el, QWidget *parent=0);
+    void parse(const ZConfig &el);
 };
 
 #endif // ZPOLYSTATEINDICATOR_H

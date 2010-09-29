@@ -24,7 +24,7 @@
 #include <zeventmanager.h>
 #include <zui/zwidget.h>
 
-class ZFrame : public ZWidget<QGroupBox>
+class ZFrame : public QGroupBox, public ZWidget
 {
 public:
     ZFrame(const ZConfig &el, QWidget *parent=0);

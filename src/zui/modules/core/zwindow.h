@@ -19,7 +19,7 @@
 #define ZWINDOW_H
 
 #define ZUI_APPLICATION         "zui:application"
-#define ZUI_APP_DEFAULT_NAME   "ROOT"
+#define ZUI_APP_DEFAULT_NAME    "ROOT"
 
 
 #include <QtCore>
@@ -27,7 +27,7 @@
 #include <zui/zwidget.h>
 #include <zui/zroot.h>
 
-class ZWindow : public ZWidget<QFrame>
+class ZWindow : public QFrame, public ZWidget
 {
     Q_OBJECT
 

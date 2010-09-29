@@ -25,7 +25,7 @@
 #include <zui/zwidget.h>
 
 
-class ZImage : public ZWidget<QLabel>
+class ZImage : public QLabel, public ZWidget
 {
     Q_OBJECT
     Q_PROPERTY(QString icon READ icon WRITE setIcon)

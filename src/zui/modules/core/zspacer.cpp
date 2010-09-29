@@ -18,7 +18,8 @@
 #include "zspacer.h"
 
 ZSpacer::ZSpacer(const ZConfig &el, QWidget *parent)
-    : ZWidget<QFrame>(el,this,parent)
+    : QFrame(parent),
+      ZWidget(el,this)
 {
     parse(_config);
 }

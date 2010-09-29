@@ -18,7 +18,8 @@
 #include "zvideowidget.h"
 
 ZVideoWidget::ZVideoWidget(const ZConfig &el, QWidget *parent)
-    : ZWidget<QMPwidget>(el,this,parent)
+    : QMPwidget(parent),
+      ZWidget(el,this)
 {
     init();
     QMPwidget::start();

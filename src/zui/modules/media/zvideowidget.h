@@ -40,7 +40,7 @@
 
 //using namespace Phonon;
 
-class ZVideoWidget : public ZWidget<QMPwidget>
+class ZVideoWidget : public QMPwidget, public ZWidget
 {
     Q_OBJECT
 public:

@@ -26,7 +26,7 @@
 #include <zeventmanager.h>
 #include <zui/zwidget.h>
 
-class ZCharacterDisplay : public ZWidget<QFrame>
+class ZCharacterDisplay : public QFrame, public ZWidget
 {
     Q_OBJECT
     Q_PROPERTY(int lineCount READ lineCount)

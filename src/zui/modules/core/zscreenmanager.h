@@ -39,7 +39,7 @@
 
 using namespace std;
 
-class ZScreenManager : public ZWidget<QStackedWidget>
+class ZScreenManager : public QStackedWidget, public ZWidget
 {
   Q_OBJECT
   Q_PROPERTY(QString screen READ screen RESET jump)

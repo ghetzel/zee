@@ -18,7 +18,8 @@
 #include "zframe.h"
 
 ZFrame::ZFrame(const ZConfig &el, QWidget *parent)
-    : ZWidget<QGroupBox>(el,this,parent)
+    : QGroupBox(parent),
+      ZWidget(el,this)
 {
     parse(_config);
 }
