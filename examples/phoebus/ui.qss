@@ -17,6 +17,18 @@ ZButton{
     color: #FFF;
 }
 
+ZGenericDial{
+	background: qradialgradient(cx:0.5, cy: 0.5, fx:0.5, fy:0.5, radius: 1,
+                 stop:0 #111, stop:1 #333);
+	alternate-background-color: qconicalgradient(cx:0, cy:0, angle:90,
+                 stop:0 green, stop: 0.3 yellow, stop: 0.6 #E07000, stop:1 red);
+	color: transparent;
+	min-width: 64px;
+	min-height: 64px;
+	max-width: 64px;
+	max-height: 64px;
+}
+
 ZTextInput{
 	background-color: rgba(0,0,0,70%);
 	border: 2px solid #444;

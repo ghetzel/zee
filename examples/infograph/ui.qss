@@ -2,8 +2,7 @@ QFrame{
 }
 
 ZGenericDial{
-  alternate-background-color: #FFF;
-  background-color: rgba(0,0,0,10%);
-  color: rgba(204,112,0,100%);
+  alternate-background-color: green;
   font-family: Akzidenz Grotesk Light;
+  color: transparent;
 }

@@ -53,11 +53,15 @@
                                 <zui:text id="currentArtist" />
                                 <zui:text id="currentAlbum" />
                             </zui:container>
+
+	      		    <zui:piegauge id="progPie" />
                         </zui:container>
+
                         <zui:container id="npTime" layout="vertical">
                             <zui:text id="currentTime" />
                             <zui:text id="currentLength" />
                         </zui:container>
+
                         <zui:container layout="vertical">
                             <zui:button id="aClear" value="Clear Queue" />
                             <zui:button id="aReloadStyle" value="Style" />
@@ -121,11 +125,14 @@
 	        <zee:connect from="media.paused"            to="tray.setIcon"           via="iconPause.value" />
 	        <zee:connect from="media.stopped"           to="tray.setIcon"           via="iconDefault.value" />
 		<zee:connect from="media.stopped"           to="seekbar.reset" />
+		<zee:connect from="media.stopped"           to="progPie.reset" />
 		<zee:connect from="media.sourceChanged"     to="meta.setFileName" />
 		<zee:connect from="media.sourceChanged"     to="source.setText" />
 		<zee:connect from="media.queuedSongChanged" to="queue.setCurrentIndex" />		
 		<zee:connect from="media.durationChanged"   to="seekbar.setMaximum"     direct="false" />	
 		<zee:connect from="media.timeChanged"       to="seekbar.setValue"       direct="false" />
+		<zee:connect from="media.durationChanged"   to="progPie.setMaximum"     direct="false" />	
+		<zee:connect from="media.timeChanged"       to="progPie.setValue"       direct="false" />
 		<zee:connect from="media.timeChanged"       to="currentTime.setText"    formatter="fmtTimeLengthMSec" />
 		<zee:connect from="media.reachedBookmark"   to="zee.log"                direct="false" />
 		<zee:connect from="media.bookmarkAdded"     to="seekbar.addBookmark" />

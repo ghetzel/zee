@@ -22,8 +22,8 @@
 
 #define ZGENERIC_DIAL_ANNULAR_OFFSET    -90
 
-#define ZGENERIC_DIAL_DEFAULT_WIDTH     300
-#define ZGENERIC_DIAL_DEFAULT_HEIGHT    300
+#define ZGENERIC_DIAL_DEFAULT_WIDTH     50
+#define ZGENERIC_DIAL_DEFAULT_HEIGHT    50
 
 #define ZGENERIC_DIAL_X_PAD             2
 #define ZGENERIC_DIAL_Y_PAD             2
@@ -38,7 +38,7 @@
 
 using namespace std;
 
-class ZGenericDial : public ZWidget<QFrame>
+class ZGenericDial : public ZWidget<QWidget>
 {
     Q_OBJECT
 //    Q_PROPERTY(int value READ value)
@@ -56,11 +56,11 @@ public:
     double value(){return _value;};
 
     struct ZDialTickRule{
-	QString series;
-	int every;
-	int labelEvery;
-	int length;
-	int skipEvery;
+        QString series;
+        int every;
+        int labelEvery;
+        int length;
+        int skipEvery;
     };
 
 public slots:
