@@ -3,29 +3,29 @@
 	xmlns:zee="http://www.gammazeta.net/zee/core/"
 	xmlns:zui="http://www.gammazeta.net/zee/zui/">
 	<zee:components>
-        <zee:media id="media" remote="true" interval="63" />     
+        	<zee:media id="media" remote="true" interval="63" />     
         
-        <zee:metareader id="meta" remote="true">
-            <zee:metaproperty type="audio" name="title" key="title" />
-            <zee:metaproperty type="audio" name="artist" key="artist" />
-            <zee:metaproperty type="audio" name="album" key="album" />
-            <zee:metaproperty type="audio" name="track" key="track" />
-            <zee:metaproperty type="audio" name="disc" key="disc" />
-            <zee:metaproperty type="audio" name="length" key="length" />
-            <zee:metaproperty type="audio" name="bitrate" key="bitrate" />
-            <zee:metaproperty type="audio" name="samplerate" key="sample-rate" />
-            <zee:metaproperty type="audio" name="bookmarks" key="bookmark" />
-        </zee:metareader>
+	        <zee:metareader id="meta" remote="true">
+	            <zee:metaproperty type="audio" name="title" key="title" />
+	            <zee:metaproperty type="audio" name="artist" key="artist" />
+	            <zee:metaproperty type="audio" name="album" key="album" />
+	            <zee:metaproperty type="audio" name="track" key="track" />
+	            <zee:metaproperty type="audio" name="disc" key="disc" />
+	            <zee:metaproperty type="audio" name="length" key="length" />
+	            <zee:metaproperty type="audio" name="bitrate" key="bitrate" />
+	            <zee:metaproperty type="audio" name="samplerate" key="sample-rate" />
+        	    <zee:metaproperty type="audio" name="bookmarks" key="bookmark" />
+	        </zee:metareader>
         
-        <zee:trayicon id="tray" icon=":/icons/zee.svg" tip="Phoebus" />
+        	<zee:trayicon id="tray" icon=":/icons/zee.svg" tip="Phoebus" />
 
 		<zee:formatter id="fmtTimeLength" type="date" method="format" value="mm:ss || U" />
 		<zee:formatter id="fmtTimeLengthMSec" type="date" method="format" value="mm:ss.zzz || u" />
 
-        <zee:setting id="iconDefault" value=":/icons/zee.svg" />
-        <zee:setting id="iconPlay" value="media-playback-start" />
-        <zee:setting id="iconPause" value="media-playback-pause" />
-        <zee:setting id="iconStop" value="media-playback-stop" />
+	        <zee:setting id="iconDefault" value=":/icons/zee.svg" />
+	        <zee:setting id="iconPlay" value="media-playback-start" />
+        	<zee:setting id="iconPause" value="media-playback-pause" />
+	        <zee:setting id="iconStop" value="media-playback-stop" />
 		<zee:setting id="vNowPlaying" value="queueScreen" />
 		<zee:setting id="vLibrary" value="libraryScreen" />
 		<zee:setting id="vVideos" value="videoScreen" />

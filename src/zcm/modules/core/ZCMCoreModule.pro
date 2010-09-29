@@ -10,7 +10,8 @@ INCLUDEPATH += /usr/local/include/
 DEPENDPATH += .
 DEPENDPATH += ../../..
 include(../../../zcm.pri)
-LIBS += -lsigar -lboost_date_time
+LIBS += -lsigar \
+    -lboost_date_time
 HEADERS += zcmcoremodule.h \
     zsetting.h \
     ztimer.h \

@@ -51,6 +51,8 @@ void ZSystemInfo::parse(const ZConfig&){
         sigar_net_interface_list_t netif;
         sigar_net_interface_list_get(info, &netif);
 
+
+
         sigar_uptime_t uptime;
         sigar_uptime_get(info, &uptime);
 
@@ -99,6 +101,8 @@ void ZSystemInfo::parse(const ZConfig&){
             qDebug() << "\tSOCKS"<< i << cpuinfo.data[i].total_sockets;
             qDebug() << "\tVENDR"<< i << cpuinfo.data[i].vendor;
             qDebug() << "\tMODEL"<< i << cpuinfo.data[i].model;
+
+
 
         }
 
