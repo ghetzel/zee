@@ -27,3 +27,15 @@ ZPolystateIndicator::ZPolystateIndicator(const ZConfig &el, QWidget *parent)
 void ZPolystateIndicator::parse(const ZConfig &el){
 
 }
+
+QString ZPolystateIndicator::image(){
+    return QString();
+}
+
+void ZPolystateIndicator::setImage(QString name, QString icon){
+    _images.insert(name, ZuiUtils::getIcon(icon));
+}
+
+void ZPolystateIndicator::switchTo(QString name){
+//  stub
+}

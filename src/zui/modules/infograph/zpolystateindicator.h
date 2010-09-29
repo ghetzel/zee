@@ -24,9 +24,17 @@
 
 class ZPolystateIndicator : public QLabel, public ZWidget
 {
+    Q_OBJECT
+
 public:
     ZPolystateIndicator(const ZConfig &el, QWidget *parent=0);
     void parse(const ZConfig &el);
+    QString image();
+    void setImage(QString name, QString icon);
+    void switchTo(QString name);
+
+private:
+    QHash<QString,QIcon> _images;
 };
 
 #endif // ZPOLYSTATEINDICATOR_H

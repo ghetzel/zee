@@ -57,8 +57,19 @@ private:
     //  build any additional states specified, populating each state with its
     //  target properties and values
     //  ...
-	foreach(QDomElement cel, childElements("zui:state")){
-	    //if(cel.hasAttribute("name"))
+        foreach(QDomElement cel, childElements("zee:state")){
+            if(cel.hasAttribute("name")){
+                QState *state = new QState();
+                QDomNamedNodeMap celattr = cel.attributes();
+                for(uint i = 0; i < celattr.length(); i++){
+                    QDomAttr a = celattr.item(i).toAttr();
+                    state->assignProperty(_self, CSTR(a.nodeName()),
+                                          QVariant(a.nodeValue()));
+                    _monitoredProperties << a.nodeName();
+                }
+
+                _states.insert(cel.attribute("name"), state);
+            }
 	}
     }
 
@@ -98,7 +109,7 @@ private:
 	}
     }
 
-private:
+protected:
     QStringList _monitoredProperties;
     QStateMachine _stateMachine;
     QHash<QString,QState*> _states;
