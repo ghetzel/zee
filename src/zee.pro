@@ -13,7 +13,8 @@ QT += sql
 QT += svg
 QT += network
 CONFIG += static
-#QTPLUGIN += qmng qgif
+
+# QTPLUGIN += qmng qgif
 RESOURCES = res/zee.qrc
 HEADERS += zevent.h \
     zplugininterface.h \
@@ -39,7 +40,8 @@ HEADERS += zevent.h \
     zdbusabstractadaptor.h \
     zui/layouts/zborderlayout.h \
     zcoreapplication.h \
-    libzee/zint64.h
+    libzee/zint64.h \
+    zui/zcontainerwidget.h
 SOURCES += zevent.cpp \
     zutil.cpp \
     main.cpp \
@@ -56,7 +58,8 @@ SOURCES += zevent.cpp \
     zeeadaptor.cpp \
     zdbusabstractadaptor.cpp \
     zui/layouts/zborderlayout.cpp \
-    libzee/zint64.cpp
+    libzee/zint64.cpp \
+    zui/zcontainerwidget.cpp
 OTHER_FILES += theme.qss \
     dev/ideaman \
     theme.qss.orig \

@@ -15,29 +15,30 @@ HEADERS += zuiutils.h \
     zscreenmanager.h \
     zuiplugin.h \
     zwidget.h \
+    zcontainerwidget.h \
     zroot.h \
     zutil.h \
     zeventmanager.h \
     zeventrelationship.h \
     zmethodobject.h \
     zeventobject.h \
-    zcontainerwidget.h \
     zscreen.h \
     zlabel.h \
     zwindow.h \
     zspacer.h \
     zsplitter.h \
     zimage.h \
-    zmenu.h
+    zmenu.h \
+    zcontainer.h
 SOURCES += zuiutils.cpp \
     zui/layouts/zflowlayout.cpp \
     zui/layouts/zborderlayout.cpp \
     zcoremodule.cpp \
     zscreenmanager.cpp \
     zutil.cpp \
+    zcontainerwidget.cpp \
     zeventmanager.cpp \
     zeventrelationship.cpp \
-    zcontainerwidget.cpp \
     zscreen.cpp \
     zlabel.cpp \
     zwindow.cpp \
@@ -46,7 +47,8 @@ SOURCES += zuiutils.cpp \
     zspacer.cpp \
     zsplitter.cpp \
     zimage.cpp \
-    zmenu.cpp
+    zmenu.cpp \
+    zcontainer.cpp
 linux-g++ { 
     HEADERS += zui/zx11/zxrootwindow.h \
         zui/zx11/zxwindow.h \

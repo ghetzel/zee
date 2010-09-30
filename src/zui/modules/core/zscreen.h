@@ -21,10 +21,10 @@
 #define ZUI_SCREEN          "zui:screen"
 
 #include <QtGui>
-#include <zcontainerwidget.h>
+#include <zui/zcontainerwidget.h>
 #include <zscreenmanager.h>
 
-class ZScreen : public ZContainerWidget
+class ZScreen : public QWidget, public ZContainerWidget
 {
     Q_OBJECT
 public:

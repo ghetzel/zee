@@ -33,7 +33,7 @@
 #include <zui/layouts/zflowlayout.h>
 
 #include <zwindow.h>
-#include <zcontainerwidget.h>
+#include <zcontainer.h>
 #include <zlabel.h>
 #include <zimage.h>
 #include <zscreenmanager.h>

@@ -19,7 +19,7 @@
 
 ZSplitter::ZSplitter(const ZConfig &el, QWidget *parent)
     : QSplitter(parent),
-      ZWidget(el,this)
+      ZContainerWidget(el,this)
 {
     parse(_config);
 }

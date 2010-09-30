@@ -44,6 +44,7 @@
 #define ZFMT_METHOD_STR_REPEAT      "repeat"
 #define ZFMT_METHOD_STR_SUBSTR      "substring"
 
+#include <libzee/zstring.h>
 #include <zabstractformatter.h>
 
 class ZStringFormatter : public ZAbstractFormatter

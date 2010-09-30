@@ -27,7 +27,7 @@
 #include <zui/zwidget.h>
 #include <zui/zroot.h>
 
-class ZWindow : public QFrame, public ZWidget
+class ZWindow : public QFrame, public ZContainerWidget
 {
     Q_OBJECT
 

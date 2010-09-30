@@ -28,7 +28,7 @@
 #include <zeventmanager.h>
 #include <zui/zuiutils.h>
 
-class ZWidget: public ZConfigurable
+class ZWidget : public ZConfigurable
 {
 
 public:
@@ -36,15 +36,30 @@ public:
         : ZConfigurable(el,self)
     {
 	parse(_config);
-
 //        QWidget *t_Widget = NULL;
 //        if( (t_Widget = QCAST(QWidget*,this)) ){
 //            zEvent->registerSlot(t_Widget, SIGNAL(setDisabled(bool)));
 //        }
     }
 
+    QWidget *widget(){
+        QWidget *rv = QCAST(QWidget*,_self);
+        Q_ASSERT(rv);
+        return rv;
+    }
+
+    void setWidgetName(QString name){
+        if(_self) _self->setProperty("widgetName", name);
+    }
+
+    QString widgetName(){
+        if(_self) return _self->property("widgetName").toString();
+        return QString();
+    }
+
 private:
     void parse(const ZConfig &el){
+        setWidgetName(el.tagName());
         scanProperties();
 
     //	tell the object what element spawned it (for style ~*MAGIC*~)
@@ -113,6 +128,9 @@ protected:
     QStringList _monitoredProperties;
     QStateMachine _stateMachine;
     QHash<QString,QState*> _states;
+
+private:
+    QWidget *_selfWidget;
 };
 
 #endif // ZWIDGET_H

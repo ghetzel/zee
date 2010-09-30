@@ -11,6 +11,7 @@ DEPENDPATH  += ../../..
 HEADERS += zutil.h \
     zeventmanager.h \
     zeventobject.h \
+    zcontainerwidget.h \
     zmethodobject.h \
     zuiutils.h \
     zuiplugin.h \
@@ -24,6 +25,7 @@ HEADERS += zutil.h \
 SOURCES += zutil.cpp \
     zeventmanager.cpp \
     zeventobject.cpp \
+    zcontainerwidget.cpp \
     zmethodobject.cpp \
     zuiutils.cpp \
     zinfographmodule.cpp \
@@ -37,3 +39,4 @@ TARGET = $$qtLibraryTarget(zui_infograph)
 DESTDIR = ../../../plugins
 QT += xml
 QT += svg
+LIBS += -lzee

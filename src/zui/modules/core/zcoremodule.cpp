@@ -19,12 +19,13 @@
 
 ZCoreModule::ZCoreModule()
     : ZuiPlugin(){
-    ZuiUtils::registerContainerElement(ZUI_CONTAINER);
-    ZuiUtils::registerContainerElement(ZUI_SCREEN);
-    ZuiUtils::registerContainerElement(ZUI_SCREENMGR);
-    ZuiUtils::registerContainerElement(ZUI_SPLITTER);
-    ZuiUtils::registerContainerElement(ZUI_PANE);
-    ZuiUtils::registerContainerElement("zui:dock");
+//    ZuiUtils::registerContainerElement(ZUI_APPLICATION);
+//    ZuiUtils::registerContainerElement(ZUI_CONTAINER);
+//    ZuiUtils::registerContainerElement(ZUI_SCREEN);
+//    ZuiUtils::registerContainerElement(ZUI_SCREENMGR);
+//    ZuiUtils::registerContainerElement(ZUI_SPLITTER);
+//    ZuiUtils::registerContainerElement(ZUI_PANE);
+//    ZuiUtils::registerContainerElement("zui:dock");
 }
 
 ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
@@ -57,7 +58,7 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
 #ifdef ZUI_CONTAINERS // containers: they hold things
     }else if(ZuiUtils::getContainerNames().contains(el.tagName())){
 	//  add currentWidget to a new containing frame
-	zRes.widget = new ZContainerWidget(el, zRes.parent);
+        zRes.widget = new ZContainer(el, zRes.parent);
 
 //	if adding a screen to the screen manager, call its add method direct,
 	if(el.tagName() == ZUI_SCREEN){

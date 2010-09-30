@@ -5,6 +5,7 @@ ZCountdown::ZCountdown(const ZConfig &el, QObject *parent)
       ZConfigurable(el,this)
 {    
     _tracker = NULL;
+    _startMsec = ZDateTime::nowMsec_t();
     parse(_config);   
 
     if(_tracker){

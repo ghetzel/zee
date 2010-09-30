@@ -18,27 +18,19 @@
 #ifndef ZCONTAINERWIDGET_H
 #define ZCONTAINERWIDGET_H
 
-#define ZUI_CONTAINER       "zui:container"
-
-#include <QtGui>
+#include <QWidget>
 #include <zui/zwidget.h>
-#include <zeventmanager.h>
 
-class ZContainerWidget : public QFrame, public ZWidget
+class ZContainerWidget : public ZWidget
 {
-    Q_OBJECT
-    Q_PROPERTY(Qt::Alignment align READ alignment WRITE setAlignment)
 public:
-    ZContainerWidget(const ZConfig &el, QWidget *parent=0);
+    ZContainerWidget(const ZConfig &el, QWidget *self);
     Qt::Alignment alignment();
+    void setAlignment(QString alignment);
     void setAlignment(Qt::Alignment alignment);
 
-
-public slots:
-    void toggle();
-
-private:
-    void parse(const ZConfig &el);
+protected:
+    virtual void parse(const ZConfig &el);
 };
 
 #endif // ZCONTAINERWIDGET_H

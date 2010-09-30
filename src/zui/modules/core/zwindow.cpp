@@ -19,7 +19,7 @@
 
 ZWindow::ZWindow(const ZConfig &el, QWidget *parent)
     : QFrame(parent),
-      ZWidget(el,this)
+      ZContainerWidget(el,this)
 {
     init();
 }
@@ -160,11 +160,9 @@ void ZWindow::parse(const ZConfig &el){
     }
 
     _rootSurface = new ZRoot(_config,this);
-//    _rootSurface->setLayout(ZuiUtils::getLayout(
-//	    el.attribute("layout", ZUI_DEFAULT_LAYOUT)));
     _rootSurface->setObjectName("root");
     _rootSurface->setAutoFillBackground(true);
-    setLayout(new QHBoxLayout);
+    //setLayout(new QHBoxLayout);
     layout()->setSpacing(0);
     layout()->setMargin(0);
     layout()->addWidget(_rootSurface);

@@ -34,12 +34,12 @@
 #include <QHash>
 #include <QVariant>
 #include <zutil.h>
-#include <zui/zwidget.h>
+#include <zui/zcontainerwidget.h>
 #include <zeventmanager.h>
 
 using namespace std;
 
-class ZScreenManager : public QStackedWidget, public ZWidget
+class ZScreenManager : public QStackedWidget, public ZContainerWidget
 {
   Q_OBJECT
   Q_PROPERTY(QString screen READ screen RESET jump)

@@ -29,16 +29,17 @@
 #define ZGENERIC_DIAL_Y_PAD             2
 
 #include <iostream>
-#include <QtCore>
-#include <QtGui>
+#include <QString>
+#include <QWidget>
 #include <QtSvg>
+#include <libzee/zstring.h>
 #include <zutil.h>
-#include <zui/zwidget.h>
+#include <zui/zcontainerwidget.h>
 #include <zeventmanager.h>
 
 using namespace std;
 
-class ZGenericDial : public QWidget, public ZWidget
+class ZGenericDial : public QWidget, public ZContainerWidget
 {
     Q_OBJECT
 //    Q_PROPERTY(int value READ value)

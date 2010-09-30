@@ -1,7 +1,8 @@
 #ifndef ZROOT_H
 #define ZROOT_H
 
-#include <zcontainerwidget.h>
+#include <QWidget>
+#include <zui/zcontainerwidget.h>
 
 /*!
   \class ZRoot
@@ -9,7 +10,7 @@
   \brief Represents the main window widget that all other widgets are
   descendants of.
 */
-class ZRoot : public ZContainerWidget{
+class ZRoot : public QWidget, public ZContainerWidget{
   Q_OBJECT
 
 public:

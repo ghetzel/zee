@@ -14,12 +14,14 @@ HEADERS += zlinuxfilenotifier.h \
     zhtmllistmodel.h \
     zint64.h \
     zdatetime.h \
-    libzee.h
+    libzee.h \
+    zstring.h
 SOURCES += zlinuxfilenotifier.cpp \
     zlocalsystem.cpp \
     zhtmllistmodel.cpp \
     zint64.cpp \
-    zdatetime.cpp
+    zdatetime.cpp \
+    zstring.cpp
 linux-g++ { 
     INCLUDEPATH += /usr/include
     INCLUDEPATH += /usr/local/include

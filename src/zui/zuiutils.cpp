@@ -44,6 +44,8 @@ QLayout *ZuiUtils::getLayout(QString id)
 {
   QLayout *layout = NULL;
 
+  z_log_debug("ZuiUtils: Layout = "+id);
+
 //	determine layout manager to install
   if(id == ZUI_HORIZON_LAYOUT){                 // horizontal layout
     layout = new QHBoxLayout;

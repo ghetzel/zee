@@ -91,7 +91,7 @@ void ZuiParser::loadModules(){
         m->initialize(zEvent);
     foreach(ZuiPluginInterface *m, zuiModules){
         m->initialize(zEvent);
-        ZuiUtils::registerContainerElements(m->getContainerNames());
+        //ZuiUtils::registerContainerElements(m->getContainerNames());
     }
 }
 
@@ -119,10 +119,18 @@ void ZuiParser::parse(QDomNode n)
         //   if is a container node...
         //   	if the container node has a parent set (always should)
         //   		set parent = current parent's parent
-        if(ZuiUtils::getContainerNames().contains(node.nodeName()))
+
+//        if(_currentWidget)
+//            z_log_debug("ZuiParser: "+_currentWidget->objectName());
+
+        z_log_debug("ZuiParser: DEPTH "+STR(depth));
+
+        if(CAST(QWidget*,_currentWidget)){
             if(_currentParent && _currentParent->parent() != NULL){
-            _currentParent = CAST(QWidget*,_currentParent->parent());
-            --depth;
+                z_log_debug("ZuiParser: =============================== ASCENDING ===============================");
+                _currentParent = CAST(QWidget*,_currentParent->parent());
+                --depth;
+            }
         }
 
 
@@ -151,10 +159,12 @@ bool ZuiParser::parseNode(QDomNode &node)
             //  matched, and the preparation logic was run).  Failing that, currentWidget
             //  will remain NULL and nothing will happen.
             foreach(ZuiPluginInterface *mod, zuiModules){
+                _currentWidget = NULL;
                 zResult = mod->prepareWidget(el, _currentParent);
 
                 //    if there is a new widget...
                 if(zResult.widget){
+                    _currentWidget = zResult.widget;
                     _currentParent = zResult.parent;
                     break;
                 }
@@ -225,7 +235,7 @@ bool ZuiParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
                 if(cWidgetParent->layout())
                     targetLayout = cWidgetParent->layout();
             }
-            ++depth;
+
         }else{
 //            cParent->layout()->addWidget(cWidget);
             targetLayout = cParent->layout();
@@ -291,6 +301,8 @@ bool ZuiParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
                     targetLayout->addWidget(cWidget);
                 }
             }
+
+            ++depth;
         }
 
         return true;

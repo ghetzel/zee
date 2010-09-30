@@ -121,129 +121,89 @@ void ZStringFormatter::transform(QVariant val){
 }
 
 QVariant ZStringFormatter::_left(QVariant in, uint len){
-    return QVariant(in.toString().left(len));
+    return QVariant(ZString::left(in,len));
 }
 
 QVariant ZStringFormatter::_right(QVariant in, uint len){
-    return QVariant(in.toString().right(len));
+    return QVariant(ZString::right(in,len));
 }
 
 QVariant ZStringFormatter::_leftOf(QVariant in, QString delimiter){
-    QString instr = in.toString();
-    if(instr.contains(delimiter))
-	return QVariant(instr.section(delimiter,0,1));
-    return in;
+    return QVariant(ZString::leftOf(in, delimiter));
 }
 
 QVariant ZStringFormatter::_rightOf(QVariant in, QString delimiter){
-    QString instr = in.toString();
-    if(instr.contains(delimiter))
-	return QVariant(instr.section(delimiter,1,1));
-    return in;
+    return QVariant(ZString::rightOf(in, delimiter));
 }
 
 QVariant ZStringFormatter::_ltrim(QVariant in, QString){
-    return in;
+    return QVariant(ZString::ltrim(in));
 }
 
 QVariant ZStringFormatter::_rtrim(QVariant in, QString){
-    return in;
+    return QVariant(ZString::rtrim(in));
 }
 
 QVariant ZStringFormatter::_trim(QVariant in, QString charsEx){
-    return QVariant(in.toString().remove(QRegExp(charsEx)));
+    return QVariant(ZString::trim(in,charsEx));
 }
 
 QVariant ZStringFormatter::_reverse(QVariant in){
-    QString rv;
-    QString instr = in.toString();
-    for(int i = instr.length(); i >= 0; --i)
-	rv += instr[i];
-    return QVariant(rv);
+    return QVariant(ZString::reverse(in));
 }
 
 QVariant ZStringFormatter::_lpad(QVariant in, uint width, QChar pad){
-    return QVariant(in.toString().leftJustified(width,pad));
+    return QVariant(ZString::lpad(in, width, pad));
 }
 
 QVariant ZStringFormatter::_rpad(QVariant in, uint width, QChar pad){
-    return QVariant(in.toString().rightJustified(width,pad));
+    return QVariant(ZString::rpad(in, width, pad));
 }
 
 QVariant ZStringFormatter::_upcase(QVariant in){
-    return QVariant(in.toString().toUpper());
+    return QVariant(ZString::upcase(in));
 }
 
 QVariant ZStringFormatter::_downcase(QVariant in){
-    return QVariant(in.toString().toLower());
+    return QVariant(ZString::downcase(in));
 }
 
 QVariant ZStringFormatter::_sentenceCase(QVariant in){
-    QString instr = in.toString();
-    int index = 0;
-    while((index = instr.indexOf(QRegExp("(?:\\.)\\W+(\\w)"),index)) >= 0){
-	instr[index] = instr[index].toUpper();
-	index += index;
-    }
-
-    return QVariant(instr);
+    return QVariant(ZString::sentenceCase(in));
 }
 
 QVariant ZStringFormatter::_titleCase(QVariant in){
-    QString instr = in.toString();
-    int index = 0;
-    while((index = instr.indexOf(QRegExp("\\b+(\\W)"),index)) >= 0){
-	instr[index] = instr[index].toUpper();
-	index += index;
-    }
-
-    return QVariant(instr);
+    return QVariant(ZString::titleCase(in));
 }
 
 QVariant ZStringFormatter::_squeeze(QVariant in, QChar chr){
-    if(chr == '\0')
-	return QVariant(in.toString().replace(QRegExp("("+QString(chr)+")\\1+"),chr));
-    return QVariant(in.toString().replace(QRegExp("(.)\\1+"),"\\1"));
+    return QVariant(ZString::squeeze(in, chr));
 }
 
 QVariant ZStringFormatter::_lelide(QVariant in, int width, QString abbr){
-    QString instr = in.toString();
-    if(instr.length() > width){
-	instr = instr.remove(0,instr.length()-width);
-	instr.replace(QRegExp("^(?:\\W+)?\\w+\\W"),abbr);
-    }
-
-    return QVariant(instr);
+    return QVariant(ZString::lelide(in, width, abbr));
 }
 
 QVariant ZStringFormatter::_relide(QVariant in, int width, QString abbr){
-    QString instr = in.toString();
-    if(instr.length() > width){
-	instr = instr.remove(0,instr.length()-width);
-	instr.replace(QRegExp("\\W+\\w+(?:\\W+)?$"),abbr);
-    }
-
-    return QVariant(instr);
+    return QVariant(ZString::relide(in, width, abbr));
 }
 
 QVariant ZStringFormatter::_elide(QVariant in, int width, QString abbr){
-    return QVariant(_lelide(in,qCeil(width/2.0),abbr).toString()+_relide(in,qFloor(width/2.0),"").toString());
+    return QVariant(ZString::elide(in, width, abbr));
 }
 
 QVariant ZStringFormatter::_lshift(QVariant in, uint num){
-    return in.toString().remove(0,num);
+    return QVariant(ZString::lshift(in, num));
 }
 
 QVariant ZStringFormatter::_rshift(QVariant in, uint num){
-    QString instr = in.toString();
-    instr.chop(num);
-    return QVariant(instr);
+    return QVariant(ZString::rshift(in, num));
 }
 
 QVariant ZStringFormatter::_concat(QVariant in, QVariant other){
-    return QVariant(in.toString()+other.toString());
+    return QVariant(ZString::concat(in, other));
 }
 
 QVariant ZStringFormatter::_repeat(QVariant in, uint times){
-    return in.toString().repeated(times);
+    return QVariant(ZString::repeat(in, times));
 }

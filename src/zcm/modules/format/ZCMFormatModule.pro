@@ -25,7 +25,7 @@ SOURCES += zcmformatmodule.cpp \
     ztransformation.cpp \
     zunitformatter.cpp
 
-LIBS += -ludunits2
+LIBS += -ludunits2 -lzee
 
 linux-g++{
     INCLUDEPATH += /usr/include

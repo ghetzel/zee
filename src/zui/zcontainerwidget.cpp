@@ -17,37 +17,34 @@
 
 #include "zcontainerwidget.h"
 
-ZContainerWidget::ZContainerWidget(const ZConfig &el, QWidget *parent)
-    : QFrame(parent),
-      ZWidget(el,this)
+ZContainerWidget::ZContainerWidget(const ZConfig &el, QWidget *self)
+    : ZWidget(el,self)
 {
+//    if(!widgetName().isEmpty())
+//        ZuiUtils::registerContainerElement(widgetName());
+
     parse(_config);
-    zEvent->registerSlot(this, SLOT(hide()));
-    zEvent->registerSlot(this, SLOT(show()));
-    zEvent->registerSlot(this, SLOT(toggle()));
+
 }
 
 void ZContainerWidget::parse(const ZConfig &el){
-  setLayout(ZuiUtils::getLayout(
-	  el.attribute("layout", ZUI_DEFAULT_LAYOUT)));
-  if(el.hasAttribute("align"))
-      setProperty("align",el.attribute("align"));
-}
-
-void ZContainerWidget::toggle(){
-    if(isHidden())
-	show();
-    else
-	hide();
+    if(!widget()->layout())
+        widget()->setLayout(ZuiUtils::getLayout(
+                el.attribute("layout", ZUI_DEFAULT_LAYOUT)));
 }
 
 Qt::Alignment ZContainerWidget::alignment(){
-    if(layout())
-	return layout()->alignment();
+    if(widget()->layout())
+        return widget()->layout()->alignment();
     return (Qt::AlignTop | Qt::AlignLeft);
 }
 
+void ZContainerWidget::setAlignment(QString alignment){
+    if(widget()->layout())
+        widget()->layout()->setAlignment(ZuiUtils::getAlignment(alignment));
+}
+
 void ZContainerWidget::setAlignment(Qt::Alignment alignment){
-    if(layout())
-	layout()->setAlignment(alignment);
+    if(widget()->layout())
+        widget()->layout()->setAlignment(alignment);
 }
