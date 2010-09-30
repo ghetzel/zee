@@ -29,8 +29,9 @@
 class Zee;
 
 struct ZuiResult{
-  QWidget *parent;
-  QWidget *widget;
+    QWidget *widget;
+    QWidget *parent;
+    ZuiResult() : widget(NULL), parent(NULL){}
 };
 
 /*!
@@ -52,7 +53,7 @@ public:
   passed in the next call to this function.
 */
   virtual ZuiResult prepareWidget(const QDomElement &el,
-				  QWidget *parent) =0;
+                                  QWidget *parent) =0;
 
 /*!
   Returns a list of containers this plugin can generate.
@@ -67,6 +68,6 @@ public:
 };
 
 Q_DECLARE_INTERFACE(ZuiPluginInterface,
-		    "net.gammazeta.Zee.ZuiPluginInterface/1.0")
+                    "net.gammazeta.Zee.ZuiPluginInterface/1.0")
 
 #endif // ZUIPLUGININTERFACE_H

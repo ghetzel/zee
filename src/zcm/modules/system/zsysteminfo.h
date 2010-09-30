@@ -2,24 +2,13 @@
 #define ZSYSTEMINFO_H
 
 #include <QObject>
-#include <sys/zdiskinfo.h>
-#include <sys/zhardwareinfo.h>
-#include <sys/zmemoryinfo.h>
-#include <sys/znetworkinfo.h>
-#include <sys/zcpuinfo.h>
+#include <zeventmanager.h>
+#include <zconfigurable.h>
 
-class ZSystemInfo : public QObject
+class ZSystemInfo : public QObject, public ZConfigurable
 {
-    Q_OBJECT
 public:
-    ZSystemInfo(QObject *parent=0);
-
-private:
-    void init();
-
-private:
-    QList<QObject*> _info;
-
+    ZSystemInfo(const ZConfig &el, QObject *parent=0);
 };
 
 #endif // ZSYSTEMINFO_H

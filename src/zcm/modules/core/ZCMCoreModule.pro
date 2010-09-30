@@ -10,8 +10,6 @@ INCLUDEPATH += /usr/local/include/
 DEPENDPATH += .
 DEPENDPATH += ../../..
 include(../../../zcm.pri)
-LIBS += -lsigar \
-    -lboost_date_time
 HEADERS += zcmcoremodule.h \
     zsetting.h \
     ztimer.h \
@@ -36,11 +34,11 @@ DESTDIR = ../../../plugins
 TARGET = $$qtLibraryTarget(zcm_core)
 QT += xml \
     sql
-linux-g++ { 
+linux-g++ {
     QT += dbus
     LIBS += -lpam \
         -lpam_misc
     HEADERS += zdbusinterface.h
     SOURCES += zdbusinterface.cpp
 }
-OTHER_FILES += 
+OTHER_FILES +=

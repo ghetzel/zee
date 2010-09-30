@@ -15,39 +15,19 @@
 *    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#ifndef ZCMPLUGININTERFACE_H
-#define ZCMPLUGININTERFACE_H
-
-#define ZEE_COMPONENTS		"zee:components"
+#ifndef ZCMSYSTEMMODULE_H
+#define ZCMSYSTEMMODULE_H
 
 #include <QtCore>
-#include <QList>
-#include <QtXml>
-#include <QtPlugin>
-#include <zconfigurable.h>
-#include <zeventmanager.h>
-#include <zplugininterface.h>
+#include <zcm/zcmplugin.h>
 
-class Zee;
-
-struct ZcmResult{
-  QObject *component;
-  QObject *parent;
-  ZcmResult() : component(NULL), parent(qApp){}
-};
-
-/*!
-  \interface ZcmPluginInterface
-  \ingroup zcm_plugins
-  \brief Interface for interacting with ZCM plugins.
-*/
-class ZcmPluginInterface : public ZPluginInterface
+class ZCMSystemModule : public ZcmPlugin
 {
+    Q_OBJECT
+    Q_INTERFACES(ZcmPluginInterface)
 public:
-  virtual ZcmResult prepare(const QDomElement &el) =0;
+    ZCMSystemModule();
+    ZcmResult prepare(const QDomElement &el);
 };
 
-Q_DECLARE_INTERFACE(ZcmPluginInterface,
-                    "net.gammazeta.Zee.ZcmPluginInterface/1.0")
-
-#endif // ZCMPLUGININTERFACE_H
+#endif // ZCMSYSTEMMODULE_H

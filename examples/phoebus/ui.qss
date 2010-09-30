@@ -21,7 +21,7 @@ ZGenericDial{
 	background: qradialgradient(cx:0.5, cy: 0.5, fx:0.5, fy:0.5, radius: 1,
                  stop:0 #111, stop:1 #333);
 	alternate-background-color: qconicalgradient(cx:0, cy:0, angle:90,
-                 stop:0 green, stop: 0.3 yellow, stop: 0.6 #E07000, stop:1 red);
+					stop: 0 #E07000, stop:1 red);
 	color: transparent;
 	min-width: 64px;
 	min-height: 64px;
@@ -64,8 +64,7 @@ ZTextInput{
 	}
 
 		#currentArt{
-			background: #444 middle middle no-repeat;
-			border-radius: 7px;
+
 			max-height: 68px;
 			max-width: 68px;
 			min-height: 68px;
