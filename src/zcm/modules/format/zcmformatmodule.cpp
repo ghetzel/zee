@@ -20,7 +20,7 @@
 ZCMFormatModule::ZCMFormatModule(){}
 
 ZcmResult ZCMFormatModule::prepare(const QDomElement &el){
-    ZcmResult rv = {NULL};
+    ZcmResult rv;
 
     if(0){
 #ifdef ZCM_FORMATTER

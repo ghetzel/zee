@@ -48,29 +48,6 @@ void ZPieGauge::paintEvent(QPaintEvent *event){
         p->setPen(pp);
         p->setBrush(style.palette.alternateBase());
 
-
-    //    z_log_debug("ZPieGauge: PALETTE BG "+style.palette.background().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE BASE "+style.palette.base().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE BRIGHT "+style.palette.brightText().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE BTN "+style.palette.button().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE BTNTXT "+style.palette.buttonText().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE DARK "+style.palette.dark().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE FG "+style.palette.foreground().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE HLITE"+style.palette.highlight().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE HLITETXT "+style.palette.highlightedText().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE LIGHT "+style.palette.light().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE LINK "+style.palette.link().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE VLINK "+style.palette.linkVisited().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE MID "+style.palette.mid().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE MIDLIGHT "+style.palette.midlight().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE SHDW "+style.palette.shadow().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE TEXT "+style.palette.text().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE TTBASE "+style.palette.toolTipBase().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE TTTXT "+style.palette.toolTipText().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE WIN "+style.palette.window().color().name());
-    //    z_log_debug("ZPieGauge: PALETTE WINTXT"+style.palette.windowText().color().name());
-
-
     //  calculate components for starting outer point
         s0 = qSin(RADIANS(ZGENERIC_DIAL_ANNULAR_OFFSET+_offset));
         c0 = qCos(RADIANS(ZGENERIC_DIAL_ANNULAR_OFFSET+_offset));
