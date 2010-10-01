@@ -22,10 +22,10 @@
 
 #include <QtGui>
 #include <zeventmanager.h>
-#include <zui/zwidget.h>
+#include <zui/zcontainerwidget.h>
 
 
-class ZSpacer : public QFrame, public ZWidget
+class ZSpacer : public QFrame, public ZContainerWidget
 {
 public:
     ZSpacer(const ZConfig &el, QWidget *parent=0);

@@ -9,6 +9,7 @@ DEPENDPATH += ../..
 DEPENDPATH += ../../..
 RESOURCES = res/zee.qrc
 HEADERS += zuiutils.h \
+    zui/zcontainerwidget.h \
     zui/layouts/zflowlayout.h \
     zui/layouts/zborderlayout.h \
     zcoremodule.h \
@@ -31,6 +32,7 @@ HEADERS += zuiutils.h \
     zmenu.h \
     zcontainer.h
 SOURCES += zuiutils.cpp \
+    zui/zcontainerwidget.cpp \
     zui/layouts/zflowlayout.cpp \
     zui/layouts/zborderlayout.cpp \
     zcoremodule.cpp \
@@ -49,7 +51,7 @@ SOURCES += zuiutils.cpp \
     zimage.cpp \
     zmenu.cpp \
     zcontainer.cpp
-linux-g++ { 
+linux-g++ {
     HEADERS += zui/zx11/zxrootwindow.h \
         zui/zx11/zxwindow.h \
         zui/zx11/zxserver.h \

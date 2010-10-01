@@ -15,15 +15,34 @@
 *    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#include "zspacer.h"
+#include "zcontainer.h"
 
-ZSpacer::ZSpacer(const ZConfig &el, QWidget *parent)
+ZContainer::ZContainer(const ZConfig &el, QWidget *parent)
     : QFrame(parent),
       ZContainerWidget(el,this)
 {
     parse(_config);
+    zEvent->registerSlot(this, SLOT(hide()));
+    zEvent->registerSlot(this, SLOT(show()));
+    zEvent->registerSlot(this, SLOT(toggle()));
 }
 
-void ZSpacer::parse(const ZConfig&){
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+void ZContainer::parse(const ZConfig &el){}
+
+void ZContainer::toggle(){
+    if(isHidden())
+        show();
+    else
+        hide();
+}
+
+Qt::Alignment ZContainer::alignment(){
+    if(layout())
+        return layout()->alignment();
+    return (Qt::AlignTop | Qt::AlignLeft);
+}
+
+void ZContainer::setAlignment(Qt::Alignment alignment){
+    if(layout())
+        layout()->setAlignment(alignment);
 }

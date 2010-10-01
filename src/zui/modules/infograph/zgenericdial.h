@@ -34,12 +34,12 @@
 #include <QtSvg>
 #include <libzee/zstring.h>
 #include <zutil.h>
-#include <zui/zcontainerwidget.h>
+#include <zui/zwidget.h>
 #include <zeventmanager.h>
 
 using namespace std;
 
-class ZGenericDial : public QWidget, public ZContainerWidget
+class ZGenericDial : public QWidget, public ZWidget
 {
     Q_OBJECT
 //    Q_PROPERTY(int value READ value)

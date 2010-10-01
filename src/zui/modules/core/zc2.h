@@ -15,15 +15,30 @@
 *    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#include "zspacer.h"
+#ifndef ZContainer_H
+#define ZContainer_H
 
-ZSpacer::ZSpacer(const ZConfig &el, QWidget *parent)
-    : QFrame(parent),
-      ZContainerWidget(el,this)
+#define ZUI_CONTAINER       "zui:container"
+
+#include <QtGui>
+#include <zui/zcontainerwidget.h>
+#include <zeventmanager.h>
+
+class ZContainer : public QFrame, public ZContainerWidget
 {
-    parse(_config);
-}
+    Q_OBJECT
+    Q_PROPERTY(Qt::Alignment align READ alignment WRITE setAlignment)
+public:
+    ZContainer(const ZConfig &el, QWidget *parent=0);
+    Qt::Alignment alignment();
+    void setAlignment(Qt::Alignment alignment);
 
-void ZSpacer::parse(const ZConfig&){
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-}
+
+public slots:
+    void toggle();
+
+private:
+    void parse(const ZConfig &el);
+};
+
+#endif // ZContainer_H

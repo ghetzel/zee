@@ -18,7 +18,7 @@
 #include "zgenericdial.h"
 
 ZGenericDial::ZGenericDial(const ZConfig &el, QWidget *parent)
-    : ZContainerWidget(el,parent){
+    : ZWidget(el,parent){
     init(0);
 }
 

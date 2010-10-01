@@ -36,54 +36,86 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
     if(0){
 #ifdef ZUI_APPLICATION // application: the app window itself
     }else if(el.tagName() == ZUI_APPLICATION){
-	ZWindow *w = new ZWindow(el);
-	zRes.widget = w->rootSurface();
-	zRes.parent = zRes.widget;
+        ZWindow *w = new ZWindow(el);
+        zRes.widget = w->rootSurface();
+        zRes.parent = zRes.widget;
 
-#endif // ZUI_APPLICATION
+#endif
 #ifdef ZUI_SCREENMGR // screens: manages task visibility/navigation
     }else if(el.tagName() == ZUI_SCREENMGR){
-	zRes.widget = new ZScreenManager(el, zRes.parent);
-	zRes.parent = zRes.widget;
-#endif // ZUI_SCREENMGR
-#ifdef ZUI_SCREENMGR // splitter: resizable child panes
-    }else if(el.tagName() == ZUI_SPLITTER){
-	zRes.widget = new ZSplitter(el, zRes.parent);
-	zRes.parent = zRes.widget;
-#endif // ZUI_SCREENMGR
-#ifdef ZUI_SPACER
-    }else if(el.tagName() == ZUI_SPACER){
-	zRes.widget = new ZSpacer(el, zRes.parent);
-#endif // ZUI_SPACER
-#ifdef ZUI_CONTAINERS // containers: they hold things
-    }else if(ZuiUtils::getContainerNames().contains(el.tagName())){
-	//  add currentWidget to a new containing frame
+        zRes.widget = new ZScreenManager(el, zRes.parent);
+        zRes.parent = zRes.widget;
+
+#endif
+#ifdef ZUI_SCREEN // screen: a screen's screen
+    }else if(el.tagName() == ZUI_SCREEN){
         zRes.widget = new ZContainer(el, zRes.parent);
 
-//	if adding a screen to the screen manager, call its add method direct,
-	if(el.tagName() == ZUI_SCREEN){
-	    ZScreenManager *obj = QCAST(ZScreenManager*,zRes.parent);
-	    if(obj)
-		obj->addScreen(zRes.widget, el.attribute("name", NULL));
-	}else if(el.tagName() == ZUI_PANE){
-	    ZSplitter *obj = QCAST(ZSplitter*,zRes.parent);
-	    if(obj){
-		obj->addWidget(zRes.widget);
-	    }
-	}
+//      obtain our parent and add ourself to it
+        ZScreenManager *parent = QCAST(ZScreenManager*,zRes.parent);
+        if(parent)
+            parent->addScreen(zRes.widget, el.attribute("name", NULL));
 
-	zRes.parent = zRes.widget;
-#endif // ZUI_CONTAINERS
+        zRes.parent = zRes.widget;
+
+#endif
+#ifdef ZUI_SPLITTER // splitter: resizable child panes
+    }else if(el.tagName() == ZUI_SPLITTER){
+        zRes.widget = new ZSplitter(el, zRes.parent);
+        zRes.parent = zRes.widget;
+
+#endif
+#ifdef ZUI_PANE // pane: a splitter's pane
+    }else if(el.tagName() == ZUI_PANE){
+        zRes.widget = new ZContainer(el, zRes.parent);
+
+//      obtain our parent and add ourself to it
+        ZSplitter *parent = QCAST(ZSplitter*,zRes.parent);
+        if(parent)
+            parent->addWidget(zRes.widget);
+
+        zRes.parent = zRes.widget;
+
+#endif
+#ifdef ZUI_SPACER
+    }else if(el.tagName() == ZUI_SPACER){
+        zRes.widget = new ZSpacer(el, zRes.parent);
+#endif
+#ifdef ZUI_CONTAINER // container: it holds things
+    }else if(el.tagName() == ZUI_CONTAINER){
+        zRes.widget = new ZContainer(el, zRes.parent);
+        zRes.parent = zRes.widget;
+
+#endif
 #ifdef ZUI_TEXT // text: generic text label
     }else if(el.tagName() == "zui:text"){
-	zRes.widget = new ZLabel(el, zRes.parent);
+        zRes.widget = new ZLabel(el, zRes.parent);
 
-#endif // ZUI_TEXT
+#endif
 #ifdef ZUI_IMAGE // image: generic image display
     }else if(el.tagName() == ZUI_IMAGE){
         zRes.widget = new ZImage(el, zRes.parent);
 
-#endif // ZUI_IMAGE
+#endif
+#ifdef ZUI_CONTAINERS // containers: they hold things
+    }else if(ZuiUtils::getContainerNames().contains(el.tagName())){
+        //  add currentWidget to a new containing frame
+        zRes.widget = new ZContainer(el, zRes.parent);
+
+//	if adding a screen to the screen manager, call its add method direct,
+        if(el.tagName() == ZUI_SCREEN){
+            ZScreenManager *obj = QCAST(ZScreenManager*,zRes.parent);
+            if(obj)
+                obj->addScreen(zRes.widget, el.attribute("name", NULL));
+        }else if(el.tagName() == ZUI_PANE){
+            ZSplitter *obj = QCAST(ZSplitter*,zRes.parent);
+            if(obj){
+                obj->addWidget(zRes.widget);
+            }
+        }
+
+        zRes.parent = zRes.widget;
+#endif
     }
 
     return zRes;
