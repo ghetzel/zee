@@ -18,7 +18,7 @@
 #ifndef ZCOREMODULE_H
 #define ZCOREMODULE_H
 
-//#define ZUI_CONTAINERS
+#define ZUI_CONTAINERS
 #define ZUI_IMAGE           "zui:image"
 
 #include <iostream>
@@ -33,6 +33,7 @@
 #include <zui/layouts/zflowlayout.h>
 
 #include <zwindow.h>
+#include <zcontainerwidget.h>
 #include <zcontainer.h>
 #include <zlabel.h>
 #include <zimage.h>
@@ -63,9 +64,9 @@ using namespace std;
   \list
   \li \c zui:application   - the main application window
   \li \c zui:container     - a generic element that can hold child elements and
-                             has a layout
+			     has a layout
   \li \c zui:screens       - a manager that allows multiple screens to be
-                             viewed, one at a time
+			     viewed, one at a time
   \li \c zui:screen        - a single instance of a screen
   \li \c zui:header        - a top-aligned container
   \li \c zui:footer        - a bottom-aligned container

@@ -19,7 +19,7 @@
 
 ZScreenManager::ZScreenManager(const ZConfig &el, QWidget *parent)
   : QStackedWidget(parent),
-    ZContainerWidget(el,this){
+    ZWidget(el,this){
     parse(_config);
     zEvent->registerSlot(this,SLOT(jump(QString)));
 }
@@ -52,9 +52,9 @@ void ZScreenManager::setDefaultScreen(QString screen)
 
 void ZScreenManager::jump(QString screen){
     if(screen.isEmpty())
-        _currentScreen = _defaultScreen;
+	_currentScreen = _defaultScreen;
     else
-        _currentScreen = screen;
+	_currentScreen = screen;
 
     z_log_debug("ZScreenManager: Jumping: '"+_currentScreen+"' ("+STR(_screens.value(_currentScreen))+")");
     setCurrentIndex(_screens.value(_currentScreen));

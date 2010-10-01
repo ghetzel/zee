@@ -96,10 +96,10 @@ void ZuiParser::loadModules(){
 }
 
 
-void ZuiParser::parse(QDomNode n)
+void ZuiParser::parse(ZConfigNode n)
 {
     //attempt to find the first child
-    QDomNode node = n.firstChild();
+    ZConfigNode node = n.firstChild();
 
     //	while there are siblings to process...
     while(!node.isNull())
@@ -119,14 +119,17 @@ void ZuiParser::parse(QDomNode n)
         //   if is a container node...
         //   	if the container node has a parent set (always should)
         //   		set parent = current parent's parent
+
+        if(DCAST(ZContainerWidget2*,node.object()))
+            z_log_debug("ZuiParser: "+STR(node.object()->metaObject()->className())+" CONTAINER ^^");
+
         if(ZuiUtils::getContainerNames().contains(node.nodeName())){
-        //if(DCAST(ZContainerWidget*,_currentParent)){
             if(_currentParent && _currentParent->parent() != NULL){
+                z_log_debug("ZuiParser: ^^^");
                 _currentParent = CAST(QWidget*,_currentParent->parent());
                 --depth;
             }
         }
-
 
         //  move onto the next sibling
         node = node.nextSibling();
@@ -134,11 +137,12 @@ void ZuiParser::parse(QDomNode n)
 }
 
 
-bool ZuiParser::parseNode(QDomNode &node)
+bool ZuiParser::parseNode(ZConfigNode &node)
 {
     //attempt to convert the node to an element
     QDomElement el = node.toElement();
     ZuiResult zResult;
+    _currentWidget = NULL;
 
     //if the node was element-able...
     if(!el.isNull())
@@ -152,11 +156,12 @@ bool ZuiParser::parseNode(QDomNode &node)
             //  prepareWidget calls would result in a true (meaning that the node was
             //  matched, and the preparation logic was run).  Failing that, currentWidget
             //  will remain NULL and nothing will happen.
-            foreach(ZuiPluginInterface *mod, zuiModules){
+            foreach(ZuiPluginInterface *mod, zuiModules){                
                 zResult = mod->prepareWidget(el, _currentParent);
 
                 //    if there is a new widget...
                 if(zResult.widget){
+                    node.setObject(zResult.widget);
                     _currentParent = zResult.parent;
                     break;
                 }

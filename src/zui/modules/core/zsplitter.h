@@ -23,7 +23,7 @@
 
 #include <QSplitter>
 #include <zeventmanager.h>
-#include <zui/zcontainerwidget.h>
+#include <zui/zwidget.h>
 
 class ZSplitter : public QSplitter, public ZWidget
 {

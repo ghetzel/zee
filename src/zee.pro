@@ -21,6 +21,7 @@ HEADERS += zevent.h \
     zplugininterface.h \
     zui/zuiplugininterface.h \
     zcm/zcmplugininterface.h \
+    zui/zcontainerwidget2.h \
     zeventhandler.h \
     zui/zuiutils.h \
     zui/zlistwidgetitem.h \
@@ -42,12 +43,13 @@ HEADERS += zevent.h \
     zui/layouts/zborderlayout.h \
     zcoreapplication.h \
     libzee/zint64.h \
-    zui/zcontainerwidget.h
+    zconfignode.h
 SOURCES += zevent.cpp \
     zutil.cpp \
     main.cpp \
     zui/zuiutils.cpp \
     zui/zlistwidgetitem.cpp \
+    zui/zcontainerwidget2.cpp \
     zeventhandler.cpp \
     zee.cpp \
     zui/zuiparser.cpp \
@@ -60,7 +62,7 @@ SOURCES += zevent.cpp \
     zdbusabstractadaptor.cpp \
     zui/layouts/zborderlayout.cpp \
     libzee/zint64.cpp \
-    zui/zcontainerwidget.cpp
+    zconfignode.cpp
 OTHER_FILES += theme.qss \
     dev/ideaman \
     theme.qss.orig \

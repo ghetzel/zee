@@ -19,7 +19,7 @@
 
 ZSpacer::ZSpacer(const ZConfig &el, QWidget *parent)
     : QFrame(parent),
-      ZContainerWidget(el,this)
+      ZWidget(el,this)
 {
     parse(_config);
 }

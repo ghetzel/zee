@@ -30,12 +30,13 @@
 #include <zconfigurable.h>
 #include <zeventhandler.h>
 #include <zplugininterface.h>
+#include <zconfignode.h>
 #include <zcm/zcmplugin.h>
 #include <zcm/zcmplugininterface.h>
 #include <zui/zuiutils.h>
 #include <zui/zuiplugin.h>
 #include <zui/zuiplugininterface.h>
-#include <zui/zcontainerwidget.h>
+#include <zui/zcontainerwidget2.h>
 
 using namespace std;
 
@@ -63,6 +64,7 @@ class ZuiParser : public QObject
   private:
     ZCoreApplication *_parent;
     QWidget *_currentParent;
+    QWidget *_currentWidget;
     ZConfigurable::ZConfig _config;
     int depth;
     QList<ZcmPluginInterface*> zcmModules;
@@ -101,7 +103,7 @@ class ZuiParser : public QObject
   This recursive method sequentially builds the UI components from the XML
   definition file.
 */
-    void parse(QDomNode n);
+    void parse(ZConfigNode n);
 
 
 /*!
@@ -109,7 +111,7 @@ class ZuiParser : public QObject
   were loaded).  Each plugin may or may not create a new widget to be added to
   the current parent widget.
 */
-    bool parseNode(QDomNode &node);
+    bool parseNode(ZConfigNode &node);
 
 
 /*!

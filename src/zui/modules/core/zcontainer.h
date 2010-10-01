@@ -1,13 +1,13 @@
 #ifndef ZCONTAINER_H
 #define ZCONTAINER_H
 
-#define ZUI_CONTAINER       "zui:container"
+#define ZUI_CONTAINER2       "zui:container2"
 
 #include <QWidget>
-#include <zui/zcontainerwidget.h>
+#include <zui/zcontainerwidget2.h>
 #include <zeventmanager.h>
 
-class ZContainer : public QFrame, public ZContainerWidget
+class ZContainer : public QFrame, public ZContainerWidget2
 {
 public:
     ZContainer(const ZConfig &el, QWidget *parent=0);
