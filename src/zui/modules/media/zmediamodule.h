@@ -48,7 +48,6 @@ class ZMediaModule : public ZuiPlugin
     Q_OBJECT
     Q_INTERFACES(ZuiPluginInterface)
 public:
-  ZMediaModule();
   ZuiResult prepareWidget(const QDomElement &el, QWidget *parent);
 
 };

@@ -49,7 +49,6 @@ class ZExtrasModule : public ZuiPlugin
     Q_OBJECT
     Q_INTERFACES(ZuiPluginInterface)
 public:
-  ZExtrasModule();
   ZuiResult prepareWidget(const QDomElement &el, QWidget *parent);
 
 };

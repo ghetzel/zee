@@ -2,7 +2,7 @@
 
 ZContainer::ZContainer(const ZConfig &el, QWidget *parent)
     : QFrame(parent),
-      ZContainerWidget2(el,this)
+      ZContainerWidget(el,this)
 {
     parse(_config);
 }

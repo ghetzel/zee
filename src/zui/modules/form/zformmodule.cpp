@@ -17,10 +17,6 @@
 
 #include "zformmodule.h"
 
-ZFormModule::ZFormModule()
-    : ZuiPlugin(){
-}
-
 ZuiResult ZFormModule::prepareWidget(const QDomElement &el, QWidget *parent){
     ZuiResult zRes;
     zRes.parent = parent;

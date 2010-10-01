@@ -22,7 +22,7 @@
 
 #include <QtGui>
 #include <zeventmanager.h>
-#include <zwidget.h>
+#include <zui/zwidget.h>
 
 class ZRadioButton : public QRadioButton, public ZWidget
 {

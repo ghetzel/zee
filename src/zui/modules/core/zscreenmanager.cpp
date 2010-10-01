@@ -19,7 +19,7 @@
 
 ZScreenManager::ZScreenManager(const ZConfig &el, QWidget *parent)
   : QStackedWidget(parent),
-    ZContainerWidget2(el,this){
+    ZContainerWidget(el,this){
     parse(_config);
     zEvent->registerSlot(this,SLOT(jump(QString)));
 }

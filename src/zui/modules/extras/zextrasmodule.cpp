@@ -17,11 +17,6 @@
 
 #include "zextrasmodule.h"
 
-ZExtrasModule::ZExtrasModule()
-{
-  //ZuiUtils::registerContainerElement(ZUI_WEBBROWSER);
-}
-
 ZuiResult ZExtrasModule::prepareWidget(const QDomElement &el, QWidget *parent){
   ZuiResult zRes;
   zRes.parent = parent;

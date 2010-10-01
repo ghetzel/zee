@@ -56,11 +56,6 @@ public:
                                   QWidget *parent) =0;
 
 /*!
-  Returns a list of containers this plugin can generate.
-*/
-  virtual QList<QString> getContainerNames() =0;
-
-/*!
   \fn virtual QList<QString> getElementNames() =0;
 
   Returns a list of elements this plugin can handle.

@@ -58,7 +58,6 @@ class ZFormModule : public ZuiPlugin
     Q_OBJECT
     Q_INTERFACES(ZuiPluginInterface)
 public:
-  ZFormModule();
   ZuiResult prepareWidget(const QDomElement &el, QWidget *parent);
 
 };

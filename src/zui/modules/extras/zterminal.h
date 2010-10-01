@@ -28,7 +28,7 @@
 
 #include <QObject>
 #include <qtermwidget/qtermwidget.h>
-#include <zwidget.h>
+#include <zui/zwidget.h>
 #include <zeventmanager.h>
 
 class ZTerminal : public QFrame, public ZWidget

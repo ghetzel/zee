@@ -39,10 +39,6 @@ public:
 	ZEventManager::initialize(_zevent);
     }
 
-    virtual QList<QString> getContainerNames(){
-	return ZuiUtils::getContainerNames();
-    };
-
     ZEventManager *eventManager(){
 	return _zevent;
     }

@@ -36,7 +36,7 @@
 #include <zui/zuiutils.h>
 #include <zui/zuiplugin.h>
 #include <zui/zuiplugininterface.h>
-#include <zui/zcontainerwidget2.h>
+#include <zui/zcontainerwidget.h>
 
 using namespace std;
 

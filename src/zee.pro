@@ -21,7 +21,7 @@ HEADERS += zevent.h \
     zplugininterface.h \
     zui/zuiplugininterface.h \
     zcm/zcmplugininterface.h \
-    zui/zcontainerwidget2.h \
+    zui/zcontainerwidget.h \
     zeventhandler.h \
     zui/zuiutils.h \
     zui/zlistwidgetitem.h \
@@ -49,7 +49,7 @@ SOURCES += zevent.cpp \
     main.cpp \
     zui/zuiutils.cpp \
     zui/zlistwidgetitem.cpp \
-    zui/zcontainerwidget2.cpp \
+    zui/zcontainerwidget.cpp \
     zeventhandler.cpp \
     zee.cpp \
     zui/zuiparser.cpp \

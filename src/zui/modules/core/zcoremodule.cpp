@@ -17,10 +17,6 @@
 
 #include "zcoremodule.h"
 
-ZCoreModule::ZCoreModule()
-    : ZuiPlugin(){
-}
-
 ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
     ZuiResult zRes;
     zRes.parent = parent;

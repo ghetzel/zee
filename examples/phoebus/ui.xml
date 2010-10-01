@@ -43,33 +43,33 @@
 		<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="border">
 				
             <zui:layout side="north">
-                <zui:container2 id="mainbar" layout="vertical">
-                    <zui:container2>
-                        <zui:container2 id="npDetails">
+                <zui:container id="mainbar" layout="vertical">
+                    <zui:container>
+                        <zui:container id="npDetails">
                             <zui:image id="currentArt" src=":/icons/48/no-art.png" />
-                            <zui:container2 layout="vertical">
+                            <zui:container layout="vertical">
                                 <zui:text id="currentTitle" />
                                 <zui:text id="currentArtist" />
                                 <zui:text id="currentAlbum" />
-                            </zui:container2>
+                            </zui:container>
 
 	      		    <zui:piegauge id="progPie" />
-                        </zui:container2>
+                        </zui:container>
 
-                        <zui:container2 id="npTime" layout="vertical">
+                        <zui:container id="npTime" layout="vertical">
                             <zui:text id="currentTime" />
                             <zui:text id="currentLength" />
-                        </zui:container2>
+                        </zui:container>
 
-                        <zui:container2 layout="vertical">
+                        <zui:container layout="vertical">
                             <zui:button id="aClear" value="Clear Queue" />
                             <zui:button id="aReloadStyle" value="Style" />
-                        </zui:container2>                            
-                    </zui:container2>
-                    <zui:container2 id="npVitals">
+                        </zui:container>                            
+                    </zui:container>
+                    <zui:container id="npVitals">
                         <zui:seekbar id="seekbar" />
-                    </zui:container2>
-                </zui:container2>
+                    </zui:container>
+                </zui:container>
             </zui:layout>
             
             <zui:layout side="west">
@@ -85,20 +85,20 @@
 				                <zui:list model="media" id="queue" />
 			                </zui:screen>
 		        	        <zui:screen name="libraryScreen" layout="vertical">
-		                	<zui:container2>
+		                	<zui:container>
 				                	<zui:label value="Artist" />
 			                		<zui:label value="Genre" />
 			        		        <zui:label value="Album" />
-	        		        </zui:container2>
+	        		        </zui:container>
 			                <zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
 		                </zui:screen>
 				<zui:screen name="videoScreen" layout="vertical">
 					<zui:video id="video" />
-					<zui:container2>
+					<zui:container>
 						<zui:button id="aVidPlay">Play</zui:button>
 						<zui:button id="aVidPause">Pause</zui:button>
 						<zui:button id="aVidStop">Stop</zui:button>
-					</zui:container2>
+					</zui:container>
 					<zui:input type="text" id="vidMRL" />
 			                <zui:folder id="vbrowser" uri="/home/ghetzel/downloads" select="extended" />
 				</zui:screen>
@@ -106,13 +106,13 @@
             </zui:layout>
 
             <zui:layout side="south">
-	            <zui:container2 id="controls">
+	            <zui:container id="controls">
 	                <zui:button id="aPrev">Previous</zui:button>
 	                <zui:togglebutton id="aPlayPause" value="Play" value2="Pause" />
                 	<zui:button id="aStop">Stop</zui:button>
         	        <zui:button id="aNext">Next</zui:button>
         	        <zui:button id="aMark">Mark</zui:button>
-	            </zui:container2>
+	            </zui:container>
             </zui:layout>
 		</zui:application>
 	</zee:widgets>

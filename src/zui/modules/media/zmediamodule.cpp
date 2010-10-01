@@ -17,10 +17,6 @@
 
 #include "zmediamodule.h"
 
-ZMediaModule::ZMediaModule()
-    : ZuiPlugin(){
-}
-
 ZuiResult ZMediaModule::prepareWidget(const QDomElement &el, QWidget *parent){
     ZuiResult zRes;
     zRes.parent = parent;

@@ -1,56 +1,30 @@
-TEMPLATE = lib
-MOC_DIR = moc
-OBJECTS_DIR = obj
-CONFIG += plugin
-CONFIG += console
-INCLUDEPATH += .
-INCLUDEPATH += ../../..
-DEPENDPATH += ../..
-DEPENDPATH += ../../..
-RESOURCES = res/zee.qrc
-HEADERS += zuiutils.h \
-    zui/layouts/zflowlayout.h \
-    zui/layouts/zborderlayout.h \
-    zcoremodule.h \
-    zscreenmanager.h \
-    zuiplugin.h \
-    zwidget.h \
-    zroot.h \
-    zutil.h \
-    zeventmanager.h \
-    zeventrelationship.h \
-    zmethodobject.h \
-    zeventobject.h \
-    zcontainerwidget.h \
-    zui/zcontainerwidget2.h \
-    zcontainer.h \
-    zscreen.h \
-    zlabel.h \
-    zwindow.h \
-    zspacer.h \
-    zsplitter.h \
-    zimage.h \
-    zmenu.h
-SOURCES += zuiutils.cpp \
-    zui/layouts/zflowlayout.cpp \
-    zui/layouts/zborderlayout.cpp \
-    zcoremodule.cpp \
-    zscreenmanager.cpp \
-    zutil.cpp \
-    zeventmanager.cpp \
-    zeventrelationship.cpp \
-    zcontainerwidget.cpp \
-    zui/zcontainerwidget2.cpp \
-    zcontainer.cpp \
-    zscreen.cpp \
-    zlabel.cpp \
-    zwindow.cpp \
-    zmethodobject.cpp \
-    zeventobject.cpp \
-    zspacer.cpp \
-    zsplitter.cpp \
-    zimage.cpp \
-    zmenu.cpp
+include(../../../zui.pri)
+
+TARGET =    $$qtLibraryTarget(zui_core)
+
+HEADERS +=  zcoremodule.h       \
+            zscreenmanager.h    \
+            zroot.h             \
+            zcontainer.h        \
+            zscreen.h           \
+            zlabel.h            \
+            zwindow.h           \
+            zspacer.h           \
+            zsplitter.h         \
+            zimage.h            \
+            zmenu.h
+
+SOURCES +=  zcoremodule.cpp     \
+            zscreenmanager.cpp  \
+            zcontainer.cpp      \
+            zscreen.cpp         \
+            zlabel.cpp          \
+            zwindow.cpp         \
+            zspacer.cpp         \
+            zsplitter.cpp       \
+            zimage.cpp          \
+            zmenu.cpp
+
 linux-g++ { 
     HEADERS += zui/zx11/zxrootwindow.h \
         zui/zx11/zxwindow.h \
@@ -61,6 +35,3 @@ linux-g++ {
         zui/zx11/zxserver.cpp \
         zui/zx11/zxevent.cpp
 }
-TARGET = $$qtLibraryTarget(zui_core)
-DESTDIR = ../../../plugins
-QT += xml

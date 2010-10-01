@@ -32,7 +32,6 @@
 #include <zui/layouts/zflowlayout.h>
 
 #include <zwindow.h>
-#include <zcontainerwidget.h>
 #include <zcontainer.h>
 #include <zlabel.h>
 #include <zimage.h>
@@ -79,7 +78,6 @@ class ZCoreModule : public ZuiPlugin
     Q_OBJECT
     Q_INTERFACES(ZuiPluginInterface)
 public:
-  ZCoreModule();
   ZuiResult prepareWidget(const QDomElement &el, QWidget *parent=0);
 
 };

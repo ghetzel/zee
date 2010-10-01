@@ -19,7 +19,7 @@
 
 ZScreen::ZScreen(const ZConfig &el, ZScreenManager *manager)
     : QFrame(manager),
-      ZContainerWidget2(el,this)
+      ZContainerWidget(el,this)
 {
     _manager = manager;
     parse(_config);

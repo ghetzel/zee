@@ -22,9 +22,9 @@
 
 #include <QtGui>
 #include <zscreenmanager.h>
-#include <zui/zcontainerwidget2.h>
+#include <zui/zcontainerwidget.h>
 
-class ZScreen : public QFrame, public ZContainerWidget2
+class ZScreen : public QFrame, public ZContainerWidget
 {
     Q_OBJECT
 public:
