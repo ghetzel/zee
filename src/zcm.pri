@@ -7,10 +7,11 @@ HEADERS +=  zee.h                         \
             zeventobject.h                \
             zui/zuiutils.h                \
             zui/zuiparser.h               \
+            zui/zwidget.h                 \
             zui/layouts/zflowlayout.h     \
             zui/layouts/zborderlayout.h   \
             zcm/zcmplugin.h               \
-            zcm/zcmplugininterface.h      
+            zcm/zcmplugininterface.h
 
 SOURCES +=  zee.cpp                       \
             zutil.cpp                     \
