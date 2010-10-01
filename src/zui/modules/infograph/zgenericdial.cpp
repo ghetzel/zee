@@ -18,15 +18,15 @@
 #include "zgenericdial.h"
 
 ZGenericDial::ZGenericDial(const ZConfig &el, QWidget *parent)
-    : QWidget(parent),
-      ZWidget(el,this){
+    : QFrame(parent),
+      ZContainerWidget(el,this){
     init(0);
 }
 
 ZGenericDial::ZGenericDial(double startValue, const ZConfig &el,
                            QWidget *parent)
-    : QWidget(parent),
-      ZWidget(el,this)
+    : QFrame(parent),
+      ZContainerWidget(el,this)
 {
     init(startValue);
 }
@@ -38,6 +38,8 @@ void ZGenericDial::init(double startValue)
     _minValue = 0.0;
     _value = startValue;
     _maxValue = 100.0;
+    _padX = ZGENERIC_DIAL_X_PAD+(layout() ? layout()->spacing() : 0);
+    _padY = ZGENERIC_DIAL_Y_PAD+(layout() ? layout()->spacing() : 0);
 
     parse(_config);
 
@@ -53,6 +55,7 @@ void ZGenericDial::init(double startValue)
     zEvent->registerSignal(this, SIGNAL(maximumValueChanged(double)));
     zEvent->registerSignal(this, SIGNAL(valueChanged(double)));
     zEvent->registerSignal(this, SIGNAL(rangeChanged(int,int)));
+    zEvent->registerSlot(this, SLOT(reset()));
     zEvent->registerSlot(this, SLOT(hide()));
     zEvent->registerSlot(this, SLOT(refreshAllTicks()));
     zEvent->registerSlot(this, SLOT(setEnabled(bool)));
@@ -65,6 +68,7 @@ void ZGenericDial::init(double startValue)
 
 void ZGenericDial::parse(const ZConfig &el){
     _value = qRound(property("value").toFloat());
+    _startValue = _value;
     setMinimum(property("min").toDouble());
     setMaximum(property("max").toDouble());
 
@@ -93,8 +97,8 @@ void ZGenericDial::parse(const ZConfig &el){
 }
 
 void ZGenericDial::drawIndicator(QPolygonF &i){
-    qreal rX = (width()-(ZGENERIC_DIAL_X_PAD*2))/2;
-    qreal rY = (height()-(ZGENERIC_DIAL_Y_PAD*2))/2;
+    qreal rX = (width()-(_padX*2))/2;
+    qreal rY = (height()-(_padY*2))/2;
     qreal s = qSin(RADIANS(_value));
     qreal c = qCos(RADIANS(_value));
 
@@ -107,8 +111,9 @@ void ZGenericDial::paintEvent(QPaintEvent *event)
     QPainter *p = new QPainter(this);
     QStyleOption style;
     QPen pen(QColor(0,0,0,255));
-    qreal cX = (width()/2.0)-(ZGENERIC_DIAL_X_PAD);
-    qreal cY = (height()/2.0)-(ZGENERIC_DIAL_Y_PAD);
+
+    qreal cX = (width()/2.0)-(_padX);
+    qreal cY = (height()/2.0)-(_padY);
 
     style.initFrom(this);
 
@@ -127,10 +132,10 @@ void ZGenericDial::paintEvent(QPaintEvent *event)
     //p->drawText(cX-(75/2),cY-(25/2),75,32,Qt::AlignCenter,QVariant(_value).toString());
 
     p->setBrush(style.palette.background());
-    p->drawEllipse(ZGENERIC_DIAL_X_PAD,
-                   ZGENERIC_DIAL_Y_PAD,
-                   width()-(2*ZGENERIC_DIAL_X_PAD),
-                   height()-(2*ZGENERIC_DIAL_Y_PAD));
+    p->drawEllipse(_padX,
+                   _padY,
+                   width()-(2*_padX),
+                   height()-(2*_padY));
 
     //p->drawConvexPolygon(indicator);
     p->end();
@@ -146,8 +151,8 @@ void ZGenericDial::refreshTicks(ZDialTickRule r){
     int val = 0;
     qreal step = (_range/(_maxValue-_minValue))*r.every;
     qreal c,s;
-    qreal xRadius = (width()-(ZGENERIC_DIAL_X_PAD*2.0))/2.0;
-    qreal yRadius = (height()-(ZGENERIC_DIAL_Y_PAD*2.0))/2.0;
+    qreal xRadius = (width()-(_padX*2.0))/2.0;
+    qreal yRadius = (height()-(_padY*2.0))/2.0;
     qreal innerXRadius = xRadius-r.length;
     qreal innerYRadius = yRadius-r.length;
 
@@ -177,10 +182,10 @@ void ZGenericDial::refreshTicks(ZDialTickRule r){
      */
         s = qSin(RADIANS(a+ZGENERIC_DIAL_ANNULAR_OFFSET+_offset));
         c = qCos(RADIANS(a+ZGENERIC_DIAL_ANNULAR_OFFSET+_offset));
-        _ticks[r.series].moveTo(QPointF( innerXRadius*c+xRadius+ZGENERIC_DIAL_X_PAD,
-                                         innerYRadius*s+yRadius+ZGENERIC_DIAL_Y_PAD));
-        _ticks[r.series].lineTo(QPointF(xRadius*c+xRadius+ZGENERIC_DIAL_X_PAD,
-                                        yRadius*s+yRadius+ZGENERIC_DIAL_Y_PAD));
+        _ticks[r.series].moveTo(QPointF( innerXRadius*c+xRadius+_padX,
+                                         innerYRadius*s+yRadius+_padY));
+        _ticks[r.series].lineTo(QPointF(xRadius*c+xRadius+_padX,
+                                        yRadius*s+yRadius+_padY));
     }
 }
 
@@ -246,6 +251,10 @@ void ZGenericDial::setRange(int sRange)
         _range = sRange;
 
     //	calcRanges();
+}
+
+void ZGenericDial::reset(){
+    setValue(_startValue);
 }
 
 QSize ZGenericDial::sizeHint()

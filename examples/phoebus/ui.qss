@@ -18,16 +18,23 @@ ZButton{
 }
 
 ZGenericDial{
-	background: qradialgradient(cx:0.5, cy: 0.5, fx:0.5, fy:0.5, radius: 1,
-                 stop:0 #111, stop:1 #333);
-	alternate-background-color: qconicalgradient(cx:0, cy:0, angle:90,
-					stop: 0 #E07000, stop:1 red);
-	border: 7px dashed #112233;
-	color: transparent;
+	background-color: transparent;
+}
+
+#pieRemainHr{
+	alternate-background-color: #E07000;
 	min-width: 64px;
 	min-height: 64px;
 	max-width: 64px;
 	max-height: 64px;
+}
+
+#pieRemainMn{
+	alternate-background-color: #E07000;
+}
+
+#pieRemainSc{
+	alternate-background-color: #E07000;
 }
 
 ZTextInput{

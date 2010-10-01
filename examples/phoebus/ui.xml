@@ -21,6 +21,14 @@
 
 		<zee:formatter id="fmtTimeLength" type="date" method="format" value="mm:ss || U" />
 		<zee:formatter id="fmtTimeLengthMSec" type="date" method="format" value="mm:ss.zzz || u" />
+		<zee:formatter id="fmtTimeCurHours" type="date" method="format" value="hh || u" />
+		<zee:formatter id="fmtTimeCurMinutes" type="date" method="format" value="mm || u" />
+		<zee:formatter id="fmtTimeCurSeconds" type="date" method="format" value="ss || u" />
+		<zee:formatter id="fmtTimeLengthHours" type="date" method="format" value="hh || U" />
+		<zee:formatter id="fmtTimeLengthMinutes" type="date" method="format" value="mm || U" />
+		<zee:formatter id="fmtTimeLengthSeconds" type="date" method="format" value="ss || U" />
+
+
 
 	        <zee:setting id="iconDefault" value=":/icons/zee.svg" />
 	        <zee:setting id="iconPlay" value="media-playback-start" />
@@ -53,12 +61,16 @@
                                 <zui:text id="currentAlbum" />
                             </zui:container>
 
-	      		    <zui:piegauge id="progPie" />
+	      		    <zui:piegauge id="pieRemainHr">
+		      		    <zui:piegauge id="pieRemainMn" spacing="10">
+			      		    <zui:piegauge id="pieRemainSc" spacing="20" />
+				    </zui:piegauge>
+			    </zui:piegauge>
                         </zui:container>
 
                         <zui:container id="npTime" layout="vertical">
-                            <zui:text id="currentTime" />
                             <zui:text id="currentLength" />
+                            <zui:text id="currentTime" />
                         </zui:container>
 
                         <zui:container layout="vertical">
@@ -129,10 +141,13 @@
 		<zee:connect from="media.sourceChanged"     to="source.setText" />
 		<zee:connect from="media.queuedSongChanged" to="queue.setCurrentIndex" />		
 		<zee:connect from="media.durationChanged"   to="seekbar.setMaximum"     direct="false" />	
-		<zee:connect from="media.timeChanged"       to="seekbar.setValue"       direct="false" />
+		<zee:connect from="media.elapsed"           to="seekbar.setValue"       direct="false" />
 		<zee:connect from="media.durationChanged"   to="progPie.setMaximum"     direct="false" />	
-		<zee:connect from="media.timeChanged"       to="progPie.setValue"       direct="false" />
-		<zee:connect from="media.timeChanged"       to="currentTime.setText"    formatter="fmtTimeLengthMSec" />
+		<zee:connect from="media.elapsed"           to="progPie.setValue"       direct="false" />
+		<zee:connect from="media.elapsed"           to="currentTime.setText"    formatter="fmtTimeLengthMSec" />
+		<zee:connect from="media.remaining"         to="pieRemainHr.setValue"   formatter="fmtTimeCurHours"/>
+		<zee:connect from="media.remaining"         to="pieRemainMn.setValue"   formatter="fmtTimeCurMinutes"/>
+		<zee:connect from="media.remaining"         to="pieRemainSc.setValue"   formatter="fmtTimeCurSeconds"/>
 		<zee:connect from="media.reachedBookmark"   to="zee.log"                direct="false" />
 		<zee:connect from="media.bookmarkAdded"     to="seekbar.addBookmark" />
 		<zee:connect from="media.sourceChanged"     to="seekbar.addBookmarks"   via="meta.data.bookmarks" />
@@ -141,6 +156,11 @@
 		<zee:connect from="meta.dataChanged"        to="currentArtist.setText"  via="meta.data.artist" />
 		<zee:connect from="meta.dataChanged"        to="currentAlbum.setText"   via="meta.data.album" />
 		<zee:connect from="meta.dataChanged"        to="currentLength.setText"  via="meta.data.length"              formatter="fmtTimeLength" />
+
+		<zee:connect from="meta.dataChanged"        to="pieRemainHr.setMaximum" via="meta.data.length"              formatter="fmtTimeLengthHours" />
+		<zee:connect from="meta.dataChanged"        to="pieRemainMn.setMaximum" via="meta.data.length"              formatter="fmtTimeLengthMinutes" />
+		<zee:connect from="meta.dataChanged"        to="pieRemainSc.setMaximum" via="meta.data.length"              formatter="fmtTimeLengthSeconds" />
+
 		<zee:connect from="meta.dataChanged"        to="media.setBookmarks"     via="meta.data.bookmarks" />
 		<zee:connect from="queue.activated"         to="media.changeTo"         direct="false" />
 		<zee:connect from="browser.activated"       to="media.enqueue" />

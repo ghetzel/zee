@@ -20,7 +20,25 @@
 ZPieGauge::ZPieGauge(const ZConfig &el, QWidget *parent)
     : ZGenericDial(el,parent)
 {
-    _ringWidth = 10;
+    setRingWidth(ZPIE_DEFAULT_RING_WIDTH);
+}
+
+int ZPieGauge::ringWidth(){
+   return _ringWidth;
+}
+
+void ZPieGauge::setRingWidth(int w){
+    if(w > width() || w > height())
+        _ringWidth = qMin(width(),height());
+    else if(w < 0)
+        _ringWidth = ZPIE_DEFAULT_RING_WIDTH;
+    else
+        _ringWidth = w;
+}
+
+void ZPieGauge::resizeEvent(QResizeEvent *){
+    if(property("ringWidth").isValid())
+        setRingWidth(property("ringWidth").toInt());
 }
 
 void ZPieGauge::paintEvent(QPaintEvent *event){
@@ -33,8 +51,8 @@ void ZPieGauge::paintEvent(QPaintEvent *event){
         qreal curAngle = (360.0/(_maxValue-_minValue))*_value;
 
         qreal c0,s0,c1,s1;
-        qreal xRadius = (width()-(ZGENERIC_DIAL_X_PAD*2.0))/2.0;
-        qreal yRadius = (height()-(ZGENERIC_DIAL_Y_PAD*2.0))/2.0;
+        qreal xRadius = (width()-(_padX*2.0))/2.0;
+        qreal yRadius = (height()-(_padY*2.0))/2.0;
         qreal innerXRadius = xRadius-_ringWidth;
         qreal innerYRadius = yRadius-_ringWidth;
 
@@ -43,7 +61,7 @@ void ZPieGauge::paintEvent(QPaintEvent *event){
 
 
         QPen pp(style.palette.windowText().color());
-        pp.setWidth(3);
+        pp.setWidth(0);
 
         p->setPen(pp);
         p->setBrush(style.palette.alternateBase());
@@ -57,29 +75,29 @@ void ZPieGauge::paintEvent(QPaintEvent *event){
 
 
     //  move to start position (outer)
-        ring.moveTo(QPointF(xRadius*c0+xRadius+ZGENERIC_DIAL_X_PAD,
-                             yRadius*s0+yRadius+ZGENERIC_DIAL_Y_PAD));
+        ring.moveTo(QPointF(xRadius*c0+xRadius+_padX,
+                             yRadius*s0+yRadius+_padY));
 
 
     //  draw start line (outer-to-inner)
-        ring.lineTo(QPointF(innerXRadius*c0+xRadius+ZGENERIC_DIAL_X_PAD,
-                                 innerYRadius*s0+yRadius+ZGENERIC_DIAL_Y_PAD));
+        ring.lineTo(QPointF(innerXRadius*c0+xRadius+_padX,
+                                 innerYRadius*s0+yRadius+_padY));
 
     //  draw inner arc
-        ring.arcTo(QRectF(ZGENERIC_DIAL_X_PAD+_ringWidth,
-                          ZGENERIC_DIAL_Y_PAD+_ringWidth,
+        ring.arcTo(QRectF(_padX+_ringWidth,
+                          _padY+_ringWidth,
                           innerXRadius*2.0,
                           innerYRadius*2.0),
                    -1*(ZGENERIC_DIAL_ANNULAR_OFFSET+_offset),
                    -1*curAngle);
 
     //  draw end line (inner-to-outer)
-        ring.lineTo(QPointF(xRadius*c1+xRadius+ZGENERIC_DIAL_X_PAD,
-                                 yRadius*s1+yRadius+ZGENERIC_DIAL_Y_PAD));
+        ring.lineTo(QPointF(xRadius*c1+xRadius+_padX,
+                                 yRadius*s1+yRadius+_padY));
 
     //  draw outer arc (from end line back to start point
-        ring.arcTo(QRectF(ZGENERIC_DIAL_X_PAD,
-                          ZGENERIC_DIAL_Y_PAD,
+        ring.arcTo(QRectF(_padX,
+                          _padY,
                           xRadius*2.0,
                           yRadius*2.0),
                    -1*(ZGENERIC_DIAL_ANNULAR_OFFSET+_offset+curAngle),

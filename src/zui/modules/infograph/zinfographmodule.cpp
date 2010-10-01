@@ -28,15 +28,20 @@ ZuiResult ZInfographModule::prepareWidget(const QDomElement &el,
 #ifdef ZUI_GAUGE
   }else if(el.tagName() == ZUI_GAUGE){
     zRes.widget = new ZGauge(el,zRes.parent);
-#endif // ZUI_GAUGE
+    zRes.parent = zRes.widget;
+
+#endif
 #ifdef ZUI_PIEGAUGE
   }else if(el.tagName() == ZUI_PIEGAUGE){
     zRes.widget = new ZPieGauge(el,zRes.parent);
-#endif // ZUI_PIEGAUGE
+    zRes.parent = zRes.widget;
+
+#endif
 #ifdef ZUI_CHARACTER_DISPLAY
   }else if(el.tagName() == ZUI_CHARACTER_DISPLAY){
     zRes.widget = new ZCharacterDisplay(el,zRes.parent);
-#endif // ZUI_CHARACTER_DISPLAY
+
+#endif
   }
 
   return zRes;

@@ -34,12 +34,12 @@
 #include <QtSvg>
 #include <libzee/zstring.h>
 #include <zutil.h>
-#include <zui/zwidget.h>
+#include <zui/zcontainerwidget.h>
 #include <zeventmanager.h>
 
 using namespace std;
 
-class ZGenericDial : public QWidget, public ZWidget
+class ZGenericDial : public QFrame, public ZContainerWidget
 {
     Q_OBJECT
 //    Q_PROPERTY(int value READ value)
@@ -69,6 +69,7 @@ public slots:
     void setValue(double xvalue);
     void setMinimum(double value);
     void setMaximum(double value);
+    void reset();
     void redraw();
     QSize sizeHint();
 
@@ -85,12 +86,15 @@ protected:
 protected:
     QHash<QString,QPainterPath> _ticks;
     QHash<QString,ZDialTickRule> _rules;
+    qreal _startValue;
     qreal _value;
     qreal _radius;
     qreal _offset;
     qreal _range;
     int _minValue;
     int _maxValue;
+    int _padX;
+    int _padY;
 
 private slots:
     void refreshAllTicks();

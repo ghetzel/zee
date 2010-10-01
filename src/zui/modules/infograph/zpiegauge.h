@@ -18,14 +18,21 @@
 #ifndef ZPIEGAUGE_H
 #define ZPIEGAUGE_H
 
+#define ZPIE_DEFAULT_RING_WIDTH         10
+
 #define ZUI_PIEGAUGE			"zui:piegauge"
 
 #include <zgenericdial.h>
 
 class ZPieGauge : public ZGenericDial
 {
+    Q_OBJECT
+    Q_PROPERTY(int ringWidth READ ringWidth WRITE setRingWidth)
 public:
     ZPieGauge(const ZConfig &el, QWidget *parent=0);
+    int ringWidth();
+    void setRingWidth(int w);
+    void resizeEvent(QResizeEvent *);
 
 private:
     void paintEvent(QPaintEvent *event);

@@ -36,8 +36,8 @@ void ZGauge::paintEvent(QPaintEvent *event){
     ZGenericDial::paintEvent(event);
 
     QPainter *p = new QPainter(this);
-    qreal cX = (width()/2.0)-(ZGENERIC_DIAL_X_PAD);
-    qreal cY = (height()/2.0)-(ZGENERIC_DIAL_Y_PAD);
+    qreal cX = (width()/2.0)-(_padX);
+    qreal cY = (height()/2.0)-(_padY);
 
     if(_indicator){
 	_indicator->render(p, QRectF(

@@ -105,7 +105,8 @@ signals:
     void loading();
     void stateChanged(ZAudioState);
     void positionChanged(double);
-    void timeChanged(qint64);
+    void elapsed(qint64);
+    void remaining(qint64);
     void durationChanged(qint64);
     void bufferChanged(int);
     void sourceChanged(QString);

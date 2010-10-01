@@ -61,7 +61,8 @@ void ZAudioManager::init(){
     zEvent->registerSignal(this,SIGNAL(stopped()));
     zEvent->registerSignal(this,SIGNAL(loading()));
     zEvent->registerSignal(this,SIGNAL(positionChanged(double)));
-    zEvent->registerSignal(this,SIGNAL(timeChanged(qint64)));
+    zEvent->registerSignal(this,SIGNAL(elapsed(qint64)));
+    zEvent->registerSignal(this,SIGNAL(remaining(qint64)));
     zEvent->registerSignal(this,SIGNAL(durationChanged(qint64)));
     zEvent->registerSignal(this,SIGNAL(sourceChanged(QString)));
     zEvent->registerSignal(this,SIGNAL(queueChanged()));
@@ -149,7 +150,8 @@ void ZAudioManager::tick(qint64){
 	ct = _mediaObject->currentTime();
 	tt = _mediaObject->totalTime();
 	emit positionChanged((100.0/tt)*ct);
-	emit timeChanged(ct);
+        emit elapsed(ct);
+        emit remaining(tt-ct);
 	emit durationChanged(tt);
 	break;
     default: break;
