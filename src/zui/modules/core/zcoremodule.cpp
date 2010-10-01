@@ -19,13 +19,6 @@
 
 ZCoreModule::ZCoreModule()
     : ZuiPlugin(){
-    ZuiUtils::registerContainerElement(ZUI_CONTAINER);
-    ZuiUtils::registerContainerElement(ZUI_CONTAINER2);
-    ZuiUtils::registerContainerElement(ZUI_SCREEN);
-    ZuiUtils::registerContainerElement(ZUI_SCREENMGR);
-    ZuiUtils::registerContainerElement(ZUI_SPLITTER);
-    ZuiUtils::registerContainerElement(ZUI_PANE);
-    ZuiUtils::registerContainerElement("zui:dock");
 }
 
 ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
@@ -40,55 +33,81 @@ ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){
 	zRes.widget = w->rootSurface();
 	zRes.parent = zRes.widget;
 
-#endif // ZUI_APPLICATION
+#endif
 #ifdef ZUI_SCREENMGR // screens: manages task visibility/navigation
     }else if(el.tagName() == ZUI_SCREENMGR){
 	zRes.widget = new ZScreenManager(el, zRes.parent);
 	zRes.parent = zRes.widget;
-#endif // ZUI_SCREENMGR
-#ifdef ZUI_SCREENMGR // splitter: resizable child panes
+#endif
+#ifdef ZUI_SCREEN // screen: i heard you like screens so i put a screen in your
+                  //         screen so you can screen while you screen
+    }else if(el.tagName() == ZUI_SCREEN){
+        ZScreenManager *parent = QCAST(ZScreenManager*, zRes.parent);
+        zRes.widget = new ZContainer(el, zRes.parent);
+
+        if(parent)
+            parent->addScreen(zRes.widget, el.attribute("name"));
+
+        zRes.parent = zRes.widget;
+
+#endif
+#ifdef ZUI_SPLITTER // splitter: resizable child panes
     }else if(el.tagName() == ZUI_SPLITTER){
 	zRes.widget = new ZSplitter(el, zRes.parent);
 	zRes.parent = zRes.widget;
-#endif // ZUI_SCREENMGR
+
+#endif
+#ifdef ZUI_PANE // pane: a pane in a splitter
+    }else if(el.tagName() == ZUI_PANE){
+        ZSplitter *parent = QCAST(ZSplitter*, zRes.parent);
+        zRes.widget = new ZContainer(el, zRes.parent);
+
+        if(parent)
+            parent->addWidget(zRes.widget);
+
+        zRes.parent = zRes.widget;
+
+#endif
 #ifdef ZUI_SPACER
     }else if(el.tagName() == ZUI_SPACER){
 	zRes.widget = new ZSpacer(el, zRes.parent);
-#endif // ZUI_SPACER
-#ifdef ZUI_CONTAINER2
+#endif
+#ifdef ZUI_CONTAINER2 // container: it holds things
     }else if(el.tagName() == ZUI_CONTAINER2){
         zRes.widget = new ZContainer(el, zRes.parent);
         zRes.parent = zRes.widget;
+
 #endif
-#ifdef ZUI_CONTAINERS // containers: they hold things
-    }else if(ZuiUtils::getContainerNames().contains(el.tagName())){
-	//  add currentWidget to a new containing frame
-	zRes.widget = new ZContainerWidget(el, zRes.parent);
-
-//	if adding a screen to the screen manager, call its add method direct,
-	if(el.tagName() == ZUI_SCREEN){
-	    ZScreenManager *obj = QCAST(ZScreenManager*,zRes.parent);
-	    if(obj)
-		obj->addScreen(zRes.widget, el.attribute("name", NULL));
-	}else if(el.tagName() == ZUI_PANE){
-	    ZSplitter *obj = QCAST(ZSplitter*,zRes.parent);
-	    if(obj){
-		obj->addWidget(zRes.widget);
-	    }
-	}
-
-	zRes.parent = zRes.widget;
-#endif // ZUI_CONTAINERS
 #ifdef ZUI_TEXT // text: generic text label
     }else if(el.tagName() == "zui:text"){
 	zRes.widget = new ZLabel(el, zRes.parent);
 
-#endif // ZUI_TEXT
+#endif
 #ifdef ZUI_IMAGE // image: generic image display
     }else if(el.tagName() == ZUI_IMAGE){
         zRes.widget = new ZImage(el, zRes.parent);
 
-#endif // ZUI_IMAGE
+#endif
+
+#ifdef ZUI_CONTAINERS // containers: they hold things
+    }else if(ZuiUtils::getContainerNames().contains(el.tagName())){
+        //  add currentWidget to a new containing frame
+        zRes.widget = new ZContainerWidget(el, zRes.parent);
+
+//	if adding a screen to the screen manager, call its add method direct,
+        if(el.tagName() == ZUI_SCREEN){
+            ZScreenManager *obj = QCAST(ZScreenManager*,zRes.parent);
+            if(obj)
+                obj->addScreen(zRes.widget, el.attribute("name", NULL));
+        }else if(el.tagName() == ZUI_PANE){
+            ZSplitter *obj = QCAST(ZSplitter*,zRes.parent);
+            if(obj){
+                obj->addWidget(zRes.widget);
+            }
+        }
+
+        zRes.parent = zRes.widget;
+#endif
     }
 
     return zRes;

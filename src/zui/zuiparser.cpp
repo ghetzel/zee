@@ -91,7 +91,7 @@ void ZuiParser::loadModules(){
         m->initialize(zEvent);
     foreach(ZuiPluginInterface *m, zuiModules){
         m->initialize(zEvent);
-        ZuiUtils::registerContainerElements(m->getContainerNames());
+        //ZuiUtils::registerContainerElements(m->getContainerNames());
     }
 }
 
@@ -120,10 +120,11 @@ void ZuiParser::parse(ZConfigNode n)
         //   	if the container node has a parent set (always should)
         //   		set parent = current parent's parent
 
-        if(DCAST(ZContainerWidget2*,node.object()))
-            z_log_debug("ZuiParser: "+STR(node.object()->metaObject()->className())+" CONTAINER ^^");
+//        if(DCAST(ZContainerWidget2*,node.object()))
+//            z_log_debug("ZuiParser: "+STR(node.object()->metaObject()->className())+" CONTAINER ^^");
 
-        if(ZuiUtils::getContainerNames().contains(node.nodeName())){
+        //if(ZuiUtils::getContainerNames().contains(node.nodeName())){
+        if(DCAST(ZContainerWidget2*,node.object())){
             if(_currentParent && _currentParent->parent() != NULL){
                 z_log_debug("ZuiParser: ^^^");
                 _currentParent = CAST(QWidget*,_currentParent->parent());

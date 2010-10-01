@@ -18,8 +18,7 @@
 #ifndef ZCOREMODULE_H
 #define ZCOREMODULE_H
 
-#define ZUI_CONTAINERS
-#define ZUI_IMAGE           "zui:image"
+//#define ZUI_CONTAINERS
 
 #include <iostream>
 #include <QtCore>

@@ -18,7 +18,8 @@
 #include "zscreen.h"
 
 ZScreen::ZScreen(const ZConfig &el, ZScreenManager *manager)
-    : ZContainerWidget(el,this)
+    : QFrame(manager),
+      ZContainerWidget2(el,this)
 {
     _manager = manager;
     parse(_config);

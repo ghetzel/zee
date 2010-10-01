@@ -28,18 +28,17 @@
 
 #define ZUI_SCREENMGR       "zui:screens"
 
-#include <iostream>
 #include <QWidget>
 #include <QStackedWidget>
 #include <QHash>
 #include <QVariant>
 #include <zutil.h>
-#include <zui/zwidget.h>
+#include <zui/zcontainerwidget2.h>
 #include <zeventmanager.h>
 
 using namespace std;
 
-class ZScreenManager : public QStackedWidget, public ZWidget
+class ZScreenManager : public QStackedWidget, public ZContainerWidget2
 {
   Q_OBJECT
   Q_PROPERTY(QString screen READ screen RESET jump)

@@ -23,9 +23,9 @@
 
 #include <QSplitter>
 #include <zeventmanager.h>
-#include <zui/zwidget.h>
+#include <zui/zcontainerwidget2.h>
 
-class ZSplitter : public QSplitter, public ZWidget
+class ZSplitter : public QSplitter, public ZContainerWidget2
 {
     Q_OBJECT
 
