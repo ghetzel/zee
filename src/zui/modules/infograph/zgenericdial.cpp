@@ -18,13 +18,15 @@
 #include "zgenericdial.h"
 
 ZGenericDial::ZGenericDial(const ZConfig &el, QWidget *parent)
-    : ZWidget(el,parent){
+    : QWidget(parent),
+      ZWidget(el,this){
     init(0);
 }
 
 ZGenericDial::ZGenericDial(double startValue, const ZConfig &el,
                            QWidget *parent)
-    : ZContainerWidget(el,parent)
+    : QWidget(parent),
+      ZWidget(el,this)
 {
     init(startValue);
 }

@@ -19,13 +19,12 @@
 
 ZCoreModule::ZCoreModule()
     : ZuiPlugin(){
-//    ZuiUtils::registerContainerElement(ZUI_APPLICATION);
-//    ZuiUtils::registerContainerElement(ZUI_CONTAINER);
-//    ZuiUtils::registerContainerElement(ZUI_SCREEN);
-//    ZuiUtils::registerContainerElement(ZUI_SCREENMGR);
-//    ZuiUtils::registerContainerElement(ZUI_SPLITTER);
-//    ZuiUtils::registerContainerElement(ZUI_PANE);
-//    ZuiUtils::registerContainerElement("zui:dock");
+    ZuiUtils::registerContainerElement(ZUI_CONTAINER);
+    ZuiUtils::registerContainerElement(ZUI_SCREEN);
+    ZuiUtils::registerContainerElement(ZUI_SCREENMGR);
+    ZuiUtils::registerContainerElement(ZUI_SPLITTER);
+    ZuiUtils::registerContainerElement(ZUI_PANE);
+    ZuiUtils::registerContainerElement("zui:dock");
 }
 
 ZuiResult ZCoreModule::prepareWidget(const QDomElement &el, QWidget *parent){

@@ -19,12 +19,12 @@
 
 ZSplitter::ZSplitter(const ZConfig &el, QWidget *parent)
     : QSplitter(parent),
-      ZContainerWidget(el,this)
+      ZWidget(el,this)
 {
     parse(_config);
 }
 
 void ZSplitter::parse(const ZConfig &el){
     if(el.attribute("direction") == "vertical")
-	setOrientation(Qt::Vertical);
+        setOrientation(Qt::Vertical);
 }

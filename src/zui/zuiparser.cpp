@@ -120,7 +120,7 @@ void ZuiParser::parse(QDomNode n)
         //   	if the container node has a parent set (always should)
         //   		set parent = current parent's parent
         if(ZuiUtils::getContainerNames().contains(node.nodeName())){
-        if(DCAST(ZContainerWidget*,_currentParent))
+        //if(DCAST(ZContainerWidget*,_currentParent)){
             if(_currentParent && _currentParent->parent() != NULL){
                 _currentParent = CAST(QWidget*,_currentParent->parent());
                 --depth;

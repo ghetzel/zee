@@ -1,7 +1,8 @@
 #ifndef ZROOT_H
 #define ZROOT_H
 
-#include <zcontainer.h>
+#include <QObject>
+#include <zui/modules/core/zcontainer.h>
 
 /*!
   \class ZRoot
@@ -13,7 +14,7 @@ class ZRoot : public ZContainer{
   Q_OBJECT
 
 public:
-  ZRoot(const ZConfig &el, QWidget *parent) : ZContainer(el,parent){};
+    ZRoot(const ZConfig &el, QWidget *parent) : ZContainer(el,parent){};
 
 private:
   void parse(const ZConfig&){};

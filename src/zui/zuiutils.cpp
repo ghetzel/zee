@@ -44,8 +44,6 @@ QLayout *ZuiUtils::getLayout(QString id)
 {
   QLayout *layout = NULL;
 
-  z_log_debug("ZuiUtils: Layout = "+id);
-
 //	determine layout manager to install
   if(id == ZUI_HORIZON_LAYOUT){                 // horizontal layout
     layout = new QHBoxLayout;
@@ -70,7 +68,7 @@ QLayout *ZuiUtils::getLayout(QString id)
 
 bool ZuiUtils::attribute(QString source, ZConfigAttribOption option){
     if(source.isEmpty())
-	return false;
+        return false;
 
 //  normalize source string
     source = source.toLower();
@@ -78,53 +76,53 @@ bool ZuiUtils::attribute(QString source, ZConfigAttribOption option){
 
     switch(option){
     case AlignBottom:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_BOTTOM);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_BOTTOM);
     case AlignCenter:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_CENTER);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_CENTER);
     case AlignHCenter:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_HCENTER);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_HCENTER);
     case AlignJustify:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_JUSTIFY);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_JUSTIFY);
     case AlignLeft:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_LEFT);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_LEFT);
     case AlignRight:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_RIGHT);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_RIGHT);
     case AlignTop:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_TOP);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_TOP);
     case AlignVCenter:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_VCENTER);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_ALIGN_VCENTER);
     case BooleanFalse:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_BOOL_FALSE);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_BOOL_FALSE);
     case BooleanTrue:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_BOOL_TRUE);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_BOOL_TRUE);
     case CardinalEast:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_E);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_E);
     case CardinalNorth:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_N);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_N);
     case CardinalNorthEast:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_NE);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_NE);
     case CardinalNorthWest:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_NW);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_NW);
     case CardinalSouth:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_S);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_S);
     case CardinalSouthEast:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_SE);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_SE);
     case CardinalSouthWest:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_SW);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_SW);
     case CardinalWest:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_W);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_CARD_W);
     case SeverityCritical:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_CRIT);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_CRIT);
     case SeverityDebug:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_DEBUG);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_DEBUG);
     case SeverityError:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_ERROR);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_ERROR);
     case SeverityInfo:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_INFO);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_INFO);
     case SeverityQuestion:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_QUESTION);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_QUESTION);
     case SeverityWarning:
-	return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_WARN);
+        return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_WARN);
     }
 
     return false;
@@ -135,22 +133,22 @@ Qt::Alignment ZuiUtils::getAlignment(QString configVal){
     QStringList cvs = configVal.split(QRegExp("\\W+"));
 
     foreach(QString cv, cvs)
-	if(ZuiUtils::attribute(cv,ZuiUtils::AlignLeft))
-	    retval |= Qt::AlignLeft;
-	else if(ZuiUtils::attribute(cv,ZuiUtils::AlignRight))
-	    retval |= Qt::AlignRight;
-	else if(ZuiUtils::attribute(cv,ZuiUtils::AlignCenter))
-	    retval |= Qt::AlignCenter;
-	else if(ZuiUtils::attribute(cv,ZuiUtils::AlignJustify))
-	    retval |= Qt::AlignJustify;
-	else if(ZuiUtils::attribute(cv,ZuiUtils::AlignHCenter))
-	    retval |= Qt::AlignHCenter;
-	else if(ZuiUtils::attribute(cv,ZuiUtils::AlignVCenter))
-	    retval |= Qt::AlignVCenter;
-	else if(ZuiUtils::attribute(cv,ZuiUtils::AlignTop))
-	    retval |= Qt::AlignTop;
-	else if(ZuiUtils::attribute(cv,ZuiUtils::AlignBottom))
-	    retval |= Qt::AlignBottom;
+        if(ZuiUtils::attribute(cv,ZuiUtils::AlignLeft))
+            retval |= Qt::AlignLeft;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignRight))
+            retval |= Qt::AlignRight;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignCenter))
+            retval |= Qt::AlignCenter;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignJustify))
+            retval |= Qt::AlignJustify;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignHCenter))
+            retval |= Qt::AlignHCenter;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignVCenter))
+            retval |= Qt::AlignVCenter;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignTop))
+            retval |= Qt::AlignTop;
+        else if(ZuiUtils::attribute(cv,ZuiUtils::AlignBottom))
+            retval |= Qt::AlignBottom;
 
     return retval;
 }
@@ -158,9 +156,9 @@ Qt::Alignment ZuiUtils::getAlignment(QString configVal){
 
 QIcon ZuiUtils::getIcon(QString name){
     if(QFile::exists(name))
-	return QIcon(name);
+        return QIcon(name);
     else
-	return QIcon::fromTheme(name);
+        return QIcon::fromTheme(name);
 }
 
 bool ZuiUtils::attributeTrue(QString value){

@@ -16,8 +16,6 @@ HEADERS += zuiutils.h \
     zscreenmanager.h \
     zuiplugin.h \
     zwidget.h \
-    zcontainerwidget.h \
-    zroot.h \
     zutil.h \
     zeventmanager.h \
     zeventrelationship.h \
@@ -25,6 +23,7 @@ HEADERS += zuiutils.h \
     zeventobject.h \
     zscreen.h \
     zlabel.h \
+    zroot.h \
     zwindow.h \
     zspacer.h \
     zsplitter.h \
@@ -38,7 +37,6 @@ SOURCES += zuiutils.cpp \
     zcoremodule.cpp \
     zscreenmanager.cpp \
     zutil.cpp \
-    zcontainerwidget.cpp \
     zeventmanager.cpp \
     zeventrelationship.cpp \
     zscreen.cpp \
