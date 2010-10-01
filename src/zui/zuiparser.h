@@ -62,13 +62,11 @@ class ZuiParser : public QObject
 
   private:
     ZCoreApplication *_parent;
-    QWidget *_currentWidget;
     QWidget *_currentParent;
     ZConfigurable::ZConfig _config;
     int depth;
     QList<ZcmPluginInterface*> zcmModules;
     QList<ZuiPluginInterface*> zuiModules;
-
   public:
 /*!
   Constructs a new parser object, using \a rootNode as the entry point for
