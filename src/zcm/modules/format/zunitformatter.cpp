@@ -9,7 +9,7 @@ ZUnitFormatter::ZUnitFormatter(QObject *parent)
 void ZUnitFormatter::transform(QVariant in){
     if(_utInitCode == UT_SUCCESS){
 	utUnit res;
-
+        utInit();
 	utScan("5 feet in inches", &res);
 
 //	z_log_debug("ZUnitFormatter: "+STR(res.unit2));
