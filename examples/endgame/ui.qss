@@ -1,0 +1,27 @@
+ZRoot{
+	background-color: transparent;
+}
+
+ZGenericDial{
+	background-color: transparent;
+/*	border: 1px solid red; */
+}
+
+#gaugeHr{
+	alternate-background-color: #007CFF;
+	max-width: 256px;
+	max-height: 256px;
+}
+
+#gaugeMin{
+	alternate-background-color: #FF7B00;
+}
+
+#gaugeSec{
+	alternate-background-color: #00E033;
+}
+
+#gaugeMSec{
+	alternate-background-color: #E0006D;
+}
+

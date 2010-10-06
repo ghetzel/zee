@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+	<zee:components>
+		<zee:countdown id="tm" target="today 17:50:00" interval="1000" onstart="true" />
+		<zee:formatter id="countdownFormat" type="date" method="format" value="hh:mm:ss || u" />
+		<zee:formatter id="toMSec" type="date" method="format" value="z || u" />
+		<zee:formatter id="toSeconds" type="date" method="format" value="s || u" />
+		<zee:formatter id="toMinutes" type="date" method="format" value="mm || u" />
+		<zee:formatter id="toHours" type="date" method="format" value="hh || u" />
+
+	    <!--<zee:transform id="dateTransformer" />-->
+	</zee:components>
+	
+	<zee:widgets>
+	    <zui:application position="nw" layout="vertical" align="center" width="270" height="320" type="desktop">
+		
+            	<zui:marquee id="time" images=":/%1.png" width="24" height="24" />
+			
+		<zui:container align="center">
+			<zui:piegauge id="gaugeHr" max="24">
+				<zui:piegauge id="gaugeMin" max="60" spacing="12">
+					<zui:piegauge id="gaugeSec" max="60" spacing="24">
+<!--						<zui:piegauge id="gaugeMSec" max="1000" start="270" /> -->
+					</zui:piegauge>
+				</zui:piegauge>
+			</zui:piegauge>
+		</zui:container>
+   	    </zui:application>
+	</zee:widgets>
+	
+	<zee:events>
+		<zee:connect from="tm.remaining" to="time.setText" formatter="countdownFormat" />
+<!--		<zee:connect from="tm.remaining" to="gaugeMSec.setValue" formatter="toMSec" />-->
+		<zee:connect from="tm.remaining" to="gaugeSec.setValue" formatter="toSeconds" />
+		<zee:connect from="tm.remaining" to="gaugeMin.setValue" formatter="toMinutes" />
+		<zee:connect from="tm.remaining" to="gaugeHr.setValue" formatter="toHours" />
+	</zee:events>
+</zee>
