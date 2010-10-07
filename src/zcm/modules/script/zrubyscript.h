@@ -7,6 +7,9 @@
 #include <QVariant>
 #include <zabstractscript.h>
 
+extern VALUE zrb_property(VALUE self, VALUE mstring);
+extern VALUE zrb_grab_output(VALUE self);
+
 class ZRubyScript : public ZAbstractScript
 {
     Q_OBJECT
@@ -17,6 +20,7 @@ public:
 
 public slots:
     void exec();
+    void eval(QString code);
 
 private:
     void parse(const ZConfig &el);
@@ -25,6 +29,7 @@ private:
 
 private:
     VALUE _cZee;
+    VALUE _cZIOCapture;
 };
 
 #endif // ZRUBYSCRIPT_H

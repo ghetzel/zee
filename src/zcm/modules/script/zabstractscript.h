@@ -14,6 +14,10 @@ public:
 
 public slots:
     virtual void exec()=0;
+    virtual void eval(QString code)=0;
+
+signals:
+    void result(QString output);
 
 protected:
     bool _autorun;

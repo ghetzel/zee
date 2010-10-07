@@ -17,16 +17,15 @@ HEADERS += zcmformatmodule.h \
     zstringformatter.h \
     zdateformatter.h \
     ztransformation.h \
-    zunitformatter.h
+    zunitformatter.h \
+    znumberformatter.h
 SOURCES += zcmformatmodule.cpp \
     zformatter.cpp \
     zstringformatter.cpp \
     zdateformatter.cpp \
     ztransformation.cpp \
-    zunitformatter.cpp
-
-LIBS += -ludunits2 -lzee
-
-linux-g++{
-    INCLUDEPATH += /usr/include
-}
+    zunitformatter.cpp \
+    znumberformatter.cpp
+LIBS += -ludunits2 \
+    -lzee
+linux-g++:INCLUDEPATH += /usr/include

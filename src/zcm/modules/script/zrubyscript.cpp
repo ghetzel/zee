@@ -33,6 +33,11 @@ VALUE zrb_property(VALUE self, VALUE mstring){
     return rb_str_new2(CSTR(rv.toString()));
 }
 
+VALUE zrb_grab_output(VALUE self){
+    //_cZIOCapture = rb_define_class("ZIOCapture", rb_cObject);
+    //rb_define_method(_cZIOCapture, "initialize", (VALUE(*)(...)),0);
+}
+
 ZRubyScript::ZRubyScript(const ZConfig &el, QObject *parent)
     : ZAbstractScript(el,this,parent)
 {
@@ -69,4 +74,8 @@ void ZRubyScript::lateInit(){
 
 void ZRubyScript::exec(){
     ruby_exec();
+}
+
+void ZRubyScript::eval(QString code){
+//    QString
 }
