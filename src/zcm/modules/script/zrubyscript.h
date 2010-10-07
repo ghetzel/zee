@@ -1,25 +1,27 @@
 #ifndef ZRUBYSCRIPT_H
 #define ZRUBYSCRIPT_H
 
-#define ZSCRIPT_RUBY        "zee:ruby"
+#define ZCM_RUBYSCRIPT        "zee:ruby"
 
 #include <ruby.h>
-#include <stdarg.h>
 #include <QVariant>
-#include <zeventmanager.h>
-#include <zconfigurable.h>
+#include <zabstractscript.h>
 
-class ZRubyScript : public QObject, public ZConfigurable
+class ZRubyScript : public ZAbstractScript
 {
+    Q_OBJECT
+
 public:
     ZRubyScript(const ZConfig &el, QObject *parent=0);
+    ~ZRubyScript();
 
-public:
-    static VALUE zrb_property(...);
+public slots:
+    void exec();
 
 private:
     void parse(const ZConfig &el);
-    void initInterpreterEnv();
+    void init();
+    void lateInit();
 
 private:
     VALUE _cZee;

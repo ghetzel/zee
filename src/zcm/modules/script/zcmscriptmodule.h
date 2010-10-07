@@ -20,6 +20,7 @@
 
 #include <QtCore>
 #include <zcm/zcmplugin.h>
+#include <zrubyscript.h>
 
 class ZCMScriptModule : public ZcmPlugin
 {

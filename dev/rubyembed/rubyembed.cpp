@@ -5,7 +5,7 @@
 
 using namespace std;
 
-VALUE testBind1(...){
+VALUE testBind1(VALUE bits){
 	return rb_str_new2("test bind 1");
 }
 

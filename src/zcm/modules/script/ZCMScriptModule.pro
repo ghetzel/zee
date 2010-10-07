@@ -12,10 +12,11 @@ TARGET = $$qtLibraryTarget(zcm_script)
 QT += xml
 include(../../../zcm.pri)
 HEADERS += zcmscriptmodule.h \
-    zrubyscript.h
+    zrubyscript.h \
+    zabstractscript.h
 SOURCES += zcmscriptmodule.cpp \
-    zrubyscript.cpp
+    zrubyscript.cpp \
+    zabstractscript.cpp
 linux-g++:INCLUDEPATH += /usr/include
 linux-g++:INCLUDEPATH += /usr/lib64/ruby/1.8/x86_64-linux/
-
 LIBS += -lruby

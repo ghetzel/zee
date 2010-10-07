@@ -43,7 +43,8 @@ HEADERS += zevent.h \
     zui/layouts/zborderlayout.h \
     zcoreapplication.h \
     libzee/zint64.h \
-    zconfignode.h
+    zconfignode.h \
+    zcm/zcomponent.h
 SOURCES += zevent.cpp \
     zutil.cpp \
     main.cpp \

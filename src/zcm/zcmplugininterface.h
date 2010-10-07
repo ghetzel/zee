@@ -27,6 +27,7 @@
 #include <zconfigurable.h>
 #include <zeventmanager.h>
 #include <zplugininterface.h>
+#include <zcm/zcomponent.h>
 
 class Zee;
 

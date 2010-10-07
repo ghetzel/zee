@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core"
+  xmlns:zui="http://www.gammazeta.net/zee/zui">
+	<zee:components>
+		<zee:timer interval="1000" id="tm1s" />
+		<zee:ruby id="rb" src="test.rb" />
+		<zee:setting id="test" value="Test Value" />
+	</zee:components>
+
+	<zee:widgets>
+	</zee:widgets>
+
+	<zee:events>
+		<zee:connect from="tm1s.timeout" to="rb.exec" />
+	</zee:events>
+</zee>

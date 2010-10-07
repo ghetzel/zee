@@ -33,6 +33,7 @@
 #include <zconfignode.h>
 #include <zcm/zcmplugin.h>
 #include <zcm/zcmplugininterface.h>
+#include <zcm/zcomponent.h>
 #include <zui/zuiutils.h>
 #include <zui/zuiplugin.h>
 #include <zui/zuiplugininterface.h>
@@ -69,6 +70,7 @@ class ZuiParser : public QObject
     int depth;
     QList<ZcmPluginInterface*> zcmModules;
     QList<ZuiPluginInterface*> zuiModules;
+    QList<QObject*> _components;
   public:
 /*!
   Constructs a new parser object, using \a rootNode as the entry point for

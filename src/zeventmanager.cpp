@@ -247,3 +247,13 @@ QObject *ZEventManager::findObject(QString methodString, bool objectOnly){
 
     return rv;
 }
+
+QVariant ZEventManager::getProperty(QString methodString){
+    if(methodString.isEmpty())
+        return QVariant();
+
+    QObject *obj = ZEventManager::findObject(methodString);    
+    if(obj)
+        return obj->property(CSTR(methodString.section(ZEV_SEPARATOR,-1,-1)));
+    return QVariant();
+}

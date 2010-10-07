@@ -41,6 +41,14 @@ ZuiParser::ZuiParser(QDomElement &el, ZCoreApplication *parent)
     for(uint i = 0; i < nn.length(); i++)
         parse(nn.item(i));
 
+//  late component initialize
+    foreach(QObject *c, _components){
+        ZConfigurable *cmp = DCAST(ZConfigurable*,c);
+        Q_ASSERT(cmp);
+        cmp->lateInit();
+    }
+
+
     if(qApp->topLevelWidgets().count() == 0)
         z_log_warn("ZuiParser: No widgets added");
 
@@ -167,6 +175,11 @@ bool ZuiParser::parseNode(ZConfigNode &node)
             ZcmResult zcmres;
             foreach(ZcmPluginInterface *mod, zcmModules){
                 zcmres = mod->prepare(el);
+
+                if(zcmres.component){
+                    _components << zcmres.component;
+                    break;
+                }
             }
         }
 

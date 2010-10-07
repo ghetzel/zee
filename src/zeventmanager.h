@@ -113,6 +113,7 @@ public:
     void registerSlot(QObject *receiver, const char *slot);
     void map(QString from, QString to, QString via=QString(), bool direct=true);
     QObject *findObject(QString methodString, bool objectOnly=false);
+    QVariant getProperty(QString methodString);
     static void initialize(ZEventManager *instance=0);
     static ZEventManager *instance();
 

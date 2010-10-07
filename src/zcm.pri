@@ -9,7 +9,8 @@ HEADERS +=  zutil.h                       \
             zui/layouts/zflowlayout.h     \
             zui/layouts/zborderlayout.h   \
             zcm/zcmplugin.h               \
-            zcm/zcmplugininterface.h
+            zcm/zcmplugininterface.h      \
+            zcm/zcomponent.h
 
 SOURCES +=  zutil.cpp                     \
             zeventmanager.cpp             \

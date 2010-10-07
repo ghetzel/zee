@@ -31,14 +31,14 @@ public:
 	_config = el;
 	init();
     }
-
-
+    virtual void lateInit(){};
 
 protected:
     QObject *_self;
     ZConfig _config;
     QHash<QString,QVariant> _properties;
     virtual void parse(const ZConfig &el)=0;
+
     QVariant param(QString key){
 	return _properties.value(key,QVariant());
     }

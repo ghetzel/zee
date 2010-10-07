@@ -21,9 +21,9 @@ ZcmResult ZCMScriptModule::prepare(const QDomElement &el){
     ZcmResult rv;
 
     if(0){
-#ifdef ZCM_
-    }else if(el.tagName() == ZCM_){
-        rv.component = new ZDingus(el,qApp);
+#ifdef ZCM_RUBYSCRIPT
+    }else if(el.tagName() == ZCM_RUBYSCRIPT){
+        rv.component = new ZRubyScript(el,qApp);
 #endif
     }
 
