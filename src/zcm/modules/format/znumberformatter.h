@@ -4,7 +4,7 @@
 #define ZCM_FORMATTER_NUMBER        "numeric"
 
 #define ZFMT_METHOD_NUM_ROUND       "round"
-#define ZFMT_METHOD_NUM_ROUND       "currency"
+#define ZFMT_METHOD_NUM_CURRENCY    "currency"
 #define ZFMT_METHOD_NUM_CEIL        "ceiling"
 #define ZFMT_METHOD_NUM_FLOOR       "floor"
 #define ZFMT_METHOD_NUM_FIX         "fix"
