@@ -1,5 +1,33 @@
 #include "zdebug.h"
 
+//QVariant _round(QVariant in, int places=0){
+//    double rv = in.toDouble();
+//    int multiplier = qPow(10,places);
+//    rv *= multiplier;
+//    z_log_debug("RV: "+in.toString()+", M="+STR(multiplier)+", CV="+STR(rv));
+//    rv = qRound(rv);
+//    return QVariant(rv/multiplier);
+//}
+
+
+QVariant _base(QVariant in, int toBase, int fromBase=10){
+    QString val = in.toString();
+    char tokens[16] = {'0','1','2','3','4','5','6','7',    // base 8
+                       '8','9','A','B','C','D','E','F'};   // base 16
+    QString rv;
+    int remain = 0;
+    long input = in.toInt();
+
+    do{
+        remain = input % toBase;
+        input /= toBase;
+        rv.prepend(tokens[remain]);
+        remain -= toBase;
+    }while(input > 0);
+
+    return QVariant(rv);
+}
+
 ZDebug::ZDebug(int argc, char **argv)
     : QCoreApplication(argc, argv)
 {
@@ -25,4 +53,12 @@ ZDebug::ZDebug(int argc, char **argv)
     //z_log("ZDebug: "+QIcon::themeName());
     //QIcon i = QIcon::fromTheme("media-playback-start");
     //z_log("ZDebug: "+i.themeName());
+
+//    z_log("Round (0 places)"+_round(QVariant(10.845347)).toString());
+//    z_log("Round (1 places)"+_round(QVariant(10.845347),1).toString());
+//    z_log("Round (2 places)"+_round(QVariant(10.845347),2).toString());
+//    z_log("Round (3 places)"+_round(QVariant(10.845347),3).toString());
+//    z_log("Round (4 places)"+_round(QVariant(10.845347),4).toString());
+
+    //z_log("Base: "+_base(QVariant(172),16).toString());
 }

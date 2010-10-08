@@ -100,6 +100,8 @@ static const double Q_PI   = 3.14159265358979323846;
 #define DEGREES(x)      (x)*(180.0/Q_PI)
 #endif
 
+static const double Z_E    = 2.71828182845904523536;
+
 using namespace std;
 
 /*!

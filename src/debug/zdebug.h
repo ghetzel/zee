@@ -6,6 +6,7 @@
 #include <libzee/libzee.h>
 #include <QGtkStyle>
 #include <QIcon>
+#include <QtCore>
 
 
 class ZDebug : public QCoreApplication
