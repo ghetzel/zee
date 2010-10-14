@@ -53,7 +53,7 @@ public:
     ZNumberFormatter(QObject *parent=0);
 
 public slots:
-    virtual void transform(QVariant);
+    virtual QVariant transform(QVariant);
 
 private:
     QVariant _round(QVariant in, int places=0);

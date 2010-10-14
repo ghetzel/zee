@@ -18,7 +18,7 @@
 #include "ztransformation.h"
 
 ZTransformation::ZTransformation(const ZConfig &el, QObject *parent)
-    : QObject(parent),
+    : ZFormatterInterface(parent),
       ZConfigurable(el,this)
 {
     parse(_config);
@@ -43,22 +43,22 @@ void ZTransformation::parse(const ZConfig &el){
 }
 
 void ZTransformation::chainFormatters(){
-    if(!_formatters.isEmpty()){
-	connect(this, SIGNAL(start(QVariant)),
-		_formatters.first(), SLOT(transform(QVariant)));
-
-	for(int i = 0; i < _formatters.length(); i++){
-	    if(_formatters.at(i) == _formatters.last()){
-		connect(_formatters.at(i), SIGNAL(ready(QVariant)),
-			this, SIGNAL(ready(QVariant)));
-	    }else{
-		connect(_formatters.at(i), SIGNAL(ready(QVariant)),
-			_formatters.at(i+1), SLOT(transform(QVariant)));
-	    }
-	}
-    }
+//    if(!_formatters.isEmpty()){
+//	connect(this, SIGNAL(start(QVariant)),
+//		_formatters.first(), SLOT(transform(QVariant)));
+//
+//	for(int i = 0; i < _formatters.length(); i++){
+//	    if(_formatters.at(i) == _formatters.last()){
+//		connect(_formatters.at(i), SIGNAL(ready(QVariant)),
+//			this, SIGNAL(ready(QVariant)));
+//	    }else{
+//		connect(_formatters.at(i), SIGNAL(ready(QVariant)),
+//			_formatters.at(i+1), SLOT(transform(QVariant)));
+//	    }
+//	}
+//    }
 }
 
-void ZTransformation::transform(QVariant val){
-    emit start(val);
+QVariant ZTransformation::transform(QVariant val){
+    return val;
 }

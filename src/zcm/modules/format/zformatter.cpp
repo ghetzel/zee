@@ -18,7 +18,7 @@
 #include "zformatter.h"
 
 ZFormatter::ZFormatter(const ZConfig &el, QObject *parent)
-    : QObject(parent),
+    : ZFormatterInterface(parent),
       ZConfigurable(el,this)
 {
     _formatter = NULL;
@@ -42,11 +42,12 @@ void ZFormatter::parse(const ZConfig &el){
     }
 }
 
-void ZFormatter::transform(QVariant val){
+QVariant ZFormatter::transform(QVariant val){
     if(_formatter)
-	_formatter->transform(val);
-    else
-	z_log_debug("ZFormatter: No formatter found.");
+        return _formatter->transform(val);
+
+    z_log_debug("ZFormatter: No formatter found.");
+    return val;
 }
 
 

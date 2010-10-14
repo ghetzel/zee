@@ -54,7 +54,7 @@ public:
     ZStringFormatter(QObject *parent=0);
 
 public slots:
-    virtual void transform(QVariant);
+    virtual QVariant transform(QVariant);
 
 private:
     QVariant _left(QVariant in, uint len);

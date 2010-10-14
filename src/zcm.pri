@@ -10,6 +10,7 @@ HEADERS +=  zutil.h                       \
             zui/layouts/zborderlayout.h   \
             zcm/zcmplugin.h               \
             zcm/zcmplugininterface.h      \
+            zcm/zformatterinterface.h     \
             zcm/zcomponent.h
 
 SOURCES +=  zutil.cpp                     \

@@ -25,11 +25,12 @@
 #include <zconfigurable.h>
 #include <zeventmanager.h>
 
+#include <zformatterinterface.h>
 #include <zabstractformatter.h>
 #include <zstringformatter.h>
 #include <zdateformatter.h>
 
-class ZFormatter : public QObject, public ZConfigurable
+class ZFormatter : public ZFormatterInterface, public ZConfigurable
 {
     Q_OBJECT
     Q_PROPERTY(QString type READ type())
@@ -39,7 +40,7 @@ public:
     QString type();
 
 public slots:
-    void transform(QVariant);
+    QVariant transform(QVariant);
 
 signals:
     void ready(QVariant);

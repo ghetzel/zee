@@ -20,11 +20,11 @@
 ZDateFormatter::ZDateFormatter(QObject *parent)
     : ZAbstractFormatter(parent){}
 
-void ZDateFormatter::transform(QVariant val){
+QVariant ZDateFormatter::transform(QVariant val){
     if(method() == ZFMT_METHOD_DATE_FORMAT){
-        emit ready(_format(val, arg(0).toString(), arg(1).toString()));
+        return _format(val, arg(0).toString(), arg(1).toString());
     }else{
-        emit ready(val);
+        return val;
     }
 }
 

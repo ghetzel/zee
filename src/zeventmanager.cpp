@@ -87,17 +87,20 @@ void ZEventManager::registerSlot(QObject *receiver, const char *slot){
     registerMethod(QMetaMethod::Slot,receiver,slot);
 }
 
-void ZEventManager::map(QString from, QString to, QString via, bool direct)
+void ZEventManager::map(QString from, QString to, QString via,
+                        QString formatters, bool direct)
 {
     ZEventObject sender;
     ZEventObject receiver;
     QList<QPair<QObject*,QString> > viaProperties;
-    QStringList vias = via.split(",");
+    QList<ZFormatterInterface*> fmts;
+    QStringList vias = via.split(ZEV_POSITIONAL_SEPARATOR);
 
     sender = _signals.value(findObject(from));
     receiver = _slots.value(findObject(to));
 
 
+//  populate via (surrogate) properties
     if(!via.isEmpty()){
 	foreach(QString v, vias){
 	    QObject *propobj = findObject(v);
@@ -106,6 +109,25 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct)
 	    else
 		viaProperties.append(QPair<QObject*,QString>(NULL,QString()));
 	}
+    }
+
+//  populate formatters
+    if(!formatters.isEmpty()){
+        foreach(QString f, formatters.split(ZEV_POSITIONAL_SEPARATOR)){
+            if(f.isEmpty()){
+                fmts << NULL;
+                continue;
+            }
+
+            QObject *fmt = findObject(f,true); // find the formatter object
+
+            if(DCAST(ZFormatterInterface*,fmt)){ // if it is a formatter, add it
+                fmts << DCAST(ZFormatterInterface*,fmt);
+            }else{ // otherwise, fill its place
+                z_log_error("ZEventManager: Illegal formatter specified ("+f+")");
+                fmts << NULL;
+            }
+        }
     }
 
 //    z_log_debug("ZEventManager: via STR: "+via);
@@ -149,8 +171,8 @@ void ZEventManager::map(QString from, QString to, QString via, bool direct)
 //	    by this point, we have verfied the presence of all necessary arguments,
 //	    found the objects in the hierarchy, retreived the methods for those
 //	    objects...let's map the damned connection already
-	    _mappings.append(new ZEventRelationship(signal, slot, viaProperties,
-						direct));
+            _mappings.append(new ZEventRelationship(signal, slot, viaProperties,
+                                                    fmts, direct));
 	}else{
 	    z_log_error("ZEventManager: Cannot map, receiving object not found ("+to+")");
 	    return;

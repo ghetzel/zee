@@ -26,7 +26,7 @@
 #include <QMetaMethod>
 #include <zutil.h>
 #include <zmethodobject.h>
-
+#include <zcm/zformatterinterface.h>
 
 /*!
   \class ZEventRelationship
@@ -65,7 +65,8 @@ class ZEventRelationship : public QObject{
 public:
     explicit ZEventRelationship(ZMethodObject from, ZMethodObject to,
 				QList<QPair<QObject*,QString> > via,
-				bool direct=false);
+                                QList<ZFormatterInterface*> formatters,
+                                bool direct=false);
 private slots:
     void adapter(QVariant p1=QVariant(),QVariant p2=QVariant(),
 		 QVariant p3=QVariant(),QVariant p4=QVariant(),
@@ -132,6 +133,7 @@ signals:
 private:
     ZMethodObject _signal;
     ZMethodObject _slot;
+    QList<ZFormatterInterface*> _formatters;
     QList<QPair<QObject*,QString> > _via;
     bool _direct;
 

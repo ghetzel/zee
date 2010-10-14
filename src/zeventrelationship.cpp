@@ -20,7 +20,8 @@
 ZEventRelationship::ZEventRelationship(ZMethodObject from,
 				       ZMethodObject to,
 				       QList<QPair<QObject *, QString> > via,
-				       bool direct)
+                                       QList<ZFormatterInterface*> formatters,
+                                       bool direct)
 {
     if(via.count() > 0)
 	z_log_debug("ZEventRelationship: vias: "+STR(via.count()));
@@ -29,6 +30,7 @@ ZEventRelationship::ZEventRelationship(ZMethodObject from,
     _slot = to;
     _via = via;
     _direct = direct;
+    _formatters = formatters;
     init();
 }
 
@@ -127,6 +129,17 @@ void ZEventRelationship::adapter(QVariant p1, QVariant p2, QVariant p3,
 	    z_log("ZEventRelationship: Skipping via #"+STR(i)+
 		  ", object not specified.");
 	}
+    }
+
+//  if formatters were specified, apply them now
+    if(!_formatters.isEmpty()){
+        for(int i = 0; i < args.count(); i++){
+            if(i < _formatters.count()){
+                if(_formatters.at(i)){
+                    args.replace(i,_formatters.at(i)->transform(args.at(i)));
+                }
+            }
+        }
     }
 
 //  invoke the slot

@@ -34,7 +34,7 @@ public:
     ZUnitFormatter(QObject *parent=0);
 
 public slots:
-    virtual void transform(QVariant);
+    virtual QVariant transform(QVariant);
 
 private:
     int _utInitCode;

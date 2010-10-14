@@ -26,14 +26,14 @@
 #include <zeventmanager.h>
 #include <zformatter.h>
 
-class ZTransformation : public QObject, public ZConfigurable
+class ZTransformation : public ZFormatterInterface, public ZConfigurable
 {
     Q_OBJECT
 public:
     ZTransformation(const ZConfig &el, QObject *parent=0);
 
 public slots:
-    void transform(QVariant);
+    QVariant transform(QVariant);
 
 signals:
     void start(QVariant);

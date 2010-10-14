@@ -23,5 +23,6 @@ SOURCES +=  zcmscriptmodule.cpp \
 
 linux-g++:INCLUDEPATH += /usr/include
 linux-g++:INCLUDEPATH += /usr/lib/ruby/1.8/i386-linux/
+linux-g++:INCLUDEPATH += /usr/lib64/ruby/1.8/x86_64-linux/
 
 LIBS += -lruby

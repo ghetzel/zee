@@ -44,7 +44,8 @@ HEADERS += zevent.h \
     zcoreapplication.h \
     libzee/zint64.h \
     zconfignode.h \
-    zcm/zcomponent.h
+    zcm/zcomponent.h \
+    zcm/zformatterinterface.h
 SOURCES += zevent.cpp \
     zutil.cpp \
     main.cpp \

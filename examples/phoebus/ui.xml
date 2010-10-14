@@ -156,7 +156,6 @@
 		<zee:connect from="meta.dataChanged"        to="currentArtist.setText"  via="meta.data.artist" />
 		<zee:connect from="meta.dataChanged"        to="currentAlbum.setText"   via="meta.data.album" />
 		<zee:connect from="meta.dataChanged"        to="currentLength.setText"  via="meta.data.length"              formatter="fmtTimeLength" />
-
 		<zee:connect from="meta.dataChanged"        to="pieRemainHr.setMaximum" via="meta.data.length"              formatter="fmtTimeLengthHours" />
 		<zee:connect from="meta.dataChanged"        to="pieRemainMn.setMaximum" via="meta.data.length"              formatter="fmtTimeLengthMinutes" />
 		<zee:connect from="meta.dataChanged"        to="pieRemainSc.setMaximum" via="meta.data.length"              formatter="fmtTimeLengthSeconds" />

@@ -15,31 +15,21 @@
 *    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#ifndef ZDATEFORMATTER_H
-#define ZDATEFORMATTER_H
+#include "zcmcommmodule.h"
 
-#define ZCM_FORMATTER_DATE          "date"
+ZCMCommModule::ZCMCommModule(){}
 
-#define ZFMT_METHOD_DATE_FORMAT     "format"
+ZcmResult ZCMCommModule::prepare(const QDomElement &el){
+    ZcmResult rv;
 
-#define ZFMT_DATE_FORMAT_IN_UXSEC   "U"
-#define ZFMT_DATE_FORMAT_IN_UXMSEC  "u"
+    if(0){
+#ifdef ZCM_
+    }else if(el.tagName() == ZCM_){
+//        rv.component = new ZDingus(el,qApp);
+#endif
+    }
 
-#include <zabstractformatter.h>
-#include <libzee/zdatetime.h>
+    return rv;
+}
 
-class ZDateFormatter : public ZAbstractFormatter
-{
-    Q_OBJECT
-public:
-    ZDateFormatter(QObject *parent=0);
-
-public slots:
-    virtual QVariant transform(QVariant);
-    
-private:
-    QVariant _format(QVariant in, QString dateFormat,
-                     QString inputFormat=QString());
-};
-
-#endif // ZDATEFORMATTER_H
+Q_EXPORT_PLUGIN2(zcm_comm, ZCMCommModule)

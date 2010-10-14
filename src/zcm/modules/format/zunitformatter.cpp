@@ -6,7 +6,7 @@ ZUnitFormatter::ZUnitFormatter(QObject *parent)
     _utInitCode = utInit(ZUNIT_UT_DBPATH);
 }
 
-void ZUnitFormatter::transform(QVariant in){
+QVariant ZUnitFormatter::transform(QVariant val){
     if(_utInitCode == UT_SUCCESS){
         utUnit res;
         //utInit();
@@ -17,4 +17,6 @@ void ZUnitFormatter::transform(QVariant in){
         z_log_error("ZUnitFormatter: Unable to initialize udunits with error "
                     "code "+STR(_utInitCode));
     }
+
+    return val;
 }

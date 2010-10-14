@@ -25,7 +25,8 @@ HEADERS +=      zutil.h                         \
                 zmethodobject.h                 \
                 zeventobject.h                  \
                 zui/layouts/zflowlayout.h       \
-                zui/layouts/zborderlayout.h
+                zui/layouts/zborderlayout.h     \
+                zcm/zformatterinterface.h
 
 SOURCES +=      zutil.cpp                       \
                 zuiutils.cpp                    \

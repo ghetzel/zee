@@ -5,126 +5,126 @@ ZNumberFormatter::ZNumberFormatter(QObject *parent)
 {
 }
 
-void ZNumberFormatter::transform(QVariant val){
+QVariant ZNumberFormatter::transform(QVariant val){
     if(method() == ZFMT_METHOD_NUM_ROUND){ //!          round
         if(arg(0).isValid())
-            emit ready(_round(val,arg(0).toInt()));
+            return _round(val,arg(0).toInt());
         else
-            emit ready(_round(val));
+            return _round(val);
 
     }else if(method() == ZFMT_METHOD_NUM_CURRENCY){ //! currency
-        emit ready(_currency(val));
+        return _currency(val);
 
     }else if(method() == ZFMT_METHOD_NUM_CEIL){ //!     ceiling
-        emit ready(_ceiling(val));
+        return _ceiling(val);
 
     }else if(method() == ZFMT_METHOD_NUM_FLOOR){ //!    floor
-        emit ready(_floor(val));
+        return _floor(val);
 
     }else if(method() == ZFMT_METHOD_NUM_FIX){ //!      fix
-        emit ready(_fix(val, arg(0).toInt()));
+        return _fix(val, arg(0).toInt());
 
     }else if(method() == ZFMT_METHOD_NUM_ABS){ //!      abs
-        emit ready(_abs(val));
+        return _abs(val);
 
     }else if(method() == ZFMT_METHOD_NUM_MIN){ //!      min
-        emit ready(_min(val, arg(0)));
+        return _min(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_MAX){ //!      max
-        emit ready(_max(val, arg(0)));
+        return _max(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_AVG){ //!      avg
-        emit ready(_avg(val, arg(0)));
+        return _avg(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_RANGE){ //!    range
-        emit ready(_range(val, arg(0)));
+        return _range(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_ACOS){ //!     acos
-        emit ready(_acos(val));
+        return _acos(val);
 
     }else if(method() == ZFMT_METHOD_NUM_ACOT){ //!     acot
-        emit ready(_acot(val));
+        return _acot(val);
 
     }else if(method() == ZFMT_METHOD_NUM_ACSC){ //!     acsc
-        emit ready(_acsc(val));
+        return _acsc(val);
 
     }else if(method() == ZFMT_METHOD_NUM_ASEC){ //!     asec
-        emit ready(_asec(val));
+        return _asec(val);
 
     }else if(method() == ZFMT_METHOD_NUM_ASIN){ //!     asin
-        emit ready(_asin(val));
+        return _asin(val);
 
     }else if(method() == ZFMT_METHOD_NUM_ATAN){ //!     atan
-        emit ready(_atan(val));
+        return _atan(val);
 
     }else if(method() == ZFMT_METHOD_NUM_COS){ //!      cos
-        emit ready(_cos(val));
+        return _cos(val);
 
     }else if(method() == ZFMT_METHOD_NUM_COT){ //!      cot
-        emit ready(_cot(val));
+        return _cot(val);
 
     }else if(method() == ZFMT_METHOD_NUM_CSC){ //!      csc
-        emit ready(_csc(val));
+        return _csc(val);
 
     }else if(method() == ZFMT_METHOD_NUM_SEC){ //!      sec
-        emit ready(_sec(val));
+        return _sec(val);
 
     }else if(method() == ZFMT_METHOD_NUM_SIN){ //!      sin
-        emit ready(_sin(val));
+        return _sin(val);
 
     }else if(method() == ZFMT_METHOD_NUM_TAN){ //!      tan
-        emit ready(_tan(val));
+        return _tan(val);
 
     }else if(method() == ZFMT_METHOD_NUM_SUM){ //!      sum
-        emit ready(_sum(val, arg(0)));
+        return _sum(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_DIFF){ //!     difference
-        emit ready(_difference(val, arg(0)));
+        return _difference(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_PROD){ //!     product
-        emit ready(_product(val, arg(0)));
+        return _product(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_QUOT){ //!     quotient
-        emit ready(_quotient(val, arg(0)));
+        return _quotient(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_MOD){ //!      mod
-        emit ready(_modulus(val, arg(0)));
+        return _modulus(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_EXP){ //!      exponent
-        emit ready(_exponent(val, arg(0).toFloat()));
+        return _exponent(val, arg(0).toFloat());
 
     }else if(method() == ZFMT_METHOD_NUM_LOG){ //!      log
-        emit ready(_log(val, arg(0).toInt()));
+        return _log(val, arg(0).toInt());
 
     }else if(method() == ZFMT_METHOD_NUM_LN){ //!       ln
-        emit ready(_ln(val));
+        return _ln(val);
 
     }else if(method() == ZFMT_METHOD_NUM_GCD){ //!      gcd (greatest cmn. denom.)
-        emit ready(_gcd(val, arg(0)));
+        return _gcd(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_LCM){ //!      lcm (least cmn. multiple)
-        emit ready(_lcm(val, arg(0)));
+        return _lcm(val, arg(0));
 
     }else if(method() == ZFMT_METHOD_NUM_BASE){ //!     base (arbitrary)
-        emit ready(_base(val, arg(0).toInt()));
+        return _base(val, arg(0).toInt());
 
     }else if(method() == ZFMT_METHOD_NUM_BIN){ //!      bin (base-10 to binary)
-        emit ready(_bin(val));
+        return _bin(val);
 
     }else if(method() == ZFMT_METHOD_NUM_OCT){ //!      octal (base-10 to octal)
-        emit ready(_octal(val));
+        return _octal(val);
 
     }else if(method() == ZFMT_METHOD_NUM_HEX){ //!      hex (base-10 to hex)
-        emit ready(_hex(val));
+        return _hex(val);
 
     }else if(method() == ZFMT_METHOD_NUM_EVEN){ //!     event
-        emit ready(_even(val));
+        return _even(val);
     }else if(method() == ZFMT_METHOD_NUM_ODD){ //!      odd
-        emit ready(_odd(val));
+        return _odd(val);
     //}else if(method() == ZFMT_METHOD_NUM_DERIV){ //!    derivative
-    }else{
-        emit ready(val);
     }
+
+    return val;
 }
 
 

@@ -1,0 +1,61 @@
+#!/usr/bin/env perl
+
+use constant MODPATH => "src/%s/modules/";
+
+sub zcmpath{
+	my $rv = MODPATH;
+	$rv =~ s/%s/zcm/;
+	return $rv.$_[0];
+}
+
+sub parse{
+	$d =~ s/%MODULENAME%/lc($ARGV[1])/eg;
+	$d =~ s/%MODULENAME_TC%/ucfirst($ARGV[1])/eg;
+	$d =~ s/%MODULENAME_UC%/uc($ARGV[1])/eg;
+}
+
+sub genfile{
+	if($_[0] eq '.' || $_[0] eq '..'){
+		return;
+	}
+
+	open(FILE, zcmpath.".template/$_[0]");
+
+	my $ofn = $_[0];
+	$ofn =~ s/__/ lc($_[1]) /eg;
+	$ofn =~ s/-_/ucfirst($_[1])/eg;
+	$ofn =~ s/--/uc($_[1])/eg;
+
+	@data = <FILE>;
+	foreach $d (@data){
+		parse $d;
+	}
+
+	close(FILE);
+	
+	print "\t$ofn\n";
+	open(FILE, '>'.zcmpath($_[1])."/$ofn");
+	print FILE @data;
+	close(FILE);
+}
+
+if($ARGV[0] eq "component"){
+	if(length($ARGV[1]) > 0){
+		if(-d zcmpath($ARGV[1])){
+
+		}else{
+			print "Creating new component directory '".zcmpath($ARGV[1])."'...\n";
+			mkdir(zcmpath($ARGV[1]));
+		}
+
+		opendir(TPLDIR, zcmpath.".template/");
+		@tpl = readdir(TPLDIR);
+
+		print "Generating files:\n";
+		foreach $t (@tpl){
+			genfile $t, $ARGV[1];
+		}	
+	}else{
+		print "Module name must be specified.\n"
+	}
+}

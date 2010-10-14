@@ -4,8 +4,10 @@ OBJECTS_DIR = obj
 CONFIG += plugin
 CONFIG += console
 INCLUDEPATH += .
+INCLUDEPATH += ../..
 INCLUDEPATH += ../../..
 DEPENDPATH += .
+DEPENDPATH += ../..
 DEPENDPATH += ../../..
 DESTDIR = ../../../plugins
 TARGET = $$qtLibraryTarget(zcm_format)
@@ -18,7 +20,8 @@ HEADERS += zcmformatmodule.h \
     zdateformatter.h \
     ztransformation.h \
     zunitformatter.h \
-    znumberformatter.h
+    znumberformatter.h \
+    zformatterinterface.h
 SOURCES += zcmformatmodule.cpp \
     zformatter.cpp \
     zstringformatter.cpp \

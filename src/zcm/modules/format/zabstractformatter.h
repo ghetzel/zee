@@ -21,18 +21,19 @@
 #include <QObject>
 #include <zutil.h>
 #include <zui/zuiutils.h>
+#include <zformatterinterface.h>
 
-class ZAbstractFormatter : public QObject{
+class ZAbstractFormatter : public ZFormatterInterface{
     Q_OBJECT
     Q_PROPERTY(QString method READ method WRITE setMethod)
 
 public:
     ZAbstractFormatter(QObject *parent=0)
-        : QObject(parent){
+        : ZFormatterInterface(parent){
     }
 
     ZAbstractFormatter(QString method, QObject *parent=0)
-        : QObject(parent){
+        : ZFormatterInterface(parent){
         setMethod(method);
     };
     ~ZAbstractFormatter(){};
@@ -50,7 +51,7 @@ public:
     }
 
 public slots:
-    virtual void transform(QVariant)=0;
+    virtual QVariant transform(QVariant)=0;
 
 signals:
     void ready(QVariant);

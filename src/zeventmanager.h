@@ -30,9 +30,10 @@
 #include <zeventobject.h>
 #include <zeventrelationship.h>
 
-#define zEventKey(e)	    QString(e).toLower()
-#define ZEV_SEPARATOR       "."
-#define zEvent		    ZEventManager::instance()
+#define zEventKey(e)                QString(e).toLower()
+#define ZEV_SEPARATOR               "."
+#define ZEV_POSITIONAL_SEPARATOR    ","
+#define zEvent                      ZEventManager::instance()
 
 
 /*!
@@ -111,7 +112,8 @@ class ZEventManager : public QObject
 public:
     void registerSignal(QObject *source, const char *signal);
     void registerSlot(QObject *receiver, const char *slot);
-    void map(QString from, QString to, QString via=QString(), bool direct=true);
+    void map(QString from, QString to, QString via=QString(),
+             QString formatters=QString(), bool direct=true);
     QObject *findObject(QString methodString, bool objectOnly=false);
     QVariant getProperty(QString methodString);
     static void initialize(ZEventManager *instance=0);
