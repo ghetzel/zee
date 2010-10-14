@@ -1,3 +1,5 @@
+// gcc -std=c99 -lglib-2.0 -lpurple -I/usr/include/libpurple/ -I/usr/include/glib-2.0/ -I/usr/lib64/glib-2.0/include/ basic.c -o basic
+
 /*
  * Sample libpurple program written by Michael C. Brook (http://libpurple.com/)
  * (Some fragments taken from libpurple nullclient.c example found at http://pidgin.im/)
