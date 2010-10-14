@@ -125,6 +125,7 @@ signals:
     void adapted(QString,QString);
     void adapted(QVariant,QVariant,QVariant);
     void adapted(QString,QString,QString);    
+    void adapted(QDateTime,QString,QString);
     void adapted(QVariant,QVariant,QVariant,QVariant);
     void adapted(QString,QString,QString,uint);
     void adapted(QVariant,QVariant,QVariant,QVariant,QVariant);

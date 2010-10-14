@@ -226,6 +226,14 @@ void ZEventRelationship::invokeSlot(QList<QVariant> args){
                     }else{
                         emit adapted(args.at(0), args.at(1), args.at(2));
                     }
+                }else if(slotArgs.at(0) == QVariant::DateTime){
+                    if(slotArgs.at(1) == QVariant::String){
+                        if(slotArgs.at(2) == QVariant::String){ //  (QDateTime,QString,QString)
+                            emit adapted(args.at(0).toDateTime(),
+                                         args.at(1).toString(),
+                                         args.at(2).toString());
+                        }
+                    }
                 }else{
                     emit adapted(args.at(0), args.at(1), args.at(2));
                 }
