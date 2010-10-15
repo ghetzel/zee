@@ -17,15 +17,13 @@
 
 #include "zcmcommmodule.h"
 
-ZCMCommModule::ZCMCommModule(){}
-
 ZcmResult ZCMCommModule::prepare(const QDomElement &el){
     ZcmResult rv;
 
     if(0){
-#ifdef ZCM_
-    }else if(el.tagName() == ZCM_){
-//        rv.component = new ZDingus(el,qApp);
+#ifdef ZCM_CHAT
+    }else if(el.tagName() == ZCM_CHAT){
+        rv.component = new ZChatClient(el,qApp);
 #endif
     }
 

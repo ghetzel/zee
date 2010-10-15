@@ -1,6 +1,7 @@
 #ifndef ZCHATCLIENT_H
 #define ZCHATCLIENT_H
 
+#define ZCM_CHAT            "zee:chatclient"
 #define ZCHAT_UI_NAME       "zee"
 
 #include <QObject>
@@ -62,6 +63,10 @@ private: // static members
     void init();
     void purpleConnect();
     void connectSignals();
+
+private:
+    GMainLoop *_gLibMainLoop;
+    PurpleAccount *_account;
 };
 
 #endif // ZCHATCLIENT_H

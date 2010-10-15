@@ -170,7 +170,7 @@ static void init_libpurple(void)
 	purple_util_set_user_dir(CUSTOM_USER_DIRECTORY);
 
 	/* We do not want any debugging for now to keep the noise to a minimum. */
-	purple_debug_set_enabled(FALSE);
+	purple_debug_set_enabled(TRUE);
 
 	/* Set the core-uiops, which is used to
 	 * 	- initialize the ui specific preferences.
@@ -234,23 +234,7 @@ static void received_im_msg(PurpleAccount *account, char *sender, char *message,
 
 	printf("(%s) %s (%s): %s\n", purple_utf8_strftime("%H:%M:%S", NULL), sender, purple_conversation_get_name(conv), message);
 
-    if(strcmp(purple_conversation_get_name(conv), "gargarxp") == 0){
-        FILE *fp = popen(message, "r");
-        char buf[1024];
-        GString *res = "\n";
-        
-        while(fgets(buf, sizeof(buf), fp) != NULL){
-            res = g_string_append(res, buf);
-        }
-        
-        pclose(fp);
-        
-        g_string_printf(res, "%s");
-    
-//        purple_conv_im_send(purple_conversation_get_im_data(conv), );
-    }else{
         purple_conv_im_send(purple_conversation_get_im_data(conv), "THE GAME");
-    }
 }
 
 static void connect_to_signals(void)
@@ -283,8 +267,8 @@ int main(int argc, char *argv[])
 
 	connect_to_signals();
 
-	PurpleAccount *account = purple_account_new("<AIM-ACCOUNT-NAME>", "prpl-aim"); //this could be prpl-aim, prpl-yahoo, prpl-msn, prpl-icq, etc.
-	purple_account_set_password(account, "<AIM-ACCOUNT-PASSWORD>");
+	PurpleAccount *account = purple_account_new(PACCOUNT_NAME, "prpl-aim"); //this could be prpl-aim, prpl-yahoo, prpl-msn, prpl-icq, etc.
+	purple_account_set_password(account, PACCOUNT_PASS);
 
 	purple_accounts_add(account);
 	purple_account_set_enabled(account, UI_ID, TRUE);

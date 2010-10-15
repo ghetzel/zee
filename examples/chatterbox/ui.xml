@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core"
+  xmlns:zui="http://www.gammazeta.net/zee/zui">
+	<zee:components>
+		<zee:chatclient />
+	</zee:components>
+
+	<zee:widgets>
+		<zui:application />
+	</zee:widgets>
+
+	<zee:events>
+	</zee:events>
+</zee>

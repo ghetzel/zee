@@ -21,13 +21,14 @@
 #include <QtCore>
 #include <zcm/zcmplugin.h>
 
+#include <zchatclient.h>
+
 class ZCMCommModule : public ZcmPlugin
 {
     Q_OBJECT
     Q_INTERFACES(ZcmPluginInterface)
 
 public:
-    ZCMCommModule();
     ZcmResult prepare(const QDomElement &el);
 };
 
