@@ -15,14 +15,19 @@ TARGET = $$qtLibraryTarget(zcm_comm)
 QT += xml
 include(../../../zcm.pri)
 HEADERS += zcmcommmodule.h \
-    zchatclient.h
+    zchatclient.h \
+    ztimedsource.h \
+    zsocketsource.h \
+    zchataccount.h
 SOURCES += zcmcommmodule.cpp \
-    zchatclient.cpp
-
+    zchatclient.cpp \
+    ztimedsource.cpp \
+    zsocketsource.cpp \
+    zchataccount.cpp
 LIBS += -lglib-2.0
 LIBS += -lpurple
-
-linux-g++{
+QMAKE_LFLAGS_PLUGIN += -Wl,--no-as-needed
+linux-g++ { 
     INCLUDEPATH += /usr/include/libpurple/
     INCLUDEPATH += /usr/include/glib-2.0/
     INCLUDEPATH += /usr/lib/glib-2.0/include/

@@ -2,45 +2,31 @@
 #define ZCHATCLIENT_H
 
 #define ZCM_CHAT            "zee:chatclient"
-#define ZCHAT_UI_NAME       "zee"
+#define ZCHAT_ACCOUNT       "zee:chataccount"
 
-#include <QObject>
-#include <zcomponent.h>
-#include <zeventmanager.h>
-
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 #include <purple.h>
 #include <glib.h>
-#include <signal.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
 
-#define PURPLE_GLIB_READ_COND  (G_IO_IN | G_IO_HUP | G_IO_ERR)
-#define PURPLE_GLIB_WRITE_COND (G_IO_OUT | G_IO_HUP | G_IO_ERR | G_IO_NVAL)
+#include <QObject>
+#include <QHostInfo>
+#include <zcomponent.h>
+#include <zeventmanager.h>
+#include <ztimedsource.h>
+#include <zsocketsource.h>
+#include <zchataccount.h>
 
-typedef struct _PurpleGLibIOClosure {
-        PurpleInputFunction function;
-        guint result;
-        gpointer data;
-} PurpleGLibIOClosure;
-
-typedef struct
-{
-        PurpleAccountRequestType type;
-        PurpleAccount *account;
-        void *ui_handle;
-        char *user;
-        gpointer userdata;
-        PurpleAccountRequestAuthorizationCb auth_cb;
-        PurpleAccountRequestAuthorizationCb deny_cb;
-        guint ref;
-} PurpleAccountRequestInfo;
 
 class ZChatClient : public QObject, public ZComponent
 {
     Q_OBJECT
 public:
     ZChatClient(const ZConfig &el, QObject *parent=0);
+
+public:
+    static ZChatClient *instance();
 
 signals:
     void signedOn();
@@ -51,7 +37,7 @@ public slots:
     void sendMessage(QString);
     void sendMessage(QString,QString);
 
-private: // glib/purple signals
+private: // purple signals
     void _signedOn(PurpleConnection *c);
     void _imMessageReceived(PurpleAccount *acct, char *from, char *message,
                             PurpleConversation *conv, PurpleMessageFlags f);
@@ -59,14 +45,18 @@ private: // glib/purple signals
 private: // instance members
     void parse(const ZConfig &el);
 
-private: // static members
+private:
     void init();
-    void purpleConnect();
-    void connectSignals();
+    void connect();
 
 private:
-    GMainLoop *_gLibMainLoop;
-    PurpleAccount *_account;
+    bool _initalized;
+    QHash<QString,ZChatAccount*> _accounts;
+
+private: // static variables
+    static ZChatClient *_instance;
+    static QHash<int,ZTimedSource*> _timers;
+    static QHash<int,ZSocketSource*> _sockets;
 };
 
 #endif // ZCHATCLIENT_H
