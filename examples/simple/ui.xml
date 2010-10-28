@@ -9,16 +9,21 @@
 		
 
 	    <!--<zee:transform id="dateTransformer" />-->
+		<zee:setting id="t1" value="test1" />
 	</zee:components>
+
+	<zee:templates>
+		<zee:template id="testWindow">
+		</zee:template>
+	</zee:templates>
 	
 	<zee:widgets>
 	    <zui:application width="355" height="16" type="desktop" position="n">
-	            <zui:marquee id="time" images="../../dev/visitor-segments/%1.png" width="24" height="24" />
+		<zui:button id="createWindow" value="Test 1" />
    	    </zui:application>
 	</zee:widgets>
 	
 	<zee:events>
-		<zee:connect from="tm.remaining" to="time.setText" formatter="countdownFormat" />
-		<zee:connect from="tm.timeout" to="zee.quit" />
+		<zee:connect from="createWindow.clicked" to="testWindow.create" via="t1.value" />
 	</zee:events>
 </zee>

@@ -9,21 +9,21 @@ ZChatAccount::ZChatAccount(QString user, QString pass, QString protocol){
     setProtocol(protocol);
 }
 
-ZChatAccount::setUsername(QString user){
+void ZChatAccount::setUsername(QString user){
     _username = user;
     checkAndSetAccount();
 }
 
-ZChatAccount::setPassword(QString pass){
+void ZChatAccount::setPassword(QString pass){
     _password = pass;
     checkAndSetAccount();
 }
 
-ZChatAccount::setProtocol(QString protocol){
+void ZChatAccount::setProtocol(QString protocol){
     if(ZString::leftOf(protocol,"-") == ZCHAT_PURPLE_PROTO_TAG){
         _protocol = protocol;
     }else{
-        _protocol = ZCHAT_PURPLE_PROTO_TAG+"-"+protocol;
+        _protocol = QString(ZCHAT_PURPLE_PROTO_TAG)+QString("-")+_protocol;
     }
 
     checkAndSetAccount();

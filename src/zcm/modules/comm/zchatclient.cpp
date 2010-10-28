@@ -35,8 +35,8 @@ static guint zee_timeout_add(guint interval, GSourceFunc function, gpointer data
 static gboolean zee_timeout_remove(guint id){
     //    qDebug() << "REMOVE TIMER " << id;
 
-    if(_timers.contains(id)){
-        _timers.remove(id);
+    if(ZChatClient::_timers.contains(id)){
+        ZChatClient::_timers.remove(id);
         return true;
     }
 
@@ -72,8 +72,8 @@ static guint zee_input_add(int fd, PurpleInputCondition cond,
         Destroys the notifier at \a id
 */
 static gboolean zee_input_remove(guint id){
-    if(_sockets.contains(id)){
-        ZSocketSource *o = _sockets.take(id);
+    if(ZChatClient::_sockets.contains(id)){
+        ZSocketSource *o = ZChatClient::_sockets.take(id);
         delete o;
         return true;
     }
@@ -87,7 +87,7 @@ static gboolean zee_input_remove(guint id){
 //  These functions deliver status and notification events from the API core.
 
 static void zee_core_ui_init(void){
-    purple_connections_set_ui_ops(&connection_uiops);
+    //purple_connections_set_ui_ops(&connection_uiops);
 }
 
 
@@ -229,6 +229,7 @@ ZChatClient::ZChatClient(const ZConfig &el, QObject *parent)
     _instance = this;
 
     z_log_debug("ZChatClient: Initializing");
+    init();
 }
 
 void ZChatClient::parse(const ZConfig &el){
@@ -264,13 +265,17 @@ void ZChatClient::init(){
     if(!(_initalized = purple_core_init(ZEE_OBJNAME))){
         z_log_error("ZChatClient: Failed to initialize core, cannot proceed.");
     }else{
-        z_log_debug("ZChatClient: libpurple "+STR(purple_core_get_version())+"Initialized");
+        z_log_debug("ZChatClient: libpurple "+STR(purple_core_get_version())+" initialized");
         parse(_config);
+        connect();
     }
 }
 
 void ZChatClient::connect(){
+//  wrapper: this will become ZChatContacts
     purple_set_blist(purple_blist_new());
+
+//  wrapper: this will become ZChatPreferences
     purple_prefs_load();
     purple_plugins_load_saved("/purple/"ZEE_OBJNAME"/plugins/saved");
     purple_pounces_load();

@@ -53,10 +53,12 @@ private:
     bool _initalized;
     QHash<QString,ZChatAccount*> _accounts;
 
-private: // static variables
-    static ZChatClient *_instance;
+public:
     static QHash<int,ZTimedSource*> _timers;
     static QHash<int,ZSocketSource*> _sockets;
+
+private: // static variables
+    static ZChatClient *_instance;
 };
 
 #endif // ZCHATCLIENT_H

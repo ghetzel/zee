@@ -13,6 +13,7 @@ DEPENDPATH += ../../..
 DESTDIR = ../../../plugins
 TARGET = $$qtLibraryTarget(zcm_comm)
 QT += xml
+QT += network
 include(../../../zcm.pri)
 HEADERS += zcmcommmodule.h \
     zchatclient.h \
@@ -26,7 +27,7 @@ SOURCES += zcmcommmodule.cpp \
     zchataccount.cpp
 LIBS += -lglib-2.0
 LIBS += -lpurple
-QMAKE_LFLAGS_PLUGIN += -Wl,--no-as-needed
+QMAKE_LFLAGS_PLUGIN += -Wl,--whole-archive
 linux-g++ { 
     INCLUDEPATH += /usr/include/libpurple/
     INCLUDEPATH += /usr/include/glib-2.0/
