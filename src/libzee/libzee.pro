@@ -22,7 +22,6 @@ SOURCES += zlinuxfilenotifier.cpp \
     zint64.cpp \
     zdatetime.cpp \
     zstring.cpp
-linux-g++ { 
-    INCLUDEPATH += /usr/include
-    INCLUDEPATH += /usr/local/include
-}
+
+INCLUDEPATH += /usr/include
+INCLUDEPATH += /usr/local/include

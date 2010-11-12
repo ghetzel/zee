@@ -13,6 +13,7 @@ DESTDIR =       ../../../plugins
 
 QT +=           xml
 
+LIBS +=         -L$(HOME)/lib
 LIBS +=         -lzee
 
 HEADERS +=      zutil.h                         \

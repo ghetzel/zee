@@ -23,9 +23,9 @@
 
 #include <QtCore>
 #include <QAbstractListModel>
-#include <Phonon/AudioOutput>
-#include <Phonon/MediaObject>
-#include <Phonon/MediaSource>
+#include <phonon/audiooutput.h>
+#include <phonon/mediaobject.h>
+#include <phonon/mediasource.h>
 #include <zconfigurable.h>
 #include <zeventmanager.h>
 #include <metaparsers/zaudiometaparser.h>
@@ -43,12 +43,12 @@ class ZAudioManager : public QAbstractListModel, public ZConfigurable
 
 public:
     enum ZAudioState{
-	Playing,
-	Paused,
-	Stopped,
-	Loading,
-	Buffering,
-	Error
+        Playing,
+        Paused,
+        Stopped,
+        Loading,
+        Buffering,
+        Error
     };
 
 public:

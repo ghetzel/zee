@@ -3,9 +3,9 @@
 
 #include <zconfigurable.h>
 #include <zeventmanager.h>
-#include <Phonon/AudioOutput>
-#include <Phonon/MediaObject>
-#include <Phonon/MediaSource>
+#include <phonon/audiooutput.h>
+#include <phonon/mediaobject.h>
+#include <phonon/mediasource.h>
 
 using namespace Phonon;
 

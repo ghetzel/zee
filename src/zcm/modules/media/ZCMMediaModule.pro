@@ -28,10 +28,12 @@ TARGET = $$qtLibraryTarget(zcm_media)
 DESTDIR = ../../../plugins
 QT += xml
 QT += phonon
-linux-g++ { 
+QT += dbus
+#linux-g++ {
+    INCLUDEPATH += /usr/include/KDE/
     HEADERS += zaudioadaptor.h \
         zdbusabstractadaptor.h
     SOURCES += zaudioadaptor.cpp \
         zdbusabstractadaptor.cpp
-    QT += dbus
-}
+
+#}

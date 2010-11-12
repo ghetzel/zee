@@ -25,7 +25,7 @@ SOURCES +=  zcoremodule.cpp     \
             zimage.cpp          \
             zmenu.cpp
 
-linux-g++ { 
+linux-g++ {
     HEADERS += zui/zx11/zxrootwindow.h \
         zui/zx11/zxwindow.h \
         zui/zx11/zxserver.h \

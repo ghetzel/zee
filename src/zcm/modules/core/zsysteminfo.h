@@ -50,7 +50,7 @@ public:
 
 public slots:
     void notify(QString title, QString message=QString(),
-		QString icon=QString(), int duration=ZSYS_NOTIFY_DURATION);
+                QString icon=QString(), int duration=ZSYS_NOTIFY_DURATION);
 
 private:
     ZLocalSystem *_sysinfo;

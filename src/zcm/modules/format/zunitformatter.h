@@ -23,7 +23,7 @@
 
 #define ZUNIT_UT_DBPATH			"/usr/share/udunits/udunits2.xml"
 
-#include <udunits2/udunits.h>
+#include <udunits.h>
 #include <zabstractformatter.h>
 
 

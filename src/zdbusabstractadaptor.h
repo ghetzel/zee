@@ -31,14 +31,16 @@ class ZDBusAbstractAdaptor : public QDBusAbstractAdaptor
 public:
     ZDBusAbstractAdaptor(QObject *parent);
     ZDBusAbstractAdaptor(QString name, QObject *parent);
+    ZDBusAbstractAdaptor(QString service, QString name, QObject *parent);
     void setInstance(QObject *instance);
     void registerService();
 
 protected:
-    void init();
-    virtual QObject *instance(){ return _instance; };
+    void init(QString service, QString name);
+    virtual QObject *instance(){ return _instance; }
 
 private:
+    QString _service;
     QString _name;
     QObject *_instance;
 };

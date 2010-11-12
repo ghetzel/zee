@@ -19,15 +19,32 @@
 
 ZDBusAbstractAdaptor::ZDBusAbstractAdaptor(QObject *parent)
     : QDBusAbstractAdaptor(parent){
-    _instance = parent;
+    init(QString(), QString());
 }
 
 ZDBusAbstractAdaptor::ZDBusAbstractAdaptor(QString name, QObject *parent)
     : QDBusAbstractAdaptor(parent)
 {
+    init(QString(), name);
+}
+
+ZDBusAbstractAdaptor::ZDBusAbstractAdaptor(QString service, QString name,
+                                           QObject *parent)
+    : QDBusAbstractAdaptor(parent)
+{
+    init(service, name);
+}
+
+void ZDBusAbstractAdaptor::init(QString service, QString name){
+    if(service.isEmpty())
+        _service = ZDBUS_SVCNM;
+    else
+        _service = service;
+
     if(!name.isEmpty())
-	_name = name;
-    _instance = parent;
+        _name = name;
+
+    _instance = parent();
 }
 
 void ZDBusAbstractAdaptor::setInstance(QObject *instance){
@@ -38,13 +55,14 @@ void ZDBusAbstractAdaptor::registerService()
 {
 //  if name isn't set yet...
     if(_name.isEmpty())
-	if(_instance && !_instance->objectName().isEmpty())
-	    _name = _instance->objectName();
+        if(_instance && !_instance->objectName().isEmpty())
+            _name = _instance->objectName();
 
     if(_instance){
-	QDBusConnection::sessionBus().registerObject(ZDBUS_OPATH+_name,
-						     _instance);
-	QDBusConnection::sessionBus().registerService(ZDBUS_SVCNM);
-	//+zApp->arg("program").toString()
+        z_log_debug("ZDBusAbstractAdaptor: Registering s:"+_service+", p:"+_name);
+
+        QDBusConnection::sessionBus().registerObject(ZDBUS_OPATH+_name,
+                                                     _instance);
+        QDBusConnection::sessionBus().registerService(_service);
     }
 }

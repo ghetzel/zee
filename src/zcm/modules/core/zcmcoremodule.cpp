@@ -66,6 +66,12 @@ ZcmResult ZCMCoreModule::prepare(const QDomElement &el){
     }else if(el.tagName() == ZCM_TRAYICON){
         rv.component = new ZTrayIcon(el,qApp);
 #endif
+#ifdef ZCM_NOTIFICATION_DAEMON
+    }else if(el.tagName() == ZCM_NOTIFICATION_DAEMON){
+        ZNotificationDaemon *c = new ZNotificationDaemon(el,qApp);
+        c->setAdaptor(new ZNotificationDaemonAdaptor(c));
+        rv.component = c;
+#endif
     }
 
     return rv;

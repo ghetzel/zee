@@ -6,7 +6,7 @@ CONFIG += console
 INCLUDEPATH += .
 INCLUDEPATH += ../..
 INCLUDEPATH += ../../..
-linux-g++:INCLUDEPATH += /usr/include
+INCLUDEPATH += /usr/include
 DEPENDPATH += .
 DEPENDPATH += ../..
 DEPENDPATH += ../../..
@@ -28,9 +28,9 @@ SOURCES += zcmcommmodule.cpp \
 LIBS += -lglib-2.0
 LIBS += -lpurple
 QMAKE_LFLAGS_PLUGIN += -Wl,--whole-archive
-linux-g++ { 
+#linux-g++ {
     INCLUDEPATH += /usr/include/libpurple/
     INCLUDEPATH += /usr/include/glib-2.0/
     INCLUDEPATH += /usr/lib/glib-2.0/include/
     INCLUDEPATH += /usr/lib64/glib-2.0/include/
-}
+#}

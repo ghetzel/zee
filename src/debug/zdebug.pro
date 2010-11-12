@@ -4,6 +4,7 @@ SOURCES += zdebug.cpp \
     main.cpp \
     zutil.cpp
 
+LIBS += -L$(HOME)/lib
 LIBS += -lzee
 
 INCLUDEPATH += .

@@ -29,6 +29,5 @@ SOURCES += zcmformatmodule.cpp \
     ztransformation.cpp \
     zunitformatter.cpp \
     znumberformatter.cpp
-LIBS += -ludunits2 \
-    -lzee
+LIBS += -ludunits2
 linux-g++:INCLUDEPATH += /usr/include

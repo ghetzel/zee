@@ -29,6 +29,8 @@
 #include <zsqlquery.h>
 #include <zlinuxauthenticator.h>
 #include <ztrayicon.h>
+#include <znotificationdaemon.h>
+#include <znotificationdaemonadaptor.h>
 
 #ifdef Q_OS_LINUX
 #include "zdbusinterface.h"

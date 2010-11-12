@@ -12,7 +12,10 @@ QT += xml
 QT += sql
 QT += svg
 QT += network
+QT += dbus
+
 CONFIG += static
+LIBS += -L$(HOME)/lib
 LIBS += -lzee
 
 # QTPLUGIN += qmng qgif
@@ -82,7 +85,7 @@ OTHER_FILES += theme.qss \
     zui-def.xml \
     ../doc/zee.css \
     zcm.pri
-linux-g++ { 
+#linux-g++ {
     INCLUDEPATH += /usr/include/
     LIBS += -lX11
     QT += dbus
@@ -94,8 +97,8 @@ linux-g++ {
         zui/zx11/zxserver.cpp \
         zui/zx11/zxrootwindow.cpp \
         zui/zx11/zxevent.cpp
-}
-win32 { 
+#}
+win32 {
     CONFIG += console
     CONFIG += debug
 }

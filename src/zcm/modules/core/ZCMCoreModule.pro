@@ -5,7 +5,6 @@ CONFIG += plugin
 CONFIG += console
 INCLUDEPATH += .
 INCLUDEPATH += ../../..
-INCLUDEPATH += ../../../libzee/
 INCLUDEPATH += /usr/local/include/
 DEPENDPATH += .
 DEPENDPATH += ../../..
@@ -19,7 +18,9 @@ HEADERS += zcmcoremodule.h \
     zshortcut.h \
     zlinuxauthenticator.h \
     ztrayicon.h \
-    zcountdown.h
+    zcountdown.h \
+    znotificationdaemon.h \
+    znotificationdaemonadaptor.h
 SOURCES += zcmcoremodule.cpp \
     zsetting.cpp \
     ztimer.cpp \
@@ -29,16 +30,22 @@ SOURCES += zcmcoremodule.cpp \
     zshortcut.cpp \
     zlinuxauthenticator.cpp \
     ztrayicon.cpp \
-    zcountdown.cpp
+    zcountdown.cpp \
+    znotificationdaemon.cpp \
+    znotificationdaemonadaptor.cpp
 DESTDIR = ../../../plugins
 TARGET = $$qtLibraryTarget(zcm_core)
-QT += xml \
-    sql
-linux-g++ {
+
+QT += xml
+QT += sql
+
+#linux-g++ {
     QT += dbus
     LIBS += -lpam \
         -lpam_misc
-    HEADERS += zdbusinterface.h
-    SOURCES += zdbusinterface.cpp
-}
+    HEADERS +=  zdbusinterface.h \
+                zdbusabstractadaptor.h
+    SOURCES +=  zdbusinterface.cpp \
+                zdbusabstractadaptor.cpp
+#}
 OTHER_FILES +=
