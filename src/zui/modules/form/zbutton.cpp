@@ -51,11 +51,18 @@ void ZButton::zSetIcon(QString name){
 
 void ZButton::parse(const ZConfig &el){
     if(!el.text().isEmpty())
-	setText(el.text());
-    else if(!el.attribute("value","").isEmpty())
-	setText(el.attribute("value"));
+        setText(el.text());
+    else if(!el.attribute("text","").isEmpty())
+        setText(el.attribute("text"));
+
+    if(el.hasAttribute("value"))
+        setValue(el.attribute("value"));
 
 //! @icon - system name or path of the icon to display
     if(el.hasAttribute("icon"))
-	zSetIcon(el.attribute("icon"));
+        zSetIcon(el.attribute("icon"));
+}
+
+void ZButton::setValue(QVariant v){
+    _value = v;
 }

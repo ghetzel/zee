@@ -26,11 +26,11 @@ ZuiResult ZExtrasModule::prepareWidget(const QDomElement &el, QWidget *parent){
   if(el.tagName() == ZUI_CLOCK){
     if(el.hasAttribute("timeformat"))
       if(el.hasAttribute("dateformat")) // time & date format specified
-	zRes.widget = new ZClock(el.attribute("timeformat"),
-			       el.attribute("dateformat"),
-			       zRes.parent);
+        zRes.widget = new ZClock(el.attribute("timeformat"),
+                               el.attribute("dateformat"),
+                               zRes.parent);
       else // only time format specified
-	zRes.widget = new ZClock(el.attribute("timeformat"), zRes.parent);
+        zRes.widget = new ZClock(el.attribute("timeformat"), zRes.parent);
     else // no formats specified
       zRes.widget = new ZClock(zRes.parent);
 #endif // ZUI_CLOCK
@@ -52,7 +52,7 @@ ZuiResult ZExtrasModule::prepareWidget(const QDomElement &el, QWidget *parent){
 #endif // ZUI_FOLDERVIEW
 #ifdef ZUI_WEBBROWSER //	web browser: embeds a full WebKit browser
   }else if(el.tagName() == ZUI_WEBBROWSER){
-      zRes.widget = new ZWebBrowser("www.google.com", el, zRes.parent);
+      zRes.widget = new ZWebBrowser(el, zRes.parent);
 //      CAST(ZWebBrowser*,zRes.widget)->show();
 //      CAST(ZWebBrowser*,zRes.widget)->setLayout(ZuiUtils::getLayout(
 //        el.attribute("layout", ZUI_DEFAULT_LAYOUT)));

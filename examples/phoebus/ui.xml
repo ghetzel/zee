@@ -74,9 +74,9 @@
                         </zui:container>
 
                         <zui:container layout="vertical">
-                            <zui:button id="aClear" value="Clear Queue" />
-                            <zui:button id="aReloadStyle" value="Style" />
-                        </zui:container>                            
+                            <zui:button id="aClear">Clear Queue</zui:button>
+                            <zui:button id="aReloadStyle">Style</zui:button>
+                        </zui:container>                         
                     </zui:container>
                     <zui:container id="npVitals">
                         <zui:seekbar id="seekbar" />
@@ -102,7 +102,14 @@
 			                		<zui:label value="Genre" />
 			        		        <zui:label value="Album" />
 	        		        </zui:container>
-			                <zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
+		                	<zui:container layout="vertical">
+			                	<zui:container>
+							<zui:button id="central-music-lib" value="/cortex/central/music/lib">Central</zui:button>
+							<zui:button id="commons-upgrade-lib" value="/cortex/commons/flac-content">UpgradeLib</zui:button>
+							<zui:button id="commons-downloads" value="/cortex/commons/downloads">Downloads</zui:button>
+			                	</zui:container>
+				                <zui:folder id="browser" uri="/home/ghetzel/music/lib" select="extended" />
+		                	</zui:container>
 		                </zui:screen>
 				<zui:screen name="videoScreen" layout="vertical">
 					<zui:video id="video" />
@@ -191,5 +198,10 @@
 		<zee:connect from="aClear.clicked"          to="currentTime.reset" />
 		<zee:connect from="aClear.clicked"          to="currentLength.reset" />
 		<zee:connect from="aReloadStyle.clicked"    to="zee.reloadStyleSheet" />
+
+		<zee:connect from="central-music-lib.clicked"    to="browser.cd" via="central-music-lib.value" />
+		<zee:connect from="central-music-lib.clicked"    to="zee.log" via="central-music-lib.value" />
+		<zee:connect from="commons-upgrade-lib.clicked"  to="browser.cd" via="commons-upgrade-lib.value" />
+		<zee:connect from="commons-downloads.clicked"    to="browser.cd" via="commons-downloads.value" />
 	</zee:events>
 </zee>

@@ -34,6 +34,7 @@
 class ZButton : public QPushButton, public ZWidget
 {
     Q_OBJECT
+    Q_PROPERTY(QVariant value READ value WRITE setValue)
     Q_PROPERTY(QString zicon READ zicon WRITE zSetIcon)
 
 public:
@@ -41,10 +42,15 @@ public:
     ZButton(const QString &text, const ZConfig &el, QWidget *parent);
     ZButton(const QString &icon, const QString &text, const ZConfig &el, QWidget *parent);
     QString zicon(){ return icon().themeName(); }
+    QVariant value(){ return _value; }
+    void setValue(QVariant v);
     void zSetIcon(QString name);
 
 private:
     virtual void parse(const ZConfig &el);
+
+private:
+    QVariant _value;
 };
 
 #endif
