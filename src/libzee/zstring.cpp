@@ -1,57 +1,94 @@
 #include "zstring.h"
 
+ZString::ZString() : QString(){}
 
-ZString::ZString(ZString &other)
-    : QString(){
-    _value = other.toQString();
+
+ZString::ZString(const ZString &other)
+    : QString(other){
 }
 
-ZString::ZString(QString &other)
-    : QString(){
-    _value = other;
+ZString::ZString(const QString &other)
+    : QString(other){
+}
+
+ZString::ZString(const char *other)
+    : QString(other){
 }
 
 QString ZString::toQString(){
-    return _value;
+    return *this;
+}
+
+void ZString::_setText(const ZString &other){
+    clear();
+    prepend(other);
+}
+
+void ZString::_setText(const QString &other){
+    clear();
+    prepend(other);
+}
+
+void ZString::_setText(const char *other){
+    clear();
+    prepend(other);
+}
+
+ZString& ZString::operator=(const ZString &other){
+    _setText(other);
+    return *this;
+}
+
+ZString& ZString::operator=(const QString &other){
+    _setText(other);
+    return *this;
+}
+
+ZString& ZString::operator=(const char *other){
+    _setText(other);
+    return *this;
 }
 
 
 // STATIC METHODS
-QString ZString::left(QVariant in, uint len){
+ZString ZString::left(QVariant in, uint len){
     return in.toString().left(len);
 }
 
-QString ZString::right(QVariant in, uint len){
+ZString ZString::right(QVariant in, uint len){
     return in.toString().right(len);
 }
 
-QString ZString::leftOf(QVariant in, QString delimiter){
+ZString ZString::leftOf(QVariant in, QString delimiter){
     QString instr = in.toString();
     if(instr.contains(delimiter))
-        return instr.section(delimiter,0,1);
-    return in.toString();
+        return instr.section(delimiter,0,0);
+    return instr;
 }
 
-QString ZString::rightOf(QVariant in, QString delimiter){
+ZString ZString::rightOf(QVariant in, QString delimiter){
     QString instr = in.toString();
     if(instr.contains(delimiter))
-        return instr.section(delimiter,1,1);
+        return instr.section(delimiter,1,-1);
+    return instr;
+}
+
+
+//stub
+ZString ZString::ltrim(QVariant in, QString){
     return in.toString();
 }
 
-QString ZString::ltrim(QVariant in, QString){
+//stub
+ZString ZString::rtrim(QVariant in, QString){
     return in.toString();
 }
 
-QString ZString::rtrim(QVariant in, QString){
-    return in.toString();
-}
-
-QString ZString::trim(QVariant in, QString charsEx){
+ZString ZString::trim(QVariant in, QString charsEx){
     return in.toString().remove(QRegExp(charsEx));
 }
 
-QString ZString::reverse(QVariant in){
+ZString ZString::reverse(QVariant in){
     QString rv;
     QString instr = in.toString();
     for(int i = instr.length(); i >= 0; --i)
@@ -59,23 +96,23 @@ QString ZString::reverse(QVariant in){
     return rv;
 }
 
-QString ZString::lpad(QVariant in, uint width, QChar pad){
+ZString ZString::lpad(QVariant in, uint width, QChar pad){
     return in.toString().leftJustified(width,pad);
 }
 
-QString ZString::rpad(QVariant in, uint width, QChar pad){
+ZString ZString::rpad(QVariant in, uint width, QChar pad){
     return in.toString().rightJustified(width,pad);
 }
 
-QString ZString::upcase(QVariant in){
+ZString ZString::upcase(QVariant in){
     return in.toString().toUpper();
 }
 
-QString ZString::downcase(QVariant in){
+ZString ZString::downcase(QVariant in){
     return in.toString().toLower();
 }
 
-QString ZString::sentenceCase(QVariant in){
+ZString ZString::sentenceCase(QVariant in){
     QString instr = in.toString();
     int index = 0;
     while((index = instr.indexOf(QRegExp("(?:\\.)\\W+(\\w)"),index)) >= 0){
@@ -86,7 +123,7 @@ QString ZString::sentenceCase(QVariant in){
     return instr;
 }
 
-QString ZString::titleCase(QVariant in){
+ZString ZString::titleCase(QVariant in){
     QString instr = in.toString();
     int index = 0;
     while((index = instr.indexOf(QRegExp("\\b+(\\W)"),index)) >= 0){
@@ -97,13 +134,13 @@ QString ZString::titleCase(QVariant in){
     return instr;
 }
 
-QString ZString::squeeze(QVariant in, QChar chr){
+ZString ZString::squeeze(QVariant in, QChar chr){
     if(chr == '\0')
         return in.toString().replace(QRegExp("("+QString(chr)+")\\1+"),chr);
     return in.toString().replace(QRegExp("(.)\\1+"),"\\1");
 }
 
-QString ZString::lelide(QVariant in, int width, QString abbr){
+ZString ZString::lelide(QVariant in, int width, QString abbr){
     QString instr = in.toString();
     if(instr.length() > width){
         instr = instr.remove(0,instr.length()-width);
@@ -113,7 +150,7 @@ QString ZString::lelide(QVariant in, int width, QString abbr){
     return instr;
 }
 
-QString ZString::relide(QVariant in, int width, QString abbr){
+ZString ZString::relide(QVariant in, int width, QString abbr){
     QString instr = in.toString();
     if(instr.length() > width){
         instr = instr.remove(0,instr.length()-width);
@@ -123,115 +160,125 @@ QString ZString::relide(QVariant in, int width, QString abbr){
     return instr;
 }
 
-QString ZString::elide(QVariant in, int width, QString abbr){
+ZString ZString::elide(QVariant in, int width, QString abbr){
     return ZString::lelide(in,qCeil(width/2.0),abbr)+
            ZString::relide(in,qFloor(width/2.0),"");
 }
 
-QString ZString::lshift(QVariant in, uint num){
+ZString ZString::lshift(QVariant in, uint num){
     return in.toString().remove(0,num);
 }
 
-QString ZString::rshift(QVariant in, uint num){
+ZString ZString::rshift(QVariant in, uint num){
     QString instr = in.toString();
     instr.chop(num);
     return instr;
 }
 
-QString ZString::concat(QVariant in, QVariant other){
+ZString ZString::concat(QVariant in, QVariant other){
     return in.toString()+other.toString();
 }
 
-QString ZString::repeat(QVariant in, uint times){
+ZString ZString::repeat(QVariant in, uint times){
     return in.toString().repeated(times);
+}
+
+ZString ZString::substring(QVariant in, int beginIndex, int endIndex){
+    QString instr = in.toString();
+    instr = instr.left(endIndex);
+    return instr.right(instr.length()-beginIndex);
 }
 
 
 // INSTANCE METHODS
-QString ZString::left(uint len){
-    return ZString::left(_value, len);
+ZString ZString::left(uint len){
+    return ZString::left(toQString(), len);
 }
 
-QString ZString::right(uint len){
-    return ZString::right(_value, len);
+ZString ZString::right(uint len){
+    return ZString::right(toQString(), len);
 }
 
-QString ZString::leftOf(QString delimiter){
-    return ZString::leftOf(_value, delimiter);
+ZString ZString::leftOf(QString delimiter){
+    return ZString::leftOf(toQString(), delimiter);
 }
 
-QString ZString::rightOf(QString delimiter){
-    return ZString::rightOf(_value, delimiter);
+ZString ZString::rightOf(QString delimiter){
+    return ZString::rightOf(toQString(), delimiter);
 }
 
-QString ZString::ltrim(QString charsEx){
-    return ZString::ltrim(_value, charsEx);
+ZString ZString::ltrim(QString charsEx){
+    return ZString::ltrim(toQString(), charsEx);
 }
 
-QString ZString::rtrim(QString charsEx){
-    return ZString::rtrim(_value, charsEx);
+ZString ZString::rtrim(QString charsEx){
+    return ZString::rtrim(toQString(), charsEx);
 }
 
-QString ZString::trim(QString charsEx){
-    return ZString::trim(_value, charsEx);
+ZString ZString::trim(QString charsEx){
+    return ZString::trim(toQString(), charsEx);
 }
 
-QString ZString::reverse(){
-    return ZString::reverse(_value);
+ZString ZString::reverse(){
+    return ZString::reverse(toQString());
 }
 
-QString ZString::lpad(uint width, QChar pad){
-    return ZString::lpad(_value, width, pad);
+ZString ZString::lpad(uint width, QChar pad){
+    return ZString::lpad(toQString(), width, pad);
 }
 
-QString ZString::rpad(uint width, QChar pad){
-    return ZString::rpad(_value, width, pad);
+ZString ZString::rpad(uint width, QChar pad){
+    return ZString::rpad(toQString(), width, pad);
 }
 
-QString ZString::upcase(){
-    return ZString::upcase(_value);
+ZString ZString::upcase(){
+    return ZString::upcase(toQString());
 }
 
-QString ZString::downcase(){
-    return ZString::downcase(_value);
+ZString ZString::downcase(){
+    return ZString::downcase(toQString());
 }
 
-QString ZString::sentenceCase(){
-    return ZString::sentenceCase(_value);
+ZString ZString::sentenceCase(){
+    return ZString::sentenceCase(toQString());
 }
 
-QString ZString::titleCase(){
-    return ZString::titleCase(_value);
+ZString ZString::titleCase(){
+    return ZString::titleCase(toQString());
 }
 
-QString ZString::squeeze(QChar chr){
-    return ZString::squeeze(_value, chr);
+ZString ZString::squeeze(QChar chr){
+    return ZString::squeeze(toQString(), chr);
 }
 
-QString ZString::lelide(int width, QString abbr){
-    return ZString::lelide(_value, width, abbr);
+ZString ZString::lelide(int width, QString abbr){
+    return ZString::lelide(toQString(), width, abbr);
 }
 
-QString ZString::relide(int width, QString abbr){
-    return ZString::relide(_value, width, abbr);
+ZString ZString::relide(int width, QString abbr){
+    return ZString::relide(toQString(), width, abbr);
 }
 
-QString ZString::elide(int width, QString abbr){
-    return ZString::elide(_value, width, abbr);
+ZString ZString::elide(int width, QString abbr){
+    return ZString::elide(toQString(), width, abbr);
 }
 
-QString ZString::lshift(uint num){
-    return ZString::lshift(_value, num);
+ZString ZString::lshift(uint num){
+    return ZString::lshift(toQString(), num);
 }
 
-QString ZString::rshift(uint num){
-    return ZString::rshift(_value, num);
+ZString ZString::rshift(uint num){
+    return ZString::rshift(toQString(), num);
 }
 
-QString ZString::concat(const QVariant &other){
-    return ZString::concat(_value, other);
+ZString ZString::concat(const QVariant &other){
+    return ZString::concat(toQString(), other);
 }
 
-QString ZString::repeat(uint times){
-    return ZString::repeat(_value, times);
+ZString ZString::repeat(uint times){
+    return ZString::repeat(toQString(), times);
+}
+
+ZString ZString::substring(int beginIndex, int endIndex){
+    return ZString::substring(toQString(), beginIndex, endIndex);
 }

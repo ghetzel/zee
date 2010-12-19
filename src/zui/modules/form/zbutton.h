@@ -46,7 +46,14 @@ public:
     void setValue(QVariant v);
     void zSetIcon(QString name);
 
+signals:
+    void clicked(QVariant);
+
+private slots:
+    void _clicked();
+
 private:
+    void init();
     virtual void parse(const ZConfig &el);
 
 private:

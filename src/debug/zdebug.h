@@ -4,6 +4,7 @@
 #include <QCoreApplication>
 #include <zutil.h>
 #include <libzee/libzee.h>
+#include <libzee/zstring.h>
 #include <QGtkStyle>
 #include <QIcon>
 #include <QtCore>

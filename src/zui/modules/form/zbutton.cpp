@@ -22,17 +22,15 @@ using namespace std;
 ZButton::ZButton(const ZConfig &el, QWidget *parent)
     : QPushButton(parent),
       ZWidget(el,this){
-    parse(_config);
-    zEvent->registerSignal(this,SIGNAL(clicked()));
+    init();
 }
 
 ZButton::ZButton(const QString &text, const ZConfig &el, QWidget *parent)
     : QPushButton(parent),
       ZWidget(el,this)
 {
-    parse(_config);
+    init();
     setText(text);
-    zEvent->registerSignal(this,SIGNAL(clicked()));
 }
 
 ZButton::ZButton(const QString &icon, const QString &text, const ZConfig &el, QWidget *parent)
@@ -41,9 +39,17 @@ ZButton::ZButton(const QString &icon, const QString &text, const ZConfig &el, QW
 {
     setText(text);
     zSetIcon(icon);
-    parse(_config);
-    zEvent->registerSignal(this,SIGNAL(clicked()));
+    init();
 }
+
+void ZButton::init(){
+    parse(_config);
+
+    connect(this, SIGNAL(clicked()), this, SLOT(_clicked()));
+
+    zEvent->registerSignal(this,SIGNAL(clicked(QVariant)));
+}
+
 
 void ZButton::zSetIcon(QString name){
     setIcon(ZuiUtils::getIcon(name));
@@ -65,4 +71,8 @@ void ZButton::parse(const ZConfig &el){
 
 void ZButton::setValue(QVariant v){
     _value = v;
+}
+
+void ZButton::_clicked(){
+    emit clicked(_value);
 }

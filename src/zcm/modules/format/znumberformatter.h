@@ -1,7 +1,7 @@
 #ifndef ZNUMBERFORMATTER_H
 #define ZNUMBERFORMATTER_H
 
-#define ZCM_FORMATTER_NUMBER        "numeric"
+#define ZCM_FORMATTER_NUMBER        "number"
 
 #define ZFMT_METHOD_NUM_ROUND       "round"
 #define ZFMT_METHOD_NUM_CURRENCY    "currency"

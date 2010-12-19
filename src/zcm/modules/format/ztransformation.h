@@ -34,6 +34,7 @@ public:
 
 public slots:
     QVariant transform(QVariant);
+    void setParam(QString, QVariant);
 
 signals:
     void start(QVariant);

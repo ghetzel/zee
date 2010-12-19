@@ -31,6 +31,7 @@ class ZShortcut : public QObject, public ZConfigurable
 
 public:
     ZShortcut(const ZConfig &el, QObject *parent=0);
+    void lateInit();
 
 public slots:
     void trigger();

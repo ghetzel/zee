@@ -32,50 +32,50 @@ void ZEventManager::initialize(ZEventManager *instance){
 ZEventManager *ZEventManager::instance()
 {
     if(!_instance)
-	ZEventManager::initialize(new ZEventManager());
+        ZEventManager::initialize(new ZEventManager());
     return _instance;
 }
 
 void ZEventManager::insertMethod(QObject *object, const char *method,
-				 QHash<QObject *, ZEventObject> &store)
+                                 QHash<QObject *, ZEventObject> &store)
 {
     ZEventObject zeo;
     if(store.contains(object)){
-	zeo = store.take(object);
-	zeo.addMethod(method);
+        zeo = store.take(object);
+        zeo.addMethod(method);
     }else{
-	zeo = ZEventObject(object,method);
+        zeo = ZEventObject(object,method);
     }
 
     store.insert(object,zeo);
-    //z_log_debug("ZEventManager: Register method "+QString(method)+", store="+QVariant(store.count()).toString());
+    z_log_debug("ZEventManager: Register method "+QString(method)+", store="+QVariant(store.count()).toString());
 }
 
 void ZEventManager::registerMethod(QMetaMethod::MethodType type,
-				   QObject *object, const char *method)
+                                   QObject *object, const char *method)
 {
     //  some sanity checks
     if(!object){
-	z_log_debug("ZEventManager: Object not specified, skip register");
-	return; }
+        z_log_debug("ZEventManager: Object not specified, skip register");
+        return; }
     if(!method){
-	z_log_error("ZEventManager: Method not specified, skip register");
-	return; }
+        z_log_error("ZEventManager: Method not specified, skip register");
+        return; }
     if(object->objectName().isEmpty()){
         //z_log_debug("ZEventManager: Object name not specified, skip register");
-	return; }
+        return; }
 /*  ------------------------------------------------------------------------- */
 
     switch(type){
     case QMetaMethod::Signal:
-	insertMethod(object, method, _signals);
-	break;
+        insertMethod(object, method, _signals);
+        break;
     case QMetaMethod::Slot:
-	insertMethod(object, method, _slots);
-	break;
+        insertMethod(object, method, _slots);
+        break;
     default:
-	z_log_error("ZEventManager: Only signals and slots can be registered");
-	return;
+        z_log_error("ZEventManager: Only signals and slots can be registered");
+        return;
     }
 }
 
@@ -102,13 +102,13 @@ void ZEventManager::map(QString from, QString to, QString via,
 
 //  populate via (surrogate) properties
     if(!via.isEmpty()){
-	foreach(QString v, vias){
-	    QObject *propobj = findObject(v);
-	    if(propobj)
-		viaProperties << qMakePair(propobj, CALLALIAS(v));
-	    else
-		viaProperties.append(QPair<QObject*,QString>(NULL,QString()));
-	}
+        foreach(QString v, vias){
+            QObject *propobj = findObject(v);
+            if(propobj)
+                viaProperties << qMakePair(propobj, CALLALIAS(v));
+            else
+                viaProperties.append(QPair<QObject*,QString>(NULL,QString()));
+        }
     }
 
 //  populate formatters
@@ -136,50 +136,50 @@ void ZEventManager::map(QString from, QString to, QString via,
 
     if(sender.isValid()){
        if(receiver.isValid()){
-	   ZMethodObject signal, slot;
-	   if(direct && viaProperties.isEmpty()){
-	       ZEventObject::ZMethodPair methodMatch = sender.match(
-		       CALLALIAS(from), CALLALIAS(to),
-		       receiver);
+           ZMethodObject signal, slot;
+           if(direct && viaProperties.isEmpty()){
+               ZEventObject::ZMethodPair methodMatch = sender.match(
+                       CALLALIAS(from), CALLALIAS(to),
+                       receiver);
 
-	       signal = methodMatch.first;
-	       slot = methodMatch.second;
-	   }else{
-		ZEventObject::ZMethodPair matchedPair;
-		matchedPair = ZEventObject::matchMethodsBySignature(
-			sender.methods(CALLALIAS(from)),
-			receiver.methods(CALLALIAS(to)),
-			true,
-			via);
-		if(! (matchedPair.first.isValid() &&
-		      matchedPair.second.isValid())){
-		    z_log_error("ZEventManager: Could not find compatible "
-				"signal-slot pair.");
-		    return; }
+               signal = methodMatch.first;
+               slot = methodMatch.second;
+           }else{
+                ZEventObject::ZMethodPair matchedPair;
+                matchedPair = ZEventObject::matchMethodsBySignature(
+                        sender.methods(CALLALIAS(from)),
+                        receiver.methods(CALLALIAS(to)),
+                        true,
+                        via);
+                if(! (matchedPair.first.isValid() &&
+                      matchedPair.second.isValid())){
+                    z_log_error("ZEventManager: Could not find compatible "
+                                "signal-slot pair.");
+                    return; }
 
-		signal = matchedPair.first;
-		slot = matchedPair.second;
-	   }
+                signal = matchedPair.first;
+                slot = matchedPair.second;
+           }
 
-	   if(!signal.isValid()){
-	       z_log_error("ZEventManager: No direct match for signal found.");
-	       return; }
-	   if(!slot.isValid()){
-	       z_log_error("ZEventManager: No direct match for slot found.");
-	       return; }
+           if(!signal.isValid()){
+               z_log_error("ZEventManager: No direct match for signal found.");
+               return; }
+           if(!slot.isValid()){
+               z_log_error("ZEventManager: No direct match for slot found.");
+               return; }
 
 //	    by this point, we have verfied the presence of all necessary arguments,
 //	    found the objects in the hierarchy, retreived the methods for those
 //	    objects...let's map the damned connection already
             _mappings.append(new ZEventRelationship(signal, slot, viaProperties,
                                                     fmts, direct));
-	}else{
-	    z_log_error("ZEventManager: Cannot map, receiving object not found ("+to+")");
-	    return;
-	}
+        }else{
+            z_log_error("ZEventManager: Cannot map, receiving object not found ("+to+")");
+            return;
+        }
     }else{
-	z_log_error("ZEventManager: Cannot map, sending object not found ("+from+")");
-	return;
+        z_log_error("ZEventManager: Cannot map, sending object not found ("+from+")");
+        return;
     }
 }
 
@@ -198,13 +198,13 @@ QObject *ZEventManager::findObject(QString methodString, bool objectOnly){
 
 //  if that string was not splittable, return empty
     if(proc.isEmpty()){
-	z_log_error("ZEventManager: Cannot map, no object specified");
-	return NULL;
+        z_log_error("ZEventManager: Cannot map, no object specified");
+        return NULL;
     }else{
-	if(!objectOnly){
+        if(!objectOnly){
     //	omit the last argument (the method name itself)
-	    proc.removeLast();
-	}
+            proc.removeLast();
+        }
 
         if(proc.isEmpty()){
             z_log_error("ZEventManager: Object not found, invalid path.");
@@ -213,58 +213,58 @@ QObject *ZEventManager::findObject(QString methodString, bool objectOnly){
 
 
 //	and the last element here now is the object we're ultimately looking for
-	oname = proc.last();
+        oname = proc.last();
 
 //	if the first element is 'zee', the remove it (if this code is running,
 //	then 'zee' is assumed...what a mind-job)
 //      then set the current object to the application
-	if(proc.first() == ZEE_OBJNAME){
-	    proc.removeFirst();
-	    rv = qApp;
-	}
+        if(proc.first() == ZEE_OBJNAME){
+            proc.removeFirst();
+            rv = qApp;
+        }
 
-	if(!proc.isEmpty()){
+        if(!proc.isEmpty()){
 //          search the app and each top-level window for a match
-	    QList<QObject*> objs;
-	    objs << qApp;
-	    foreach(QObject *o, qApp->topLevelWidgets())
-		objs << o;
+            QList<QObject*> objs;
+            objs << qApp;
+            foreach(QObject *o, qApp->topLevelWidgets())
+                objs << o;
 
-	    foreach(QObject *top, objs){
-		rv = top;
+            foreach(QObject *top, objs){
+                rv = top;
 //	    for each element to be searched (in succession)...
-		foreach(QString o, proc){
+                foreach(QString o, proc){
 //		if we or one of our children is the object being searched for,
 //		we have found the object at this level, move on to the next one,
 //		wherein only this found object will be searched for the next tier
-		    if(((obj = (rv->objectName() == o ? rv : NULL)) ||
-			(obj = rv->findChild<QObject*>(o)))
-		     ){
-			//z_log_debug("ZEventManager: Found '"+o+"', moving on...");
-			foundIt = true;
-			rv = obj;
+                    if(((obj = (rv->objectName() == o ? rv : NULL)) ||
+                        (obj = rv->findChild<QObject*>(o)))
+                     ){
+                        //z_log_debug("ZEventManager: Found '"+o+"', moving on...");
+                        foundIt = true;
+                        rv = obj;
 
-		    }else{
+                    }else{
 //		the next tier was not found within the given parent, exit and
 //		try the next window
-			//z_log_debug("ZEventManager: No '"+o+"', staying "+rv->objectName());
-			foundIt = false;
-			break;
-		    }
-		}
+                        //z_log_debug("ZEventManager: No '"+o+"', staying "+rv->objectName());
+                        foundIt = false;
+                        break;
+                    }
+                }
 
 //	    if we have found what we are looking for, stop searching
-		if(foundIt)
-		    break;
-	    }
-	}
+                if(foundIt)
+                    break;
+            }
+        }
 
-	if(rv->objectName() == oname){
+        if(rv->objectName() == oname){
 //	    z_log_debug("ZEventManager: Found '"+methodString+"', "
 //			"it's a "+QString(rv->metaObject()->className()));
-	}else{
-	    return NULL;
-	}
+        }else{
+            return NULL;
+        }
     }
 
     return rv;
@@ -274,7 +274,7 @@ QVariant ZEventManager::getProperty(QString methodString){
     if(methodString.isEmpty())
         return QVariant();
 
-    QObject *obj = ZEventManager::findObject(methodString);    
+    QObject *obj = ZEventManager::findObject(methodString);
     if(obj)
         return obj->property(CSTR(methodString.section(ZEV_SEPARATOR,-1,-1)));
     return QVariant();

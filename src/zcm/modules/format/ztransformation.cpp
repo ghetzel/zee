@@ -32,11 +32,11 @@ void ZTransformation::parse(const ZConfig &el){
     QDomElement elfmt;
 
     for(uint i = 0; i < elc.length(); i++){
-	elfmt = elc.at(i).toElement();
-	if(elfmt.tagName() == ZTRANS_FORMATTER){
-	    elfmt.setAttribute("id", objectName()+"_formatter"+QString(i));
-	    _formatters << new ZFormatter(elfmt,this);
-	}
+        elfmt = elc.at(i).toElement();
+        if(elfmt.tagName() == ZTRANS_FORMATTER){
+            elfmt.setAttribute("id", objectName()+"_formatter"+QString(i));
+            _formatters << new ZFormatter(elfmt,this);
+        }
     }
 
     chainFormatters();
@@ -61,4 +61,8 @@ void ZTransformation::chainFormatters(){
 
 QVariant ZTransformation::transform(QVariant val){
     return val;
+}
+
+void ZTransformation::setParam(QString key, QVariant value){
+
 }

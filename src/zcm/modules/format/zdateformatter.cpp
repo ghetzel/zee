@@ -21,8 +21,9 @@ ZDateFormatter::ZDateFormatter(QObject *parent)
     : ZAbstractFormatter(parent){}
 
 QVariant ZDateFormatter::transform(QVariant val){
+//! format( [outputFormat [, inputFormat]] )
     if(method() == ZFMT_METHOD_DATE_FORMAT){
-        return _format(val, arg(0).toString(), arg(1).toString());
+        return _format(val, arg("outputFormat",ZML_DEFAULT_PARAM_NAME).toString(), arg("inputFormat").toString());
     }else{
         return val;
     }

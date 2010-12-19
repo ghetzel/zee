@@ -9,58 +9,71 @@
 class ZString : public QString
 {
 public:
-    ZString(ZString &other);
-    ZString(QString &other);
+    ZString();
+    ZString(const ZString &other);
+    ZString(const QString &other);
+    ZString(const char *other);
+    ZString& operator=(const ZString &other);
+    ZString& operator=(const QString &other);
+    ZString& operator=(const char *other);
     QString toQString();
-    QString left(uint len);
-    QString right(uint len);
-    QString leftOf(QString delimiter);
-    QString rightOf(QString delimiter);
-    QString ltrim(QString charsEx="\\w+");
-    QString rtrim(QString charsEx="\\w+");
-    QString trim(QString charsEx="\\w+");
-    QString reverse();
-    QString lpad(uint width, QChar pad=' ');
-    QString rpad(uint width, QChar pad=' ');
-    QString upcase();
-    QString downcase();
-    QString sentenceCase();
-    QString titleCase();
-    QString squeeze(QChar chr='\0');
-    QString lelide(int width, QString abbr="...");
-    QString relide(int width, QString abbr="...");
-    QString elide(int width, QString abbr="...");
-    QString lshift(uint num);
-    QString rshift(uint num);
-    QString concat(const QVariant &other);
-    QString repeat(uint times);
 
 public:
-    static QString left(QVariant in, uint len);
-    static QString right(QVariant in, uint len);
-    static QString leftOf(QVariant in, QString delimiter);
-    static QString rightOf(QVariant in, QString delimiter);
-    static QString ltrim(QVariant in, QString charsEx="\\w+");
-    static QString rtrim(QVariant in, QString charsEx="\\w+");
-    static QString trim(QVariant in, QString charsEx="\\w+");
-    static QString reverse(QVariant in);
-    static QString lpad(QVariant in, uint width, QChar pad=' ');
-    static QString rpad(QVariant in, uint width, QChar pad=' ');
-    static QString upcase(QVariant in);
-    static QString downcase(QVariant in);
-    static QString sentenceCase(QVariant in);
-    static QString titleCase(QVariant in);
-    static QString squeeze(QVariant in, QChar chr='\0');
-    static QString lelide(QVariant in, int width, QString abbr="...");
-    static QString relide(QVariant in, int width, QString abbr="...");
-    static QString elide(QVariant in, int width, QString abbr="...");
-    static QString lshift(QVariant in, uint num);
-    static QString rshift(QVariant in, uint num);
-    static QString concat(QVariant in, QVariant other);
-    static QString repeat(QVariant in, uint times);
+    ZString left(uint len);
+    ZString right(uint len);
+    ZString leftOf(QString delimiter);
+    ZString rightOf(QString delimiter);
+    ZString ltrim(QString charsEx="\\w+");
+    ZString rtrim(QString charsEx="\\w+");
+    ZString trim(QString charsEx="\\w+");
+    ZString reverse();
+    ZString lpad(uint width, QChar pad=' ');
+    ZString rpad(uint width, QChar pad=' ');
+    ZString upcase();
+    ZString downcase();
+    ZString sentenceCase();
+    ZString titleCase();
+    ZString squeeze(QChar chr='\0');
+    ZString lelide(int width, QString abbr="...");
+    ZString relide(int width, QString abbr="...");
+    ZString elide(int width, QString abbr="...");
+    ZString lshift(uint num);
+    ZString rshift(uint num);
+    ZString concat(const QVariant &other);
+    ZString repeat(uint times);
+    ZString substring(int beginIndex, int endIndex);
+
+public:
+    static ZString left(QVariant in, uint len);
+    static ZString right(QVariant in, uint len);
+    static ZString leftOf(QVariant in, QString delimiter);
+    static ZString rightOf(QVariant in, QString delimiter);
+    static ZString ltrim(QVariant in, QString charsEx="\\w+");
+    static ZString rtrim(QVariant in, QString charsEx="\\w+");
+    static ZString trim(QVariant in, QString charsEx="\\w+");
+    static ZString reverse(QVariant in);
+    static ZString lpad(QVariant in, uint width, QChar pad=' ');
+    static ZString rpad(QVariant in, uint width, QChar pad=' ');
+    static ZString upcase(QVariant in);
+    static ZString downcase(QVariant in);
+    static ZString sentenceCase(QVariant in);
+    static ZString titleCase(QVariant in);
+    static ZString squeeze(QVariant in, QChar chr='\0');
+    static ZString lelide(QVariant in, int width, QString abbr="...");
+    static ZString relide(QVariant in, int width, QString abbr="...");
+    static ZString elide(QVariant in, int width, QString abbr="...");
+    static ZString lshift(QVariant in, uint num);
+    static ZString rshift(QVariant in, uint num);
+    static ZString concat(QVariant in, QVariant other);
+    static ZString repeat(QVariant in, uint times);
+    static ZString substring(QVariant in, int beginIndex, int endIndex);
 
 private:
-    QString _value;
+    void _setText(const ZString &other);
+    void _setText(const QString &other);
+    void _setText(const char *other);
 };
+
+Q_DECLARE_METATYPE(ZString);
 
 #endif // ZSTRING_H

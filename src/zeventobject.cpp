@@ -21,31 +21,31 @@ ZEventObject::ZEventObject(QObject *object, const char *method)
 {
     _object = object;
     if(object && method)
-	addMethod(method);
+        addMethod(method);
 }
 
 QList<ZMethodObject> ZEventObject::methods(QString key){
     if(_methods.isEmpty() || !_methods.contains(key))
-	return QList<ZMethodObject>();
+        return QList<ZMethodObject>();
     return _methods.values(key);
 }
 
 void ZEventObject::setObject(QObject *object){
     if(object){
-	_object = object;
-	_methods.clear();
+        _object = object;
+        _methods.clear();
     }
 }
 
 QStringList ZEventObject::getSurrogateArgs(QString surrogates){
     QStringList rv;
     if(!surrogates.isEmpty()){
-	QStringList s = surrogates.split(",");
-	foreach(QString ss, s)
-	    if(ss.isEmpty())
-		rv << ss;
-	    else
-		rv << "QVariant";
+        QStringList s = surrogates.split(",");
+        foreach(QString ss, s)
+            if(ss.isEmpty())
+                rv << ss;
+            else
+                rv << "QVariant";
     }
 
     return rv;
@@ -60,14 +60,14 @@ bool ZEventObject::isValid(){
 }
 
 void ZEventObject::addMethod(const char *method){
-    //z_log_debug("ZEventObject: Add method "+QString(method));
+    z_log_debug("ZEventObject: Add method "+QString(method));
     _methods.insertMulti(ZMethodObject::name(method),
-		    ZMethodObject(_object,method));
+                    ZMethodObject(_object,method));
 }
 
 ZEventObject::ZMethodPair ZEventObject::match(QString localAlias,
-					      QString remoteAlias,
-					      ZEventObject &remoteObject){
+                                              QString remoteAlias,
+                                              ZEventObject &remoteObject){
 // for each method in this object (keyed by localAlias), search remoteObject
 // for methods keyed by remoteAlias, and return the pair of method objects that
 // match.
@@ -78,29 +78,29 @@ ZEventObject::ZMethodPair ZEventObject::match(QString localAlias,
 }
 
 ZEventObject::ZMethodPair ZEventObject::matchMethodsBySignature(
-	QList<ZMethodObject>signal, QList<ZMethodObject>slot, bool ignoreTypes,
-	QString surrogates)
+        QList<ZMethodObject>signal, QList<ZMethodObject>slot, bool ignoreTypes,
+        QString surrogates)
 {
     QStringList surrogateArgs = ZEventObject::getSurrogateArgs(surrogates);
     ZMethodObject rv1, rv2;
     foreach(ZMethodObject l, signal){
-	foreach(ZMethodObject r, slot){
-	//  if surrogate properties were specified, the signal signature will
-	//  need to be modified to appear as though is has the surrogates as
-	//  arguments; if no surrogates were specified:
-	//  check for 1-to-1 type compatibility of a given method pair;
-	//  failing that, and if we may ignore type compatibility, just try to
-	//  find any two methods with the same number of arguments.
-	//  this may be a somewhat unsophisticated fallback, but it works...
-	    if((!surrogateArgs.isEmpty() &&
-		    (surrogateArgs.count() == r.args().count()))	||
-		    l.args() == r.args()		||
-	       ( ignoreTypes && (l.args().count() == r.args().count()) ))
-	    {
-		rv1 = l;
-		rv2 = r;
-	    }
-	}
+        foreach(ZMethodObject r, slot){
+        //  if surrogate properties were specified, the signal signature will
+        //  need to be modified to appear as though is has the surrogates as
+        //  arguments; if no surrogates were specified:
+        //  check for 1-to-1 type compatibility of a given method pair;
+        //  failing that, and if we may ignore type compatibility, just try to
+        //  find any two methods with the same number of arguments.
+        //  this may be a somewhat unsophisticated fallback, but it works...
+            if((!surrogateArgs.isEmpty() &&
+                    (surrogateArgs.count() == r.args().count()))	||
+                    l.args() == r.args()		||
+               ( ignoreTypes && (l.args().count() == r.args().count()) ))
+            {
+                rv1 = l;
+                rv2 = r;
+            }
+        }
     }
 
     return qMakePair(rv1,rv2);

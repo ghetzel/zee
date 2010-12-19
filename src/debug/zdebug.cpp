@@ -61,4 +61,39 @@ ZDebug::ZDebug(int argc, char **argv)
 //    z_log("Round (4 places)"+_round(QVariant(10.845347),4).toString());
 
     //z_log("Base: "+_base(QVariant(172),16).toString());
+
+    ZString ts1 = "zee:teststring/by/Value@yay";
+
+    z_log("ZString - basic tests");
+    z_log("value: "+ts1);
+    z_log("value: "+ts1.toQString());
+    z_log("value: "+QVariant(ts1).toString());
+    z_log("value: "+QVariant(ts1.toQString()).toString());
+
+    if(ts1.contains("/"))
+        z_log("YAY!");
+
+    z_log("leftOf '/': zee:teststring => "+ts1.leftOf("/"));
+    z_log("rightOf '/': zee:teststring => "+ts1.rightOf("/"));
+    z_log("upcase: zee:teststring => "+ts1.upcase());
+    z_log("downcase: zee:teststring => "+ts1.downcase());
+    z_log("lpad: zee:teststring => "+ts1.lpad(100));
+    z_log("rpad: zee:teststring => "+ts1.rpad(100));
+
+
+    z_log("ZString - substring() tests");
+
+    ZString str = "Pineapple";
+
+    z_log("");
+    z_log("   Pineapple ");
+    z_log("   0123456789111111111122222222223333333333");
+    z_log("             012345678901234567890123456789");
+
+    z_log("");
+
+    z_log("substring(2,5): nea => "+str.substring(2,5));
+    z_log("substring(0,4): Pine => "+str.substring(0,4));
+    z_log("substring(4,1000): apple => "+str.substring(4,1000));
+    z_log("substring(-10,3): ??? => "+str.substring(0,3));
 }

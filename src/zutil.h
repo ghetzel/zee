@@ -28,7 +28,7 @@
 #include <QRegExp>
 #include <QTextStream>
 
-#define ZUTL_DEFAULT_LOG_LEVEL   ZUtil::LogDebug
+#define ZUTL_DEFAULT_LOG_LEVEL          ZUtil::LogDebug
 
 #define ZEE_APPNAME                     "Zee"
 #define ZEE_OBJNAME                     "zee"
@@ -68,6 +68,9 @@
 #define ZSYM_RCARAT                     "right-carat"
 #define ZSYM_COMMA                      "comma"
 #define ZSYM_QUESTION                   "question"
+
+
+#define ZML_DEFAULT_PARAM_NAME          "__DEFAULT__"
 
 #define z_out(x)        ZUtil::output(x);
 #define z_log(x)        ZUtil::log(x,ZUtil::LogInfo)

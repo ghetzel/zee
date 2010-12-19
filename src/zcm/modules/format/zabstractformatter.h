@@ -28,44 +28,25 @@ class ZAbstractFormatter : public ZFormatterInterface{
     Q_PROPERTY(QString method READ method WRITE setMethod)
 
 public:
-    ZAbstractFormatter(QObject *parent=0)
-        : ZFormatterInterface(parent){
-    }
-
-    ZAbstractFormatter(QString method, QObject *parent=0)
-        : ZFormatterInterface(parent){
-        setMethod(method);
-    };
-    ~ZAbstractFormatter(){};
-
-    void setMethod(QString method){
-        _method = method;
-    }
-
-    QString method() const{
-        return _method;
-    }
-
-    void pushArgument(QVariant arg){
-        _args.append(arg);
-    }
+    ZAbstractFormatter(QObject *parent=0);
+    ZAbstractFormatter(QString method, QObject *parent=0);
+    ~ZAbstractFormatter(){}
+    void setMethod(QString method);
+    QString method() const;
 
 public slots:
     virtual QVariant transform(QVariant)=0;
+    void setParam(QString key, QVariant val);
 
 signals:
     void ready(QVariant);
 
 protected:
-    QVariant arg(int index){
-        if(_args.count() > index)
-            return _args.at(index);
-        return QVariant();
-    }
+    QVariant arg(QString key, QString fallback=QString());
 
 private:
     QString _method;
-    QList<QVariant> _args;
+    QHash<QString,QVariant> _args;
 };
 
 #endif // ZABSTRACTFORMATTER_H

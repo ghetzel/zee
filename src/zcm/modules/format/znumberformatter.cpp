@@ -6,9 +6,9 @@ ZNumberFormatter::ZNumberFormatter(QObject *parent)
 }
 
 QVariant ZNumberFormatter::transform(QVariant val){
-    if(method() == ZFMT_METHOD_NUM_ROUND){ //!          round
+    if(method() == ZFMT_METHOD_NUM_ROUND){ //!          round - [places]
         if(arg(0).isValid())
-            return _round(val,arg(0).toInt());
+            return _round(val,arg("places",ZML_DEFAULT_PARAM_NAME).toInt());
         else
             return _round(val);
 
@@ -21,23 +21,23 @@ QVariant ZNumberFormatter::transform(QVariant val){
     }else if(method() == ZFMT_METHOD_NUM_FLOOR){ //!    floor
         return _floor(val);
 
-    }else if(method() == ZFMT_METHOD_NUM_FIX){ //!      fix
-        return _fix(val, arg(0).toInt());
+    }else if(method() == ZFMT_METHOD_NUM_FIX){ //!      fix - [places]
+        return _fix(val, arg("places",ZML_DEFAULT_PARAM_NAME).toInt());
 
     }else if(method() == ZFMT_METHOD_NUM_ABS){ //!      abs
         return _abs(val);
 
     }else if(method() == ZFMT_METHOD_NUM_MIN){ //!      min
-        return _min(val, arg(0));
+        return _min(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_MAX){ //!      max
-        return _max(val, arg(0));
+        return _max(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_AVG){ //!      avg
-        return _avg(val, arg(0));
+        return _avg(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_RANGE){ //!    range
-        return _range(val, arg(0));
+        return _range(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_ACOS){ //!     acos
         return _acos(val);
@@ -76,37 +76,37 @@ QVariant ZNumberFormatter::transform(QVariant val){
         return _tan(val);
 
     }else if(method() == ZFMT_METHOD_NUM_SUM){ //!      sum
-        return _sum(val, arg(0));
+        return _sum(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_DIFF){ //!     difference
-        return _difference(val, arg(0));
+        return _difference(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_PROD){ //!     product
-        return _product(val, arg(0));
+        return _product(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_QUOT){ //!     quotient
-        return _quotient(val, arg(0));
+        return _quotient(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_MOD){ //!      mod
-        return _modulus(val, arg(0));
+        return _modulus(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_EXP){ //!      exponent
-        return _exponent(val, arg(0).toFloat());
+        return _exponent(val, arg("exponent",ZML_DEFAULT_PARAM_NAME).toFloat());
 
     }else if(method() == ZFMT_METHOD_NUM_LOG){ //!      log
-        return _log(val, arg(0).toInt());
+        return _log(val, arg("base",ZML_DEFAULT_PARAM_NAME).toInt());
 
     }else if(method() == ZFMT_METHOD_NUM_LN){ //!       ln
         return _ln(val);
 
     }else if(method() == ZFMT_METHOD_NUM_GCD){ //!      gcd (greatest cmn. denom.)
-        return _gcd(val, arg(0));
+        return _gcd(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_LCM){ //!      lcm (least cmn. multiple)
-        return _lcm(val, arg(0));
+        return _lcm(val, arg("other",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_NUM_BASE){ //!     base (arbitrary)
-        return _base(val, arg(0).toInt());
+        return _base(val, arg("toBase",ZML_DEFAULT_PARAM_NAME).toInt());
 
     }else if(method() == ZFMT_METHOD_NUM_BIN){ //!      bin (base-10 to binary)
         return _bin(val);

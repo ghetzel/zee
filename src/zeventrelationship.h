@@ -64,13 +64,13 @@ class ZEventRelationship : public QObject{
 
 public:
     explicit ZEventRelationship(ZMethodObject from, ZMethodObject to,
-				QList<QPair<QObject*,QString> > via,
+                                QList<QPair<QObject*,QString> > via,
                                 QList<ZFormatterInterface*> formatters,
                                 bool direct=false);
 private slots:
     void adapter(QVariant p1=QVariant(),QVariant p2=QVariant(),
-		 QVariant p3=QVariant(),QVariant p4=QVariant(),
-		 QVariant p5=QVariant(),QVariant p6=QVariant());
+                 QVariant p3=QVariant(),QVariant p4=QVariant(),
+                 QVariant p5=QVariant(),QVariant p6=QVariant());
     void adapter(bool);
     void adapter(int);
     void adapter(uint);
@@ -123,8 +123,9 @@ signals:
     void adapted(int,int);
     void adapted(QVariant,QVariant);
     void adapted(QString,QString);
+    void adapted(QString,QVariant);
     void adapted(QVariant,QVariant,QVariant);
-    void adapted(QString,QString,QString);    
+    void adapted(QString,QString,QString);
     void adapted(QDateTime,QString,QString);
     void adapted(QVariant,QVariant,QVariant,QVariant);
     void adapted(QString,QString,QString,uint);

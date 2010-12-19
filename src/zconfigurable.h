@@ -20,6 +20,28 @@
 #include <QtCore>
 #include <QtXml>
 #include <zutil.h>
+#include <zeventmanager.h>
+
+// HACK: Inheritable signals-slots from a generic non-QObject-descended ancestor
+//  because we are extending Qt widgets/objects to create our own, we run into
+//  a problem when trying to inherit signals and slots.  The ZConfigurable class
+//  cannot itself inherit QObject (and therefore cannot itself contain signals
+//  or slots to pass onto its children); the reason for this is because any Qt
+//  class we extend has already inherited from QObject.  Thus, for this to do so
+//  throws an `ambiguous base' compiler error.  The hack-solution: create
+//  our own macro that includes any signals/slots we wish to be passed on to
+//  descendant objects.  That way the method is technically defined within the
+//  context of the implementing class, but it still looks shiny.
+#define Z_OBJECT                                                               \
+public slots:                                                                  \
+    void setParam(QString key, QVariant value){                                \
+        if(!key.isEmpty()){                                                    \
+            z_log_debug("ZConfigurable: Set Param "+key+"="+value.toString()); \
+            _properties.insert(key,value);                                     \
+        }                                                                      \
+    }                                                                         \
+private:
+
 
 class ZConfigurable
 {
@@ -27,31 +49,36 @@ public:
     typedef QDomElement ZConfig;
 
     ZConfigurable(const ZConfig &el, QObject *self){
-	_self = self;
-	_config = el;
-	init();
+        _self = self;
+        _config = el;
+        init();
     }
+
     virtual void lateInit(){};
 
 protected:
     QObject *_self;
     ZConfig _config;
-    QHash<QString,QVariant> _properties;
+    QVariantHash _properties;
     virtual void parse(const ZConfig &el)=0;
 
     QVariant param(QString key){
-	return _properties.value(key,QVariant());
+        return _properties.value(key,QVariant());
+    }
+
+    QVariantHash params(){
+        return _properties;
     }
 
     QList<QDomElement> childElements(QString tagName){
-	QList<QDomElement> retval;
-	QDomElement nextEl;
+        QList<QDomElement> retval;
+        QDomElement nextEl;
 
-	while(!(nextEl = _config.nextSiblingElement(tagName)).isNull()){
-	    retval << nextEl;
-	}
+        while(!(nextEl = _config.nextSiblingElement(tagName)).isNull()){
+            retval << nextEl;
+        }
 
-	return retval;
+        return retval;
     }
 
     void scanProperties(){
@@ -66,25 +93,25 @@ protected:
 private:
     void init(){
     //	set ID
-	if(_config.hasAttribute("id"))
-	    _self->setObjectName(_config.attribute("id"));
+        if(_config.hasAttribute("id"))
+            _self->setObjectName(_config.attribute("id"));
 
-    //	set specified value
-//	if(_config.hasAttribute("value"))
-//	    _self->setProperty("value", QVariant(_config.attribute("value")));
+    //	set default parameter
+        if(_config.hasAttribute("param"))
+            _properties.insert(ZML_DEFAULT_PARAM_NAME, QVariant(_config.attribute("param")));
 
         scanProperties();
 
-	QDomNodeList elst = _config.childNodes();
-	for(uint i = 0; i < elst.length(); i++){
-	    QDomElement e = elst.at(i).toElement();
-	    if(e.isNull())
-		continue;
-	    if(e.tagName() == "zee:param")
-		if(e.hasAttribute("name") && (e.hasAttribute("value") || !e.text().isEmpty()))
-		    _properties.insert(e.attribute("name"),
-				       QVariant(e.attribute("value",e.text())));
-	}
+        QDomNodeList elst = _config.childNodes();
+        for(uint i = 0; i < elst.length(); i++){
+            QDomElement e = elst.at(i).toElement();
+            if(e.isNull())
+                continue;
+            if(e.tagName() == "zee:param")
+                if(e.hasAttribute("name") && (e.hasAttribute("value") || !e.text().isEmpty()))
+                    _properties.insert(e.attribute("name"),
+                                       QVariant(e.attribute("value",e.text())));
+        }
     }
 };
 

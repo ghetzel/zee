@@ -26,19 +26,23 @@ ZFormatter::ZFormatter(const ZConfig &el, QObject *parent)
 
     zEvent->registerSignal(this, SIGNAL(ready(QVariant)));
     zEvent->registerSlot(this, SLOT(transform(QVariant)));
+    zEvent->registerSlot(this, SLOT(setParam(QString,QVariant)));
+    zEvent->registerSlot(this, SLOT(setMethod(QString)));
 }
 
 void ZFormatter::parse(const ZConfig &el){
     if(el.hasAttribute("type") && el.hasAttribute("method")){
-	_formatter = formatter(el.attribute("type"));
-	if(_formatter){
-	    _formatter->setMethod(el.attribute("method"));
+        _formatter = formatter(el.attribute("type"));
+        if(_formatter){
+            setMethod(el.attribute("method"));
 
-	    foreach(QString arg, el.attribute("value").split(" || "))
-		_formatter->pushArgument(arg);
+            foreach(QVariant param, params()){
+                z_log_debug("ZFormatter: Setting param "+params().key(param)+" = "+param.toString());
+                setParam(params().key(param), param);
+            }
 
-	    connect(_formatter, SIGNAL(ready(QVariant)), this, SIGNAL(ready(QVariant)));
-	}
+            connect(_formatter, SIGNAL(ready(QVariant)), this, SIGNAL(ready(QVariant)));
+        }
     }
 }
 
@@ -55,16 +59,24 @@ ZAbstractFormatter *ZFormatter::formatter(QString name){
     ZAbstractFormatter *rv = NULL;
 
 //  create the proper formatter
-    if(name == "string"){
-	rv = new ZStringFormatter(this);
-    }else if(name == "number"){
-    }else if(name == "date"){
-	rv = new ZDateFormatter(this);
+    if(name == ZCM_FORMATTER_STRING){   //!         string
+        rv = new ZStringFormatter(this);
+    }else if(name == ZCM_FORMATTER_NUMBER){ //!     number
+        rv = new ZNumberFormatter(this);
+    }else if(name == ZCM_FORMATTER_DATE){ //!       date
+        rv = new ZDateFormatter(this);
+    }else if(name == "json"){
+    }else if(name == "xslt"){
+    }else if(name == "xpath"){
+    }else if(name == "yaml"){
+    }else if(name == ZCM_FORMATTER_REGEX){ //!      regex
+        rv = new ZRegexFormatter(this);
     }
 
+
     if(rv){
-	rv->setObjectName(name);
-	return rv;
+        rv->setObjectName(name);
+        return rv;
     }
 
     return NULL;
@@ -72,6 +84,22 @@ ZAbstractFormatter *ZFormatter::formatter(QString name){
 
 QString ZFormatter::type(){
     if(_formatter)
-	return _formatter->objectName();
+        return _formatter->objectName();
     return QString();
+}
+
+
+void ZFormatter::setParam(QString key, QVariant value){
+    if(!key.isEmpty()){
+        _properties.insert(key,value);
+        if(_formatter)
+            _formatter->setParam(key,value);
+    }
+}
+
+void ZFormatter::setMethod(QString name){
+    if(_formatter){
+        z_log_debug("ZFormatter: Set Method to "+name);
+        _formatter->setMethod(name);
+    }
 }

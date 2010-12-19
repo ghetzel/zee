@@ -22,94 +22,94 @@ ZStringFormatter::ZStringFormatter(QObject *parent)
 
 
 QVariant ZStringFormatter::transform(QVariant val){
-    if(method() == ZFMT_METHOD_STR_CONCAT){ //!                      concat
-        return _concat(val,arg(0));
+    if(method() == ZFMT_METHOD_STR_CONCAT){ //!                      concat( with )
+        return _concat(val,arg("with",ZML_DEFAULT_PARAM_NAME));
 
     }else if(method() == ZFMT_METHOD_STR_DOWNCASE){ //!              downcase
         return _downcase(val);
 
-    }else if(method() == ZFMT_METHOD_STR_ELIDE){ //!                 elide
-	if(arg(1).isValid())
-            return _elide(val, arg(0).toInt(), arg(1).toString());
-	else
-            return _elide(val, arg(0).toInt());
+    }else if(method() == ZFMT_METHOD_STR_ELIDE){ //!                 elide( [maxLength [, placeholder]] )
+        if(arg("placeholder").isValid())
+            return _elide(val, arg("maxLength",ZML_DEFAULT_PARAM_NAME).toInt(), arg("placeholder").toString());
+        else
+            return _elide(val, arg("maxLength",ZML_DEFAULT_PARAM_NAME).toInt());
 
-    }else if(method() == ZFMT_METHOD_STR_LEFT){ //!                  left
-        return _left(val,arg(0).toUInt());
+    }else if(method() == ZFMT_METHOD_STR_LEFT){ //!                  left( length )
+        return _left(val, arg("length",ZML_DEFAULT_PARAM_NAME).toUInt());
 
-    }else if(method() == ZFMT_METHOD_STR_LEFTOF){ //!                leftOf
-        return _leftOf(val,arg(0).toString());
+    }else if(method() == ZFMT_METHOD_STR_LEFTOF){ //!                leftOf( delimiter )
+        return _leftOf(val, arg("delimiter",ZML_DEFAULT_PARAM_NAME).toString());
 
-    }else if(method() == ZFMT_METHOD_STR_LELIDE){ //!                lelide
-	if(arg(1).isValid())
-            return _lelide(val, arg(0).toInt(), arg(1).toString());
-	else
-            return _lelide(val, arg(0).toInt());
+    }else if(method() == ZFMT_METHOD_STR_LELIDE){ //!                lelide( [maxLength [, placeholder]] )
+        if(arg("placeholder").isValid())
+            return _lelide(val, arg("maxLength",ZML_DEFAULT_PARAM_NAME).toInt(), arg("placeholder").toString());
+        else
+            return _lelide(val, arg("maxLength",ZML_DEFAULT_PARAM_NAME).toInt());
 
-    }else if(method() == ZFMT_METHOD_STR_LPAD){ //!                  lpad
-	if(arg(1).isValid())
-            return _lpad(val, arg(0).toUInt(), arg(1).toChar());
-	else
-            return _lpad(val, arg(0).toUInt());
+    }else if(method() == ZFMT_METHOD_STR_LPAD){ //!                  lpad( length [, symbol] )
+        if(arg("symbol").isValid())
+            return _lpad(val, arg("length",ZML_DEFAULT_PARAM_NAME).toUInt(), arg("symbol").toChar());
+        else
+            return _lpad(val, arg("length",ZML_DEFAULT_PARAM_NAME).toUInt());
 
-    }else if(method() == ZFMT_METHOD_STR_LSHIFT){ //!                lshift
-        return _lshift(val,arg(0).toUInt());
+    }else if(method() == ZFMT_METHOD_STR_LSHIFT){ //!                lshift( places )
+        return _lshift(val, arg("places", ZML_DEFAULT_PARAM_NAME).toUInt());
 
-    }else if(method() == ZFMT_METHOD_STR_LTRIM){ //!                 ltrim
-	if(arg(0).isValid())
-            return _ltrim(val, arg(0).toString());
-	else
+    }else if(method() == ZFMT_METHOD_STR_LTRIM){ //!                 ltrim( [pattern] )
+        if(arg("pattern").isValid())
+            return _ltrim(val, arg("pattern",ZML_DEFAULT_PARAM_NAME).toString());
+        else
             return _ltrim(val);
 
-    }else if(method() == ZFMT_METHOD_STR_RELIDE){ //!                relide
-	if(arg(1).isValid())
-            return _relide(val, arg(0).toInt(), arg(1).toString());
-	else
-            return _relide(val, arg(0).toInt());
+    }else if(method() == ZFMT_METHOD_STR_RELIDE){ //!                relide( [maxLength [, placeholder]] )
+        if(arg("placeholder").isValid())
+            return _relide(val, arg("maxLength",ZML_DEFAULT_PARAM_NAME).toInt(), arg("placeholder").toString());
+        else
+            return _relide(val, arg("maxLength",ZML_DEFAULT_PARAM_NAME).toInt());
 
-    }else if(method() == ZFMT_METHOD_STR_REPEAT){ //!                repeat
-        return _repeat(val, arg(0).toUInt());
+    }else if(method() == ZFMT_METHOD_STR_REPEAT){ //!                repeat( times )
+        return _repeat(val, arg("times",ZML_DEFAULT_PARAM_NAME).toUInt());
 
     }else if(method() == ZFMT_METHOD_STR_REVERSE){ //!               reverse
         return _reverse(val);
 
-    }else if(method() == ZFMT_METHOD_STR_RIGHT){ //!                 right
-        return _right(val, arg(0).toUInt());
+    }else if(method() == ZFMT_METHOD_STR_RIGHT){ //!                 right( length )
+        return _right(val, arg("length",ZML_DEFAULT_PARAM_NAME).toUInt());
 
-    }else if(method() == ZFMT_METHOD_STR_RIGHTOF){ //!               rightOf
-        return _rightOf(val, arg(0).toString());
+    }else if(method() == ZFMT_METHOD_STR_RIGHTOF){ //!               rightOf( delimiter )
+        return _rightOf(val, arg("delimiter",ZML_DEFAULT_PARAM_NAME).toString());
 
-    }else if(method() == ZFMT_METHOD_STR_RPAD){ //!                  rpad
-	if(arg(1).isValid())
-            return _rpad(val, arg(0).toUInt(), arg(1).toChar());
-	else
-            return _rpad(val, arg(0).toUInt());
+    }else if(method() == ZFMT_METHOD_STR_RPAD){ //!                  rpad( length [, symbol] )
+        if(arg("symbol").isValid())
+            return _rpad(val, arg("length",ZML_DEFAULT_PARAM_NAME).toUInt(), arg("symbol").toChar());
+        else
+            return _rpad(val, arg("length",ZML_DEFAULT_PARAM_NAME).toUInt());
 
-    }else if(method() == ZFMT_METHOD_STR_RSHIFT){ //!                rshift
-        return _rshift(val,arg(0).toUInt());
+    }else if(method() == ZFMT_METHOD_STR_RSHIFT){ //!                rshift( places )
+        return _rshift(val, arg("places",ZML_DEFAULT_PARAM_NAME).toUInt());
 
-    }else if(method() == ZFMT_METHOD_STR_RTRIM){ //!                 rtrim
-	if(arg(0).isValid())
-            return _rtrim(val, arg(0).toString());
-	else
+    }else if(method() == ZFMT_METHOD_STR_RTRIM){ //!                 rtrim( [pattern] )
+        if(arg("pattern").isValid())
+            return _rtrim(val, arg("pattern",ZML_DEFAULT_PARAM_NAME).toString());
+        else
             return _rtrim(val);
 
     }else if(method() == ZFMT_METHOD_STR_SCASE){ //!                 capitalize
         return _sentenceCase(val);
 
-    }else if(method() == ZFMT_METHOD_STR_SQUEEZE){ //!               squeeze
-	if(arg(0).isValid())
-            return _squeeze(val, arg(0).toChar());
-	else
+    }else if(method() == ZFMT_METHOD_STR_SQUEEZE){ //!               squeeze( [symbol] )
+        if(arg("symbol").isValid())
+            return _squeeze(val, arg("symbol",ZML_DEFAULT_PARAM_NAME).toChar());
+        else
             return _squeeze(val);
 
     }else if(method() == ZFMT_METHOD_STR_TCASE){ //!                 titleize
         return _titleCase(val);
 
-    }else if(method() == ZFMT_METHOD_STR_TRIM){ //!                  trim
-	if(arg(0).isValid())
-            return _trim(val, arg(0).toString());
-	else
+    }else if(method() == ZFMT_METHOD_STR_TRIM){ //!                  trim( [pattern] )
+        if(arg("pattern").isValid())
+            return _trim(val, arg("pattern",ZML_DEFAULT_PARAM_NAME).toString());
+        else
             return _trim(val);
 
     }else if(method() == ZFMT_METHOD_STR_UPCASE){ //!                upcase
