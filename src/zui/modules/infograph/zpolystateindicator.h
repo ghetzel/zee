@@ -18,6 +18,11 @@
 #ifndef ZPOLYSTATEINDICATOR_H
 #define ZPOLYSTATEINDICATOR_H
 
+#define ZUI_POLYSTATE       "zui:icon"
+
+#define ZPOLYIC_PAD_X       2
+#define ZPOLYIC_PAD_Y       2
+
 #include <QLabel>
 #include <zeventmanager.h>
 #include <zui/zwidget.h>
@@ -25,16 +30,34 @@
 class ZPolystateIndicator : public QLabel, public ZWidget
 {
     Q_OBJECT
+    Q_PROPERTY(QString state READ state WRITE switchTo)
 
 public:
     ZPolystateIndicator(const ZConfig &el, QWidget *parent=0);
     void parse(const ZConfig &el);
-    QString image();
+    QString state();
+    QPixmap currentImage();
+    void resizeEvent(QResizeEvent*);
+
+signals:
+    void stateChanged(QString);
+
+public slots:
     void setImage(QString name, QString icon);
     void switchTo(QString name);
+    void setValue(double value);
+    void reset();
+    void clear();
 
 private:
+    void init();
+
+private:
+    double _value;
     QHash<QString,QIcon> _images;
+    QHash<QString,QPair<double,double> > _ranges;
+    QString _defaultState;
+    QString _currentState;
 };
 
 #endif // ZPOLYSTATEINDICATOR_H

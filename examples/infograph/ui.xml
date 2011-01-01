@@ -6,18 +6,48 @@
   <zee:components>
   </zee:components>
   <zee:widgets>
-	  <zui:application title="Zee Infograph Gauge" width="512" height="512" position="center" layout="vertical">
-		<zui:piegauge id="dial" value="30" max="150" start="235" range="233">
-	            <zui:series name="velocity_1" interval="1" skipEvery="5" />
-	            <zui:series name="velocity_5" interval="5" skipEvery="2" length="7" />
-	            <zui:series name="velocity_10" interval="10" skipEvery="2" length="8" width="1" />
-	            <zui:series name="velocity_20" interval="20" length="10" width="1" />
+	  <zui:application title="Zee Infograph Gauge" width="300" height="300" position="nw" layout="vertical" type="desktop">
+		<zui:text id="cval" value="----" />
+                <zui:piegauge id="dial1" max="10">
+        	        <zui:piegauge id="dial2" min="10" max="20" spacing="10">
+	        	        <zui:piegauge id="dial3" min="20" max="30" spacing="20">
+	        		        <zui:piegauge id="dial4" min="30" max="40" spacing="30">
+		        		        <zui:piegauge id="dial5" min="40" max="50" spacing="40">
+			        		        <zui:piegauge id="dial6" min="50" max="60" spacing="50">
+		        				        <zui:piegauge id="dial7" min="60" max="70" spacing="60">
+					        		        <zui:piegauge id="dial8" min="70" max="80" spacing="70">
+						        		        <zui:piegauge id="dial9" min="80" max="90" spacing="80">
+							        		        <zui:piegauge id="dial10" min="90" max="100" spacing="90" />
+										</zui:piegauge>
+									</zui:piegauge>
+								</zui:piegauge>
+							</zui:piegauge>
+						</zui:piegauge>
+					</zui:piegauge>
+				</zui:piegauge>
+			</zui:piegauge>
 		</zui:piegauge>
-<!--		<zui:piegauge id="dial" value="33" max="100" />-->
-		<zui:slider id="adjust" />
+<!--
+		<zui:container>
+		</zui:container>
+		<zui:piegauge id="dial1" value="0" />
+
+-->
+
+		<zui:slider id="adjust" max="100" />
 	  </zui:application>
   </zee:widgets>
   <zee:events>
-    <zee:connect from="adjust.valueChanged" to="dial.setValue" />
+    <zee:connect from="adjust.valueChanged" to="cval.setText" direct="false" />
+    <zee:connect from="adjust.valueChanged" to="dial1.setValue" />
+    <zee:connect from="adjust.valueChanged" to="dial2.setValue" />
+    <zee:connect from="adjust.valueChanged" to="dial3.setValue" />
+    <zee:connect from="adjust.valueChanged" to="dial4.setValue" />
+    <zee:connect from="adjust.valueChanged" to="dial5.setValue" />
+    <zee:connect from="adjust.valueChanged" to="dial6.setValue" />
+    <zee:connect from="adjust.valueChanged" to="dial7.setValue" />
+    <zee:connect from="adjust.valueChanged" to="dial8.setValue" />
+    <zee:connect from="adjust.valueChanged" to="dial9.setValue" />
+    <zee:connect from="adjust.valueChanged" to="dial10.setValue" />
   </zee:events>
 </zee>

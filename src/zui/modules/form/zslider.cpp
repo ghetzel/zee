@@ -36,7 +36,13 @@ void ZSlider::init(){
 void ZSlider::parse(const ZConfig &el){
 //! @direction - the lateral orientation of the slider
     if(el.attribute("direction","horizontal") == "vertical")
-	setOrientation(Qt::Vertical);
+        setOrientation(Qt::Vertical);
     else
-	setOrientation(Qt::Horizontal);
+        setOrientation(Qt::Horizontal);
+
+    if(el.hasAttribute("min"))
+        setMinimum(el.attribute("min").toInt());
+
+    if(el.hasAttribute("max"))
+        setMaximum(el.attribute("max").toInt());
 }

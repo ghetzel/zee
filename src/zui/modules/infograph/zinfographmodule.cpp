@@ -18,7 +18,7 @@
 #include "zinfographmodule.h"
 
 ZuiResult ZInfographModule::prepareWidget(const QDomElement &el,
-					  QWidget *parent){
+                                          QWidget *parent){
 
   ZuiResult zRes;
   zRes.parent = parent;
@@ -40,6 +40,11 @@ ZuiResult ZInfographModule::prepareWidget(const QDomElement &el,
 #ifdef ZUI_CHARACTER_DISPLAY
   }else if(el.tagName() == ZUI_CHARACTER_DISPLAY){
     zRes.widget = new ZCharacterDisplay(el,zRes.parent);
+
+#endif
+#ifdef ZUI_POLYSTATE
+  }else if(el.tagName() == ZUI_POLYSTATE){
+    zRes.widget = new ZPolystateIndicator(el,zRes.parent);
 
 #endif
   }

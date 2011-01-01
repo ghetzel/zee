@@ -1,0 +1,9 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+	<qresource>
+		<file alias="icons/info.svg">icons/dialog-info.svg</file>
+		<file alias="icons/question.svg">icons/dialog-question.svg</file>
+		<file alias="icons/warning.svg">icons/dialog-warning.svg</file>
+		<file alias="icons/error.svg">icons/dialog-error.svg</file>
+	</qresource>
+</RCC>

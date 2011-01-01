@@ -48,7 +48,7 @@ void ZEventManager::insertMethod(QObject *object, const char *method,
     }
 
     store.insert(object,zeo);
-    z_log_debug("ZEventManager: Register method "+QString(method)+", store="+QVariant(store.count()).toString());
+    //z_log_debug("ZEventManager: Register method "+QString(method)+", store="+QVariant(store.count()).toString());
 }
 
 void ZEventManager::registerMethod(QMetaMethod::MethodType type,

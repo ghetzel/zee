@@ -1,8 +1,16 @@
-QFrame{
+ZRoot{
+	background-color: transparent;
+}
+
+ZLabel{
+	color: white;
 }
 
 ZGenericDial{
-  alternate-background-color: green;
-  font-family: Akzidenz Grotesk Light;
-  color: transparent;
+	background-color: transparent;
+	alternate-background-color: #005EB9;
+	color: transparent;
+	qproperty-ringWidth: 10;
+	max-height: 240;
+	max-width: 240;
 }

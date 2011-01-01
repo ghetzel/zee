@@ -48,7 +48,7 @@ void ZPieGauge::paintEvent(QPaintEvent *event){
     QPainterPath ring;
 
     if(_value > 0){
-        qreal curAngle = (360.0/(_maxValue-_minValue))*_value;
+        qreal curAngle = (360.0/(_maxValue-_minValue))*(_value-_minValue);
 
         qreal c0,s0,c1,s1;
         qreal xRadius = (width()-(_padX*2.0))/2.0;
@@ -58,7 +58,6 @@ void ZPieGauge::paintEvent(QPaintEvent *event){
 
         style.initFrom(this);
         p->setRenderHint(QPainter::Antialiasing);
-
 
         QPen pp(style.palette.windowText().color());
         pp.setWidth(0);

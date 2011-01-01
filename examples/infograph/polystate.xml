@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core/"
+  xmlns:zdm="http://www.gammazeta.net/zee/zdm/"
+  xmlns:zui="http://www.gammazeta.net/zee/zui/">
+  <zee:components>
+  </zee:components>
+  <zee:widgets>
+	  <zui:application title="Polystate Icon Test" id="main" layout="vertical">
+		<zui:icon id="poly" align="bottom right">
+			<zui:states>
+				<zui:state name="question" value=":/icons/question.svg" min="0" max="24" />
+				<zui:state name="info" value=":/icons/info.svg" min="25" max="49" />
+				<zui:state name="warning" value=":/icons/warning.svg" min="50" max="74" />
+				<zui:state name="error" value=":/icons/error.svg" min="75" max="99" />
+			</zui:states>
+		</zui:icon>
+		<zui:container>
+			<zui:button id="bQuestion" value="question">Question</zui:button>
+			<zui:button id="bInfo" value="info">Information</zui:button>
+			<zui:button id="bWarning" value="warning">Warning</zui:button>
+			<zui:button id="bError" value="error">Error</zui:button>
+		</zui:container>
+
+		<zui:slider id="slider" />
+	  </zui:application>
+  </zee:widgets>
+  <zee:events>
+	<zee:connect from="slider.valueChanged" to="poly.setValue" direct="false" />
+
+	<zee:connect from="bQuestion.clicked" to="poly.switchTo" via="bQuestion.value" />
+	<zee:connect from="bInfo.clicked" to="poly.switchTo" via="bInfo.value" />
+	<zee:connect from="bWarning.clicked" to="poly.switchTo" via="bWarning.value" />
+	<zee:connect from="bError.clicked" to="poly.switchTo" via="bError.value" />
+
+	<zee:connect from="poly.stateChanged" to="main.setWindowTitle" />
+  </zee:events>
+</zee>

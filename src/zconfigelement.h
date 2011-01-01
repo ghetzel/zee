@@ -11,6 +11,7 @@ public:
     ZConfigElement(const QDomElement &el);
     //ZConfigElement &operator=(const QDomElement &other);
     QList<ZConfigElement> children(QString tagName=QString()) const;
+    ZConfigElement firstChild(QString tagName=QString()) const;
     QString value() const;
 };
 

@@ -69,8 +69,12 @@ void ZGenericDial::init(double startValue)
 void ZGenericDial::parse(const ZConfig &el){
     _value = qRound(property("value").toFloat());
     _startValue = _value;
-    setMinimum(property("min").toDouble());
-    setMaximum(property("max").toDouble());
+
+    if(property("min").isValid())
+        setMinimum(property("min").toDouble());
+
+    if(property("max").isValid())
+        setMaximum(property("max").toDouble());
 
     if(el.hasAttribute("start"))
         setStartOffset(qRound(el.attribute("start").toFloat()));

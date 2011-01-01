@@ -25,9 +25,10 @@
 #include <zui/zuiplugin.h>
 #include <zui/zuiplugininterface.h>
 #include <zui/zuiutils.h>
-#include <zui/modules/infograph/zgauge.h>
-#include <zui/modules/infograph/zpiegauge.h>
-#include <zui/modules/infograph/zcharacterdisplay.h>
+#include <zgauge.h>
+#include <zpiegauge.h>
+#include <zcharacterdisplay.h>
+#include <zpolystateindicator.h>
 
 /*!
   \defgroup zui_plugins_infograph Information / Graphing

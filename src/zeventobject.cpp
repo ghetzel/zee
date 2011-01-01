@@ -60,7 +60,7 @@ bool ZEventObject::isValid(){
 }
 
 void ZEventObject::addMethod(const char *method){
-    z_log_debug("ZEventObject: Add method "+QString(method));
+    //z_log_debug("ZEventObject: Add method "+QString(method));
     _methods.insertMulti(ZMethodObject::name(method),
                     ZMethodObject(_object,method));
 }

@@ -42,59 +42,48 @@ void ZCharacterDisplay::init(){
 
 void ZCharacterDisplay::parse(const ZConfig &el){
     if(el.hasAttribute("images"))
-	_charImagePath = el.attribute("images");
+        _charImagePath = el.attribute("images");
 
     if(el.hasAttribute("width") && el.hasAttribute("height"))
-	_charSize = QSize(el.attribute("width").toInt(),
-			  el.attribute("height").toInt());
+        _charSize = QSize(el.attribute("width").toInt(),
+                          el.attribute("height").toInt());
 
-    if(el.hasChildNodes()){
-	QDomNodeList ch = el.childNodes();
-	for(int i = 0; i < ch.length(); i++){
-	    if(ch.at(i).toElement().tagName() == "zui:lines"){
-		QDomNodeList lines = ch.at(i).childNodes();
-		for(int j = 0; j < lines.length(); j++){
-		    if(lines.at(j).toElement().tagName() == "zui:line"){
-			QDomElement lnel = lines.at(j).toElement();
-			if(!lnel.text().isEmpty()){
-			    if(lnel.hasAttribute("id")){
-				setText(lnel.text(),
-					lnel.attribute("id").toInt());
-			    }else{
-				appendLine(lnel.text());
-			    }
-			}
-		    }
-		}
-	    }
-	}
+
+    foreach(const ZConfig line, el.children("zui:lines").first().children("zui:line")){
+        if(!line.value().isEmpty()){
+            if(line.hasAttribute("id")){
+                setText(line.value(), line.attribute("id").toInt());
+            }else{
+                appendLine(line.value());
+            }
+        }
     }
 
     if(_text.isEmpty())
-	if(el.hasAttribute("value"))
-	    setText(el.attribute("value"));
+        if(el.hasAttribute("value"))
+            setText(el.attribute("value"));
 }
 
 void ZCharacterDisplay::updateDisplay(){
     QString charFile;
 
     if(!_text[_currentLine].isEmpty()){
-	if(_text[_currentLine].length() > _characters.length()){
-	    for(int i = _characters.length(); i < _text[_currentLine].length(); i++){
-		addCharacter();
-	    }
-	}
+        if(_text[_currentLine].length() > _characters.length()){
+            for(int i = _characters.length(); i < _text[_currentLine].length(); i++){
+                addCharacter();
+            }
+        }
 
-	for(int i = 0; i < _text[_currentLine].length(); i++){
-	    if(_characters[i]){
-		if(_charImagePath.isEmpty()){
-		    _characters[i]->setText(_text[_currentLine].at(i));
-		}else{
-		    _characters[i]->setPixmap(
-			    _characterImage(_text[_currentLine].at(i)));
-		}
-	    }
-	}
+        for(int i = 0; i < _text[_currentLine].length(); i++){
+            if(_characters[i]){
+                if(_charImagePath.isEmpty()){
+                    _characters[i]->setText(_text[_currentLine].at(i));
+                }else{
+                    _characters[i]->setPixmap(
+                            _characterImage(_text[_currentLine].at(i)));
+                }
+            }
+        }
     }
 }
 
@@ -140,26 +129,26 @@ QPixmap ZCharacterDisplay::_characterImage(QChar token){
 
     if(!QPixmapCache::find(token, retval)){
     //  check for the existence of the file
-	if(!fn.isEmpty()){
-	    if(QFile::exists(fn)){
-		loadImage = true;
-	    }
+        if(!fn.isEmpty()){
+            if(QFile::exists(fn)){
+                loadImage = true;
+            }
 
     //  check for the existence of the fallback
-	}else if(!_charFallbackPath.isEmpty()){
-	    if(QFile::exists(_charFallbackPath)){
-		fn = _charFallbackPath;
-		loadImage = true;
-	    }
-	}
+        }else if(!_charFallbackPath.isEmpty()){
+            if(QFile::exists(_charFallbackPath)){
+                fn = _charFallbackPath;
+                loadImage = true;
+            }
+        }
 
    //   a valid filename was found, load it
-	if(loadImage){
-	    retval.load(fn);
-	}
+        if(loadImage){
+            retval.load(fn);
+        }
 
    //   insert the new pixmap into the cache
-	QPixmapCache::insert(token, retval);
+        QPixmapCache::insert(token, retval);
     }
 
     return retval;

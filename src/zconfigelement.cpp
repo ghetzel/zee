@@ -28,6 +28,10 @@ QList<ZConfigElement> ZConfigElement::children(QString tagName) const{
     return rv;
 }
 
+ZConfigElement ZConfigElement::firstChild(QString tagName) const{
+    return children(tagName).first();
+}
+
 QString ZConfigElement::value() const{
     if(hasAttribute("value"))
         return attribute("value");
