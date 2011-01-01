@@ -32,7 +32,7 @@ public:
     ZPieGauge(const ZConfig &el, QWidget *parent=0);
     int ringWidth();
     void setRingWidth(int w);
-    void resizeEvent(QResizeEvent *);
+    void resizeEvent(QResizeEvent *e);
 
 private:
     void paintEvent(QPaintEvent *event);

@@ -48,13 +48,13 @@ public:
     ZGenericDial(const ZConfig &el, QWidget *parent=0);
     ZGenericDial(double startValue, const ZConfig &el, QWidget *parent=0);
     void addTickRule(QString series, int everyNvalues=1, int labelEvery=0, int length=5, int skipEvery=0);
-    double maximum(){return _maxValue;};
-    double minimum(){return _minValue;};
-    int offset(){return _offset;};
-    int range(){return _range;};
+    double maximum(){return _maxValue;}
+    double minimum(){return _minValue;}
+    int offset(){return _offset;}
+    int range(){return _range;}
     void setStartOffset(int sOffset=0);
     void setRange(int sRange=360);
-    double value(){return _value;};
+    double value(){return _value;}
 
     struct ZDialTickRule{
         QString series;
@@ -65,7 +65,9 @@ public:
     };
 
 public slots:
-    void setValue(int xvalue){setValue(static_cast<double>(xvalue));};
+    void setValue(int xvalue){
+        setValue(static_cast<double>(xvalue));
+    }
     void setValue(double xvalue);
     void setMinimum(double value);
     void setMaximum(double value);
@@ -77,10 +79,10 @@ private:
     void init(double startValue);
     void parse(const ZConfig &el);
     void refreshTicks(ZDialTickRule r);
-    void resizeEvent(QResizeEvent *e);
     void drawIndicator(QPolygonF &i);
 
 protected:
+    virtual void resizeEvent(QResizeEvent *e);
     virtual void paintEvent(QPaintEvent *event);
 
 protected:

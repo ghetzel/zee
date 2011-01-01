@@ -48,6 +48,13 @@ ZuiParser::ZuiParser(QDomElement &el, ZCoreApplication *parent)
         cmp->lateInit();
     }
 
+//  late widget initialize
+    foreach(QWidget *w, qApp->allWidgets()){
+        ZConfigurable *cmp = DCAST(ZConfigurable*,w);
+        if(cmp)
+            cmp->lateInit();
+    }
+
 
     if(qApp->topLevelWidgets().count() == 0)
         z_log_warn("ZuiParser: No widgets added");

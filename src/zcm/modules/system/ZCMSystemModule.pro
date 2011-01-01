@@ -20,7 +20,8 @@ HEADERS += zprocessorinfo.h \
     zdiskinfo.h \
     zcpuinfo.h \
     zcmsystemmodule.h \
-    zsysteminfo.h
+    zsysteminfo.h \
+    zsigarmodule.h
 SOURCES += zprocessorinfo.cpp \
     znetworkinfo.cpp \
     znetinterfaceinfo.cpp \

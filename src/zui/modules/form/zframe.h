@@ -22,9 +22,9 @@
 
 #include <QFrame>
 #include <zeventmanager.h>
-#include <zui/zwidget.h>
+#include <zui/zcontainerwidget.h>
 
-class ZFrame : public QGroupBox, public ZWidget
+class ZFrame : public QGroupBox, public ZContainerWidget
 {
 public:
     ZFrame(const ZConfig &el, QWidget *parent=0);

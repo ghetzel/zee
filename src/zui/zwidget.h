@@ -35,7 +35,7 @@ public:
     ZWidget(const ZConfig &el, QWidget *self)
         : ZConfigurable(el,self)
     {
-	parse(_config);
+        parse(_config);
 
 //        QWidget *t_Widget = NULL;
 //        if( (t_Widget = QCAST(QWidget*,this)) ){
@@ -54,11 +54,11 @@ private:
         scanProperties();
 
     //	tell the object what element spawned it (for style ~*MAGIC*~)
-	_self->setProperty("element", QVariant(el.tagName()));
+        _self->setProperty("element", QVariant(el.tagName()));
 
     //	set style classes
-	if(el.hasAttribute("class"))
-	    _self->setProperty("cls", QVariant(el.attribute("class").split(" ")));
+        if(el.hasAttribute("class"))
+            _self->setProperty("cls", QVariant(el.attribute("class").split(" ")));
 
     //  build any additional states specified, populating each state with its
     //  target properties and values
@@ -76,7 +76,7 @@ private:
 
                 _states.insert(cel.attribute("name"), state);
             }
-	}
+        }
     }
 
     void initDefaultState(){
@@ -99,20 +99,20 @@ private:
     //      We know to store the 'color' property because other specified
     //      states explicitly change it.
     //
-	if(!_monitoredProperties.isEmpty()){
-	    QState *state = new QState();
+        if(!_monitoredProperties.isEmpty()){
+            QState *state = new QState();
 
-	    foreach(QString p, _monitoredProperties){
-		if(_self)
-		    state->assignProperty(_self,
-					  p.toLatin1().data(),
-					  _self->property(p.toLatin1().data()));
-	    }
+            foreach(QString p, _monitoredProperties){
+                if(_self)
+                    state->assignProperty(_self,
+                                          p.toLatin1().data(),
+                                          _self->property(p.toLatin1().data()));
+            }
 
-	    _states.insert(ZWIDGET_DEFAULT_STATE, state);
-	    _stateMachine.addState(state);
-	    _stateMachine.setInitialState(state);
-	}
+            _states.insert(ZWIDGET_DEFAULT_STATE, state);
+            _stateMachine.addState(state);
+            _stateMachine.setInitialState(state);
+        }
     }
 
 protected:

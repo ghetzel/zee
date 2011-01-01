@@ -33,7 +33,5 @@ ZConfigElement ZConfigElement::firstChild(QString tagName) const{
 }
 
 QString ZConfigElement::value() const{
-    if(hasAttribute("value"))
-        return attribute("value");
-    return text();
+    return attribute("value", text());
 }

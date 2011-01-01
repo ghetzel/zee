@@ -36,19 +36,19 @@ void ZPieGauge::setRingWidth(int w){
         _ringWidth = w;
 }
 
-void ZPieGauge::resizeEvent(QResizeEvent *){
+void ZPieGauge::resizeEvent(QResizeEvent *e){
+    ZGenericDial::resizeEvent(e);
     if(property("ringWidth").isValid())
         setRingWidth(property("ringWidth").toInt());
 }
 
 void ZPieGauge::paintEvent(QPaintEvent *event){
-    ZGenericDial::paintEvent(event);
     QPainter *p = new QPainter(this);
     QStyleOption style;
     QPainterPath ring;
 
     if(_value > 0){
-        qreal curAngle = (360.0/(_maxValue-_minValue))*(_value-_minValue);
+        qreal curAngle = (_range/(_maxValue-_minValue))*(_value-_minValue);
 
         qreal c0,s0,c1,s1;
         qreal xRadius = (width()-(_padX*2.0))/2.0;
@@ -60,7 +60,7 @@ void ZPieGauge::paintEvent(QPaintEvent *event){
         p->setRenderHint(QPainter::Antialiasing);
 
         QPen pp(style.palette.windowText().color());
-        pp.setWidth(0);
+        pp.setWidthF(0.0);
 
         p->setPen(pp);
         p->setBrush(style.palette.alternateBase());
@@ -109,4 +109,6 @@ void ZPieGauge::paintEvent(QPaintEvent *event){
     }
 
     p->end();
+
+    ZGenericDial::paintEvent(event);
 }

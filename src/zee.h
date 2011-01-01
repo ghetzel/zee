@@ -140,6 +140,7 @@ class Zee : public QApplication, public ZCoreApplication
     void logCritical(QString);
     void logDebug(QString);
     QVariant queryProperty(QString zObjPath);
+    void checkBindings();
 
 signals:
     void styleReloaded();

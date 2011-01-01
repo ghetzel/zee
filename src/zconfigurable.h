@@ -17,6 +17,8 @@
 #ifndef ZCONFIGURABLE_H
 #define ZCONFIGURABLE_H
 
+#define  ZEE_DEFAULT_LOCAL_BIND_PROPERTY        "value"
+
 #include <QtCore>
 #include <QtXml>
 #include <zutil.h>
@@ -41,7 +43,7 @@ public slots:                                                                  \
             _properties.insert(key,value);                                     \
         }                                                                      \
     }                                                                          \
-private:
+private:                                                                       \
 
 typedef ZConfigElement ZConfig;
 
@@ -55,12 +57,23 @@ public:
         init();
     }
 
-    virtual void lateInit(){};
+    virtual void lateInit(){
+        checkBindings();
+    }
+
+    void checkBindings(){
+        foreach(QString local, _bindings.keys()){
+            _self->setProperty(CSTR(local),
+                               zEvent->getProperty(
+                                       _bindings.value(local)));
+        }
+    }
 
 protected:
     QObject *_self;
     ZConfig _config;
     QVariantHash _properties;
+    QHash<QString,QString> _bindings;
     virtual void parse(const ZConfig &el)=0;
 
     QVariant param(QString key){
@@ -103,15 +116,33 @@ private:
 
         scanProperties();
 
-        QDomNodeList elst = _config.childNodes();
-        for(uint i = 0; i < elst.length(); i++){
-            QDomElement e = elst.at(i).toElement();
-            if(e.isNull())
-                continue;
-            if(e.tagName() == "zee:param")
-                if(e.hasAttribute("name") && (e.hasAttribute("value") || !e.text().isEmpty()))
-                    _properties.insert(e.attribute("name"),
-                                       QVariant(e.attribute("value",e.text())));
+        foreach(const ZConfig param, _config.children("zee:param")){
+            if(param.hasAttribute("name") && !param.value().isEmpty()){
+                _properties.insert(param.attribute("name"), param.value());
+            }
+        }
+
+        if(_config.hasAttribute("bind")){
+            QStringList bindings = _config.attribute("bind").split(";");
+            foreach(QString binding, bindings){
+                QStringList localRemote = binding.split(":");
+                QString local = ZEE_DEFAULT_LOCAL_BIND_PROPERTY;
+                QString remote;
+            //  no local property specified, use default
+                if(localRemote.count() == 1){
+                    remote = localRemote.at(0);
+
+            //  local property specified, use it
+                }else if(localRemote.count() == 2){
+                    local = localRemote.at(0);
+                    remote = localRemote.at(1);
+                }
+
+                if(!remote.isEmpty()){
+                    z_log_debug("ZConfigurable: binding "+local+" -to- "+remote);
+                    _bindings.insert(local, remote);
+                }
+            }
         }
     }
 };

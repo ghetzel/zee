@@ -12,7 +12,6 @@ include(../../../zcm.pri)
 HEADERS += zcmcoremodule.h \
     zsetting.h \
     ztimer.h \
-    zsysteminfo.h \
     zexecutor.h \
     zsqlquery.h \
     zshortcut.h \
@@ -24,7 +23,6 @@ HEADERS += zcmcoremodule.h \
 SOURCES += zcmcoremodule.cpp \
     zsetting.cpp \
     ztimer.cpp \
-    zsysteminfo.cpp \
     zexecutor.cpp \
     zsqlquery.cpp \
     zshortcut.cpp \

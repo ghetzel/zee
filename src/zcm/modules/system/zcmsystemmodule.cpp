@@ -6,10 +6,9 @@ ZcmResult ZCMSystemModule::prepare(const QDomElement &el){
     ZcmResult rv;
 
     if(0){
-#ifdef ZCM_
-    }else if(el.tagName() == ZCM_){
-        //rv.component = new ZDingus(el,qApp);
-        //rv.parent = rv.component;
+#ifdef ZCM_SYSTEMINFO
+    }else if(el.tagName() == ZCM_SYSTEMINFO){
+        rv.component = new ZSystemInfo(el, qApp);
 #endif
     }
 

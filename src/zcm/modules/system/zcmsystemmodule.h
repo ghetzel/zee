@@ -20,6 +20,7 @@
 
 #include <QtCore>
 #include <zcm/zcmplugin.h>
+#include <zsysteminfo.h>
 
 class ZCMSystemModule : public ZcmPlugin
 {

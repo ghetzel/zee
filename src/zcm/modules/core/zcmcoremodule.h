@@ -23,7 +23,7 @@
 #include <zsetting.h>
 #include <ztimer.h>
 #include <zcountdown.h>
-#include <zsysteminfo.h>
+//#include <zsysteminfo.h>
 #include <zexecutor.h>
 #include <zshortcut.h>
 #include <zsqlquery.h>

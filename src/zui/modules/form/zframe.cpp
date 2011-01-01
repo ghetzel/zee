@@ -19,7 +19,7 @@
 
 ZFrame::ZFrame(const ZConfig &el, QWidget *parent)
     : QGroupBox(parent),
-      ZWidget(el,this)
+      ZContainerWidget(el,this)
 {
     parse(_config);
 }
@@ -27,6 +27,6 @@ ZFrame::ZFrame(const ZConfig &el, QWidget *parent)
 void ZFrame::parse(const ZConfig &el){
 //! @title - the title to display
     if(el.hasAttribute("title"))
-	setTitle(el.attribute("title"));
+        setTitle(el.attribute("title"));
 }
 

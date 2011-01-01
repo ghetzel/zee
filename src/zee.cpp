@@ -60,6 +60,7 @@ void Zee::init()
     zEvent->registerSlot(this,SLOT(logError(QString)));
     zEvent->registerSlot(this,SLOT(logCritical(QString)));
     zEvent->registerSlot(this,SLOT(logDebug(QString)));
+    zEvent->registerSlot(this,SLOT(checkBindings()));
 
     //handle log verbosity setting
     if(hasArg("log-verbosity")){
@@ -274,6 +275,14 @@ QVariant Zee::queryProperty(QString zObjPath){
     }
 
     return QVariant();
+}
+
+void Zee::checkBindings(){
+    foreach(QObject *c, qApp->findChildren<QObject*>()){
+        ZConfigurable *cmp = DCAST(ZConfigurable*,c);
+        if(cmp)
+            cmp->checkBindings();
+    }
 }
 
 
