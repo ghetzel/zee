@@ -21,6 +21,7 @@
 #include <QtXml>
 #include <zutil.h>
 #include <zeventmanager.h>
+#include <zconfigelement.h>
 
 // HACK: Inheritable signals-slots from a generic non-QObject-descended ancestor
 //  because we are extending Qt widgets/objects to create our own, we run into
@@ -39,14 +40,14 @@ public slots:                                                                  \
             z_log_debug("ZConfigurable: Set Param "+key+"="+value.toString()); \
             _properties.insert(key,value);                                     \
         }                                                                      \
-    }                                                                         \
+    }                                                                          \
 private:
 
+typedef ZConfigElement ZConfig;
 
 class ZConfigurable
 {
 public:
-    typedef QDomElement ZConfig;
 
     ZConfigurable(const ZConfig &el, QObject *self){
         _self = self;

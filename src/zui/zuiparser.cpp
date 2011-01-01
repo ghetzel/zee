@@ -21,7 +21,7 @@ ZuiParser::ZuiParser(QDomElement &el, ZCoreApplication *parent)
 {
     //init basic variables
     _parent = parent;
-    _config = el;
+    _config = ZConfig(el);
     depth = 0;
     _currentParent = NULL;
 
@@ -158,7 +158,7 @@ bool ZuiParser::parseNode(ZConfigNode &node)
             //  prepareWidget calls would result in a true (meaning that the node was
             //  matched, and the preparation logic was run).  Failing that, currentWidget
             //  will remain NULL and nothing will happen.
-            foreach(ZuiPluginInterface *mod, zuiModules){                
+            foreach(ZuiPluginInterface *mod, zuiModules){
                 zResult = mod->prepareWidget(el, _currentParent);
 
                 //    if there is a new widget...

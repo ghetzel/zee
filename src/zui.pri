@@ -21,6 +21,7 @@ HEADERS +=      zutil.h                         \
                 zuiutils.h                      \
                 zwidget.h                       \
                 zui/zcontainerwidget.h          \
+                zconfigelement.h                \
                 zeventmanager.h                 \
                 zeventrelationship.h            \
                 zmethodobject.h                 \
@@ -32,6 +33,7 @@ HEADERS +=      zutil.h                         \
 SOURCES +=      zutil.cpp                       \
                 zuiutils.cpp                    \
                 zui/zcontainerwidget.cpp        \
+                zconfigelement.cpp              \
                 zeventmanager.cpp               \
                 zeventrelationship.cpp          \
                 zmethodobject.cpp               \

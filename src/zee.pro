@@ -48,7 +48,8 @@ HEADERS += zevent.h \
     libzee/zint64.h \
     zconfignode.h \
     zcm/zcomponent.h \
-    zcm/zformatterinterface.h
+    zcm/zformatterinterface.h \
+    zconfigelement.h
 SOURCES += zevent.cpp \
     zutil.cpp \
     main.cpp \
@@ -67,7 +68,8 @@ SOURCES += zevent.cpp \
     zdbusabstractadaptor.cpp \
     zui/layouts/zborderlayout.cpp \
     libzee/zint64.cpp \
-    zconfignode.cpp
+    zconfignode.cpp \
+    zconfigelement.cpp
 OTHER_FILES += theme.qss \
     dev/ideaman \
     theme.qss.orig \

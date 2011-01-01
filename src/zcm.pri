@@ -1,5 +1,6 @@
 HEADERS +=  zutil.h                       \
             zeventmanager.h               \
+            zconfigelement.h              \
             zplugininterface.h            \
             zeventrelationship.h          \
             zmethodobject.h               \
@@ -15,6 +16,7 @@ HEADERS +=  zutil.h                       \
 
 SOURCES +=  zutil.cpp                     \
             zeventmanager.cpp             \
+            zconfigelement.cpp            \
             zeventrelationship.cpp        \
             zmethodobject.cpp             \
             zeventobject.cpp              \

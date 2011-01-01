@@ -66,7 +66,7 @@ class ZuiParser : public QObject
     ZCoreApplication *_parent;
     QWidget *_currentParent;
     QWidget *_currentWidget;
-    ZConfigurable::ZConfig _config;
+    ZConfig _config;
     int depth;
     QList<ZcmPluginInterface*> zcmModules;
     QList<ZuiPluginInterface*> zuiModules;
