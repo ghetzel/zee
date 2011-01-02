@@ -32,4 +32,4 @@ SOURCES += zprocessorinfo.cpp \
     zcmsystemmodule.cpp \
     zsysteminfo.cpp
 DESTDIR = ../../../plugins
-TARGET = $$qtLibraryTarget(zcm_core)
+TARGET = $$qtLibraryTarget(zcm_system)

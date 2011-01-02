@@ -9,6 +9,7 @@
 
 // info modules
 #include <zcpuinfo.h>
+#include <znetworkinfo.h>
 
 class ZSystemInfo : public QObject, public ZConfigurable
 {
@@ -16,6 +17,7 @@ class ZSystemInfo : public QObject, public ZConfigurable
 
 public:
     ZSystemInfo(const ZConfig &el, QObject *parent=0);
+    ~ZSystemInfo();
 
 signals:
     void refreshed();
@@ -29,6 +31,7 @@ private:
 
 private:
     sigar_t *_sigar;
+    int _sigar_status;
     QList<ZSigarModule*> _modules;
 };
 

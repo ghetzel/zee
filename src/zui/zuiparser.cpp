@@ -303,3 +303,19 @@ bool ZuiParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
 
     return false;
 }
+
+void ZuiParser::checkBindings(){
+//  components
+    foreach(QObject *c, _components){
+        ZConfigurable *cmp = DCAST(ZConfigurable*,c);
+        Q_ASSERT(cmp);
+        cmp->checkBindings();
+    }
+
+//  widgets
+    foreach(QWidget *w, qApp->allWidgets()){
+        ZConfigurable *cmp = DCAST(ZConfigurable*,w);
+        if(cmp)
+            cmp->checkBindings();
+    }
+}

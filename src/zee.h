@@ -151,6 +151,7 @@ signals:
 #endif
 
 private:
+    ZuiParser *_parser;
     QHash<QString,QVariant> _arguments;
     const static int ZWIDTH = 500;
     const static int ZHEIGHT = 500;

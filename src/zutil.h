@@ -96,6 +96,10 @@
 #define ZSIGNAL(x)      CSTR("2"+QString(x))
 #define ZSLOT(x)        CSTR("1"+QString(x))
 
+#define IP4DECSECT(d,n) QString::number((d>>(24-8*n))&0xFF)
+#define IP4DECTOSTR(d)  QString(IP4DECSECT(d,0)+"."+IP4DECSECT(d,1)+"."+IP4DECSECT(d,2)+"."+IP4DECSECT(d,3))
+#define IP4RDECTOSTR(d) QString(IP4DECSECT(d,3)+"."+IP4DECSECT(d,2)+"."+IP4DECSECT(d,1)+"."+IP4DECSECT(d,0))
+
 #ifndef Q_PI
 static const double Q_PI   = 3.14159265358979323846;
 

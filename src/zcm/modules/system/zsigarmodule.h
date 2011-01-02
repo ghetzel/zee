@@ -13,9 +13,6 @@ public:
     ZSigarModule(sigar_t *s, QObject *parent=0)
         : QObject(parent){
         _sigar = s;
-
-        zEvent->registerSignal(this, SIGNAL(refreshed()));
-        zEvent->registerSlot(this, SLOT(refresh()));
     }
 
 signals:

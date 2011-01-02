@@ -22,6 +22,7 @@ Zee *Zee::_app = 0;
 Zee::Zee(int argc, char *argv[])
     : QApplication(argc, argv){
     _app = this;
+    _parser = NULL;
 
     init();
 }
@@ -239,7 +240,7 @@ void Zee::parseUI()
         z_log("Zee: Loaded UI definition '"+zui.fileName()+"'");
 
         QDomElement root = zuiDef.documentElement();
-        ZuiParser parser(root);
+        _parser = new ZuiParser(root);
 
         return;
     }
@@ -278,11 +279,7 @@ QVariant Zee::queryProperty(QString zObjPath){
 }
 
 void Zee::checkBindings(){
-    foreach(QObject *c, qApp->findChildren<QObject*>()){
-        ZConfigurable *cmp = DCAST(ZConfigurable*,c);
-        if(cmp)
-            cmp->checkBindings();
-    }
+    if(_parser) _parser->checkBindings();
 }
 
 

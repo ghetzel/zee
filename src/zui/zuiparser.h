@@ -62,7 +62,7 @@ class ZuiParser : public QObject
 {
   Q_OBJECT
 
-  private:
+private:
     ZCoreApplication *_parent;
     QWidget *_currentParent;
     QWidget *_currentWidget;
@@ -71,7 +71,11 @@ class ZuiParser : public QObject
     QList<ZcmPluginInterface*> zcmModules;
     QList<ZuiPluginInterface*> zuiModules;
     QList<QObject*> _components;
-  public:
+
+public slots:
+    void checkBindings();
+
+public:
 /*!
   Constructs a new parser object, using \a rootNode as the entry point for
   parsing an XML definition file.  The output of this parsing effort, which is
