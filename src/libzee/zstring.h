@@ -22,7 +22,9 @@ public:
     ZString left(uint len);
     ZString right(uint len);
     ZString leftOf(QString delimiter);
+    ZString leftOfLast(QString delimiter);
     ZString rightOf(QString delimiter);
+    ZString rightOfLast(QString delimiter);
     ZString ltrim(QString charsEx="\\w+");
     ZString rtrim(QString charsEx="\\w+");
     ZString trim(QString charsEx="\\w+");
@@ -47,7 +49,9 @@ public:
     static ZString left(QVariant in, uint len);
     static ZString right(QVariant in, uint len);
     static ZString leftOf(QVariant in, QString delimiter);
+    static ZString leftOfLast(QVariant in, QString delimiter);
     static ZString rightOf(QVariant in, QString delimiter);
+    static ZString rightOfLast(QVariant in, QString delimiter);
     static ZString ltrim(QVariant in, QString charsEx="\\w+");
     static ZString rtrim(QVariant in, QString charsEx="\\w+");
     static ZString trim(QVariant in, QString charsEx="\\w+");

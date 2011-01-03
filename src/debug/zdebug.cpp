@@ -74,7 +74,9 @@ ZDebug::ZDebug(int argc, char **argv)
         z_log("YAY!");
 
     z_log("leftOf '/': zee:teststring => "+ts1.leftOf("/"));
-    z_log("rightOf '/': zee:teststring => "+ts1.rightOf("/"));
+    z_log("leftOf '/': zee:teststring/by => "+ts1.leftOfLast("/"));
+    z_log("rightOf '/': by/Value@yay => "+ts1.rightOf("/"));
+    z_log("rightOf '/': Value@yay => "+ts1.rightOfLast("/"));
     z_log("upcase: zee:teststring => "+ts1.upcase());
     z_log("downcase: zee:teststring => "+ts1.downcase());
     z_log("lpad: zee:teststring => "+ts1.lpad(100));

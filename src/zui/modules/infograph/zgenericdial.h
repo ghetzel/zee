@@ -42,7 +42,7 @@ using namespace std;
 class ZGenericDial : public QFrame, public ZContainerWidget
 {
     Q_OBJECT
-//    Q_PROPERTY(int value READ value)
+    Q_PROPERTY(qreal value READ value WRITE setValue RESET reset)
 
 public:
     ZGenericDial(const ZConfig &el, QWidget *parent=0);
@@ -54,7 +54,7 @@ public:
     int range(){return _range;}
     void setStartOffset(int sOffset=0);
     void setRange(int sRange=360);
-    double value(){return _value;}
+    qreal value(){return _value;}
 
     struct ZDialTickRule{
         QString series;
@@ -65,10 +65,10 @@ public:
     };
 
 public slots:
-    void setValue(int xvalue){
-        setValue(static_cast<double>(xvalue));
+    void setValue(int value){
+        setValue(CAST(qreal,value));
     }
-    void setValue(double xvalue);
+    void setValue(qreal value);
     void setMinimum(double value);
     void setMaximum(double value);
     void reset();
@@ -86,6 +86,11 @@ protected:
     virtual void paintEvent(QPaintEvent *event);
 
 protected:
+    enum GaugeDirection{
+        Forward,
+        Reverse
+    };
+    GaugeDirection _direction;
     QHash<QString,QPainterPath> _ticks;
     QHash<QString,ZDialTickRule> _rules;
     qreal _startValue;

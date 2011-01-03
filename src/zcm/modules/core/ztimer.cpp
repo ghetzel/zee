@@ -102,7 +102,7 @@ bool ZTimer::isActive(){
     return _timer->isActive();
 }
 
-qint64 ZTimer::iterations(){
+quint64 ZTimer::iterations(){
     return _iterations;
 }
 

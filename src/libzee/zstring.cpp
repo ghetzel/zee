@@ -60,16 +60,30 @@ ZString ZString::right(QVariant in, uint len){
 }
 
 ZString ZString::leftOf(QVariant in, QString delimiter){
-    QString instr = in.toString();
+    ZString instr = in.toString();
     if(instr.contains(delimiter))
-        return instr.section(delimiter,0,0);
+        return instr.substring(0, instr.indexOf(delimiter));
+    return instr;
+}
+
+ZString ZString::leftOfLast(QVariant in, QString delimiter){
+    ZString instr = in.toString();
+    if(instr.contains(delimiter))
+        return instr.substring(0, instr.lastIndexOf(delimiter));
     return instr;
 }
 
 ZString ZString::rightOf(QVariant in, QString delimiter){
-    QString instr = in.toString();
+    ZString instr = in.toString();
     if(instr.contains(delimiter))
-        return instr.section(delimiter,1,-1);
+        return instr.substring(instr.indexOf(delimiter)+1,instr.length());
+    return instr;
+}
+
+ZString ZString::rightOfLast(QVariant in, QString delimiter){
+    ZString instr = in.toString();
+    if(instr.contains(delimiter))
+        return instr.substring(instr.lastIndexOf(delimiter)+1,instr.length());
     return instr;
 }
 
@@ -203,8 +217,16 @@ ZString ZString::leftOf(QString delimiter){
     return ZString::leftOf(toQString(), delimiter);
 }
 
+ZString ZString::leftOfLast(QString delimiter){
+    return ZString::leftOfLast(toQString(), delimiter);
+}
+
 ZString ZString::rightOf(QString delimiter){
     return ZString::rightOf(toQString(), delimiter);
+}
+
+ZString ZString::rightOfLast(QString delimiter){
+    return ZString::rightOfLast(toQString(), delimiter);
 }
 
 ZString ZString::ltrim(QString charsEx){

@@ -9,6 +9,7 @@
 
 // info modules
 #include <zcpuinfo.h>
+#include <zdiskinfo.h>
 #include <znetworkinfo.h>
 
 class ZSystemInfo : public QObject, public ZConfigurable

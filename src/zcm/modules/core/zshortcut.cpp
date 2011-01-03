@@ -27,7 +27,7 @@ ZShortcut::ZShortcut(const ZConfig &el, QObject *parent)
 
 void ZShortcut::lateInit(){
     parse(_config);
-    ZShortcut::lateInit();
+    ZConfigurable::lateInit();
 }
 
 

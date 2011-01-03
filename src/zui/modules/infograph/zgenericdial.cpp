@@ -62,7 +62,7 @@ void ZGenericDial::init(double startValue)
     zEvent->registerSlot(this, SLOT(show()));
     zEvent->registerSlot(this, SLOT(setMaximum(double)));
     zEvent->registerSlot(this, SLOT(setMinimum(double)));
-    zEvent->registerSlot(this, SLOT(setValue(double)));
+    zEvent->registerSlot(this, SLOT(setValue(qreal)));
     zEvent->registerSlot(this, SLOT(setVisible(bool)));
 }
 
@@ -81,6 +81,12 @@ void ZGenericDial::parse(const ZConfig &el){
 
     if(el.hasAttribute("range"))
         setRange(qRound(el.attribute("range").toFloat()));
+
+    if(ZuiUtils::attribute(el.attribute("direction"), ZuiUtils::RadialDirectionCounterClockwise)){
+        _direction = Reverse;
+    }else{
+        _direction = Forward;
+    }
 
 
     QDomNodeList l = el.childNodes();
@@ -209,7 +215,7 @@ void ZGenericDial::refreshAllTicks(){
         refreshTicks(r);
 }
 
-void ZGenericDial::setValue(double value)
+void ZGenericDial::setValue(qreal value)
 {
     if(value < _minValue)
         _value = _minValue;

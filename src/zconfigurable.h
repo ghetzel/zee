@@ -139,7 +139,7 @@ private:
                 }
 
                 if(!remote.isEmpty()){
-                    z_log_debug("ZConfigurable: binding "+local+" -to- "+remote);
+                    z_log_debug("ZConfigurable: binding "+_self->objectName()+ZEV_SEPARATOR+local+" -to- "+remote);
                     _bindings.insert(local, remote);
                 }
             }

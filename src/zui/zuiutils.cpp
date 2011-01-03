@@ -123,6 +123,10 @@ bool ZuiUtils::attribute(QString source, ZConfigAttribOption option){
         return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_QUESTION);
     case SeverityWarning:
         return ZUtil::in(source, ZCONFIG_ATTRIB_SEV_WARN);
+    case RadialDirectionClockwise:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_RAD_CLOCK);
+    case RadialDirectionCounterClockwise:
+        return ZUtil::in(source, ZCONFIG_ATTRIB_RAD_CNTCLOCK);
     }
 
     return false;

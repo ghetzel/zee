@@ -3,6 +3,7 @@
 
 
 #include <QObject>
+#include <libzee.h>
 #include <zutil.h>
 #include <zsigarmodule.h>
 
@@ -20,6 +21,8 @@ private:
 
 private:
     quint64 _lastCollectTime;
+    quint64 _lastRxBits;
+    quint64 _lastTxBits;
     const char *_ifname;
 };
 

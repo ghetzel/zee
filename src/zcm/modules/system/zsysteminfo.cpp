@@ -16,6 +16,7 @@ void ZSystemInfo::init(){
 
     if(_sigar){
         _modules << new ZCPUInfo(_sigar, this);
+        _modules << new ZDiskInfo(_sigar, this);
         _modules << new ZNetworkInfo(_sigar, this);
     }
 

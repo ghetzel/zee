@@ -45,6 +45,8 @@
 #define ZCONFIG_ATTRIB_SEV_ERROR	"err|error|e"
 #define ZCONFIG_ATTRIB_SEV_CRIT		"crit|critical|c"
 #define ZCONFIG_ATTRIB_SEV_QUESTION	"question|help|q"
+#define ZCONFIG_ATTRIB_RAD_CLOCK        "fwd|forward|right|clockwise|cw"
+#define ZCONFIG_ATTRIB_RAD_CNTCLOCK     "rev|reverse|left|counterclockwise|ccw"
 
 #define ZUI_HORIZON_LAYOUT              "horizontal"
 #define ZUI_VERTICAL_LAYOUT             "vertical"
@@ -138,7 +140,9 @@ public:
       SeverityError,
       SeverityInfo,
       SeverityQuestion,
-      SeverityWarning
+      SeverityWarning,
+      RadialDirectionClockwise,
+      RadialDirectionCounterClockwise
   };
 
 public:

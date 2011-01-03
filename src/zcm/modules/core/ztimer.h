@@ -30,7 +30,7 @@
 class ZTimer : public QObject, public ZConfigurable
 {
     Q_OBJECT
-    Q_PROPERTY(qint64 iterations READ iterations)
+    Q_PROPERTY(quint64 iterations READ iterations)
 
 public:
     ZTimer(const ZConfig &el, QObject *parent=0);
@@ -38,7 +38,7 @@ public:
     void parse(const ZConfig &el);
     void setInterval(qint64);
     bool isActive();
-    qint64 iterations();
+    quint64 iterations();
 
 public slots:
     void start();
@@ -67,7 +67,7 @@ private:
     QTimer *_timer;
     QTimer *_tracker;
     QTimer *_prestart;
-    qint64 _iterations;
+    quint64 _iterations;
 };
 
 #endif // ZTIMER_H
