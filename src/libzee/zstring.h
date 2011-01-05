@@ -52,9 +52,9 @@ public:
     static ZString leftOfLast(QVariant in, QString delimiter);
     static ZString rightOf(QVariant in, QString delimiter);
     static ZString rightOfLast(QVariant in, QString delimiter);
-    static ZString ltrim(QVariant in, QString charsEx="\\w+");
-    static ZString rtrim(QVariant in, QString charsEx="\\w+");
-    static ZString trim(QVariant in, QString charsEx="\\w+");
+    static ZString ltrim(QVariant in, QString charsEx="[\\s]*");
+    static ZString rtrim(QVariant in, QString charsEx="[\\s]*");
+    static ZString trim(QVariant in, QString charsEx="[\\s]*");
     static ZString reverse(QVariant in);
     static ZString lpad(QVariant in, uint width, QChar pad=' ');
     static ZString rpad(QVariant in, uint width, QChar pad=' ');

@@ -36,10 +36,14 @@
 			<zui:text bind="text:system.net.eth0.broadcast">-</zui:text> 
 			<zui:text bind="text:system.net.eth0.netmask">-</zui:text> 
 			<zui:text bind="text:system.net.eth0.hwaddr">-</zui:text> 
-			<zui:text bind="text:system.net.eth0.rxBytes">-</zui:text> 
+			<zui:text bind="text:system.net.eth0.rxBits">-</zui:text> 
 			<zui:text bind="text:system.net.eth0.rxPackets">-</zui:text> 
 			<zui:text bind="text:system.net.eth0.downrate">-</zui:text> 
 			<zui:text bind="text:system.net.eth0.uprate">-</zui:text> 
+
+			<zui:piegauge bind="system.mem.used">
+				<zui:piegauge bind="system.mem.swap.used" spacing="5"/>
+			</zui:piegauge>
 
 
 			<zui:container>
@@ -59,7 +63,6 @@
 				</zui:container>
 			</zui:container>
 
-			<zui:button id="refresh">Refresh</zui:button>
 		</zui:application>
 	</zee:widgets>
 

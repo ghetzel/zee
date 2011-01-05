@@ -1,10 +1,24 @@
+ZRoot{
+	background-color: transparent;
+}
+
 ZGenericDial{
 	background-color: transparent;
 	border: 0px;
+	color: transparent;
 	max-height: 64px;
 	min-height: 64px;
 	max-width: 64px;
 	min-width: 64px;
 	qproperty-ringWidth: 10;
-	alternate-background-color: blue;
+	alternate-background-color: white;
+}
+
+ZGenericDial > ZGenericDial{
+	alternate-background-color: red;
+	qproperty-ringWidth: 5;
+}
+
+ZLabel{
+	color: white;
 }

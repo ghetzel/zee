@@ -18,6 +18,7 @@ void ZSystemInfo::init(){
         _modules << new ZCPUInfo(_sigar, this);
         _modules << new ZDiskInfo(_sigar, this);
         _modules << new ZNetworkInfo(_sigar, this);
+        _modules << new ZMemoryInfo(_sigar, this);
     }
 
     zEvent->registerSignal(this, SIGNAL(refreshed()));
@@ -33,11 +34,7 @@ void ZSystemInfo::parse(const ZConfig &el){
 }
 
 void ZSystemInfo::refresh(){
-    sigar_open(&_sigar);
-
     foreach(ZSigarModule *module, _modules){
         module->refresh();
     }
-
-    sigar_close(_sigar);
 }

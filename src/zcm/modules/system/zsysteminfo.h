@@ -11,6 +11,7 @@
 #include <zcpuinfo.h>
 #include <zdiskinfo.h>
 #include <znetworkinfo.h>
+#include <zmemoryinfo.h>
 
 class ZSystemInfo : public QObject, public ZConfigurable
 {

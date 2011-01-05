@@ -89,17 +89,17 @@ ZString ZString::rightOfLast(QVariant in, QString delimiter){
 
 
 //stub
-ZString ZString::ltrim(QVariant in, QString){
-    return in.toString();
+ZString ZString::ltrim(QVariant in, QString charsEx){
+    return in.toString().remove(QRegExp("^"+charsEx));
 }
 
 //stub
-ZString ZString::rtrim(QVariant in, QString){
-    return in.toString();
+ZString ZString::rtrim(QVariant in, QString charsEx){
+    return in.toString().remove(QRegExp(charsEx+"$"));
 }
 
 ZString ZString::trim(QVariant in, QString charsEx){
-    return in.toString().remove(QRegExp(charsEx));
+    return ZString::ltrim(in).rtrim();
 }
 
 ZString ZString::reverse(QVariant in){
@@ -149,9 +149,9 @@ ZString ZString::titleCase(QVariant in){
 }
 
 ZString ZString::squeeze(QVariant in, QChar chr){
-    if(chr == '\0')
-        return in.toString().replace(QRegExp("("+QString(chr)+")\\1+"),chr);
-    return in.toString().replace(QRegExp("(.)\\1+"),"\\1");
+//    if(chr == '\0')
+//        return in.toString().replace(QRegExp("[.]+"),"\\1");
+    return in.toString().replace(QRegExp("["+QString(chr)+"]{2,}"),chr);
 }
 
 ZString ZString::lelide(QVariant in, int width, QString abbr){

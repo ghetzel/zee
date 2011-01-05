@@ -47,21 +47,21 @@ void ZGenericDial::init(double startValue)
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    connect(this, SIGNAL(valueChanged(double)), SLOT(redraw()));
-    connect(this, SIGNAL(minimumValueChanged(double)), SLOT(redraw()));
-    connect(this, SIGNAL(maximumValueChanged(double)), SLOT(redraw()));
+    connect(this, SIGNAL(valueChanged(qreal)), SLOT(redraw()));
+    connect(this, SIGNAL(minimumValueChanged(qreal)), SLOT(redraw()));
+    connect(this, SIGNAL(maximumValueChanged(qreal)), SLOT(redraw()));
 
-    zEvent->registerSignal(this, SIGNAL(minimumValueChanged(double)));
-    zEvent->registerSignal(this, SIGNAL(maximumValueChanged(double)));
-    zEvent->registerSignal(this, SIGNAL(valueChanged(double)));
-    zEvent->registerSignal(this, SIGNAL(rangeChanged(int,int)));
+    zEvent->registerSignal(this, SIGNAL(minimumValueChanged(qreal)));
+    zEvent->registerSignal(this, SIGNAL(maximumValueChanged(qreal)));
+    zEvent->registerSignal(this, SIGNAL(valueChanged(qreal)));
+    zEvent->registerSignal(this, SIGNAL(rangeChanged(qreal,qreal)));
     zEvent->registerSlot(this, SLOT(reset()));
     zEvent->registerSlot(this, SLOT(hide()));
     zEvent->registerSlot(this, SLOT(refreshAllTicks()));
     zEvent->registerSlot(this, SLOT(setEnabled(bool)));
     zEvent->registerSlot(this, SLOT(show()));
-    zEvent->registerSlot(this, SLOT(setMaximum(double)));
-    zEvent->registerSlot(this, SLOT(setMinimum(double)));
+    zEvent->registerSlot(this, SLOT(setMaximum(qreal)));
+    zEvent->registerSlot(this, SLOT(setMinimum(qreal)));
     zEvent->registerSlot(this, SLOT(setValue(qreal)));
     zEvent->registerSlot(this, SLOT(setVisible(bool)));
 }
@@ -226,14 +226,14 @@ void ZGenericDial::setValue(qreal value)
 
     emit valueChanged(_value);
 }
-void ZGenericDial::setMinimum(double value)
+void ZGenericDial::setMinimum(qreal value)
 {
     _minValue = value;
     //	calcRanges();
     emit minimumValueChanged(_minValue);
 }
 
-void ZGenericDial::setMaximum(double value)
+void ZGenericDial::setMaximum(qreal value)
 {
     _maxValue = value;
     //	calcRanges();

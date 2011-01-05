@@ -1,4 +1,4 @@
-ZRoot{
+ ZRoot {
   background-color: rgba(0,0,0,70%);
   background-position: top left;
   background-image: url("/home/ghetzel/projects/zee/dev/gfx/dash-pattern-128.png");
@@ -11,7 +11,8 @@ ZLabel{
   color: #FFF;
 }
 
-ZButton{
+ZButtonzz
+{
     background-color: #222;
     border: 2px solid #444;
     color: #FFF;

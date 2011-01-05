@@ -28,7 +28,6 @@
 #define ZGENERIC_DIAL_X_PAD             2
 #define ZGENERIC_DIAL_Y_PAD             2
 
-#include <iostream>
 #include <QString>
 #include <QWidget>
 #include <QtSvg>
@@ -42,14 +41,16 @@ using namespace std;
 class ZGenericDial : public QFrame, public ZContainerWidget
 {
     Q_OBJECT
-    Q_PROPERTY(qreal value READ value WRITE setValue RESET reset)
+    Q_PROPERTY(qreal value      READ value      WRITE setValue      RESET reset)
+    Q_PROPERTY(qreal maximum    READ maximum    WRITE setMaximum)
+    Q_PROPERTY(qreal minimum    READ minimum    WRITE setMinimum)
 
 public:
     ZGenericDial(const ZConfig &el, QWidget *parent=0);
     ZGenericDial(double startValue, const ZConfig &el, QWidget *parent=0);
     void addTickRule(QString series, int everyNvalues=1, int labelEvery=0, int length=5, int skipEvery=0);
-    double maximum(){return _maxValue;}
-    double minimum(){return _minValue;}
+    qreal maximum(){return _maxValue;}
+    qreal minimum(){return _minValue;}
     int offset(){return _offset;}
     int range(){return _range;}
     void setStartOffset(int sOffset=0);
@@ -69,8 +70,8 @@ public slots:
         setValue(CAST(qreal,value));
     }
     void setValue(qreal value);
-    void setMinimum(double value);
-    void setMaximum(double value);
+    void setMinimum(qreal value);
+    void setMaximum(qreal value);
     void reset();
     void redraw();
     QSize sizeHint();
@@ -98,8 +99,8 @@ protected:
     qreal _radius;
     qreal _offset;
     qreal _range;
-    int _minValue;
-    int _maxValue;
+    qreal _minValue;
+    qreal _maxValue;
     int _padX;
     int _padY;
 
@@ -107,10 +108,10 @@ private slots:
     void refreshAllTicks();
 
 signals:
-    void valueChanged(double);
-    void minimumValueChanged(double);
-    void maximumValueChanged(double);
-    void rangeChanged(int,int);
+    void valueChanged(qreal);
+    void minimumValueChanged(qreal);
+    void maximumValueChanged(qreal);
+    void rangeChanged(qreal,qreal);
 };
 
 #endif

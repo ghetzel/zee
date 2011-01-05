@@ -8,6 +8,7 @@
 #include <QGtkStyle>
 #include <QIcon>
 #include <QtCore>
+#include <zssparser.h>
 
 
 class ZDebug : public QCoreApplication
