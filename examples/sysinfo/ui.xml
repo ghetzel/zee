@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core"
+  xmlns:zui="http://www.gammazeta.net/zee/zui">
+	<zee:components>
+		<zee:timer id="timer" interval="1000" />
+		<zee:system id="system" /> 
+	</zee:components>
+
+	<zee:widgets>
+		<zui:application title="System Information Test" layout="vertical" id="main">
+			<zui:container>
+				<zui:piegauge id="g_cpu0" bind="system.cpu.cpu0.total" start="270" range="180">
+					<zui:piegauge id="g_cpu1" bind="system.cpu.cpu1.total" start="90" range="180" />
+				</zui:piegauge>
+			</zui:container>
+			<zui:container layout="grid">
+				<zui:layout cell="0,0"> <zui:text>Processors</zui:text> </zui:layout>
+				<zui:layout cell="0,1"> <zui:text id="cpu_count" bind="text:system.cpu.count">-</zui:text> </zui:layout>
+
+				<zui:layout cell="1,0"> <zui:text>Vendor</zui:text> </zui:layout>
+				<zui:layout cell="1,1"> <zui:text bind="text:system.cpu.vendor">-</zui:text> </zui:layout>
+
+				<zui:layout cell="2,0"> <zui:text>Model</zui:text> </zui:layout>
+				<zui:layout cell="2,1"> <zui:text bind="text:system.cpu.model">-</zui:text> </zui:layout>
+
+				<zui:layout cell="3,0"> <zui:text>Total (0)</zui:text> </zui:layout>
+				<zui:layout cell="3,1"> <zui:text bind="text:system.cpu.cpu0.total">-</zui:text> </zui:layout>
+
+				<zui:layout cell="4,0"> <zui:text>Total (1)</zui:text> </zui:layout>
+				<zui:layout cell="4,1"> <zui:text bind="text:system.cpu.cpu1.total">-</zui:text> </zui:layout>
+			</zui:container>
+
+			<zui:text bind="text:system.net.eth0.name">-</zui:text> 
+			<zui:text bind="text:system.net.eth0.ipaddress">-</zui:text> 
+			<zui:text bind="text:system.net.eth0.broadcast">-</zui:text> 
+			<zui:text bind="text:system.net.eth0.netmask">-</zui:text> 
+			<zui:text bind="text:system.net.eth0.hwaddr">-</zui:text> 
+			<zui:text bind="text:system.net.eth0.rxBytes">-</zui:text> 
+			<zui:text bind="text:system.net.eth0.rxPackets">-</zui:text> 
+			<zui:text bind="text:system.net.eth0.downrate">-</zui:text> 
+			<zui:text bind="text:system.net.eth0.uprate">-</zui:text> 
+
+
+			<zui:container>
+				<zui:container layout="vertical">
+					<zui:text bind="text:system.disk.sda2.mountpoint">-</zui:text> 
+					<zui:piegauge bind="system.disk.sda2.use" />
+				</zui:container>
+
+				<zui:container layout="vertical">
+					<zui:text bind="text:system.disk.sda5.mountpoint">-</zui:text> 
+					<zui:piegauge bind="system.disk.sda5.use" />
+				</zui:container>
+
+				<zui:container layout="vertical">
+					<zui:text bind="text:system.disk.b72677df-7372-41c7-9a82-dcd74583dabc.mountpoint">-</zui:text> 
+					<zui:piegauge bind="system.disk.b72677df-7372-41c7-9a82-dcd74583dabc.use" />
+				</zui:container>
+			</zui:container>
+
+			<zui:button id="refresh">Refresh</zui:button>
+		</zui:application>
+	</zee:widgets>
+
+	<zee:events>
+		<zee:connect from="timer.timeout" to="system.refresh" />
+		<zee:connect from="timer.timeout" to="main.setWindowTitle" via="timer.iterations" />
+		<zee:connect from="system.cpu.refreshed" to="zee.checkBindings" />
+	</zee:events>
+</zee>

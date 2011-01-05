@@ -1,0 +1,10 @@
+ZGenericDial{
+	background-color: transparent;
+	border: 0px;
+	max-height: 64px;
+	min-height: 64px;
+	max-width: 64px;
+	min-width: 64px;
+	qproperty-ringWidth: 10;
+	alternate-background-color: blue;
+}
