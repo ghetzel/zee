@@ -1,6 +1,6 @@
-#include "zssparser.h"
+#include "zstyle.h"
 
-ZSSParser::ZSSParser(QString filename, QObject *parent)
+ZStyle::ZStyle(QString filename, QObject *parent)
     : QObject(parent)
 {
     _filename = filename;
@@ -8,19 +8,19 @@ ZSSParser::ZSSParser(QString filename, QObject *parent)
     init();
 }
 
-ZSSParser::ZSSParser(QObject *parent)
+ZStyle::ZStyle(QObject *parent)
     : QObject(parent)
 {
     init();
 }
 
 
-void ZSSParser::init(){
+void ZStyle::init(){
     if(!_basedata.isEmpty())
         parseData();
 }
 
-void ZSSParser::loadFile(QString filename){
+void ZStyle::loadFile(QString filename){
     QFile zss(filename);
 
     if(zss.open(QIODevice::ReadOnly))
@@ -34,7 +34,7 @@ void ZSSParser::loadFile(QString filename){
     }
 }
 
-void ZSSParser::parseData(){
+void ZStyle::parseData(){
     z_log_debug("ZSSParser: Parsing "+_filename);
 
 //  get everything on one big happy line
@@ -45,21 +45,21 @@ void ZSSParser::parseData(){
     int i = 0;
 
     while((i = rx.indexIn(_data,i)) != -1){
-        int j = 0;
-
-    //  parse property: value;
-        QRegExp drx("([A-Za-z0-9-]*)(?:\\s*:\\s*)([^;]*)(?:\\s*;\\s*)");
-        z_log_debug("ZSSParser:  "+rx.cap(1)+" {");
-
-        while((j = drx.indexIn(rx.cap(2),j)) != -1){
-            z_log_debug("ZSSParser:       "+ZString(drx.cap(1)).lpad(16)+"    "+ZString(drx.cap(2)));
-
-            j += drx.matchedLength();
-        }
-
-        z_log_debug("ZSSParser:  }");
-
+        _sections << new ZStyleSection(rx.cap(1), rx.cap(2), this);
         i += rx.matchedLength();
     }
+}
 
+QString ZStyle::styleSheet(){
+    QString rv;
+
+    foreach(ZStyleSection *section, _sections){
+        rv += section->toString()+"\n\n";
+    }
+
+    return rv;
+}
+
+QString ZStyle::baseStyleSheet(){
+    return _basedata;
 }

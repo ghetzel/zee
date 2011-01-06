@@ -50,7 +50,9 @@ HEADERS += zevent.h \
     zcm/zcomponent.h \
     zcm/zformatterinterface.h \
     zconfigelement.h \
-    zui/zssparser.h
+    zui/zstyle.h \
+    zui/zstylesection.h \
+    zui/zstyleproperty.h
 SOURCES += zevent.cpp \
     zutil.cpp \
     main.cpp \
@@ -71,7 +73,9 @@ SOURCES += zevent.cpp \
     libzee/zint64.cpp \
     zconfignode.cpp \
     zconfigelement.cpp \
-    zui/zssparser.cpp
+    zui/zstyle.cpp \
+    zui/zstylesection.cpp \
+    zui/zstyleproperty.cpp
 OTHER_FILES += theme.qss \
     dev/ideaman \
     theme.qss.orig \

@@ -1,10 +1,14 @@
 HEADERS += zdebug.h \
     zutil.cpp \
-    zssparser.h
+    zstyle.h \
+    zstylesection.h \
+    zstyleproperty.h
 SOURCES += zdebug.cpp \
     main.cpp \
     zutil.cpp \
-    zssparser.cpp
+    zstyle.cpp \
+    zstylesection.cpp \
+    zstyleproperty.cpp
 
 LIBS += -L$(HOME)/lib
 LIBS += -lzee

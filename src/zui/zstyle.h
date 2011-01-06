@@ -1,5 +1,5 @@
-#ifndef ZSSPARSER_H
-#define ZSSPARSER_H
+#ifndef ZSTYLE_H
+#define ZSTYLE_H
 
 #include <QObject>
 #include <QTextStream>
@@ -7,23 +7,27 @@
 #include <QRegExp>
 #include <libzee/libzee.h>
 #include <zutil.h>
+#include <zstylesection.h>
 
-class ZSSParser : public QObject
+class ZStyle : public QObject
 {
     Q_OBJECT
 public:
-    ZSSParser(QString filename, QObject *parent=0);
-    ZSSParser(QObject *parent=0);
+    ZStyle(QString filename, QObject *parent=0);
+    ZStyle(QObject *parent=0);
     void loadFile(QString filename);
+    QString styleSheet();
+    QString baseStyleSheet();
 
 private:
     void init();
     void parseData();
 
 private:
+    QList<ZStyleSection*> _sections;
     QString _filename;
     QString _basedata;
     ZString _data;
 };
 
-#endif // ZSSPARSER_H
+#endif // ZSTYLE_H

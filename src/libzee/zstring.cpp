@@ -76,30 +76,33 @@ ZString ZString::leftOfLast(QVariant in, QString delimiter){
 ZString ZString::rightOf(QVariant in, QString delimiter){
     ZString instr = in.toString();
     if(instr.contains(delimiter))
-        return instr.substring(instr.indexOf(delimiter)+1,instr.length());
+        return instr.substring(instr.indexOf(delimiter)+delimiter.length(),
+                               instr.length());
     return instr;
 }
 
 ZString ZString::rightOfLast(QVariant in, QString delimiter){
     ZString instr = in.toString();
     if(instr.contains(delimiter))
-        return instr.substring(instr.lastIndexOf(delimiter)+1,instr.length());
+        return instr.substring(instr.lastIndexOf(delimiter)+delimiter.length(),
+                               instr.length());
     return instr;
 }
 
 
 //stub
 ZString ZString::ltrim(QVariant in, QString charsEx){
-    return in.toString().remove(QRegExp("^"+charsEx));
+    return ZString(in.toString());
 }
 
 //stub
 ZString ZString::rtrim(QVariant in, QString charsEx){
-    return in.toString().remove(QRegExp(charsEx+"$"));
+    return ZString(in.toString());
 }
 
+//stub
 ZString ZString::trim(QVariant in, QString charsEx){
-    return ZString::ltrim(in).rtrim();
+    return ZString(in.toString());
 }
 
 ZString ZString::reverse(QVariant in){
@@ -197,12 +200,49 @@ ZString ZString::repeat(QVariant in, uint times){
     return in.toString().repeated(times);
 }
 
-ZString ZString::substring(QVariant in, int beginIndex, int endIndex){
+ZString ZString::substring(QVariant in, int beginIndex, int length){
+    if(length == 0)
+        return ZString();
+
     QString instr = in.toString();
-    instr = instr.left(endIndex);
-    return instr.right(instr.length()-beginIndex);
+    QString rv;
+
+    for(int i = 0; i < instr.length(); i++){
+        if(length > 0){
+            if(i >= beginIndex && i < (beginIndex+length)){
+                rv += instr.at(i);
+            }
+        }else{
+            if(i >= (beginIndex+length+1) && i < (beginIndex+1)){
+                rv += instr.at(i);
+            }
+        }
+    }
+
+    return rv;
 }
 
+ZString ZString::find(QVariant in, QString subject){
+    ZString instr = in.toString();
+    QRegExp rx(subject);
+    int i = 0;
+    if((i = rx.indexIn(instr)) != -1){
+        if(rx.exactMatch(subject))
+            return instr.substring(i,rx.matchedLength());
+    }
+
+    return ZString();
+}
+
+ZString ZString::match(QVariant in, QRegExp pattern){
+    ZString instr = in.toString();
+    int i = 0;
+    if((i = pattern.indexIn(instr)) != -1){
+        return instr.substring(i,pattern.matchedLength());
+    }
+
+    return ZString();
+}
 
 // INSTANCE METHODS
 ZString ZString::left(uint len){
@@ -301,6 +341,15 @@ ZString ZString::repeat(uint times){
     return ZString::repeat(toQString(), times);
 }
 
-ZString ZString::substring(int beginIndex, int endIndex){
-    return ZString::substring(toQString(), beginIndex, endIndex);
+ZString ZString::substring(int beginIndex, int length){
+    return ZString::substring(toQString(), beginIndex, length);
+}
+
+
+ZString ZString::find(QString subject){
+    return ZString::find(toQString(), subject);
+}
+
+ZString ZString::match(QRegExp pattern){
+    return ZString::match(toQString(), pattern);
 }

@@ -92,12 +92,24 @@ ZDebug::ZDebug(int argc, char **argv)
 //    z_log("   0123456789111111111122222222223333333333");
 //    z_log("             012345678901234567890123456789");
 
-      //z_log("Pineaple = "+str.squeeze("p"));
+//      //z_log("Pineaple = "+str.squeeze("p"));
 
-//    z_log("substring(2,5): nea => "+str.substring(2,5));
+//    z_log("substring(0,9): Pineapple => "+str.substring(0,9));
+//    z_log("substring(5,0):  => "+str.substring(5,0));
+//    z_log("substring(2,3): nea => "+str.substring(2,3));
 //    z_log("substring(0,4): Pine => "+str.substring(0,4));
 //    z_log("substring(4,1000): apple => "+str.substring(4,1000));
-//    z_log("substring(-10,3): ??? => "+str.substring(0,3));
+//    z_log("substring(0,3): ??? => "+str.substring(0,3));
+//    z_log("substring(0,3): eapp => "+str.substring(3,4));
+//    z_log("substring(6,-3): app => "+str.substring(6,-3));
+//    z_log("substring(7,-1000): Pineappl => "+str.substring(7,-1000));
 
-    ZSSParser zp("../../examples/phoebus/ui.qss");
+//    z_log("find: solid => "+str.find("3px solid #FF00CC", "solid"));
+//    z_log("match: #F0C => "+str.match("3px solid #F0C", QRegExp("#[0-9A-Fa-f]{3,8}")));
+
+    //z_log("match: 1px 2 3px 4 => "+str.match("1pt 2px 3px 4px 5px", QRegExp("([0-9]+(?:px|pt|em|ex)?(?:(\\s+|\\s*$))){1,4}")));
+
+    ZStyle zp("../../examples/phoebus/ui.qss");
+
+    z_log_debug("ZDebug: style: \n"+zp.styleSheet());
 }
