@@ -9,6 +9,12 @@
 // value parsing expressions
 #define ZSTYLE_PROP_MATCH_LENGTH    "[0-9]+("ZSTYLE_PROP_LENGTH")?"
 #define ZSTYLE_PROP_MATCH_BOX       "^("ZSTYLE_PROP_MATCH_LENGTH"(?:(\\s+|\\s*$))){1,4}"
+#define ZSTYLE_PROP_COLOR_HEX       "#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})"
+
+#define ZSTYLE_PROP_COLOR_DEC       "[0-9]{1,3}%?"
+#define ZSTYLE_PROP_COLOR_RGB       "rgb\\s*\\(\\s*("ZSTYLE_PROP_COLOR_DEC")\\s*,\\s*("ZSTYLE_PROP_COLOR_DEC")\\s*,\\s*("ZSTYLE_PROP_COLOR_DEC")\\s*\\)"
+#define ZSTYLE_PROP_COLOR_RGBA      "rgba\\s*\\(\\s*("ZSTYLE_PROP_COLOR_DEC")\\s*,\\s*("ZSTYLE_PROP_COLOR_DEC")\\s*,\\s*("ZSTYLE_PROP_COLOR_DEC")\\s*,\\s*("ZSTYLE_PROP_COLOR_DEC")\\s*\\)"
+
 
 #include <QString>
 #include <QPen>
@@ -77,14 +83,15 @@ public:
         Center
     };
 
-    qreal width();
-    qreal height();
-    QRectF quad();
+    qreal width(){          return _width;  }
+
+    qreal height(){         return _height; }
+    QRectF quad(){          return _quad;   }
     ZBorderStyle style();
-    QColor color();
+    QColor color(){         return _color;  }
     QPen pen();
     QBrush brush();
-    bool toBool();
+    bool toBool(){          return _toBool; }
 
 private:
     void init();

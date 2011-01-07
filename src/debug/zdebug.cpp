@@ -85,7 +85,7 @@ ZDebug::ZDebug(int argc, char **argv)
 
 //    z_log("ZString - substring() tests");
 
-    ZString str = "Pineapple";
+    //ZString str = "Pineapple";
 
 //    z_log("");
 //    z_log("   Pineapple ");
@@ -104,12 +104,31 @@ ZDebug::ZDebug(int argc, char **argv)
 //    z_log("substring(6,-3): app => "+str.substring(6,-3));
 //    z_log("substring(7,-1000): Pineappl => "+str.substring(7,-1000));
 
-//    z_log("find: solid => "+str.find("3px solid #FF00CC", "solid"));
-//    z_log("match: #F0C => "+str.match("3px solid #F0C", QRegExp("#[0-9A-Fa-f]{3,8}")));
+    //z_log("find: solid => "+ZString::find("3px solid #FF00CC", "solid"));
+//    QRegExp rxh("#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})");
+    //QRegExp rxf("rgba\\s*\\(\\s*([0-9]{1,3}%?)\\s*,\\s*([0-9]{1,3}%?)\\s*,\\s*([0-9]{1,3}%?)\\s*,\\s*([0-9]{1,3}%?)\\s*\\)");
+
+
+//    QRegExp rxf("rgb\\s*\\((?:\\s*([0-9]{1,3}%?)(?:(\\s*,\\s*|\\s*\\)\\s*$))){3}");
+
+//    ZString::match("3px solid #FF00CCD", rxh);
+//    z_log("hexcolors: "+STR(rxh.cap(1)));
+
+//    z_log("match: #F0C => "+ZString::match("3px solid #FF0F", rx)+" ("+STR(rx.captureCount())+")");
+//    z_log("match: #F0C => "+ZString::match("3px solid #FF00CC", rx)+" ("+STR(rx.captureCount())+")");
+//    z_log("match: #F0C => "+ZString::match("3px solid #FF00CCFF", rx)+" ("+STR(rx.captureCount())+")");
+
+//    ZString::match("3px solid rgb(255,192  ,   64) ", rxf);
+//    z_log("rgba: |"+STR(rxf.cap(1))+","+STR(rxf.cap(2))+","+STR(rxf.cap(3))+","+STR(rxf.cap(4))+"|");
+
+//    z_log("match: #F0C => "+ZString::match("3px solid rgba(255,192  ,   64, 50%)", rx)+" ("+STR(rx.captureCount())+")");
 
     //z_log("match: 1px 2 3px 4 => "+str.match("1pt 2px 3px 4px 5px", QRegExp("([0-9]+(?:px|pt|em|ex)?(?:(\\s+|\\s*$))){1,4}")));
 
-    ZStyle zp("../../examples/phoebus/ui.qss");
+    //ZStyle zp("../../examples/phoebus/ui.qss");
 
-    z_log_debug("ZDebug: style: \n"+zp.styleSheet());
+    //z_log_debug("ZDebug: style: \n"+zp.styleSheet());
+
+    QString v = "3px solid #F0C";
+    z_log_debug("ZStyleProperty:  valueFrom "+v+" color: "+ZStyleProperty::valueFrom(v).width());
 }

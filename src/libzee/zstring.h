@@ -46,7 +46,8 @@ public:
     ZString repeat(uint times);
     ZString substring(int beginIndex, int length);
     ZString find(QString subject);
-    ZString match(QRegExp pattern);
+    ZString find(QRegExp pattern);
+    bool match(QRegExp &pattern);
 
 public:
     static ZString left(QVariant in, uint len);
@@ -75,7 +76,8 @@ public:
     static ZString repeat(QVariant in, uint times);
     static ZString substring(QVariant in, int beginIndex, int length);
     static ZString find(QVariant in, QString subject);
-    static ZString match(QVariant in, QRegExp pattern);
+    static ZString find(QVariant in, QRegExp pattern);
+    static bool match(QVariant in, QRegExp &pattern);
 
 private:
     void _setText(const ZString &other);

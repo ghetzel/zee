@@ -234,7 +234,7 @@ ZString ZString::find(QVariant in, QString subject){
     return ZString();
 }
 
-ZString ZString::match(QVariant in, QRegExp pattern){
+ZString ZString::find(QVariant in, QRegExp pattern){
     ZString instr = in.toString();
     int i = 0;
     if((i = pattern.indexIn(instr)) != -1){
@@ -242,6 +242,16 @@ ZString ZString::match(QVariant in, QRegExp pattern){
     }
 
     return ZString();
+}
+
+bool ZString::match(QVariant in, QRegExp &pattern){
+    ZString instr = in.toString();
+    int i = 0;
+    if((i = pattern.indexIn(instr)) != -1){
+        return true;
+    }
+
+    return false;
 }
 
 // INSTANCE METHODS
@@ -350,6 +360,10 @@ ZString ZString::find(QString subject){
     return ZString::find(toQString(), subject);
 }
 
-ZString ZString::match(QRegExp pattern){
+ZString ZString::find(QRegExp pattern){
+    return ZString::find(toQString(), pattern);
+}
+
+bool ZString::match(QRegExp &pattern){
     return ZString::match(toQString(), pattern);
 }
