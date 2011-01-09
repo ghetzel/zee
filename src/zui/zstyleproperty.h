@@ -29,9 +29,13 @@ class ZStyleProperty : public QObject
     Q_OBJECT
 public:
     ZStyleProperty(ZStyleSection *parent=0);
+    ZStyleProperty(const ZStyleProperty &other);
     ZStyleProperty(QString value);
     ZStyleProperty(QString name, QString value, ZStyleSection *parent=0);
+    ~ZStyleProperty();
     QString toString();
+    QString name();
+    ZString rawValue();
     ZStyleSection *section();
 
 public:
@@ -89,8 +93,8 @@ public:
     QRectF quad(){          return _quad;   }
     ZBorderStyle style();
     QColor color(){         return _color;  }
-    QPen pen();
-    QBrush brush();
+    QPen pen(){             return _pen;    }
+    QBrush brush(){         return _brush;  }
     bool toBool(){          return _toBool; }
 
 private:
@@ -112,5 +116,8 @@ private:
     QBrush _brush;
     bool _toBool;
 };
+
+Q_DECLARE_METATYPE(ZStyleProperty);
+//qRegisterMetaType<ZStyleProperty>("ZStyleProperty");
 
 #endif // ZSTYLEPROPERTY_H

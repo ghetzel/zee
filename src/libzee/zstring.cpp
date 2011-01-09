@@ -244,6 +244,21 @@ ZString ZString::find(QVariant in, QRegExp pattern){
     return ZString();
 }
 
+float ZString::fromPercent(ZString in, qreal upper, qreal lower){
+    if(in.right(1) == "%"){
+        bool ok = false;
+        float rv = in.rshift(1).toFloat(&ok);
+
+        if(ok){
+            return (upper/100.0)*rv;
+        }else{
+            return 0.0;
+        }
+    }
+
+    return in.toFloat();
+}
+
 bool ZString::match(QVariant in, QRegExp &pattern){
     ZString instr = in.toString();
     int i = 0;
@@ -362,6 +377,10 @@ ZString ZString::find(QString subject){
 
 ZString ZString::find(QRegExp pattern){
     return ZString::find(toQString(), pattern);
+}
+
+float ZString::fromPercent(qreal upper, qreal lower){
+    return ZString::fromPercent(toQString(), upper, lower);
 }
 
 bool ZString::match(QRegExp &pattern){

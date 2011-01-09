@@ -51,8 +51,8 @@
 #include <zcoreapplication.h>
 #include <zutil.h>
 #include <zeventmanager.h>
+#include <zui/zstyle.h>
 #include <zui/zuiparser.h>
-
 #include <libzee/zint64.h>
 
 /*!
@@ -132,7 +132,7 @@ class Zee : public QApplication, public ZCoreApplication
     bool x11EventFilter(XEvent *e);
 #endif
   public slots:
-    void reloadStyleSheet();
+    void reloadStyle();
     void output(QString);
     void log(QString);
     void logWarning(QString);
@@ -143,7 +143,6 @@ class Zee : public QApplication, public ZCoreApplication
     void checkBindings();
 
 signals:
-    void styleReloaded();
     void loadComplete();
     void propertyResponse(QVariant);
 #ifdef Q_WS_X11
@@ -151,6 +150,7 @@ signals:
 #endif
 
 private:
+    ZStyle *_style;
     ZuiParser *_parser;
     QHash<QString,QVariant> _arguments;
     const static int ZWIDTH = 500;

@@ -45,7 +45,6 @@ void Zee::init()
     setApplicationName(ZEE_APPNAME);
     parseArguments();
 
-    zEvent->registerSignal(this,SIGNAL(styleReloaded()));
     zEvent->registerSignal(this,SIGNAL(aboutToQuit()));
     zEvent->registerSignal(this,SIGNAL(lastWindowClosed()));
     zEvent->registerSignal(this,SIGNAL(unixSignal(int)));
@@ -53,7 +52,7 @@ void Zee::init()
 
     zEvent->registerSlot(this,SLOT(closeAllWindows()));
     zEvent->registerSlot(this,SLOT(quit()));
-    zEvent->registerSlot(this,SLOT(reloadStyleSheet()));
+    zEvent->registerSlot(this,SLOT(reloadStyle()));
     zEvent->registerSlot(this,SLOT(setStyleSheet(QString)));
     zEvent->registerSlot(this,SLOT(output(QString)));
     zEvent->registerSlot(this,SLOT(log(QString)));
@@ -106,7 +105,7 @@ void Zee::init()
         if(intv < 1000) // if not specified or less than 1s, set to default interval
             intv = 3000;
 
-        connect(styleTimer, SIGNAL(timeout()), this, SLOT(reloadStyleSheet()));
+        connect(styleTimer, SIGNAL(timeout()), this, SLOT(reloadStyle()));
         styleTimer->start(intv);
     }
 
@@ -155,32 +154,18 @@ void Zee::parseArguments(){
   \todo add default system locations as places to search (home folders,
   system config folders, etc.)
 */
-void Zee::reloadStyleSheet()
+void Zee::reloadStyle()
 {
-    //	set stylesheet
-    QFile qss;
 
     if(hasArg("style"))
-        qss.setFileName(arg("style").toString());
+        _style = new ZStyle(arg("style").toString(), this);
     else if(arg("program").toString() != ZEE_PROGNAME &&
             QFile::exists(arg("program").toString()+".qss"))
-        qss.setFileName(arg("program").toString()+".qss");
+        _style = new ZStyle(arg("program").toString()+".qss", this);
     else if(QFile::exists(ZUI_DEFAULT_QSS_NAME))
-        qss.setFileName(ZUI_DEFAULT_QSS_NAME);
+        _style = new ZStyle(ZUI_DEFAULT_QSS_NAME, this);
     else
-        qss.setFileName(QString(ZEE_CFG_KEY)+":"+QString(ZUI_DEFAULT_QSS_NAME));
-
-    if(qss.open(QIODevice::ReadOnly))
-    {
-        QTextStream style(&qss);
-        setStyleSheet(style.readAll());
-        qss.close();
-        z_log_debug("Zee: Loaded stylesheet '"+qss.fileName()+"'");
-    }else{
-        z_log_error("Zee: Unable to locate stylesheet '"+qss.fileName()+"'");
-    }
-
-    emit styleReloaded();
+        _style = new ZStyle(QString(ZEE_CFG_KEY)+":"+QString(ZUI_DEFAULT_QSS_NAME), this);
 }
 
 

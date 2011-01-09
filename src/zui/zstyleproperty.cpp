@@ -31,6 +31,24 @@ ZStyleProperty::ZStyleProperty(QString name, QString value, ZStyleSection *paren
     }
 }
 
+ZStyleProperty::ZStyleProperty(const ZStyleProperty &other){
+    _parent = other._parent;
+    _name = other._name;
+    _value = other._value;
+    _width = other._width;
+    _height = other._height;
+    _quad = other._quad;
+    _style = other._style;
+    _color = other._color;
+    _pen = other._pen;
+    _brush = other._brush;
+    _toBool = other._toBool;
+}
+
+ZStyleProperty::~ZStyleProperty(){
+
+}
+
 void ZStyleProperty::init(){
     parse();
 }
@@ -71,12 +89,16 @@ void ZStyleProperty::parse(){
                 _quad.setLeft(rs.at(1).toDouble());
                 break;
             case 3:
+                _width = rs.at(0).toDouble();
+                _height = rs.at(1).toDouble();
                 _quad.setTop(rs.at(0).toDouble());
                 _quad.setRight(rs.at(1).toDouble());
                 _quad.setBottom(rs.at(2).toDouble());
                 _quad.setLeft(rs.at(1).toDouble());
                 break;
             case 4:
+                _width = rs.at(0).toDouble();
+                _height = rs.at(1).toDouble();
                 _quad.setTop(rs.at(0).toDouble());
                 _quad.setRight(rs.at(1).toDouble());
                 _quad.setBottom(rs.at(2).toDouble());
@@ -84,6 +106,7 @@ void ZStyleProperty::parse(){
                 break;
             }
         }
+
 
     //  colors
         rx = QRegExp(ZSTYLE_PROP_COLOR_HEX);
@@ -114,17 +137,20 @@ void ZStyleProperty::parse(){
                         _color.setAlpha(alpha);
                     break;
                 }
-
-                _color = QColor();
             }
         }else{
             rx = QRegExp(ZSTYLE_PROP_COLOR_RGB);
-            if(_value.match(rx)){
-
+            if(_value.match(rx) && rx.captureCount() == 3){
+                _color = QColor(ZString(rx.cap(1)).fromPercent(256),
+                                ZString(rx.cap(2)).fromPercent(256),
+                                ZString(rx.cap(3)).fromPercent(256));
             }else{
                 rx = QRegExp(ZSTYLE_PROP_COLOR_RGBA);
                 if(_value.match(rx)){
-
+                    _color = QColor(ZString(rx.cap(1)).fromPercent(256),
+                                    ZString(rx.cap(2)).fromPercent(256),
+                                    ZString(rx.cap(3)).fromPercent(256),
+                                    ZString(rx.cap(4)).fromPercent(256));
                 }
             }
         }
@@ -133,6 +159,14 @@ void ZStyleProperty::parse(){
 
 ZStyleSection *ZStyleProperty::section(){
     return _parent;
+}
+
+QString ZStyleProperty::name(){
+    return _name;
+}
+
+ZString ZStyleProperty::rawValue(){
+    return _value;
 }
 
 QString ZStyleProperty::toString(){

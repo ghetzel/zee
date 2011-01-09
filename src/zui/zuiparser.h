@@ -29,7 +29,6 @@
 #include <zcoreapplication.h>
 #include <zconfigurable.h>
 #include <zeventhandler.h>
-#include <zplugininterface.h>
 #include <zconfignode.h>
 #include <zcm/zcmplugin.h>
 #include <zcm/zcmplugininterface.h>

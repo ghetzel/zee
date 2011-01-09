@@ -58,6 +58,35 @@ ZStyle *ZStyleSection::style(){
     return _parent;
 }
 
+void ZStyleSection::setId(int id){
+    _id = id;
+    _properties.insert("qproperty-"ZSTYLE_SECTION_PROP_NAME, new ZStyleProperty("qproperty-"ZSTYLE_SECTION_PROP_NAME, _id));
+}
+
+void ZStyleSection::pushProperty(const ZStyleProperty *property){
+    if(property)
+        if(!property->name().isEmpty())
+            _properties.insert(property->name(), property);
+}
+
+ZStyleSection &ZStyleSection::merge(ZStyleSection &first, ZStyleSection &second){
+    ZStyleSection &rv;
+
+    foreach(ZStyleProperty *property, first._properties){
+        rv.pushProperty(property);
+    }
+
+    foreach(ZStyleProperty *property, second._properties){
+        rv.pushProperty(property);
+    }
+
+    return rv;
+}
+
+ZStyleSection &ZStyleSection::merge(const ZStyleSection &other){
+    return ZStyleSection::merge(*this, other);
+}
+
 QString ZStyleSection::toString(){
     QString rv = _rule+"{\n";
 

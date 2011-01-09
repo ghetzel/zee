@@ -26,6 +26,7 @@
 #include <QState>
 #include <zconfigurable.h>
 #include <zeventmanager.h>
+#include <zui/zstyle.h>
 #include <zui/zuiutils.h>
 
 class ZWidget: public ZConfigurable
@@ -47,6 +48,10 @@ public:
         QWidget *rv = QCAST(QWidget*,_self);
         Q_ASSERT(rv);
         return rv;
+    }
+
+    void parseStyle(){
+        //ZSTYLE_SECTION_PROP_NAME
     }
 
 private:
@@ -119,6 +124,7 @@ protected:
     QStringList _monitoredProperties;
     QStateMachine _stateMachine;
     QHash<QString,QState*> _states;
+    ZStyleSection _style;
 };
 
 #endif // ZWIDGET_H

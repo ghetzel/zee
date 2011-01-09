@@ -58,7 +58,7 @@
 
   Browser{	// objectName = "web"
     public slots:
-	void load(QString url);
+        void load(QString url);
     ...
   }
 
@@ -69,7 +69,7 @@
 
   Button{	// objectName = "go"
     signals:
-	void clicked();
+        void clicked();
     ...
   }
 
@@ -122,9 +122,9 @@ public:
 private:
     void init();
     void registerMethod(QMetaMethod::MethodType type,
-			QObject *object, const char *method);
+                        QObject *object, const char *method);
     void insertMethod(QObject *object, const char *method,
-		      QHash<QObject*,ZEventObject> &store);
+                      QHash<QObject*,ZEventObject> &store);
 
     QHash<QObject*,ZEventObject> _signals;
     QHash<QObject*,ZEventObject> _slots;

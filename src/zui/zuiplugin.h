@@ -20,6 +20,7 @@
 
 #include <QtCore>
 #include <zutil.h>
+#include <zui/zstyle.h>
 #include <zui/zuiutils.h>
 #include <zui/zuiplugininterface.h>
 
@@ -34,17 +35,25 @@ class ZuiPlugin : public QObject, public ZuiPluginInterface{
     Q_OBJECT
     Q_INTERFACES(ZuiPluginInterface)
 public:
-    virtual void initialize(ZEventManager *manager){
-	_zevent = manager;
-	ZEventManager::initialize(_zevent);
+    virtual void initialize(ZEventManager *manager, ZStyle *style){
+        _zevent = manager;
+        _zstyle = style;
+        ZEventManager::initialize(_zevent);
+        ZStyle::initialize(_zstyle);
     }
 
     ZEventManager *eventManager(){
-	return _zevent;
+        return _zevent;
+    }
+
+    ZStyle *style(){
+        return _zstyle;
     }
 
 protected:
     ZEventManager *_zevent;
+    ZStyle *_zstyle;
+
 };
 
 #endif // ZUIPLUGIN_H

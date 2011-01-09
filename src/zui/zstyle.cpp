@@ -1,5 +1,7 @@
 #include "zstyle.h"
 
+ZStyle *ZStyle::_instance = 0;
+
 ZStyle::ZStyle(QString filename, QObject *parent)
     : QObject(parent)
 {
@@ -14,11 +16,38 @@ ZStyle::ZStyle(QObject *parent)
     init();
 }
 
+void ZStyle::initialize(ZStyle *instance){
+    if(_instance){
+        _instance = instance;
+        _instance->init();
+    }
+}
+
+ZStyle *ZStyle::instance()
+{
+//  ZStyle MUST have been initialized before being used
+    Q_ASSERT(_instance);
+    return _instance;
+}
+
 
 void ZStyle::init(){
+    zEvent->registerSignal(this, SIGNAL(stylesheetChanged()));
+
     if(!_basedata.isEmpty())
         parseData();
 }
+
+
+//ZStyleSection &ZStyle::getSection(int id){
+//    ZStyleSection &section;
+
+//    if(id >= 0 && id < _sections.count())
+//        if(_sections.at(id))
+//            section = *_sections.at(id);
+
+//    return section;
+//}
 
 void ZStyle::loadFile(QString filename){
     QFile zss(filename);
@@ -29,6 +58,8 @@ void ZStyle::loadFile(QString filename){
         _basedata = data.readAll();
         zss.close();
         z_log_debug("ZSSParser: Loaded stylesheet '"+zss.fileName()+"'");
+
+        emit stylesheetChanged();
     }else{
         z_log_error("ZSSParser: Unable to locate stylesheet '"+zss.fileName()+"'");
     }
@@ -47,6 +78,10 @@ void ZStyle::parseData(){
     while((i = rx.indexIn(_data,i)) != -1){
         _sections << new ZStyleSection(rx.cap(1), rx.cap(2), this);
         i += rx.matchedLength();
+    }
+
+    for(int i = 0; i < _sections.count(); i++){
+        _sections[i]->setId(i);
     }
 }
 

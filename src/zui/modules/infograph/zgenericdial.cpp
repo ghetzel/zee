@@ -147,6 +147,12 @@ void ZGenericDial::paintEvent(QPaintEvent *event)
                    width()-(2*_padX),
                    height()-(2*_padY));
 
+    QColor c;
+    if(property("zgauge_background_color").isValid()){
+        c = property("zgauge_background_color").value<QColor>();
+        z_log_debug("ZGenericDial: background-color: "+STR(c.red())+","+STR(c.green())+","+STR(c.blue()));
+    }
+
     //p->drawConvexPolygon(indicator);
     p->end();
 }

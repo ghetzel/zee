@@ -129,6 +129,14 @@ ZDebug::ZDebug(int argc, char **argv)
 
     //z_log_debug("ZDebug: style: \n"+zp.styleSheet());
 
-    QString v = "3px solid #F0C";
-    z_log_debug("ZStyleProperty:  valueFrom "+v+" color: "+ZStyleProperty::valueFrom(v).width());
+    //QString v = "3px solid #F0C";
+    //z_log_debug("ZStyleProperty:  valueFrom "+v+" color: "+ZStyleProperty::valueFrom(v).width());
+
+    ZString str = "50%";
+
+    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent()));
+    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent(200)));
+    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent(50)));
+    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent(256)));
+    z_log_debug("ZString: fromPercent =>"+STR(ZString::fromPercent("256",256)));
 }

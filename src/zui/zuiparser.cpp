@@ -106,7 +106,7 @@ void ZuiParser::loadModules(){
         m->initialize(zEvent);
 
     foreach(ZuiPluginInterface *m, zuiModules)
-        m->initialize(zEvent);
+        m->initialize(zEvent, zStyle);
 }
 
 

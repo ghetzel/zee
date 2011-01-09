@@ -47,6 +47,7 @@ public:
     ZString substring(int beginIndex, int length);
     ZString find(QString subject);
     ZString find(QRegExp pattern);
+    float fromPercent(qreal upper=100.0, qreal lower=0.0);
     bool match(QRegExp &pattern);
 
 public:
@@ -77,6 +78,7 @@ public:
     static ZString substring(QVariant in, int beginIndex, int length);
     static ZString find(QVariant in, QString subject);
     static ZString find(QVariant in, QRegExp pattern);
+    static float fromPercent(ZString in, qreal upper=100.0, qreal lower=0.0);
     static bool match(QVariant in, QRegExp &pattern);
 
 private:
