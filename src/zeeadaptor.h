@@ -31,7 +31,7 @@ public:
     ZeeAdaptor(QString name, Zee *parent);
 
 public slots:
-    void reloadStyleSheet();
+    void reloadStyle();
     void log(QString);
     void logWarning(QString);
     void logError(QString);
@@ -42,7 +42,7 @@ public slots:
 signals:
     void styleReloaded();
     void propertyResponse(QString);
-    
+
 private slots:
     void _propertyResponse(QVariant);
 

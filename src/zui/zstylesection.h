@@ -4,8 +4,8 @@
 // section identifier property name
 #define ZSTYLE_SECTION_PROP_NAME            "zstyle-section-id"
 
-// custom sub-control -> qproperty mappings
-#define ZSTYLE_PROPSUB_SC_GAUGE             "gauge"
+// custom sub-controls
+#define ZSTYLE_SUBCONTROLS                  "gauge"
 
 // aggregates and alternate forms
 #define ZSTYLE_PROPSUB_AG_FIXED_HEIGHT      "fixed-height"
@@ -18,7 +18,7 @@
 #include <QColor>
 #include <libzee/libzee.h>
 #include <zutil.h>
-#include <zstyleproperty.h>
+#include <zui/zstyleproperty.h>
 
 class ZStyle;
 
@@ -30,8 +30,7 @@ public:
     ZStyleSection(QString rule, QString data, ZStyle *parent=0);
     ZStyle *style();
     QString toString();
-    void setId(int id);
-    void pushProperty(const ZStyleProperty *property);
+    void pushProperty(ZStyleProperty *property);
     ZStyleSection &merge(const ZStyleSection &other);
 
 public:
@@ -45,7 +44,6 @@ private:
     void parse(QString data);
 
 private:
-    int _id;
     ZStyle *_parent;
     QHash<QString,ZStyleProperty*> _properties;
     ZString _rule;

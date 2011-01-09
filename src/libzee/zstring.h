@@ -36,6 +36,8 @@ public:
     ZString downcase();
     ZString sentenceCase();
     ZString titleCase();
+    ZString capitalize();
+    ZString camelize();
     ZString squeeze(QChar chr='\0');
     ZString lelide(int width, QString abbr="...");
     ZString relide(int width, QString abbr="...");
@@ -67,6 +69,8 @@ public:
     static ZString downcase(QVariant in);
     static ZString sentenceCase(QVariant in);
     static ZString titleCase(QVariant in);
+    static ZString capitalize(QVariant in);
+    static ZString camelize(QVariant in);
     static ZString squeeze(QVariant in, QChar chr='\0');
     static ZString lelide(QVariant in, int width, QString abbr="...");
     static ZString relide(QVariant in, int width, QString abbr="...");

@@ -131,7 +131,7 @@ class Zee : public QApplication, public ZCoreApplication
 */
     bool x11EventFilter(XEvent *e);
 #endif
-  public slots:
+public slots:
     void reloadStyle();
     void output(QString);
     void log(QString);
@@ -148,6 +148,9 @@ signals:
 #ifdef Q_WS_X11
     void x11EventReceived(XEvent*);
 #endif
+
+private slots:
+    void _stylesheetChanged();
 
 private:
     ZStyle *_style;

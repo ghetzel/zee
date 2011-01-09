@@ -26,7 +26,6 @@
 #include <QtPlugin>
 #include <zconfigurable.h>
 #include <zeventmanager.h>
-#include <zplugininterface.h>
 #include <zcm/zcomponent.h>
 
 class Zee;
@@ -42,10 +41,11 @@ struct ZcmResult{
   \ingroup zcm_plugins
   \brief Interface for interacting with ZCM plugins.
 */
-class ZcmPluginInterface : public ZPluginInterface
+class ZcmPluginInterface
 {
 public:
-  virtual ZcmResult prepare(const QDomElement &el) =0;
+    virtual ZcmResult prepare(const QDomElement &el) =0;
+    virtual void initialize(ZEventManager *manager)=0;
 };
 
 Q_DECLARE_INTERFACE(ZcmPluginInterface,

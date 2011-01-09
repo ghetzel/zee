@@ -46,8 +46,8 @@ void ZeeAdaptor::_propertyResponse(QVariant res){
 }
 
 
-void ZeeAdaptor::reloadStyleSheet(){
-    if(instance()) instance()->reloadStyleSheet();
+void ZeeAdaptor::reloadStyle(){
+    if(instance()) instance()->reloadStyle();
 }
 
 void ZeeAdaptor::log(QString msg){

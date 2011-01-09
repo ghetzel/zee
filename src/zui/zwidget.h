@@ -50,10 +50,6 @@ public:
         return rv;
     }
 
-    void parseStyle(){
-        //ZSTYLE_SECTION_PROP_NAME
-    }
-
 private:
     void parse(const ZConfig &el){
         scanProperties();

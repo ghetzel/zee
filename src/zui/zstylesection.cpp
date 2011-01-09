@@ -28,10 +28,10 @@ void ZStyleSection::parse(QString data){
         QString propname = rx.cap(1).trimmed();
 
         if(0){
-#ifdef ZSTYLE_PROPSUB_SC_GAUGE
-        }else if(_rule.rightOfLast("::") == ZSTYLE_PROPSUB_SC_GAUGE){
+#ifdef ZSTYLE_SUBCONTROLS
+        }else if(ZUtil::in(_rule.rightOfLast("::"), ZSTYLE_SUBCONTROLS)){
             stripSubControl = true;
-            QString qpSub = "qproperty-z"ZSTYLE_PROPSUB_SC_GAUGE"_"+propname.replace("-","_");
+            QString qpSub = "qproperty-"+ZString::camelize(_rule.rightOfLast("::")+"_"+propname);
             _properties.insert(qpSub, new ZStyleProperty(qpSub, rx.cap(2),this));
 #endif
 #ifdef ZSTYLE_PROPSUB_AG_FIXED_HEIGHT
@@ -58,19 +58,14 @@ ZStyle *ZStyleSection::style(){
     return _parent;
 }
 
-void ZStyleSection::setId(int id){
-    _id = id;
-    _properties.insert("qproperty-"ZSTYLE_SECTION_PROP_NAME, new ZStyleProperty("qproperty-"ZSTYLE_SECTION_PROP_NAME, _id));
-}
-
-void ZStyleSection::pushProperty(const ZStyleProperty *property){
+void ZStyleSection::pushProperty(ZStyleProperty *property){
     if(property)
         if(!property->name().isEmpty())
             _properties.insert(property->name(), property);
 }
 
-ZStyleSection &ZStyleSection::merge(ZStyleSection &first, ZStyleSection &second){
-    ZStyleSection &rv;
+ZStyleSection &ZStyleSection::merge(const ZStyleSection &first, const ZStyleSection &second){
+    ZStyleSection rv;
 
     foreach(ZStyleProperty *property, first._properties){
         rv.pushProperty(property);

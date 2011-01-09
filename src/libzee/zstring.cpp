@@ -130,23 +130,54 @@ ZString ZString::downcase(QVariant in){
 }
 
 ZString ZString::sentenceCase(QVariant in){
-    QString instr = in.toString();
-    int index = 0;
-    while((index = instr.indexOf(QRegExp("(?:\\.)\\W+(\\w)"),index)) >= 0){
-        instr[index] = instr[index].toUpper();
-        index += index;
+    ZString instr = in.toString().toLower();
+    QRegExp rx("(^|\\.\\s+)(\\w)");
+    int i = 0;
+    while((i = rx.indexIn(instr,i)) != -1){
+        instr[i+rx.cap(1).length()] = rx.cap(2).toUpper().at(0);
+        i += rx.matchedLength();
     }
 
     return instr;
 }
 
 ZString ZString::titleCase(QVariant in){
-    QString instr = in.toString();
-    int index = 0;
-    while((index = instr.indexOf(QRegExp("\\b+(\\W)"),index)) >= 0){
-        instr[index] = instr[index].toUpper();
-        index += index;
+    QString instr = in.toString().toLower();
+    QRegExp rx("(^|\\b+)(\\w)");
+    int i = 0;
+    while((i = rx.indexIn(instr,i)) != -1){
+        instr[i+rx.cap(1).length()] = rx.cap(2).toUpper().at(0);
+        i += rx.matchedLength();
     }
+
+    return instr;
+}
+
+ZString ZString::capitalize(QVariant in){
+    ZString instr = in.toString().toLower();
+    QRegExp rx("(^|\\b+)(\\w)");
+    int i = 0;
+    while((i = rx.indexIn(instr,i)) != -1){
+        instr[i+rx.cap(1).length()] = rx.cap(2).toUpper().at(0);
+        break;
+    }
+
+    return instr;
+}
+
+ZString ZString::camelize(QVariant in){
+    QString instr = in.toString().toLower();
+    instr = instr.replace(QRegExp("[_-]+"), " ").trimmed();
+    QRegExp rx("(\\b+)(\\w)");
+    if(instr.length() == 0)
+        return ZString();
+    int i = 1;
+    while((i = rx.indexIn(instr,i)) != -1){
+        instr[i+rx.cap(1).length()] = rx.cap(2).toUpper().at(0);
+        i += rx.matchedLength();
+    }
+
+    instr = instr.replace(" ","");
 
     return instr;
 }
@@ -332,6 +363,14 @@ ZString ZString::sentenceCase(){
 
 ZString ZString::titleCase(){
     return ZString::titleCase(toQString());
+}
+
+ZString ZString::capitalize(){
+    return ZString::capitalize(toQString());
+}
+
+ZString ZString::camelize(){
+    return ZString::camelize(toQString());
 }
 
 ZString ZString::squeeze(QChar chr){

@@ -38,6 +38,8 @@ void ZGenericDial::init(double startValue)
     _minValue = 0.0;
     _value = startValue;
     _maxValue = 100.0;
+    _setGaugeBorderColor(Qt::transparent);
+    _setGaugeColor(Qt::black);
     _padX = ZGENERIC_DIAL_X_PAD+(layout() ? layout()->spacing() : 0);
     _padY = ZGENERIC_DIAL_Y_PAD+(layout() ? layout()->spacing() : 0);
 
@@ -146,12 +148,6 @@ void ZGenericDial::paintEvent(QPaintEvent *event)
                    _padY,
                    width()-(2*_padX),
                    height()-(2*_padY));
-
-    QColor c;
-    if(property("zgauge_background_color").isValid()){
-        c = property("zgauge_background_color").value<QColor>();
-        z_log_debug("ZGenericDial: background-color: "+STR(c.red())+","+STR(c.green())+","+STR(c.blue()));
-    }
 
     //p->drawConvexPolygon(indicator);
     p->end();
@@ -282,4 +278,40 @@ QSize ZGenericDial::sizeHint()
 void ZGenericDial::redraw()
 {
     update(contentsRect());
+}
+
+
+
+// ::gauge sub-control property getter/setters
+
+int ZGenericDial::_gaugeWidth(){
+    return _gaugeStyle.value("width").toInt();
+}
+
+int ZGenericDial::_gaugeBorderWidth(){
+    return _gaugeStyle.value("border-width").toInt();
+}
+
+QColor ZGenericDial::_gaugeColor(){
+    return _gaugeStyle.value("color").value<QColor>();
+}
+
+QColor ZGenericDial::_gaugeBorderColor(){
+    return _gaugeStyle.value("border-color").value<QColor>();
+}
+
+void ZGenericDial::_setGaugeWidth(int v){
+    _gaugeStyle.insert("width", v);
+}
+
+void ZGenericDial::_setGaugeBorderWidth(int v){
+    _gaugeStyle.insert("border-width", v);
+}
+
+void ZGenericDial::_setGaugeColor(QColor v){
+    _gaugeStyle.insert("color", v);
+}
+
+void ZGenericDial::_setGaugeBorderColor(QColor v){
+    _gaugeStyle.insert("border-color", v);
 }

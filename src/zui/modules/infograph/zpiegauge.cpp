@@ -20,7 +20,7 @@
 ZPieGauge::ZPieGauge(const ZConfig &el, QWidget *parent)
     : ZGenericDial(el,parent)
 {
-    setRingWidth(ZPIE_DEFAULT_RING_WIDTH);
+    setRingWidth(_gaugeWidth());
 }
 
 int ZPieGauge::ringWidth(){
@@ -30,7 +30,7 @@ int ZPieGauge::ringWidth(){
 void ZPieGauge::setRingWidth(int w){
     if(w > width() || w > height())
         _ringWidth = qMin(width(),height());
-    else if(w < 0)
+    else if(w <= 0)
         _ringWidth = ZPIE_DEFAULT_RING_WIDTH;
     else
         _ringWidth = w;
@@ -59,11 +59,12 @@ void ZPieGauge::paintEvent(QPaintEvent *event){
         style.initFrom(this);
         p->setRenderHint(QPainter::Antialiasing);
 
-        QPen pp(style.palette.windowText().color());
-        pp.setWidthF(0.0);
+        QPen pp(_gaugeBorderColor());
+        QBrush bb(_gaugeColor());
+        pp.setWidthF(_gaugeBorderWidth());
 
         p->setPen(pp);
-        p->setBrush(style.palette.alternateBase());
+        p->setBrush(bb);
 
     //  calculate components for starting outer point
         s0 = qSin(RADIANS(ZGENERIC_DIAL_ANNULAR_OFFSET+_offset));

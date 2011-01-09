@@ -23,6 +23,7 @@ Zee::Zee(int argc, char *argv[])
     : QApplication(argc, argv){
     _app = this;
     _parser = NULL;
+    _style = NULL;
 
     init();
 }
@@ -95,7 +96,14 @@ void Zee::init()
                                      arg("program").toString()+"/"));
     z_log_debug("Zee: Search Path = "+STR(QDir::homePath()+"/"+ZEE_CFG_DIR+"/"+
                                          arg("program").toString()+"/"));
-    reloadStyleSheet();
+    reloadStyle();
+
+    if(_style){
+        _stylesheetChanged();
+        connect(_style, SIGNAL(stylesheetChanged()),
+                this,   SLOT(_stylesheetChanged()));
+    }
+
     parseUI();
 
     if(hasArg("debug-style")){
@@ -156,7 +164,6 @@ void Zee::parseArguments(){
 */
 void Zee::reloadStyle()
 {
-
     if(hasArg("style"))
         _style = new ZStyle(arg("style").toString(), this);
     else if(arg("program").toString() != ZEE_PROGNAME &&
@@ -261,6 +268,13 @@ QVariant Zee::queryProperty(QString zObjPath){
     }
 
     return QVariant();
+}
+
+void Zee::_stylesheetChanged(){
+    if(_style){
+        z_log_debug("Zee: ZStyle change detected, updating...");
+        setStyleSheet(_style->styleSheet());
+    }
 }
 
 void Zee::checkBindings(){

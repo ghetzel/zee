@@ -125,18 +125,29 @@ ZDebug::ZDebug(int argc, char **argv)
 
     //z_log("match: 1px 2 3px 4 => "+str.match("1pt 2px 3px 4px 5px", QRegExp("([0-9]+(?:px|pt|em|ex)?(?:(\\s+|\\s*$))){1,4}")));
 
-    //ZStyle zp("../../examples/phoebus/ui.qss");
+    ZStyle zp("../../examples/sysinfo/ui.qss");
 
-    //z_log_debug("ZDebug: style: \n"+zp.styleSheet());
+    z_log_debug("ZDebug: style: \n"+zp.styleSheet());
 
     //QString v = "3px solid #F0C";
     //z_log_debug("ZStyleProperty:  valueFrom "+v+" color: "+ZStyleProperty::valueFrom(v).width());
 
-    ZString str = "50%";
+//    ZString str = "50%";
 
-    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent()));
-    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent(200)));
-    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent(50)));
-    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent(256)));
-    z_log_debug("ZString: fromPercent =>"+STR(ZString::fromPercent("256",256)));
+//    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent()));
+//    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent(200)));
+//    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent(50)));
+//    z_log_debug("ZString: fromPercent =>"+STR(str.fromPercent(256)));
+//    z_log_debug("ZString: fromPercent =>"+STR(ZString::fromPercent("256",256)));
+
+//    ZString qs = "this is a sentence. this is another one.";
+//    z_log_debug("Title Case:    "+qs.titleCase());
+//    z_log_debug("Capitalize:    "+qs.capitalize());
+//    z_log_debug("Sentence case: "+qs.sentenceCase());
+
+//    z_log_debug("camelize: "+ZString::camelize("gauge_background-image"));
+//    z_log_debug("camelize: "+ZString::camelize(" non camel case"));
+//    z_log_debug("camelize: "+ZString::camelize("pretty_darned neat"));
+//    z_log_debug("camelize: "+ZString::camelize("  this ____ should----be camelzied"));
+//    z_log_debug("camelize: "+ZString::camelize("NORMALIZE--____THIS___---sTrinG"));
 }

@@ -21,6 +21,9 @@ HEADERS +=      zutil.h                         \
                 zuiutils.h                      \
                 zwidget.h                       \
                 zui/zcontainerwidget.h          \
+                zui/zstyle.h                    \
+                zui/zstylesection.h             \
+                zui/zstyleproperty.h            \
                 zconfigelement.h                \
                 zeventmanager.h                 \
                 zeventrelationship.h            \
@@ -33,6 +36,9 @@ HEADERS +=      zutil.h                         \
 SOURCES +=      zutil.cpp                       \
                 zuiutils.cpp                    \
                 zui/zcontainerwidget.cpp        \
+                zui/zstyle.cpp                  \
+                zui/zstylesection.cpp           \
+                zui/zstyleproperty.cpp          \
                 zconfigelement.cpp              \
                 zeventmanager.cpp               \
                 zeventrelationship.cpp          \

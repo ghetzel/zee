@@ -23,8 +23,8 @@
 #include <QtXml>
 #include <QtPlugin>
 #include <zconfigurable.h>
+#include <zui/zstyle.h>
 #include <zeventmanager.h>
-#include <zplugininterface.h>
 
 class Zee;
 
@@ -39,7 +39,7 @@ struct ZuiResult{
   \ingroup zui_plugins
   \brief Interface for interacting with ZUI plugins.
 */
-class ZuiPluginInterface : public ZPluginInterface
+class ZuiPluginInterface
 {
 
 public:
@@ -54,12 +54,7 @@ public:
 */
   virtual ZuiResult prepareWidget(const QDomElement &el,
                                   QWidget *parent) =0;
-
-/*!
-  \fn virtual QList<QString> getElementNames() =0;
-
-  Returns a list of elements this plugin can handle.
-*/
+  virtual void initialize(ZEventManager *manager, ZStyle *style)=0;
 };
 
 Q_DECLARE_INTERFACE(ZuiPluginInterface,

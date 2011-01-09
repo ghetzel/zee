@@ -45,6 +45,12 @@ class ZGenericDial : public QFrame, public ZContainerWidget
     Q_PROPERTY(qreal maximum    READ maximum    WRITE setMaximum)
     Q_PROPERTY(qreal minimum    READ minimum    WRITE setMinimum)
 
+//  ::gauge sub-control properties
+    Q_PROPERTY(int    gaugeWidth        READ _gaugeWidth        WRITE _setGaugeWidth)
+    Q_PROPERTY(int    gaugeBorderWidth  READ _gaugeBorderWidth  WRITE _setGaugeBorderWidth)
+    Q_PROPERTY(QColor gaugeColor        READ _gaugeColor        WRITE _setGaugeColor)
+    Q_PROPERTY(QColor gaugeBorderColor  READ _gaugeBorderColor  WRITE _setGaugeBorderColor)
+
 public:
     ZGenericDial(const ZConfig &el, QWidget *parent=0);
     ZGenericDial(double startValue, const ZConfig &el, QWidget *parent=0);
@@ -112,6 +118,20 @@ signals:
     void minimumValueChanged(qreal);
     void maximumValueChanged(qreal);
     void rangeChanged(qreal,qreal);
+
+public:
+    int _gaugeWidth();
+    int _gaugeBorderWidth();
+    QColor _gaugeColor();
+    QColor _gaugeBorderColor();
+
+    void _setGaugeWidth(int);
+    void _setGaugeBorderWidth(int);
+    void _setGaugeColor(QColor);
+    void _setGaugeBorderColor(QColor);
+
+private:
+    QVariantHash _gaugeStyle;
 };
 
 #endif

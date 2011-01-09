@@ -8,7 +8,7 @@
 #include <libzee/libzee.h>
 #include <zutil.h>
 #include <zeventmanager.h>
-#include <zstylesection.h>
+#include <zui/zstylesection.h>
 
 #define zStyle                      ZStyle::instance()
 
@@ -20,7 +20,6 @@ public:
     ZStyle(QObject *parent=0);
     static void initialize(ZStyle *instance=0);
     static ZStyle *instance();
-    ZStyleSection &getSection(int id);
     void loadFile(QString filename);
     QString styleSheet();
     QString baseStyleSheet();
