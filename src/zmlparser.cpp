@@ -15,9 +15,9 @@
 *    along with Zee.  If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
 
-#include "zuiparser.h"
+#include "zmlparser.h"
 
-ZuiParser::ZuiParser(QDomElement &el, ZCoreApplication *parent)
+ZMLParser::ZMLParser(QDomElement &el, ZCoreApplication *parent)
 {
     //init basic variables
     _parent = parent;
@@ -63,12 +63,12 @@ ZuiParser::ZuiParser(QDomElement &el, ZCoreApplication *parent)
 }
 
 
-void ZuiParser::init()
+void ZMLParser::init()
 {
     loadModules();
 }
 
-void ZuiParser::loadModules(){
+void ZMLParser::loadModules(){
     QDir zModulesDir;
 
     if(_parent && _parent->hasArg("prefix"))
@@ -110,7 +110,7 @@ void ZuiParser::loadModules(){
 }
 
 
-void ZuiParser::parse(ZConfigNode n)
+void ZMLParser::parse(ZConfigNode n)
 {
     //attempt to find the first child
     ZConfigNode node = n.firstChild();
@@ -146,7 +146,7 @@ void ZuiParser::parse(ZConfigNode n)
 }
 
 
-bool ZuiParser::parseNode(ZConfigNode &node)
+bool ZMLParser::parseNode(ZConfigNode &node)
 {
     //attempt to convert the node to an element
     QDomElement el = node.toElement();
@@ -197,7 +197,7 @@ bool ZuiParser::parseNode(ZConfigNode &node)
     return true;
 }
 
-void ZuiParser::prepareWidget(const QDomElement &el){
+void ZMLParser::prepareWidget(const QDomElement &el){
     if(el.tagName() == "zee:connect"){
         if(el.hasAttribute("from") &&
            el.hasAttribute("to"))
@@ -212,7 +212,7 @@ void ZuiParser::prepareWidget(const QDomElement &el){
 }
 
 
-bool ZuiParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
+bool ZMLParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
 {
 
     QWidget *cWidgetParent = NULL;
@@ -304,7 +304,7 @@ bool ZuiParser::pushWidget(QDomElement &el, QWidget *cWidget, QWidget *cParent)
     return false;
 }
 
-void ZuiParser::checkBindings(){
+void ZMLParser::checkBindings(){
 //  components
     foreach(QObject *c, _components){
         ZConfigurable *cmp = DCAST(ZConfigurable*,c);

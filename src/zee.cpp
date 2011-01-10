@@ -232,7 +232,7 @@ void Zee::parseUI()
         z_log("Zee: Loaded UI definition '"+zui.fileName()+"'");
 
         QDomElement root = zuiDef.documentElement();
-        _parser = new ZuiParser(root);
+        _parser = new ZMLParser(root);
 
         return;
     }

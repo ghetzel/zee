@@ -58,14 +58,17 @@ void ZStyle::parseData(){
     z_log_debug("ZSSParser: Parsing "+_filename);
 
 //  get everything on one big happy line
-    _data = _basedata.replace(QRegExp("[\n\t]")," ");
+    _data = _basedata.replace(QRegExp("[\n\t\r]")," ");
+
+//  remove comments
+    _data = _data.remove(QRegExp("/\\*([^*]|(\\*+([^*/])))*\\*+/"));
 
 //  parse the first level of Section{...properties...}
-    QRegExp rx("(?:\\s*)([A-Za-z0-9#\\.:-]*)(?:\\s*\\{)([^\\}]*)(?:\\})");
+    QRegExp rx("([^\\{\\}]*)(?:\\{)([^\\}]*)(?:\\})");
     int i = 0;
 
     while((i = rx.indexIn(_data,i)) != -1){
-        _sections << new ZStyleSection(rx.cap(1), rx.cap(2), this);
+        _sections << new ZStyleSection(rx.cap(1).trimmed(), rx.cap(2), this);
         i += rx.matchedLength();
     }
 

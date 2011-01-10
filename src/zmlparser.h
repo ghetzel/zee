@@ -42,7 +42,7 @@ using namespace std;
 
 
 /*!
-  \class ZuiParser
+  \class ZMLParser
   \ingroup zui
   \brief Parses a ZUI definition file and dynamically builds the user interface.
 
@@ -57,7 +57,7 @@ using namespace std;
 
   \section zui-plugins    Plugins
 */
-class ZuiParser : public QObject
+class ZMLParser : public QObject
 {
   Q_OBJECT
 
@@ -81,7 +81,7 @@ public:
   dictated by widgetes created in one or more plugins, is parented at
   \a destWidget.
 */
-    ZuiParser(QDomElement &el, ZCoreApplication *parent=0);
+    ZMLParser(QDomElement &el, ZCoreApplication *parent=0);
 
   private:
 /*!

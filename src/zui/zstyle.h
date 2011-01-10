@@ -36,7 +36,7 @@ private:
     QList<ZStyleSection*> _sections;
     QString _filename;
     QString _basedata;
-    ZString _data;
+    QString _data;
 };
 
 #endif // ZSTYLE_H

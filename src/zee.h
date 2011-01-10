@@ -52,7 +52,7 @@
 #include <zutil.h>
 #include <zeventmanager.h>
 #include <zui/zstyle.h>
-#include <zui/zuiparser.h>
+#include <zmlparser.h>
 #include <libzee/zint64.h>
 
 /*!
@@ -154,7 +154,7 @@ private slots:
 
 private:
     ZStyle *_style;
-    ZuiParser *_parser;
+    ZMLParser *_parser;
     QHash<QString,QVariant> _arguments;
     const static int ZWIDTH = 500;
     const static int ZHEIGHT = 500;

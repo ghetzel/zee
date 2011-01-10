@@ -37,7 +37,7 @@ HEADERS += zevent.h \
     zcm/zcmplugin.h \
     main.h \
     zee.h \
-    zui/zuiparser.h \
+    zmlparser.h \
     zui/layouts/zflowlayout.h \
     zeventmanager.h \
     zeventrelationship.h \
@@ -65,7 +65,7 @@ SOURCES += zevent.cpp \
     zui/zcontainerwidget.cpp \
     zeventhandler.cpp \
     zee.cpp \
-    zui/zuiparser.cpp \
+    zmlparser.cpp \
     zui/layouts/zflowlayout.cpp \
     zeventmanager.cpp \
     zeventrelationship.cpp \

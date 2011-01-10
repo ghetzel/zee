@@ -11,8 +11,7 @@ ZLabel{
   color: #FFF;
 }
 
-ZButton
-{
+ZButton{
     background-color: #222;
     border: 2px solid #444;
     color: #FFF;
@@ -20,11 +19,6 @@ ZButton
 
 ZGenericDial{
 	background-color: transparent;
-}
-
-ZGenericDial::gauge{
-	border: 1px solid red;
-	background-color:	blue;;
 }
 
 #pieRemainHr{
