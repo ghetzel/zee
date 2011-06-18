@@ -1,11 +1,11 @@
 #include "zstylesection.h"
 
-ZStyleSection::ZStyleSection(ZStyle *parent)
+ZStyleSection::ZStyleSection(ZStyleParser *parent)
 {
     _parent = parent;
 }
 
-ZStyleSection::ZStyleSection(QString rule, QString data, ZStyle *parent){
+ZStyleSection::ZStyleSection(QString rule, QString data, ZStyleParser *parent){
     _parent = parent;
 
     rule = rule.trimmed();
@@ -54,7 +54,7 @@ void ZStyleSection::parse(QString data){
         _rule = _rule.leftOfLast("::");
 }
 
-ZStyle *ZStyleSection::style(){
+ZStyleParser *ZStyleSection::style(){
     return _parent;
 }
 

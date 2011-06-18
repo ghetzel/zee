@@ -1,42 +1,12 @@
 #ifndef ZSTYLE_H
 #define ZSTYLE_H
 
-#include <QObject>
-#include <QTextStream>
-#include <QFile>
-#include <QRegExp>
-#include <libzee/libzee.h>
-#include <zutil.h>
-#include <zeventmanager.h>
-#include <zui/zstylesection.h>
+#include <QtGui>
 
-#define zStyle                      ZStyle::instance()
-
-class ZStyle : public QObject
+class ZStyleProxy : public QProxyStyle
 {
-    Q_OBJECT
 public:
-    ZStyle(QString filename, QObject *parent=0);
-    ZStyle(QObject *parent=0);
-    static void initialize(ZStyle *instance=0);
-    static ZStyle *instance();
-    void loadFile(QString filename);
-    QString styleSheet();
-    QString baseStyleSheet();
-
-signals:
-    void stylesheetChanged();
-
-private:
-    void init();
-    void parseData();
-
-private:
-    static ZStyle *_instance;
-    QList<ZStyleSection*> _sections;
-    QString _filename;
-    QString _basedata;
-    QString _data;
+    void drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const;
 };
 
 #endif // ZSTYLE_H

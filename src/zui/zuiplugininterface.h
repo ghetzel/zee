@@ -23,7 +23,7 @@
 #include <QtXml>
 #include <QtPlugin>
 #include <zconfigurable.h>
-#include <zui/zstyle.h>
+#include <zui/zstyleparser.h>
 #include <zeventmanager.h>
 
 class Zee;
@@ -54,7 +54,7 @@ public:
 */
   virtual ZuiResult prepareWidget(const QDomElement &el,
                                   QWidget *parent) =0;
-  virtual void initialize(ZEventManager *manager, ZStyle *style)=0;
+  virtual void initialize(ZEventManager *manager, ZStyleParser *style)=0;
 };
 
 Q_DECLARE_INTERFACE(ZuiPluginInterface,

@@ -26,7 +26,7 @@
 #include <QState>
 #include <zconfigurable.h>
 #include <zeventmanager.h>
-#include <zui/zstyle.h>
+#include <zui/zstyleparser.h>
 #include <zui/zuiutils.h>
 
 class ZWidget: public ZConfigurable

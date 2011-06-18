@@ -20,15 +20,15 @@
 #include <zutil.h>
 #include <zui/zstyleproperty.h>
 
-class ZStyle;
+class ZStyleParser;
 
 class ZStyleSection : public QObject
 {
     Q_OBJECT
 public:
-    ZStyleSection(ZStyle *parent=0);
-    ZStyleSection(QString rule, QString data, ZStyle *parent=0);
-    ZStyle *style();
+    ZStyleSection(ZStyleParser *parent=0);
+    ZStyleSection(QString rule, QString data, ZStyleParser *parent=0);
+    ZStyleParser *style();
     QString toString();
     void pushProperty(ZStyleProperty *property);
     ZStyleSection &merge(const ZStyleSection &other);
@@ -44,7 +44,7 @@ private:
     void parse(QString data);
 
 private:
-    ZStyle *_parent;
+    ZStyleParser *_parent;
     QHash<QString,ZStyleProperty*> _properties;
     ZString _rule;
     QString _data;
