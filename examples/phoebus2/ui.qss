@@ -1,0 +1,64 @@
+#root{
+	background-color:	#121212;
+}
+
+ZLabel{
+	color:			white;
+}
+
+ZButton{
+	background-image:	url('images/button40.png');
+	border:			0px;
+}
+
+
+#header{
+	background-image:	url('images/readoutBG.png');
+	min-height:		61px;
+	max-height:		61px;
+}
+
+#controls > ZButton{
+	min-height:		40px;
+	max-height:		40px;
+	min-width:		40px;
+	max-width:		40px;
+}
+
+#facets > ZButton{
+	background-image:	url('images/glossButtonSmall.png');
+	color:			#F1F1F1;
+	font-size:		10px;
+	font-weight:		bold;
+	min-height:		19px;
+	max-height:		19px;
+	min-width:		19px;
+	max-width:		58px;
+}
+
+#seekbar{
+	background-image:	url('images/progressBG.png');
+	border:			0px;
+	min-height:		40px;
+	max-height:		40px;
+}
+
+#seekbar::chunk{
+	background-image:	url('images/progressFill.png');
+	width:			40px;
+}
+
+#sidebar{
+	background-color:	#1A1A1A;
+	max-width:		240px;
+	min-width:		240px;
+}
+
+QListView{
+	background-color:	transparent;
+	border:			0px;
+}
+
+QListView::item{
+	color:			white;
+}

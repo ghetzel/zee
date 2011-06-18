@@ -90,24 +90,27 @@ void ZEventManager::registerSlot(QObject *receiver, const char *slot){
 void ZEventManager::map(QString from, QString to, QString via,
                         QString formatters, bool direct)
 {
+    QObject *senderObj=0;
     ZEventObject sender;
     ZEventObject receiver;
     QList<QPair<QObject*,QString> > viaProperties;
     QList<ZFormatterInterface*> fmts;
     QStringList vias = via.split(ZEV_POSITIONAL_SEPARATOR);
 
-    sender = _signals.value(findObject(from));
+    senderObj = findObject(from);
+    sender = _signals.value(senderObj);
     receiver = _slots.value(findObject(to));
 
 
 //  populate via (surrogate) properties
     if(!via.isEmpty()){
         foreach(QString v, vias){
-            QObject *propobj = findObject(v);
-            if(propobj)
+            QObject *propobj = findObject(v,false,senderObj);
+            if(propobj){
                 viaProperties << qMakePair(propobj, CALLALIAS(v));
-            else
+            }else{
                 viaProperties.append(QPair<QObject*,QString>(NULL,QString()));
+            }
         }
     }
 
@@ -184,86 +187,91 @@ void ZEventManager::map(QString from, QString to, QString via,
 }
 
 
+QObjectList ZEventManager::findChildObjects(QObject *parent, QString path, int depth){
+    QObjectList rv;
+    QString pathPart;
+    QStringList parts = path.split(ZEV_SEPARATOR);
 
-QObject *ZEventManager::findObject(QString methodString, bool objectOnly){
-    QObject *obj = NULL;
-    QObject *rv = NULL;
-    QString oname;
-    QStringList proc;
-    bool foundIt = false; // WHOOP! Found the Tank!
+    //z_log_debug("ZEventManager: Finding child objects for path "+path+" at depth "+STR(depth)+" in parent "+parent->objectName());
 
-//  split the method specifier on the configured separator
-//	zee.container.object.method -->  [zee, container, object, method]
-    proc = methodString.split(ZEV_SEPARATOR,QString::SkipEmptyParts);
+    if(depth < parts.length()){
+        pathPart = parts.at(depth);
 
-//  if that string was not splittable, return empty
-    if(proc.isEmpty()){
-        z_log_error("ZEventManager: Cannot map, no object specified");
-        return NULL;
-    }else{
-        if(!objectOnly){
-    //	omit the last argument (the method name itself)
-            proc.removeLast();
-        }
+        //z_log_debug("ZEventManager: PART "+STR(pathPart));
 
-        if(proc.isEmpty()){
-            z_log_error("ZEventManager: Object not found, invalid path.");
-            return NULL;
-        }
-
-
-//	and the last element here now is the object we're ultimately looking for
-        oname = proc.last();
-
-//	if the first element is 'zee', the remove it (if this code is running,
-//	then 'zee' is assumed...what a mind-job)
-//      then set the current object to the application
-        if(proc.first() == ZEE_OBJNAME){
-            proc.removeFirst();
-            rv = qApp;
-        }
-
-        if(!proc.isEmpty()){
-//          search the app and each top-level window for a match
-            QList<QObject*> objs;
-            objs << qApp;
-            foreach(QObject *o, qApp->topLevelWidgets())
-                objs << o;
-
-            foreach(QObject *top, objs){
-                rv = top;
-//	    for each element to be searched (in succession)...
-                foreach(QString o, proc){
-//		if we or one of our children is the object being searched for,
-//		we have found the object at this level, move on to the next one,
-//		wherein only this found object will be searched for the next tier
-                    if(((obj = (rv->objectName() == o ? rv : NULL)) ||
-                        (obj = rv->findChild<QObject*>(o)))
-                     ){
-                        //z_log_debug("ZEventManager: Found '"+o+"', moving on...");
-                        foundIt = true;
-                        rv = obj;
-
-                    }else{
-//		the next tier was not found within the given parent, exit and
-//		try the next window
-                        //z_log_debug("ZEventManager: No '"+o+"', staying "+rv->objectName());
-                        foundIt = false;
-                        break;
-                    }
-                }
-
-//	    if we have found what we are looking for, stop searching
-                if(foundIt)
-                    break;
+        foreach(QObject* child, parent->children()){
+        //  simple ID check
+            if(child->objectName() == pathPart){
+                z_log_debug("ZEventManager: Object "+pathPart+" found at depth "+STR(depth));
+                rv.append(child);
+                rv.append(findChildObjects(child, path, depth+1));
+            }else{
+            //  nothing was found at this level, rebase at the next level and search there
+                rv.append(findChildObjects(child, path, depth));
             }
+
+
+        //  else if class name matches path part class specifier
+        //  else if some other criteria...
+        //  this was an accident, and possibly brilliant
+        }
+    }
+
+    return rv;
+}
+
+
+QObject *ZEventManager::findObject(QString path, bool objectOnly, QObject *parent)
+{
+    QObjectList ol = findAllObjects(path, objectOnly, parent);
+
+    if(!ol.isEmpty())
+        return ol.last();
+
+    return NULL;
+}
+
+QObjectList ZEventManager::findAllObjects(QString path, bool objectOnly, QObject *parent){
+    QObjectList rv;
+    QStringList parts = path.split(ZEV_SEPARATOR);
+    QString prepPath;
+
+//  all valid paths must be at least two parts, or one if no method is given
+    if( (!objectOnly && parts.length() > 1) || (objectOnly && parts.length() > 0) ){
+    //  if the first part is the app root, discard it (we already search qApp's
+    //  children anyway)
+        if(parts.at(0) == ZEE_OBJNAME){
+            parts.removeFirst();
         }
 
-        if(rv->objectName() == oname){
-//	    z_log_debug("ZEventManager: Found '"+methodString+"', "
-//			"it's a "+QString(rv->metaObject()->className()));
+        if(!objectOnly){
+            parts.removeLast();
+        }
+
+    //  the first part is empty, therefore relative to parent
+        if(parts.at(0).isEmpty()){
+        //  parent was specified, continue...
+            if(parent){
+                z_log_debug("ZEventManager: Relative path specified, using parent '"+parent->objectName()+"'");
+
+                parts.prepend(parent->objectName());
+                prepPath = parts.join(ZEV_SEPARATOR);
+                rv.append(findChildObjects(parent, prepPath));
+            }else{
+                z_log_error("ZEventManager: Cannot return relative path '"+path+"' without a parent object");
+            }
         }else{
-            return NULL;
+            z_log_debug("ZEventManager: Absolute path specified, using parent '"+STR(ZEE_OBJNAME)+"'");
+
+            prepPath = parts.join(ZEV_SEPARATOR);
+
+       //   search qApp itself for the path (zee:components)
+            rv.append(findChildObjects(qApp, prepPath));
+
+       //   search qApp's top-level widgets for the path (zee:widgets)
+            foreach(QObject *o, qApp->topLevelWidgets()){
+                rv.append(findChildObjects(o, prepPath));
+            }
         }
     }
 

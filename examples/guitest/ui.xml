@@ -38,7 +38,7 @@
                         <zui:pane>
                             <zui:splitter>
                                 <zui:pane>
-                                    <zui:input type="textbox" />
+                                    <zui:input id="text1" type="textbox" />
                                 </zui:pane>
                                 <zui:pane>
                                     <zui:text>Text Label 1</zui:text>
@@ -53,4 +53,8 @@
             </zui:container>
         </zui:application>
     </zee:widgets>
+
+    <zee:events>
+        <zee:connect from="text1.returnPressed" to="zee.setTitle" via=".value" />
+    </zee:events>
 </zee>

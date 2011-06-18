@@ -35,6 +35,9 @@ public:
     ZWindow(const ZConfig &el, QWidget *parent=0);
     QWidget *rootSurface();
 
+public slots:
+    void setWindowSubtitle(QString);
+
 signals:
     void clicked(int,int);
     void doubleClicked(int,int);

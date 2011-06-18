@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<zee
+  xmlns:zee="http://www.gammazeta.net/zee/core"
+  xmlns:zui="http://www.gammazeta.net/zee/zui">
+	<zee:components>
+	      	<zee:media id="media" remote="true" interval="60" />
+	</zee:components>
+
+	<zee:widgets>
+		<zui:application id="phoebus" title="Phoebus" width="800" height="480" position="center" layout="vertical">
+			<zui:container id="header">
+				<zui:text>Header</zui:text>
+			</zui:container>
+
+			<zui:container id="controls">
+				<zui:button id="prev" />
+				<zui:button id="play" />
+				<zui:button id="pause" />
+				<zui:button id="next" />
+				<zui:button id="volume" />
+				<zui:seekbar id="seekbar" />
+			</zui:container>
+
+			<zui:container>
+				<zui:container layout="vertical" id="sidebar">
+					<zui:container>
+						<zui:list id="navigation">
+							<zui:item value="s_queue">Now Playing</zui:item>
+							<zui:item value="s_library">Library</zui:item>
+							<zui:item value="s_browser">File Browser</zui:item>
+						</zui:list>
+					</zui:container>
+					<zui:container id="facets">
+						<zui:button id="facet_album">Album</zui:button>
+						<zui:button id="facet_artist">Artist</zui:button>
+						<zui:button id="facet_genre">Genre</zui:button>
+						<zui:button id="facet_genre">Year</zui:button>
+						<zui:button id="facet_genre">Other</zui:button>
+					</zui:container>
+				</zui:container>
+				<zui:screens id="screen" default="library">
+					<zui:screen name="s_queue" layout="vertical">
+						<zui:text>Now Playing</zui:text>
+						<zui:list model="media" id="queue" />
+					</zui:screen>
+
+					<zui:screen name="s_library" layout="vertical">
+						<zui:text>Library</zui:text>
+						<zui:list id="library" />
+					</zui:screen>
+
+					<zui:screen name="s_browser">
+						<zui:folder id="browser" select="extended" />
+					</zui:screen>
+				</zui:screens>
+			</zui:container>
+		</zui:application>
+	</zee:widgets>
+
+	<zee:events>
+		<zee:connect from="navigation.selected" to="screen.jump" direct="false" />
+		<zee:connect from="navigation.selected" to="phoebus.setWindowSubtitle" direct="false" />
+		<zee:connect from="browser.activated" to="media.enqueue" />
+		<zee:connect from="queue.activated" to="media.changeTo" direct="false" />
+	</zee:events>
+</zee>

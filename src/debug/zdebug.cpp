@@ -33,6 +33,9 @@ ZDebug::ZDebug(int argc, char **argv)
 {
     z_log_debug("ZDebug: Debug Application Started");
 
+//******************************************************************************
+// libzee tests
+//
 //    z_log_debug("libzee: ZDateTime: Tests");
 //    z_log_debug("\tnow:\t"+STR(ZDateTime::now().toTime_t()));
 //    z_log_debug("\tnow:\t"+STR(ZDateTime::now_t()));
@@ -73,6 +76,9 @@ ZDebug::ZDebug(int argc, char **argv)
 //    if(ts1.contains("/"))
 //        z_log("YAY!");
 
+//******************************************************************************
+// Formatter tests
+//
 //    z_log("leftOf '/': zee:teststring => "+ts1.leftOf("/"));
 //    z_log("leftOf '/': zee:teststring/by => "+ts1.leftOfLast("/"));
 //    z_log("rightOf '/': by/Value@yay => "+ts1.rightOf("/"));
@@ -125,9 +131,13 @@ ZDebug::ZDebug(int argc, char **argv)
 
     //z_log("match: 1px 2 3px 4 => "+str.match("1pt 2px 3px 4px 5px", QRegExp("([0-9]+(?:px|pt|em|ex)?(?:(\\s+|\\s*$))){1,4}")));
 
-    ZStyle zp("../../examples/phoebus/ui.qss");
 
-    z_log_debug("ZDebug: style: \n"+zp.styleSheet());
+//******************************************************************************
+// Style tests
+//
+//    ZStyle zp("../../examples/phoebus/ui.qss");
+
+//    z_log_debug("ZDebug: style: \n"+zp.styleSheet());
 
     //QString v = "3px solid #F0C";
     //z_log_debug("ZStyleProperty:  valueFrom "+v+" color: "+ZStyleProperty::valueFrom(v).width());
@@ -156,4 +166,9 @@ ZDebug::ZDebug(int argc, char **argv)
 //    qs = qs.remove(QRegExp("/\\*([^*]|(\\*+([^*/])))*\\*+/"));
 
 //    z_log_debug("comment removal: "+qs);
+
+//******************************************************************************
+// Misc. tests
+//
+    z_log_debug("Split '.value':"+STR(QString(".value").split(".").at(1).length()));
 }

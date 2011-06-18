@@ -114,13 +114,15 @@ public:
     void registerSlot(QObject *receiver, const char *slot);
     void map(QString from, QString to, QString via=QString(),
              QString formatters=QString(), bool direct=true);
-    QObject *findObject(QString methodString, bool objectOnly=false);
+    QObject *findObject(QString path, bool objectOnly=false, QObject *parent=0);
+    QObjectList findAllObjects(QString path, bool objectOnly=false, QObject *parent=0);
     QVariant getProperty(QString methodString);
     static void initialize(ZEventManager *instance=0);
     static ZEventManager *instance();
 
 private:
     void init();
+    QObjectList findChildObjects(QObject *parent, QString path, int depth=0);
     void registerMethod(QMetaMethod::MethodType type,
                         QObject *object, const char *method);
     void insertMethod(QObject *object, const char *method,
